@@ -12,10 +12,6 @@ module.exports = (function() {
             this.game.physics.startSystem(Phaser.Physics.P2JS);
         },
 
-        preload: function() {
-            this.load.json('assets', 'assets/assets.json');
-        },
-
         create: function() {
             this.state.start('Load');
         }
