@@ -1,23 +1,25 @@
-SBP.states = SBP.states || {};
+module.exports = (function() {
+    Boot = function() {
+        return this;
+    };
 
-SBP.states.Boot = function() {
-    return this;
-};
+    Boot.prototype = {
+        init: function() {
+            this.game.scale.pageAlignHorizontally = true;
+            this.game.scale.pageAlignVertically = true;
+            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
+            this.game.physics.startSystem(Phaser.Physics.P2JS);
+        },
 
-SBP.states.Boot.prototype = {
-    init: function() {
-        this.game.scale.pageAlignHorizontally = true;
-        this.game.scale.pageAlignVertically = true;
-        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
-        this.game.physics.startSystem(Phaser.Physics.P2JS);
-    },
+        preload: function() {
+            this.load.json('assets', 'assets/assets.json');
+        },
 
-    preload: function() {
-        this.load.json('assets', 'assets/assets.json');
-    },
-
-    create: function() {
-        this.state.start('Load');
+        create: function() {
+            this.state.start('Load');
+        }
     }
-}
+
+    return Boot;
+})();
