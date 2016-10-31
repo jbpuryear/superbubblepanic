@@ -1,4 +1,5 @@
-var entities = require('./entities/entities.js');
+var addEntity = require('./entities/entities.js');
+
 module.exports = (function() {
     Level = function() {
         return this;
@@ -59,12 +60,9 @@ module.exports = (function() {
                 platform.collides([this.enemiesCG, this.playersCG, this.bulletsCG, this.itemsCG]);
                 platform.setMaterial(this.platformMaterial);
             }, this);
-            this.map.objects.object.forEach(function(objData) {
-                objData.x += objData.width / 2;
-                objData.y += objData.width / 2;
-                if (this['add' + objData.type]) this['add' + objData.type](objData);
-                else console.log("Skipping invalid object type '" + objData.type + "' in Tiled map object layer.");
-            }, this)
+            this.map.objects.object.forEach(addEntity.bind(null, this));
+            // TODO Change if we ever have more than one player.
+            this.p1 = this.players.getChildAt(0);
         },
 
         update: function() {
@@ -78,103 +76,6 @@ module.exports = (function() {
                 this.isNewClick = true;
             }
         },
-
-        parseDrop: function(drop) {
-            /*
-            if (Array.isArray(drop)) { return drop.map(this.parseDrop, this); }
-            if (typeof drop === 'string') {
-                try {
-                    var dropOb = JSON.parse(drop);
-                    return this.parseDrop(dropOb);
-                } catch (e) {
-                    if (e instanceof SyntaxError) {
-                        console.log('"' + drop + '" is not JSON, calling method add' + drop + '.');
-                        try {
-                            var item = this['add' + drop]();
-                            item.kill();
-                            return item;
-                        } catch (e) {
-                            if (e instanceof TypeError) {
-                                console.log('SBP: "' + drop 
-                                            + '" in Tiled object data is not a valid value for the drop field');
-                                throw e;
-                            }
-                        }
-                    }
-                }
-            }
-            */
-            return null;
-        },
-
-        addPlayer: function(data) {
-            var player = new entities.Player(this, data.x, data.y, 'player');
-
-            player.character.animations.add('walk', [0, 1, 2, 3], 25, true);
-            player.character.animations.add('fly', [10, 11], 100, true);
-
-            player.body.setCollisionGroup(this.playersCG);
-            if (data.gun) {
-                if (!this['add'+data.gun]) {
-                    console.log(data.gun + ' in player description is not a valid weapon type. Defaulting to "Pistol".');
-                    player.swapGun(this.addPistol({x: 0, y: 0}));
-                } else {
-                    player.swapGun(this['add'+data.gun]({x: 0, y: 0}));
-                }
-            } else {
-                player.swapGun(this.addPistol({x: 0, y: 0}));
-            }
-
-            player.body.setMaterial(this.playerMaterial);
-            player.body.setCollisionGroup(this.playersCG);
-            player.body.collides(this.enemiesCG, player.die, player);
-            player.body.collides([this.itemsCG, this.platformsCG]);
-
-            this.players.add(player);
-            this.p1 = player;
-            return player;
-        },
-
-        _addItem: function(item) {
-            item.body.setCollisionGroup(this.itemsCG);
-            item.body.collides(this.platformsCG);
-            item.body.collides(this.playersCG, item.pickUp, item);
-            this.items.add(item);
-            return item;
-        },
-
-        _addGun: function(gun) {
-            this._addItem(gun);
-            gun.clips.forEach(function(clip) {
-                clip.forEach(function(bullet) {
-                    bullet.body.setCollisionGroup(this.bulletsCG);
-                    bullet.body.collides([this.platformsCG, this.enemiesCG], bullet.die, bullet);
-                }, this);
-            }, this);
-            return gun;
-        },
-
-        addPistol: function(data) {
-            data = data || {};
-            var x = data.x || 0;
-            var y = data.y || 0;
-            // return this._addGun(new entities.Pistol(this, x, y, 'gun', 'bullet'));
-            return new entities.Gun(this);;
-        },
-
-        addEnemy: function(data) {
-            var drop = this.parseDrop(data.properties.drop);
-            var enemy = new entities.Enemy(this, data.x, data.y, 'enemy', data.width,
-                                              data.properties.velx, data.properties.vely, drop);
-            enemy.forEach(function(enemy) {
-                enemy.body.setCollisionGroup(this.enemiesCG);
-                enemy.body.setMaterial(this.enemyMaterial);
-                enemy.body.collides([this.playersCG, this.platformsCG]);
-                enemy.body.collides(this.bulletsCG, enemy.kill, enemy);
-            }, this);
-            this.enemies.add(enemy);
-            return enemy;
-        }
     }
 
     return Level;

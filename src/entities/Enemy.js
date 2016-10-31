@@ -1,7 +1,7 @@
 module.exports = (function() {
 
-    Enemy = function(state, x, y, texture, width, velx, vely, drop) {
-        Phaser.Group.call(this, state.game);
+    Enemy = function(game, x, y, texture, width, velx, vely, drop) {
+        Phaser.Group.call(this, game);
         if (width < this.minWidth) { return; }
         var i = 0;
         var w = width;
@@ -12,7 +12,7 @@ module.exports = (function() {
         i = Math.pow(2, i);
         this.createMultiple(i, texture);
         this.forEach(function(enemy) {
-            state.physics.p2.enable(enemy);
+            game.physics.p2.enable(enemy);
             enemy.cirkle = enemy.body.setCircle(10);
             enemy.body.fixedRotation = true;
             enemy.events.onKilled.add(this.onDeath, this);

@@ -1,14 +1,14 @@
 module.exports = (function() {
 
-    function Player(state, x, y, spritesheet) {
+    function Player(game, x, y, sprite) {
         // This three-part sprite shenanigans lets us control
         // whether the gun is rendered above or below the character.
         x = x || 0;
         y = y || 0;
-        Phaser.Sprite.call(this, state.game, x, y);
-        this.character = state.make.sprite(0, 0, 'player');
+        Phaser.Sprite.call(this, game, x, y);
+        this.character = new Phaser.Sprite(game, 0, 0, sprite);
         this.character.anchor.setTo(0.5);
-        state.physics.p2.enable(this)
+        game.physics.p2.enable(this)
         this.body.fixedRotation = true;
         this.body.setRectangle(this.character.width/2, this.character.height);
         var groundSensor = this.body.addRectangle(this.character.width*2/3, 2, 0, this.character.height/2);
@@ -22,13 +22,11 @@ module.exports = (function() {
         this.maxFuel = 2000;
         this.fuel = this.maxFuel;
         this.speed = 100;
-
-        state.players.add(this);
     }
 
     Player.prototype = Object.create(Phaser.Sprite.prototype);
 
-    Player.prototype.swapGun = function(weapon) {
+    Player.prototype.equip = function(weapon) {
         if (this.weapon instanceof Phaser.Sprite) this.weapon.destroy();
         if (weapon.body) weapon.body.destroy();
         weapon.anchor.setTo(0, 0.5);
@@ -70,6 +68,7 @@ module.exports = (function() {
     Player.prototype.update = function() {
         if (this.standing) this.fuel = Math.min(this.maxFuel, this.fuel + this.game.time.physicsElapsedMS / 2);
         
+        // TODO This should work even if a weapon isn't equipped
         if (this.weapon) {
             var theta = Phaser.Point.angle(this.game.input.mousePointer.position, this.position);
             this.weapon.rotation = theta;

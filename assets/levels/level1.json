@@ -17,57 +17,68 @@
          "name":"object",
          "objects":[
                 {
-                 "ellipse":true,
-                 "height":168,
-                 "id":2,
-                 "name":"",
-                 "properties":
-                    {
-                     "drop":"[null, \"Pistol\"]",
-                     "velx":"-50"
-                    },
-                 "propertytypes":
-                    {
-                     "drop":"string",
-                     "velx":"string"
-                    },
-                 "rotation":0,
-                 "type":"Enemy",
-                 "visible":true,
-                 "width":168,
-                 "x":40,
-                 "y":8
-                }, 
-                {
                  "height":0,
                  "id":4,
                  "name":"",
                  "rotation":0,
-                 "type":"Player",
+                 "type":"player1",
                  "visible":true,
                  "width":0,
                  "x":288,
                  "y":264
                 }, 
                 {
+                 "height":8,
+                 "id":69,
+                 "name":"",
+                 "rotation":0,
+                 "type":"spread",
+                 "visible":true,
+                 "width":8,
+                 "x":200,
+                 "y":64
+                }, 
+                {
                  "ellipse":true,
-                 "height":168,
-                 "id":7,
+                 "height":72,
+                 "id":71,
                  "name":"",
                  "properties":
                     {
-                     "velx":"50"
+                     "drop":"[null, \"shotgun\"]"
                     },
                  "propertytypes":
                     {
-                     "velx":"string"
+                     "drop":"string"
                     },
                  "rotation":0,
-                 "type":"Enemy",
+                 "type":"orbo",
                  "visible":true,
-                 "width":168,
-                 "x":392,
-                 "y":8
+                 "width":72,
+                 "x":328,
+                 "y":56
+                }, 
+                {
+                 "ellipse":true,
+                 "height":128,
+                 "id":72,
+                 "name":"",
+                 "properties":
+                    {
+                     "velx":"-100",
+                     "vely":"-100"
+                    },
+                 "propertytypes":
+                    {
+                     "velx":"string",
+                     "vely":"string"
+                    },
+                 "rotation":0,
+                 "type":"hex",
+                 "visible":true,
+                 "width":128,
+                 "x":64,
+                 "y":32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -112,46 +123,6 @@
                  "width":0,
                  "x":-8,
                  "y":272
-                }, 
-                {
-                 "height":0,
-                 "id":64,
-                 "name":"",
-                 "polyline":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":24,
-                         "y":-32
-                        }, 
-                        {
-                         "x":72,
-                         "y":-32
-                        }, 
-                        {
-                         "x":96,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":0
-                        }],
-                 "properties":
-                    {
-                     "breakable":"true"
-                    },
-                 "propertytypes":
-                    {
-                     "breakable":"string"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":256,
-                 "y":224
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -160,7 +131,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":65,
+ "nextobjectid":73,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":8,
