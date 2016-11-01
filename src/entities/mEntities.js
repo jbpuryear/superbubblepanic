@@ -73,4 +73,26 @@ module.exports.enemies = {
     }
 }
 
-module.exports.items = {}
+// Buffs have:
+// String, texture
+// Fun, start
+// Fun, update function that gets turned into a plugin
+// Num, time in ms that buff lasts
+// Fun, destroy
+//
+// When a buff is picked up it gets the properties target and
+// state. Target is the player/actor that picked up the buff and
+// state is the currently running Phaser.State.
+module.exports.buffs = {
+    test: {
+        texture: 'gun',
+        time: 5000,
+        start: function() {
+            this.target.body.debug = true;
+        },
+        update: function() {
+            console.log(this.state.time.physicsElapsed);
+        },
+        stop: function() {this.target.body.debug = false}
+    }
+}

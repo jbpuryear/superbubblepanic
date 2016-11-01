@@ -48,6 +48,8 @@ module.exports = (function() {
                 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S,
                 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D
             });
+
+            this.buffs = [];
         },
 
         create: function() {
@@ -74,6 +76,17 @@ module.exports = (function() {
                 this.isNewClick = false;
             } else {
                 this.isNewClick = true;
+            }
+
+            for (var i=this.buffs.length-1; i>=0; i--) {
+                var buff = this.buffs[i];
+                buff.timeLeft -= this.time.elapsed;
+                if (buff.timeLeft >= 0) {
+                    if (typeof buff.update === 'function') buff.update();
+                } else {
+                    if (typeof buff.stop === 'function') buff.stop();
+                    this.buffs.splice(i, 1);
+                }
             }
         },
     }

@@ -31,6 +31,14 @@
                  "height":104,
                  "id":69,
                  "name":"",
+                 "properties":
+                    {
+                     "drop":"shotgun"
+                    },
+                 "propertytypes":
+                    {
+                     "drop":"string"
+                    },
                  "rotation":0,
                  "type":"brkplat",
                  "visible":true,
@@ -45,7 +53,7 @@
                  "name":"",
                  "properties":
                     {
-                     "drop":"[null, \"shotgun\"]"
+                     "drop":"[null, \"test\"]"
                     },
                  "propertytypes":
                     {
@@ -79,6 +87,17 @@
                  "width":128,
                  "x":64,
                  "y":32
+                }, 
+                {
+                 "height":0,
+                 "id":73,
+                 "name":"",
+                 "rotation":0,
+                 "type":"test",
+                 "visible":true,
+                 "width":0,
+                 "x":216,
+                 "y":208
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -131,7 +150,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":73,
+ "nextobjectid":75,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":8,

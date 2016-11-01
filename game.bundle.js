@@ -68,10 +68,10 @@ module.exports = (function() {
 },{}],3:[function(require,module,exports){
 module.exports = BrkPlat;
 
-function BrkPlat(state, data) {
-    var width = data.width;
-    var height = data.height;
-    var texture = new Phaser.BitmapData(state.game, width, height);
+function BrkPlat(game, x, y, width, height, drop) {
+    var width = width;
+    var height = height;
+    var texture = new Phaser.BitmapData(game, width, height);
     texture.canvas.width = width;
     texture.canvas.height = height;
     var ctx = texture.ctx;
@@ -82,26 +82,53 @@ function BrkPlat(state, data) {
     ctx.fillStyle = grd;
     ctx.fillRect(0, 0, width, height);
     
-    Phaser.Sprite.call(this, state.game, data.x, data.y, texture.generateTexture());
+    Phaser.Sprite.call(this, game, x, y, texture.generateTexture());
     texture.destroy();
 
-    state.physics.p2.enable(this);
-    state.platforms.add(this);
-    
-    this.body.static = true;
-    this.body.setCollisionGroup(state.platformsCG);
-    this.body.collides([state.enemiesCG, state.playersCG, state.itemsCG]);
-    this.body.collides(state.bulletsCG, this.break, this);
-    this.body.setMaterial(state.platformMaterial);
+    this.drop = drop;
+    game.physics.p2.enable(this);
 }
 
 BrkPlat.prototype = Object.create(Phaser.Sprite.prototype);
 
 BrkPlat.prototype.break = function() {
+    if (this.drop instanceof Phaser.Sprite) this.drop.reset(this.x, this.y);
     this.destroy();
 }
 
 },{}],4:[function(require,module,exports){
+module.exports = Buff;
+
+function Buff(state, x, y, type) {
+    Phaser.Sprite.call(this, state.game, x, y, type.texture);
+    if (typeof type.start !== 'function') throw "Buffs must have a start function.";
+    this.buff = Object.create(type);
+    this.buff.state = state;
+    state.physics.p2.enable(this);
+    this.lifespan = this._lifespan;
+}
+
+Buff.prototype = Object.create(Phaser.Sprite.prototype);
+Buff.prototype._lifespan = 3000;    // How long the player has to pick up.
+
+Buff.prototype.revive = function() {
+    this.prototype.prototype.revive.call(this);
+    this.lifespan = this._lifespan;
+}
+
+Buff.prototype.pickUp = function(_, playerBody) {
+    var buff = this.buff;
+    buff.target = playerBody.sprite;
+    buff.start();
+
+    if (this.buff.time > 0) {
+        this.buff.timeLeft = this.buff.time;
+        buff.state.buffs.push(buff);
+    this.destroy();
+    }
+}
+
+},{}],5:[function(require,module,exports){
 module.exports = (function() {
 
     Bullet = function(game, x, y, texture) {
@@ -132,7 +159,7 @@ module.exports = (function() {
     return Bullet;
 })();
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 module.exports = (function() {
 
     Enemy = function(game, x, y, texture, width, velx, vely, drop) {
@@ -201,7 +228,7 @@ module.exports = (function() {
     return Enemy;
 })();
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 var Bullet = require('./Bullet.js');
 
 module.exports = (function() {
@@ -265,7 +292,7 @@ module.exports = (function() {
     return Gun;
 })();
 
-},{"./Bullet.js":4}],7:[function(require,module,exports){
+},{"./Bullet.js":5}],8:[function(require,module,exports){
 module.exports = (function() {
 
     function Player(game, x, y, sprite) {
@@ -370,7 +397,7 @@ module.exports = (function() {
     return Player;
 })();
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 // Oh man, we're in the shit now. Most of the coupling problems between
 // the different game entities have been shoved into this module. I'm not
 // super happy with this solution, but for now at least my problems are all
@@ -380,6 +407,7 @@ var Enemy = require('./Enemy.js');
 var Gun = require('./Gun.js');
 var Player = require('./Player.js');
 var BrkPlat = require('./BrkPlat.js');
+var Buff = require('./Buff.js');
 var mEntities = require('./mEntities.js');
 
 /**
@@ -404,10 +432,10 @@ function entity(state, objData) {
             return addGun(state, x, y, mEntities.guns[type]);
         case mEntities.enemies.hasOwnProperty(type):
             return addEnemy(state, objData, mEntities.enemies[type]);
-        case mEntities.items.hasOwnProperty(type):
-            return addItem(state, x, y, mEntities.items[type]);
+        case mEntities.buffs.hasOwnProperty(type):
+            return addItem(state, new Buff(state, x, y, mEntities.buffs[type]));
         case type === "brkplat":
-            return new BrkPlat(state, objData);
+            return addBrkPlat(state, objData);
         default:
             throw new TypeError('Cannot create entity of type ' + type
                     + ' in Tiled object list.');
@@ -474,6 +502,20 @@ function addGun(state, x, y, type) {
     return gun;
 }
 
+function addBrkPlat(state, data) {
+    var drop = null;
+    if (data.properties.drop) drop = parseDrop(state, data.properties.drop);
+    var plat = new BrkPlat(state.game, data.x, data.y,
+                            data.width, data.height, drop);
+    state.platforms.add(plat);
+    plat.body.static = true;
+    plat.body.setCollisionGroup(state.platformsCG);
+    plat.body.collides([state.enemiesCG, state.playersCG, state.itemsCG]);
+    plat.body.collides(state.bulletsCG, plat.break, plat);
+    plat.body.setMaterial(state.platformMaterial);
+    return plat;
+}
+
 // The tiled representation of enemies has a recursive JSON representation
 // of what they drop. It looks like [this_drops [left_child_drops, right_child_drops]]
 // This function parses that list and creates the appropriate game entities.
@@ -503,7 +545,7 @@ function parseDrop(state, drop) {
     return null;
 }
 
-},{"./BrkPlat.js":3,"./Bullet.js":4,"./Enemy.js":5,"./Gun.js":6,"./Player.js":7,"./mEntities.js":9}],9:[function(require,module,exports){
+},{"./BrkPlat.js":3,"./Buff.js":4,"./Bullet.js":5,"./Enemy.js":6,"./Gun.js":7,"./Player.js":8,"./mEntities.js":10}],10:[function(require,module,exports){
 // This file describes the different game entities
 // TODO This should probably be a JSON file, but I wanted
 // comments and to leave myself open for adding functions
@@ -579,9 +621,31 @@ module.exports.enemies = {
     }
 }
 
-module.exports.items = {}
+// Buffs have:
+// String, texture
+// Fun, start
+// Fun, update function that gets turned into a plugin
+// Num, time in ms that buff lasts
+// Fun, destroy
+//
+// When a buff is picked up it gets the properties target and
+// state. Target is the player/actor that picked up the buff and
+// state is the currently running Phaser.State.
+module.exports.buffs = {
+    test: {
+        texture: 'gun',
+        time: 5000,
+        start: function() {
+            this.target.body.debug = true;
+        },
+        update: function() {
+            console.log(this.state.time.physicsElapsed);
+        },
+        stop: function() {this.target.body.debug = false}
+    }
+}
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var Boot = require('./boot.js');
 var Load = require('./load.js');
 var Level = require('./level.js');
@@ -605,7 +669,7 @@ module.exports = (function() {
     return Game;
 })();
 
-},{"./boot.js":2,"./level.js":11,"./load.js":12}],11:[function(require,module,exports){
+},{"./boot.js":2,"./level.js":12,"./load.js":13}],12:[function(require,module,exports){
 var addEntity = require('./entities/entities.js');
 
 module.exports = (function() {
@@ -656,6 +720,8 @@ module.exports = (function() {
                 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S,
                 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D
             });
+
+            this.buffs = [];
         },
 
         create: function() {
@@ -683,13 +749,24 @@ module.exports = (function() {
             } else {
                 this.isNewClick = true;
             }
+
+            for (var i=this.buffs.length-1; i>=0; i--) {
+                var buff = this.buffs[i];
+                buff.timeLeft -= this.time.elapsed;
+                if (buff.timeLeft >= 0) {
+                    if (typeof buff.update === 'function') buff.update();
+                } else {
+                    if (typeof buff.stop === 'function') buff.stop();
+                    this.buffs.splice(i, 1);
+                }
+            }
         },
     }
 
     return Level;
 })();
 
-},{"./entities/entities.js":8}],12:[function(require,module,exports){
+},{"./entities/entities.js":9}],13:[function(require,module,exports){
 module.exports = (function() {
 
     Load = function() {
@@ -712,5 +789,5 @@ module.exports = (function() {
     return Load;
 })();
 
-},{"../assets/assets.json":1}]},{},[10])(10)
+},{"../assets/assets.json":1}]},{},[11])(11)
 });
