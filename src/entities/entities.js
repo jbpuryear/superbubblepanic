@@ -7,6 +7,7 @@ var Enemy = require('./Enemy.js');
 var Gun = require('./Gun.js');
 var Player = require('./Player.js');
 var BrkPlat = require('./BrkPlat.js');
+var Buff = require('./Buff.js');
 var mEntities = require('./mEntities.js');
 
 /**
@@ -31,10 +32,10 @@ function entity(state, objData) {
             return addGun(state, x, y, mEntities.guns[type]);
         case mEntities.enemies.hasOwnProperty(type):
             return addEnemy(state, objData, mEntities.enemies[type]);
-        case mEntities.items.hasOwnProperty(type):
-            return addItem(state, x, y, mEntities.items[type]);
+        case mEntities.buffs.hasOwnProperty(type):
+            return addItem(state, new Buff(state, x, y, mEntities.buffs[type]));
         case type === "brkplat":
-            return new BrkPlat(state, objData);
+            return addBrkPlat(state, objData);
         default:
             throw new TypeError('Cannot create entity of type ' + type
                     + ' in Tiled object list.');
@@ -99,6 +100,20 @@ function addGun(state, x, y, type) {
         }, state);
     }, state);
     return gun;
+}
+
+function addBrkPlat(state, data) {
+    var drop = null;
+    if (data.properties.drop) drop = parseDrop(state, data.properties.drop);
+    var plat = new BrkPlat(state.game, data.x, data.y,
+                            data.width, data.height, drop);
+    state.platforms.add(plat);
+    plat.body.static = true;
+    plat.body.setCollisionGroup(state.platformsCG);
+    plat.body.collides([state.enemiesCG, state.playersCG, state.itemsCG]);
+    plat.body.collides(state.bulletsCG, plat.break, plat);
+    plat.body.setMaterial(state.platformMaterial);
+    return plat;
 }
 
 // The tiled representation of enemies has a recursive JSON representation

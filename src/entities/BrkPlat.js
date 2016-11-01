@@ -1,9 +1,9 @@
 module.exports = BrkPlat;
 
-function BrkPlat(state, data) {
-    var width = data.width;
-    var height = data.height;
-    var texture = new Phaser.BitmapData(state.game, width, height);
+function BrkPlat(game, x, y, width, height, drop) {
+    var width = width;
+    var height = height;
+    var texture = new Phaser.BitmapData(game, width, height);
     texture.canvas.width = width;
     texture.canvas.height = height;
     var ctx = texture.ctx;
@@ -14,21 +14,16 @@ function BrkPlat(state, data) {
     ctx.fillStyle = grd;
     ctx.fillRect(0, 0, width, height);
     
-    Phaser.Sprite.call(this, state.game, data.x, data.y, texture.generateTexture());
+    Phaser.Sprite.call(this, game, x, y, texture.generateTexture());
     texture.destroy();
 
-    state.physics.p2.enable(this);
-    state.platforms.add(this);
-    
-    this.body.static = true;
-    this.body.setCollisionGroup(state.platformsCG);
-    this.body.collides([state.enemiesCG, state.playersCG, state.itemsCG]);
-    this.body.collides(state.bulletsCG, this.break, this);
-    this.body.setMaterial(state.platformMaterial);
+    this.drop = drop;
+    game.physics.p2.enable(this);
 }
 
 BrkPlat.prototype = Object.create(Phaser.Sprite.prototype);
 
 BrkPlat.prototype.break = function() {
+    if (this.drop instanceof Phaser.Sprite) this.drop.reset(this.x, this.y);
     this.destroy();
 }
