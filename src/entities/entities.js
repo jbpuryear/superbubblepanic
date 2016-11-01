@@ -6,6 +6,7 @@ var Bullet = require('./Bullet.js');
 var Enemy = require('./Enemy.js');
 var Gun = require('./Gun.js');
 var Player = require('./Player.js');
+var BrkPlat = require('./BrkPlat.js');
 var mEntities = require('./mEntities.js');
 
 /**
@@ -21,7 +22,7 @@ module.exports = entity;
 function entity(state, objData) {
     // Tiled uses different coordinates than Phaser.
     var x = objData.x += objData.width / 2;
-    var y = objData.y += objData.width / 2;
+    var y = objData.y += objData.height / 2;
     var type = objData.type;
     switch(true) {
         case mEntities.players.hasOwnProperty(type):
@@ -32,6 +33,8 @@ function entity(state, objData) {
             return addEnemy(state, objData, mEntities.enemies[type]);
         case mEntities.items.hasOwnProperty(type):
             return addItem(state, x, y, mEntities.items[type]);
+        case type === "brkplat":
+            return new BrkPlat(state, objData);
         default:
             throw new TypeError('Cannot create entity of type ' + type
                     + ' in Tiled object list.');
