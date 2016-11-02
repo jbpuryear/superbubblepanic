@@ -49,7 +49,6 @@ function addPlayer(state, x, y, type) {
     player.character.animations.add('walk', [0, 1, 2, 3], 25, true);
     player.character.animations.add('fly', [10, 11], 100, true);
 
-    player.body.setCollisionGroup(state.playersCG);
 
     player.equip(addGun(state, 0, 0, mEntities.guns['pistol']));
 
