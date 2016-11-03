@@ -10,7 +10,7 @@ var Level = require('./level.js');
  */
 module.exports = (function() {
     function Game(parent) {
-        var game = new Phaser.Game(800, 600, null, parent);
+        var game = new Phaser.Game(800, 600);
         game.state.add('Boot', new Boot);
         game.state.add('Load', new Load);
         game.state.add('Level', new Level);
