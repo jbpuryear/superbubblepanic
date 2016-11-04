@@ -84,15 +84,27 @@ module.exports.enemies = {
 // state. Target is the player/actor that picked up the buff and
 // state is the currently running Phaser.State.
 module.exports.buffs = {
-    test: {
+    repel: {
         texture: 'gun',
-        time: 5000,
-        start: function() {
-            this.target.body.debug = true;
-        },
+        time: 8000,
         update: function() {
-            console.log(this.state.time.physicsElapsed);
+            var target = this.target;
+            var mag = 80;
+            var range = 100;
+            var pxmi = this.state.physics.p2.pxmi;
+            this.state.enemies.forEachAlive(function(enemy) {
+                enemy.forEachAlive(function(child) {
+                    var distance = target.world.distance(child);
+                    if (distance <= range) {
+                        var angle = target.world.angle(child);
+                        var force = [
+                            pxmi( mag * Math.cos(angle) * Math.sqrt(distance) ),
+                            pxmi( mag * Math.sin(angle) * Math.sqrt(distance) )
+                        ];
+                        child.body.applyForce(force, child.x, child.y);
+                    }
+                });
+            });
         },
-        stop: function() {this.target.body.debug = false}
     }
 }

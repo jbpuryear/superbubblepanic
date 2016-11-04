@@ -22,8 +22,8 @@ module.exports = entity;
 
 function entity(state, objData) {
     // Tiled uses different coordinates than Phaser.
-    var x = objData.x += objData.width / 2;
-    var y = objData.y += objData.height / 2;
+    var x = objData.x + objData.width / 2;
+    var y = objData.y + objData.height / 2;
     var type = objData.type;
     switch(true) {
         case mEntities.players.hasOwnProperty(type):
@@ -31,6 +31,9 @@ function entity(state, objData) {
         case mEntities.guns.hasOwnProperty(type):
             return addGun(state, x, y, mEntities.guns[type]);
         case mEntities.enemies.hasOwnProperty(type):
+            // TODO: move brkplats to platform layer then get rid of this
+            objData.x = x;
+            objData.y = y;
             return addEnemy(state, objData, mEntities.enemies[type]);
         case mEntities.buffs.hasOwnProperty(type):
             return addItem(state, new Buff(state, x, y, mEntities.buffs[type]));
@@ -62,6 +65,7 @@ function addPlayer(state, x, y, type) {
 }
 
 function addEnemy(state, data, type) {
+    data.properties = data.properties || {};
     var drop = parseDrop(state, data.properties.drop);
     var texture = type.texture;
     var enemy = new Enemy(state.game, data.x, data.y, texture, data.width,
@@ -102,10 +106,10 @@ function addGun(state, x, y, type) {
 }
 
 function addBrkPlat(state, data) {
+    data.properties = data.properties || {};
     var drop = null;
     if (data.properties.drop) drop = parseDrop(state, data.properties.drop);
-    var plat = new BrkPlat(state.game, data.x, data.y,
-                            data.width, data.height, drop);
+    var plat = new BrkPlat(state.game, data, drop);
     state.platforms.add(plat);
     plat.body.static = true;
     plat.body.setCollisionGroup(state.platformsCG);
@@ -119,6 +123,7 @@ function addBrkPlat(state, data) {
 // of what they drop. It looks like [this_drops [left_child_drops, right_child_drops]]
 // This function parses that list and creates the appropriate game entities.
 function parseDrop(state, drop) {
+    if (drop === '') return null;
     if (Array.isArray(drop)) { return drop.map(parseDrop.bind(null, state)); }
     if (typeof drop === 'string') {
         try {
