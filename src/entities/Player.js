@@ -19,12 +19,13 @@ module.exports = (function() {
 
         this.addChild(this.character);
 
-        this.maxFuel = 2000;
         this.fuel = this.maxFuel;
-        this.speed = 100;
+        this.speedBonus = 1;
     }
 
     Player.prototype = Object.create(Phaser.Sprite.prototype);
+    Player.prototype.maxFuel = 2000;
+    Object.defineProperty(Player.prototype, 'speed', {get: function() {return this.speedBonus * 100}});
 
     Player.prototype.equip = function(weapon) {
         if (this.weapon instanceof Phaser.Sprite) this.weapon.destroy();
@@ -38,16 +39,16 @@ module.exports = (function() {
     }
 
     Player.prototype.goLeft = function() {
-        this.body.moveLeft(this.speed);
+        this.body.velocity.x = -this.speed;
     }
 
     Player.prototype.goRight = function() {
-        this.body.moveRight(this.speed);
+        this.body.velocity.x = this.speed;
     }
 
     Player.prototype.fly = function() {
         if (this.fuel > 0) {
-            this.body.thrust(this.game.physics.p2.gravity.y * 2.5);
+            this.body.thrust(this.game.physics.p2.gravity.y * 2.5 * this.speedBonus);
             this.fuel = Math.max(this.fuel - this.game.time.physicsElapsedMS, 0);
             this.flying = true;
         }
@@ -66,7 +67,13 @@ module.exports = (function() {
     }
 
     Player.prototype.update = function() {
-        if (this.standing) this.fuel = Math.min(this.maxFuel, this.fuel + this.game.time.physicsElapsedMS / 2);
+        if (this.standing) {
+            this.fuel = Math.min(this.maxFuel, this.fuel + this.game.time.physicsElapsedMS / 2);
+            var velx = this.body.velocity.x;
+            var friction = velx/20 * this.speedBonus
+            this.body.velocity.x = velx < 0 ?
+                Math.min(velx - friction, 0) : Math.max(velx - friction, 0);
+        }
         
         // TODO This should work even if a weapon isn't equipped
         if (this.weapon) {
@@ -90,7 +97,7 @@ module.exports = (function() {
         } else if (!this.standing) {
             this.character.animations.stop();
             this.character.frame = 12;
-        } else if (Math.abs(this.body.velocity.x) >= this.speed) {
+        } else if (Math.abs(this.body.velocity.x) >= this.speed/2) {
             this.character.animations.play('walk');
         } else {
             this.character.animations.stop();

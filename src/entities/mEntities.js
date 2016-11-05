@@ -90,7 +90,7 @@ module.exports.buffs = {
         update: function() {
             var target = this.target;
             var mag = 80;
-            var range = 100;
+            var range = 70;
             var pxmi = this.state.physics.p2.pxmi;
             this.state.enemies.forEachAlive(function(enemy) {
                 enemy.forEachAlive(function(child) {
@@ -106,5 +106,33 @@ module.exports.buffs = {
                 });
             });
         },
+    },
+
+    slomo: {
+        texture: 'gun',
+        time: 1000,
+        rate: 4,
+        start: function() {
+            var rate = this.rate;
+            this.state.time.slowMotion *= rate;
+            this.state.enemies.forEach(function(enemy) {
+                enemy.forEach(function(child) {
+                    child.body.mass *= rate;
+                });
+            });
+            this.target.speedBonus *= rate;
+            this.target.weapon.bulletSpeed *= rate;
+            this.target.weapon.rate *= rate;
+        },
+        stop: function() {
+            var rate = this.rate = 1/this.rate;
+            this.start();
+            this.target.weapon.clips.forEach(function(clip) {
+                clip.forEachAlive(function(bullet) {
+                    bullet.body.velocity.x *= rate;
+                    bullet.body.velocity.y *= rate;
+                });
+            });
+        }
     }
 }

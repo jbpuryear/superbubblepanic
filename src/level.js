@@ -41,7 +41,7 @@ module.exports = (function() {
             })
             this.physics.p2.createContactMaterial(this.playerMaterial, this.platformMaterial, {
                 restitution: 0,
-                friction: 0.9
+                friction: 0
             })
 
             this.keys = this.input.keyboard.addKeys({
@@ -68,6 +68,7 @@ module.exports = (function() {
         },
 
         update: function() {
+            // TODO: move all this to the player class.
             if (this.keys.right.isDown) this.p1.goRight(this.p1.speed);
             if (this.keys.left.isDown) this.p1.goLeft(this.p1.speed);
             if (this.keys.up.isDown) this.p1.fly();

@@ -39,7 +39,6 @@ function BrkPlat(game, data, drop) {
     this.x = width/2 + data.x + data.polyline[0][0] + xMin;
     this.y = height/2 + data.y + data.polyline[0][1] + yMin; 
     this.body.debug = true;
-    console.log(this.body);
 }
 
 BrkPlat.prototype = Object.create(Phaser.Sprite.prototype);
