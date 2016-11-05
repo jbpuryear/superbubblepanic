@@ -14,6 +14,7 @@ module.exports = (function() {
         game.state.add('Boot', new Boot);
         game.state.add('Load', new Load);
         game.state.add('Level', new Level);
+        game.mEntities = require('./entities/mEntities.js');
 
         game.state.start('Boot');
         return game;

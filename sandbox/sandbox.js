@@ -1,7 +1,7 @@
 window.onload = function() {
 
 var game = SBP();
-var entities = require('../src/entities/mEntities.js');
+var entities = game.mEntities;
 var spawn = require('../src/entities/entities.js');
 
 function make() {
@@ -20,7 +20,6 @@ function make() {
 }
 
 for (sublist in entities) {
-    console.log(sublist);
     var select = document.getElementById(sublist);
     if (select) {
         for (key in entities[sublist]) {
