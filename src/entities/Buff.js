@@ -24,6 +24,6 @@ Buff.prototype.pickUp = function(_, playerBody) {
     if (this.buff.time > 0) {
         this.buff.timeLeft = this.buff.time;
         buff.state.buffs.push(buff);
-    this.destroy();
     }
+    this.destroy();
 }

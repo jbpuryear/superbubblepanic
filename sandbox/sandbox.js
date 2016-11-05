@@ -2,7 +2,7 @@ window.onload = function() {
 
 var game = SBP();
 var entities = game.mEntities;
-var spawn = require('../src/entities/entities.js');
+var spawn = game.spawn;
 
 function make() {
     var data = {

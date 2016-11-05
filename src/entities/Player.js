@@ -70,7 +70,7 @@ module.exports = (function() {
         if (this.standing) {
             this.fuel = Math.min(this.maxFuel, this.fuel + this.game.time.physicsElapsedMS / 2);
             var velx = this.body.velocity.x;
-            var friction = velx/20 * this.speedBonus
+            var friction = velx/20 * this.speedBonus;
             this.body.velocity.x = velx < 0 ?
                 Math.min(velx - friction, 0) : Math.max(velx - friction, 0);
         }

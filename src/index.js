@@ -14,7 +14,11 @@ module.exports = (function() {
         game.state.add('Boot', new Boot);
         game.state.add('Load', new Load);
         game.state.add('Level', new Level);
+        
+        // TODO: These are only here so our sandbox can grab them,
+        // should really be methods on level.js.
         game.mEntities = require('./entities/mEntities.js');
+        game.spawn = require('./entities/entities.js');
 
         game.state.start('Boot');
         return game;
