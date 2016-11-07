@@ -1,150 +1,62 @@
-// Oh man, we're in the shit now. Most of the coupling problems between
-// the different game entities have been shoved into this module. I'm not
-// super happy with this solution, but for now at least my problems are all
-// in one spot and I know where to find them.
-var Bullet = require('./Bullet.js');
-var Enemy = require('./Enemy.js');
+var Hydroid = require('./Enemies/Hydroid.js');
+var Enemy = require('./Enemies/Enemy.js');
+
 var Gun = require('./Gun.js');
-var Player = require('./Player.js');
-var BrkPlat = require('./BrkPlat.js');
-var Buff = require('./Buff.js');
-var mEntities = require('./mEntities.js');
+var Bullet = require('./Bullets/Bullet.js');
 
-/**
- * Takes a Tiled object, creates the appropriate game entity, adding it to the world.
- *
- * Assumes a bunch of things exist on state:
- *     groups - players, enemies, items
- *     collision groups - itemsCG, playersCG, enemiesCG, platformsCG, bulletsCG
- *     materials - worldMaterial, playerMaterial, platformMaterial, enemyMaterial
- */
-module.exports = entity;
 
-function entity(state, objData) {
-    // Tiled uses different coordinates than Phaser.
-    var x = objData.x + objData.width / 2;
-    var y = objData.y + objData.height / 2;
-    var type = objData.type;
-    switch(true) {
-        case mEntities.players.hasOwnProperty(type):
-            return addPlayer(state, x, y, mEntities.players[type]);
-        case mEntities.guns.hasOwnProperty(type):
-            return addGun(state, x, y, mEntities.guns[type]);
-        case mEntities.enemies.hasOwnProperty(type):
-            // TODO: move brkplats to platform layer then get rid of this
-            objData.x = x;
-            objData.y = y;
-            return addEnemy(state, objData, mEntities.enemies[type]);
-        case mEntities.buffs.hasOwnProperty(type):
-            return addItem(state, new Buff(state, x, y, mEntities.buffs[type]));
-        case type === "brkplat":
-            return addBrkPlat(state, objData);
-        default:
-            throw new TypeError('Cannot create entity of type ' + type
-                    + ' in Tiled object list.');
+module.exports = {
+
+    player1: require('./Heroes/Player.js'),
+
+
+    // Enemies
+    //hex: require('./Enemies/Hex.js'),
+    enemy: function(state, data, drop) {
+        return new Hydroid(state, data, drop, Enemy);
+    },
+    
+
+    // Buffs
+    repel: require('./Buffs/Repel.js'),
+    slomo: require('./Buffs/Slomo.js'),
+
+
+    // Guns
+    pistol: function(state, data) {
+        return new Gun(state, {
+            x: data.x,
+            y: data.y,
+            texture: 'gun',
+            rate: 100,
+            clips: 1,
+            clipSize: 3,
+        }, Bullet);
+    },
+
+    spread: function(state, data) {
+        return new Gun(state, {
+            x: data.x,
+            y: data.y,
+            texture: 'gun',
+            rate: 500,
+            spread: Math.PI/4,
+            clips: 6,
+            clipSize: 3
+        }, Bullet);
+    }, 
+
+    shotgun: function(state, data) {
+        return new Gun(state, {
+            x: data.x,
+            y: data.y,
+            texture: 'gun',
+            rate: 300,
+            spread: Math.PI/8,
+            accuracy: Math.PI/8,
+            clips: 8,
+            clipSize: 3,
+            speedVar: 0.05,
+        }, Bullet);
     }
-}
-
-// These functions wire up all the physics/collision/sound/animation for each entity type.
-function addPlayer(state, x, y, type) {
-    var player = new Player(state.game, x, y, type.sprite);
-
-    player.character.animations.add('walk', [0, 1, 2, 3], 25, true);
-    player.character.animations.add('fly', [10, 11], 100, true);
-
-
-    player.equip(addGun(state, 0, 0, mEntities.guns['pistol']));
-
-    player.body.setMaterial(state.playerMaterial);
-    player.body.setCollisionGroup(state.playersCG);
-    player.body.collides(state.enemiesCG, player.die, player);
-    player.body.collides([state.itemsCG, state.platformsCG]);
-
-    state.players.add(player);
-    return player;
-}
-
-function addEnemy(state, data, type) {
-    data.properties = data.properties || {};
-    var drop = parseDrop(state, data.properties.drop);
-    var texture = type.texture;
-    var enemy = new Enemy(state.game, data.x, data.y, texture, data.width,
-                                      data.properties.velx, data.properties.vely, drop);
-    enemy.forEach(function(enemy) {
-        enemy.body.setCollisionGroup(state.enemiesCG);
-        enemy.body.setMaterial(state.enemyMaterial);
-        enemy.body.collides([state.playersCG, state.platformsCG]);
-        enemy.body.collides(state.bulletsCG, enemy.kill, enemy);
-    }, state);
-    if (typeof type.setEach === 'object') {
-        for (key in type.setEach) {
-            enemy.setAll(key, type.setEach[key]);
-        }
-    }
-    state.enemies.add(enemy);
-    return enemy;
-}
-
-function addItem(state, item) {
-    item.body.setCollisionGroup(state.itemsCG);
-    item.body.collides(state.platformsCG);
-    item.body.collides(state.playersCG, item.pickUp, item);
-    state.items.add(item);
-    return item;
-}
-
-function addGun(state, x, y, type) {
-    var gun = new Gun(state.game, x, y, type);
-    addItem(state, gun);
-    gun.clips.forEach(function(clip) {
-        clip.forEach(function(bullet) {
-            bullet.body.setCollisionGroup(state.bulletsCG);
-            bullet.body.collides([state.platformsCG, state.enemiesCG], bullet.die, bullet);
-        }, state);
-    }, state);
-    return gun;
-}
-
-function addBrkPlat(state, data) {
-    data.properties = data.properties || {};
-    var drop = null;
-    if (data.properties.drop) drop = parseDrop(state, data.properties.drop);
-    var plat = new BrkPlat(state.game, data, drop);
-    state.platforms.add(plat);
-    plat.body.static = true;
-    plat.body.setCollisionGroup(state.platformsCG);
-    plat.body.collides([state.enemiesCG, state.playersCG, state.itemsCG]);
-    plat.body.collides(state.bulletsCG, plat.break, plat);
-    plat.body.setMaterial(state.platformMaterial);
-    return plat;
-}
-
-// The tiled representation of enemies has a recursive JSON representation
-// of what they drop. It looks like [this_drops [left_child_drops, right_child_drops]]
-// This function parses that list and creates the appropriate game entities.
-function parseDrop(state, drop) {
-    if (drop === '') return null;
-    if (Array.isArray(drop)) { return drop.map(parseDrop.bind(null, state)); }
-    if (typeof drop === 'string') {
-        try {
-            var dropOb = JSON.parse(drop);
-            return parseDrop(state, dropOb);
-        } catch (e) {
-            if (e instanceof SyntaxError) {
-                console.log('"' + drop + '" is not JSON, trying to add ' + drop + '.');
-                try {
-                    var item = entity(state, {x: 0, y: 0, width: 0, height: 0, type: drop});
-                    item.kill();
-                    return item;
-                } catch (e) {
-                    if (e instanceof TypeError) {
-                        console.log(drop 
-                                    + '" in Tiled object data is not a valid value for the drop field');
-                        throw e;
-                    }
-                }
-            }
-        }
-    }
-    return null;
 }
