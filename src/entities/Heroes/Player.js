@@ -2,6 +2,7 @@ module.exports = Player;
 
 var TEXTURE = 'player';
 var DEFAULT_WEAPON = 'pistol';
+var SPEED = 100;
 // Animation frames and their frame:
 var WALK = [0, 1, 2, 3];
 var WALK_RATE = 25;
@@ -56,7 +57,7 @@ Player.prototype = Object.create(Phaser.Sprite.prototype);
 
 Player.prototype.maxFuel = 2000;
 
-Object.defineProperty(Player.prototype, 'speed', {get: function() {return this.speedBonus * 100}});
+Object.defineProperty(Player.prototype, 'speed', {get: function() {return this.speedBonus * SPEED}});
 
 
 Player.prototype.equip = function(weapon) {

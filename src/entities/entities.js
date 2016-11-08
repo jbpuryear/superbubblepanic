@@ -1,8 +1,10 @@
 var Hydroid = require('./Enemies/Hydroid.js');
 var Enemy = require('./Enemies/Enemy.js');
+var Hex = require('./Enemies/Hex.js');
 
 var Gun = require('./Gun.js');
 var Bullet = require('./Bullets/Bullet.js');
+var Gravity = require('./Bullets/Gravity.js');
 
 
 module.exports = {
@@ -11,15 +13,19 @@ module.exports = {
 
 
     // Enemies
-    //hex: require('./Enemies/Hex.js'),
     enemy: function(state, data, drop) {
         return new Hydroid(state, data, drop, Enemy);
+    },
+
+    hex: function(state, data, drop) {
+        return new Hydroid(state, data, drop, Hex);
     },
     
 
     // Buffs
     repel: require('./Buffs/Repel.js'),
     slomo: require('./Buffs/Slomo.js'),
+    ears: require('./Buffs/Ears.js'),
 
 
     // Guns
@@ -58,5 +64,15 @@ module.exports = {
             clipSize: 3,
             speedVar: 0.05,
         }, Bullet);
-    }
+    },
+
+    gravgun: function(state, data) {
+        return new Gun(state, {
+            x: data.x,
+            y: data.y,
+            texture: 'gun',
+            clips: 1,
+            clipSize: 1,
+        }, Gravity);
+    },
 }
