@@ -21,13 +21,11 @@ Slomo.prototype.buffProto = {
     rate: 4,
     start: function() {
         var rate = this.rate;
-        this.state.enemies.forEach(function(enemy) {
-            enemy.forEach(function(child) {
-                child.body.mass *= rate;
-                child.body.velocity.x /= rate;
-                child.body.velocity.y /= rate;
-                child.body.data.gravityScale /= rate * rate;
-            });
+        this.state.enemies.recurse(function(enemy) {
+            enemy.body.mass *= rate;
+            enemy.body.velocity.x /= rate;
+            enemy.body.velocity.y /= rate;
+            enemy.body.data.gravityScale /= rate * rate;
         });
     },
     stop: function() {
