@@ -16,6 +16,11 @@ function make() {
     this.value = '';
 }
 
+function levelSelect() {
+    state.state.start('Level', true, false, this.value);
+    this.value = '';
+}
+
 var select = document.getElementById('entities');
 for (key in state.entities) {
     var option = document.createElement("option");
@@ -25,6 +30,18 @@ for (key in state.entities) {
 }
 select.value = '';
 select.onchange = make;
+
+select = document.getElementById('levels');
+setTimeout(function(){
+    state.cache.getKeys(Phaser.Cache.TILEMAP).forEach(function(key) {
+        var option = document.createElement("option");
+        option.value = key;
+        option.text = key;
+        select.add(option);
+    });
+    select.value = '';
+}, 2000);
+select.onchange = levelSelect;
 
 document.getElementById('hitToggle').onclick = function() {
     var state = game.state.states.Level;
