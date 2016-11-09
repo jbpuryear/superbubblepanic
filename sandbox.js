@@ -35,4 +35,13 @@ document.getElementById('hitToggle').onclick = function() {
     p1.body.collides([state.itemsCG, state.platformsCG]);
 }
 
+document.getElementById('step').onclick = function() {
+    if (!game.stepping) game.enableStep();
+    game.step();
+}
+
+document.getElementById('endStep').onclick = function() {
+    game.disableStep();
+}
+
 }

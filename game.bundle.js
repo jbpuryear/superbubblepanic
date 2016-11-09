@@ -274,7 +274,7 @@ function Bullet(state, x, y, texture) {
     this.body.setCircle(this.width/2);
     this.body.data.gravityScale = 0;
     this.body.collideWorldBounds = false;
-    this.body.mass = 1.25;
+    this.body.mass = 5;
     this.checkWorldBounds = true;
     this.outOfBoundsKill = true;
     this.body.setCollisionGroup(state.bulletsCG);
@@ -305,16 +305,17 @@ module.exports = Gravity;
 
 var Bullet = require('./Bullet.js');
 var dotGravity = require('../../magic/dotGravity.js');
+var explode = require('../../magic/explode.js');
+
 
 var TEXTURE = 'bullet';
 var SPEED = 340;
-var RANGE = 100;
-var MAGNITUDE = 80;
-var LIFESPAN = 2000;
-var KILL_RANGE = 50;
-var EXPLOSION = -1500;
-var EXP_RANGE = 800;
-var DAMPING = 0.94;
+var RANGE = 80;
+var MAGNITUDE = 250;
+var LIFESPAN = 1600;
+var KILL_RANGE = 20;
+var EXPLOSION = 700;
+var DAMPING = 1;
 var SELF_DAMP = 0.97;
 
 
@@ -335,10 +336,7 @@ Gravity.prototype = Object.create(Bullet.prototype);
 Gravity.prototype.kill = function() {
     Bullet.prototype.kill.call(this);
     if (!this.enemies) return;
-    var living = [];
-    this.enemies.forInReach(this, KILL_RANGE, function(enemy) { living.push(enemy); });
-    for (var i = 0; i < living.length; i++) living[i].damage(1);
-    this.enemies.forInReach(this, EXP_RANGE, dotGravity, null, this, EXPLOSION);
+    explode(this.enemies, this, KILL_RANGE, null, EXPLOSION, 0, true);
 }
 
 
@@ -347,10 +345,14 @@ Gravity.prototype.update = function() {
     this.body.velocity.x *= SELF_DAMP;
     this.body.velocity.y *= SELF_DAMP;
     this.enemies.forInReach(this, RANGE, function(enemy) {
-        dotGravity(enemy, this, MAGNITUDE);
-        enemy.body.velocity.x *= DAMPING;
-        enemy.body.velocity.y *= DAMPING;
+        var dist = this.world.distance(enemy);
+        dist = Phaser.Physics.P2.prototype.pxm(dist);
+        dist = dist < 1 ? 1 : dist*dist;
+        var damp = 1 - 1/dist;
+        enemy.body.velocity.x *= damp;
+        enemy.body.velocity.y *= damp;
     }, this);
+    dotGravity(this.enemies, this, MAGNITUDE, RANGE);
 }
 
 
@@ -359,7 +361,7 @@ Gravity.prototype.reset = function(x, y, health) {
     this.lifespan = LIFESPAN;
 }
 
-},{"../../magic/dotGravity.js":20,"./Bullet.js":8}],10:[function(require,module,exports){
+},{"../../magic/dotGravity.js":20,"../../magic/explode.js":21,"./Bullet.js":8}],10:[function(require,module,exports){
 module.exports = Enemy;
 
 
@@ -395,13 +397,18 @@ Enemy.prototype.spawn = function(x, y, width, velx, vely, drop) {
     this._circle.radius = this.game.physics.p2.pxm(width / 2);
     this.body.velocity.x = velx || 0;
     this.body.velocity.y = vely || 0;
+    this.killTheta = Math.PI/4;
     return this;
 }
 
 
-Enemy.prototype.getHit = function() {
-    this.damage(1);
+Enemy.prototype.getHit = function(_, bullet) {
+    // TODO: Yech, this so Hydroid can set spawn velocities. Gotta
+    // be a better way.
+    var theta = Math.atan2(bullet.velocity.y, bullet.velocity.x);
+    this.damage(1, theta);
 }
+
 
 Enemy.prototype.kill = function() {
     if (this.drop && typeof this.drop.reset === 'function') {
@@ -409,6 +416,14 @@ Enemy.prototype.kill = function() {
         this.drop = null;
     }
     Phaser.Sprite.prototype.kill.call(this);
+}
+
+
+Enemy.prototype.damage = function(amnt, angle) {
+    amnt = amnt || 1;
+    if (Number.isNaN(angle)) throw 'No angle given.';
+    this.killTheta = angle;
+    Phaser.Sprite.prototype.damage.call(this, amnt);
 }
 
 },{}],11:[function(require,module,exports){
@@ -473,8 +488,6 @@ Hydroid.prototype.onChildDeath = function(enemy) {
     var width = enemy.width / 2;
     var x = enemy.x;
     var y = enemy.y;
-    var velx = Math.abs(enemy.body.velocity.x);
-    var vely = -Math.abs(enemy.body.velocity.y);
 
     var drop = enemy.drop;
     enemy.drop = null;
@@ -488,8 +501,22 @@ Hydroid.prototype.onChildDeath = function(enemy) {
         drop.reset(x, y);
     }
 
-    this.spawn(x - width/2, y, width, -velx, vely, dropL)
-    this.spawn(x + width/2, y, width, velx, vely, dropR)
+    var vx = enemy.body.velocity.x;
+    var vy = enemy.body.velocity.y;
+    // TODO: See Enemy.prototype.getHit.
+    var theta = enemy.killTheta;
+    var mag = Math.sqrt( vx*vx + vy*vy );
+    var xOff = Math.cos(theta + Math.PI/2) * width/2;
+    var yOff = Math.sin(theta + Math.PI/2) * width/2;
+    var velx = Math.cos(theta + Math.PI/4) * mag;
+    var vely = Math.sin(theta + Math.PI/4) * mag;
+
+    this.spawn(x + xOff, y + yOff, width, velx, vely, dropL);
+
+    var velx = Math.cos(theta - Math.PI/4) * mag;
+    var vely = Math.sin(theta - Math.PI/4) * mag;
+
+    this.spawn(x - xOff, y - yOff, width, velx, vely, dropL);
 }
 
 },{}],13:[function(require,module,exports){
@@ -857,7 +884,7 @@ function Game(parent) {
     return game;
 }
 
-},{"./boot.js":2,"./level.js":18,"./load.js":19,"./phaserPatch.js":21}],18:[function(require,module,exports){
+},{"./boot.js":2,"./level.js":18,"./load.js":19,"./phaserPatch.js":22}],18:[function(require,module,exports){
 module.exports = Level;
 
 
@@ -1053,17 +1080,50 @@ module.exports = (function() {
 })();
 
 },{"../assets/assets.json":1}],20:[function(require,module,exports){
-module.exports = function(subject, source, magnitude) {
-    var distance = source.world.distance(subject);
-    var angle = source.world.angle(subject);
-    var force = [
-        Phaser.Physics.P2.prototype.pxmi( -magnitude * Math.cos(angle) * Math.sqrt(distance) ),
-        Phaser.Physics.P2.prototype.pxmi( -magnitude * Math.sin(angle) * Math.sqrt(distance) )
-    ];
-    subject.body.applyForce(force, subject.x, subject.y);
+module.exports = function(subjects, source, magnitude, range, invert) {
+    range = range || 0;
+
+    var fn = function(subject) {
+        var distance = source.world.distance(subject); 
+        if (range > 0 && distance > range) return;
+
+        distance = Phaser.Physics.P2.prototype.pxm(distance);
+        var d2 = distance*distance;
+        // Gaddamn singularities.
+        d2 = d2 < 1 ? 1 : d2;
+
+        var mag = invert ? magnitude * (1 - 1/d2) : magnitude / d2;
+        var angle = source.world.angle(subject);
+        var force = [
+            mag * Math.cos(angle),
+            mag * Math.sin(angle)
+        ];
+
+        subject.body.applyForce(force, subject.x, subject.y);
+    }
+
+    subjects.recurseAlive(fn);
 }
 
 },{}],21:[function(require,module,exports){
+module.exports = explode;
+
+
+var dotGravity = require('./dotGravity.js');
+
+var DAMAGE = 3;
+
+
+function explode(target, source, radius, damage, blast, blastRadius, invert) {
+    damage = damage || DAMAGE;
+
+    target.forInReach(source, radius, function(enemy) {
+        enemy.damage(damage, source.world.angle(enemy));
+    });
+    dotGravity(target, source, -blast, blastRadius, invert);
+}
+
+},{"./dotGravity.js":20}],22:[function(require,module,exports){
 module.exports = function() {
 
     Object.defineProperty(Phaser.Group.prototype, 'alive', {
@@ -1092,6 +1152,7 @@ module.exports = function() {
         var args = [null];
         for (var i = 2; i < arguments.length; i++) args.push(arguments[i]);
 
+        var alive = [];
         for (i = 0; i < this.children.length; i++) {
             var child = this.children[i];
             if (!child.alive) continue;
@@ -1099,9 +1160,13 @@ module.exports = function() {
             if (child instanceof Phaser.Group) {
                 child.recurseAlive.apply(child, arguments);
             } else {
-                args[0] = child;
-                fn.apply(ctx, args);
+                alive.push(child);
             }
+        }
+
+        for (i=0; i<alive.length; i++) {
+            args[0] = alive[i];
+            fn.apply(ctx, args);
         }
     }
 
@@ -1110,17 +1175,21 @@ module.exports = function() {
         var args = [null];
         for (var i = 4; i < arguments.length; i++) args.push(arguments[i]);
 
+        var alive = [];
         for (i = 0; i < this.children.length; i++) {
             var child = this.children[i];
             if (!child.alive) continue;
 
             if (child instanceof Phaser.Group) {
                 child.forInReach.apply(child, arguments);
-            } else {
-                if (obj.world.distance(child) > range) continue;
-                args[0] = child;
-                fn.apply(ctx, args);
+            } else if (obj.world.distance(child) <= range) {
+                alive.push(child);
             }
+        }
+
+        for (i=0; i<alive.length; i++) {
+            args[0] = alive[i];
+            fn.apply(ctx, args);
         }
     }
 }

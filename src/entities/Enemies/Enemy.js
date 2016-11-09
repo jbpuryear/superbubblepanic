@@ -33,13 +33,18 @@ Enemy.prototype.spawn = function(x, y, width, velx, vely, drop) {
     this._circle.radius = this.game.physics.p2.pxm(width / 2);
     this.body.velocity.x = velx || 0;
     this.body.velocity.y = vely || 0;
+    this.killTheta = Math.PI/4;
     return this;
 }
 
 
-Enemy.prototype.getHit = function() {
-    this.damage(1);
+Enemy.prototype.getHit = function(_, bullet) {
+    // TODO: Yech, this so Hydroid can set spawn velocities. Gotta
+    // be a better way.
+    var theta = Math.atan2(bullet.velocity.y, bullet.velocity.x);
+    this.damage(1, theta);
 }
+
 
 Enemy.prototype.kill = function() {
     if (this.drop && typeof this.drop.reset === 'function') {
@@ -47,4 +52,12 @@ Enemy.prototype.kill = function() {
         this.drop = null;
     }
     Phaser.Sprite.prototype.kill.call(this);
+}
+
+
+Enemy.prototype.damage = function(amnt, angle) {
+    amnt = amnt || 1;
+    if (Number.isNaN(angle)) throw 'No angle given.';
+    this.killTheta = angle;
+    Phaser.Sprite.prototype.damage.call(this, amnt);
 }

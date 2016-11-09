@@ -3,16 +3,17 @@ module.exports = Gravity;
 
 var Bullet = require('./Bullet.js');
 var dotGravity = require('../../magic/dotGravity.js');
+var explode = require('../../magic/explode.js');
+
 
 var TEXTURE = 'bullet';
 var SPEED = 340;
-var RANGE = 100;
-var MAGNITUDE = 80;
-var LIFESPAN = 2000;
-var KILL_RANGE = 50;
-var EXPLOSION = -1500;
-var EXP_RANGE = 800;
-var DAMPING = 0.94;
+var RANGE = 80;
+var MAGNITUDE = 250;
+var LIFESPAN = 1600;
+var KILL_RANGE = 20;
+var EXPLOSION = 700;
+var DAMPING = 1;
 var SELF_DAMP = 0.97;
 
 
@@ -33,10 +34,7 @@ Gravity.prototype = Object.create(Bullet.prototype);
 Gravity.prototype.kill = function() {
     Bullet.prototype.kill.call(this);
     if (!this.enemies) return;
-    var living = [];
-    this.enemies.forInReach(this, KILL_RANGE, function(enemy) { living.push(enemy); });
-    for (var i = 0; i < living.length; i++) living[i].damage(1);
-    this.enemies.forInReach(this, EXP_RANGE, dotGravity, null, this, EXPLOSION);
+    explode(this.enemies, this, KILL_RANGE, null, EXPLOSION, 0, true);
 }
 
 
@@ -45,10 +43,14 @@ Gravity.prototype.update = function() {
     this.body.velocity.x *= SELF_DAMP;
     this.body.velocity.y *= SELF_DAMP;
     this.enemies.forInReach(this, RANGE, function(enemy) {
-        dotGravity(enemy, this, MAGNITUDE);
-        enemy.body.velocity.x *= DAMPING;
-        enemy.body.velocity.y *= DAMPING;
+        var dist = this.world.distance(enemy);
+        dist = Phaser.Physics.P2.prototype.pxm(dist);
+        dist = dist < 1 ? 1 : dist*dist;
+        var damp = 1 - 1/dist;
+        enemy.body.velocity.x *= damp;
+        enemy.body.velocity.y *= damp;
     }, this);
+    dotGravity(this.enemies, this, MAGNITUDE, RANGE);
 }
 
 

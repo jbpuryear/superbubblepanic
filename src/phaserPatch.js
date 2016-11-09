@@ -26,6 +26,7 @@ module.exports = function() {
         var args = [null];
         for (var i = 2; i < arguments.length; i++) args.push(arguments[i]);
 
+        var alive = [];
         for (i = 0; i < this.children.length; i++) {
             var child = this.children[i];
             if (!child.alive) continue;
@@ -33,9 +34,13 @@ module.exports = function() {
             if (child instanceof Phaser.Group) {
                 child.recurseAlive.apply(child, arguments);
             } else {
-                args[0] = child;
-                fn.apply(ctx, args);
+                alive.push(child);
             }
+        }
+
+        for (i=0; i<alive.length; i++) {
+            args[0] = alive[i];
+            fn.apply(ctx, args);
         }
     }
 
@@ -44,17 +49,21 @@ module.exports = function() {
         var args = [null];
         for (var i = 4; i < arguments.length; i++) args.push(arguments[i]);
 
+        var alive = [];
         for (i = 0; i < this.children.length; i++) {
             var child = this.children[i];
             if (!child.alive) continue;
 
             if (child instanceof Phaser.Group) {
                 child.forInReach.apply(child, arguments);
-            } else {
-                if (obj.world.distance(child) > range) continue;
-                args[0] = child;
-                fn.apply(ctx, args);
+            } else if (obj.world.distance(child) <= range) {
+                alive.push(child);
             }
+        }
+
+        for (i=0; i<alive.length; i++) {
+            args[0] = alive[i];
+            fn.apply(ctx, args);
         }
     }
 }

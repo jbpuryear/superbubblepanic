@@ -41,8 +41,6 @@ Hydroid.prototype.onChildDeath = function(enemy) {
     var width = enemy.width / 2;
     var x = enemy.x;
     var y = enemy.y;
-    var velx = Math.abs(enemy.body.velocity.x);
-    var vely = -Math.abs(enemy.body.velocity.y);
 
     var drop = enemy.drop;
     enemy.drop = null;
@@ -56,6 +54,20 @@ Hydroid.prototype.onChildDeath = function(enemy) {
         drop.reset(x, y);
     }
 
-    this.spawn(x - width/2, y, width, -velx, vely, dropL)
-    this.spawn(x + width/2, y, width, velx, vely, dropR)
+    var vx = enemy.body.velocity.x;
+    var vy = enemy.body.velocity.y;
+    // TODO: See Enemy.prototype.getHit.
+    var theta = enemy.killTheta;
+    var mag = Math.sqrt( vx*vx + vy*vy );
+    var xOff = Math.cos(theta + Math.PI/2) * width/2;
+    var yOff = Math.sin(theta + Math.PI/2) * width/2;
+    var velx = Math.cos(theta + Math.PI/4) * mag;
+    var vely = Math.sin(theta + Math.PI/4) * mag;
+
+    this.spawn(x + xOff, y + yOff, width, velx, vely, dropL);
+
+    var velx = Math.cos(theta - Math.PI/4) * mag;
+    var vely = Math.sin(theta - Math.PI/4) * mag;
+
+    this.spawn(x - xOff, y - yOff, width, velx, vely, dropL);
 }
