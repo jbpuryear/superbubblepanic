@@ -1,6 +1,7 @@
 var Hydroid = require('./Enemies/Hydroid.js');
 var Enemy = require('./Enemies/Enemy.js');
 var Hex = require('./Enemies/Hex.js');
+var Seeker = require('./Enemies/Seeker.js');
 
 var Gun = require('./Gun.js');
 var Bullet = require('./Bullets/Bullet.js');
@@ -19,6 +20,10 @@ module.exports = {
 
     hex: function(state, data, drop) {
         return new Hydroid(state, data, drop, Hex);
+    },
+
+    seeker: function(state, data, drop) {
+        return new Hydroid(state, data, drop, Seeker);
     },
     
 
