@@ -214,7 +214,7 @@ Repel.prototype = Object.create(Buff.prototype);
 Repel.prototype.buffProto = {
     duration: 8000,
     update: function() {
-        this.state.enemies.forInReach(this.target, 70, dotGravity, null, this.target, -90 );
+        dotGravity(this.state.enemies, this.target, -90, 70);
     }
 }
 
@@ -1102,7 +1102,11 @@ module.exports = function(subjects, source, magnitude, range, invert) {
         subject.body.applyForce(force, subject.x, subject.y);
     }
 
-    subjects.recurseAlive(fn);
+    if (subjects instanceof Phaser.Group) {
+        subjects.recurseAlive(fn);
+    } else {
+        fn(subjects);
+    }
 }
 
 },{}],21:[function(require,module,exports){

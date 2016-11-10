@@ -20,5 +20,9 @@ module.exports = function(subjects, source, magnitude, range, invert) {
         subject.body.applyForce(force, subject.x, subject.y);
     }
 
-    subjects.recurseAlive(fn);
+    if (subjects instanceof Phaser.Group) {
+        subjects.recurseAlive(fn);
+    } else {
+        fn(subjects);
+    }
 }

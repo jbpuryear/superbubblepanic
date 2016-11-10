@@ -20,6 +20,6 @@ Repel.prototype = Object.create(Buff.prototype);
 Repel.prototype.buffProto = {
     duration: 8000,
     update: function() {
-        this.state.enemies.forInReach(this.target, 70, dotGravity, null, this.target, -90 );
+        dotGravity(this.state.enemies, this.target, -90, 70);
     }
 }
