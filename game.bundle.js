@@ -38,6 +38,13 @@ module.exports={
             "key": "level1",
             "url": "assets/levels/level1.json",
             "format": "TILED_JSON"
+        },
+        
+        {
+            "type": "tilemap",
+            "key": "seeker",
+            "url": "assets/levels/seeker.json",
+            "format": "TILED_JSON"
         }
     ]
 }
@@ -167,7 +174,7 @@ Buff.prototype.pickUp = function(_, playerBody) {
     this.destroy();
 }
 
-},{"../Item.js":16}],5:[function(require,module,exports){
+},{"../Item.js":17}],5:[function(require,module,exports){
 module.exports = Ears;
 
 
@@ -218,7 +225,7 @@ Repel.prototype.buffProto = {
     }
 }
 
-},{"../../magic/dotGravity.js":21,"./Buff.js":4}],7:[function(require,module,exports){
+},{"../../magic/dotGravity.js":22,"./Buff.js":4}],7:[function(require,module,exports){
 module.exports = Slomo;
 
 
@@ -274,7 +281,7 @@ function Bullet(state, x, y, texture) {
     this.body.setCircle(this.width/2);
     this.body.data.gravityScale = 0;
     this.body.collideWorldBounds = false;
-    this.body.mass = 5;
+    this.body.mass = 1.25;
     this.checkWorldBounds = true;
     this.outOfBoundsKill = true;
     this.body.setCollisionGroup(state.bulletsCG);
@@ -283,6 +290,8 @@ function Bullet(state, x, y, texture) {
 
 
 Bullet.prototype = Object.create(Phaser.Sprite.prototype);
+
+Bullet.prototype.attack = 1;
 
 
 Bullet.prototype.hit = function() {
@@ -361,7 +370,7 @@ Gravity.prototype.reset = function(x, y, health) {
     this.lifespan = LIFESPAN;
 }
 
-},{"../../magic/dotGravity.js":21,"../../magic/explode.js":22,"./Bullet.js":8}],10:[function(require,module,exports){
+},{"../../magic/dotGravity.js":22,"../../magic/explode.js":23,"./Bullet.js":8}],10:[function(require,module,exports){
 module.exports = Enemy;
 
 
@@ -373,6 +382,7 @@ function Enemy(state, data, drop) {
     data.texture = data.texture || TEXTURE;
     Phaser.Sprite.call(this, state.game, data.x, data.y, data.texture);
     state.physics.p2.enable(this);
+    state.enemies.add(this);
     this._circle = this.body.setCircle(1);
     this.body.setCollisionGroup(state.enemiesCG);
     this.body.collides(state.platformsCG);
@@ -406,7 +416,8 @@ Enemy.prototype.getHit = function(_, bullet) {
     // TODO: Yech, this so Hydroid can set spawn velocities. Gotta
     // be a better way.
     var theta = Math.atan2(bullet.velocity.y, bullet.velocity.x);
-    this.damage(1, theta);
+    var dmg = bullet.sprite.attack || 1;
+    this.damage(dmg, theta);
 }
 
 
@@ -520,6 +531,68 @@ Hydroid.prototype.onChildDeath = function(enemy) {
 }
 
 },{}],13:[function(require,module,exports){
+module.exports = SeekBoss;
+
+
+var Seeker = require('./Seeker.js');
+
+var TEXTURE = 'enemy';
+var HEALTH = 20;
+var POOL_SIZE = 120;
+var CHILD_WIDTH = 30;
+var CHILD_VEL = 100;
+
+
+function SeekBoss(state, data) {
+    data.texture = data.texture || TEXTURE;
+    Seeker.call(this, state, data);
+    this.health = HEALTH;
+    this.childPool = state.add.group();
+    state.enemies.add(this.childPool);
+    var childData = {
+        type: 'seeker',
+        x: 0,
+        y: 0,
+        width: CHILD_WIDTH,
+        properties: {}
+    };
+    for (var i=0; i<POOL_SIZE; i++) {
+        var seek = state.addEntity(childData);
+        seek.recurse(function(enemy) {
+            enemy.alive = false;
+            enemy.visible = false;
+            enemy.exists = false;
+        });
+        this.childPool.add(seek);
+    }
+    this.drops = [];
+    for (i=0; i<3; i++) {
+        var prize = state.addEntity({type: 'slomo'});
+        prize.kill();
+        this.drops.push(prize);
+    }
+}
+
+
+SeekBoss.prototype = Object.create(Seeker.prototype);
+
+
+SeekBoss.prototype.getHit = function(_, bullet) {
+    if (this.health % 10 === 1) {
+        this.drops.pop().reset(this.x, this.y);
+        this.width *= 2/3;
+        this.height *= 2/3;
+        this._circle *= 2/3;
+    }
+    Seeker.prototype.getHit.apply(this, arguments);
+    var v = this.body.velocity;
+    this.childPool.getFirstDead().getFirstDead().spawn(this.x, this.y, CHILD_WIDTH, v.x + CHILD_VEL, v.y + CHILD_VEL);
+    this.childPool.getFirstDead().getFirstDead().spawn(this.x, this.y, CHILD_WIDTH, v.x + CHILD_VEL, v.y + -CHILD_VEL);
+    this.childPool.getFirstDead().getFirstDead().spawn(this.x, this.y, CHILD_WIDTH, v.x - CHILD_VEL, v.y + CHILD_VEL);
+    this.childPool.getFirstDead().getFirstDead().spawn(this.x, this.y, CHILD_WIDTH, v.x - CHILD_VEL, v.y + -CHILD_VEL);
+}
+
+},{"./Seeker.js":14}],14:[function(require,module,exports){
 module.exports = Seeker;
 
 
@@ -527,7 +600,7 @@ var Enemy = require('./Enemy.js');
 
 var TEXTURE = 'enemy';
 var ACCEL = 2;
-var MAX_SPEED = 50;
+var MAX_SPEED = 80;
 
 
 function Seeker(state, data, drop) {
@@ -535,14 +608,17 @@ function Seeker(state, data, drop) {
     Enemy.call(this, state, data, drop);
     this.targets = state.players;
     this.accel = ACCEL;
-    this.maxSpeed = MAX_SPEED;
     this.body.data.gravityScale = 0;
     this.body.mass = 0.5;
+    // Tying speed to mass makes slowmo work.
+    this._maxSpeed = this.body.mass*MAX_SPEED;
     this.body.removeCollisionGroup(state.platformsCG);
 }
 
 
 Seeker.prototype = Object.create(Enemy.prototype);
+
+Object.defineProperty(Seeker.prototype, 'maxSpeed', {get: function() { return this._maxSpeed/this.body.mass; }});
 
 
 Seeker.prototype.update = function() {
@@ -553,36 +629,37 @@ Seeker.prototype.update = function() {
     var goDown = target.world.y >= this.world.y ? true : false;
     var vel = this.body.velocity;
     var max = this.maxSpeed;
+    var accel = this.accel;
     // TODO: SRSLY!!! Do we need all this?
     if (goRight === true) {
-        if (vel.x > this.maxSpeed) {
-            vel.x -= this.accel;
+        if (vel.x > max) {
+            vel.x -= accel;
         } else {
-            vel.x = Math.min(vel.x + this.accel, this.maxSpeed);
+            vel.x = Math.min(vel.x + accel, max);
         }
     } else {
-        if (vel.x < -this.maxSpeed) {
-            vel.x += this.accel;
+        if (vel.x < -max) {
+            vel.x += accel;
         } else {
-            vel.x = Math.max(vel.x - this.accel, -this.maxSpeed);
+            vel.x = Math.max(vel.x - accel, -max);
         }
     }
     if (goDown === true) {
-        if (vel.y > this.maxSpeed) {
-            vel.y -= this.accel;
+        if (vel.y > max) {
+            vel.y -= accel;
         } else {
-            vel.y = Math.min(vel.y + this.accel, this.maxSpeed);
+            vel.y = Math.min(vel.y + accel, max);
         }
     } else {
-        if (vel.y < -this.maxSpeed) {
-            vel.y += this.accel;
+        if (vel.y < -max) {
+            vel.y += accel;
         } else {
-            vel.y = Math.max(vel.y - this.accel, -this.maxSpeed);
+            vel.y = Math.max(vel.y - accel, -max);
         }
     }
 }
 
-},{"./Enemy.js":10}],14:[function(require,module,exports){
+},{"./Enemy.js":10}],15:[function(require,module,exports){
 module.exports = Gun;
 
 
@@ -653,7 +730,7 @@ Gun.prototype.fire = function(newShot) {
     }
 }
 
-},{"./Bullets/Bullet.js":8,"./Item.js":16}],15:[function(require,module,exports){
+},{"./Bullets/Bullet.js":8,"./Item.js":17}],16:[function(require,module,exports){
 module.exports = Player;
 
 var TEXTURE = 'player';
@@ -802,7 +879,7 @@ Player.prototype.update = function() {
     this.flying = false;
 }
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 // Time in ms before item disappears.
 var LIFESPAN = 5000;
 
@@ -846,11 +923,12 @@ Item.prototype.reset = function(x, y, health) {
     this.revive(health);
 }
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 var Hydroid = require('./Enemies/Hydroid.js');
 var Enemy = require('./Enemies/Enemy.js');
 var Hex = require('./Enemies/Hex.js');
 var Seeker = require('./Enemies/Seeker.js');
+var SeekBoss = require('./Enemies/SeekBoss.js');
 
 var Gun = require('./Gun.js');
 var Bullet = require('./Bullets/Bullet.js');
@@ -875,6 +953,8 @@ module.exports = {
         return new Hydroid(state, data, drop, Seeker);
     },
     
+    seekboss: SeekBoss,
+
 
     // Buffs
     repel: require('./Buffs/Repel.js'),
@@ -920,6 +1000,20 @@ module.exports = {
         }, Bullet);
     },
 
+    smg: function(state, data) {
+        return new Gun(state, {
+            x: data.x,
+            y: data.y,
+            texture: 'gun',
+            auto: true,
+            rate: 100,
+            accuracy: Math.PI/16,
+            clips: 1,
+            clipSize: 30,
+        }, Bullet);
+    },
+
+
     gravgun: function(state, data) {
         return new Gun(state, {
             x: data.x,
@@ -931,7 +1025,7 @@ module.exports = {
     },
 }
 
-},{"./Buffs/Ears.js":5,"./Buffs/Repel.js":6,"./Buffs/Slomo.js":7,"./Bullets/Bullet.js":8,"./Bullets/Gravity.js":9,"./Enemies/Enemy.js":10,"./Enemies/Hex.js":11,"./Enemies/Hydroid.js":12,"./Enemies/Seeker.js":13,"./Gun.js":14,"./Heroes/Player.js":15}],18:[function(require,module,exports){
+},{"./Buffs/Ears.js":5,"./Buffs/Repel.js":6,"./Buffs/Slomo.js":7,"./Bullets/Bullet.js":8,"./Bullets/Gravity.js":9,"./Enemies/Enemy.js":10,"./Enemies/Hex.js":11,"./Enemies/Hydroid.js":12,"./Enemies/SeekBoss.js":13,"./Enemies/Seeker.js":14,"./Gun.js":15,"./Heroes/Player.js":16}],19:[function(require,module,exports){
 module.exports = Game;
 
 
@@ -952,7 +1046,7 @@ function Game(parent) {
     return game;
 }
 
-},{"./boot.js":2,"./level.js":19,"./load.js":20,"./phaserPatch.js":23}],19:[function(require,module,exports){
+},{"./boot.js":2,"./level.js":20,"./load.js":21,"./phaserPatch.js":24}],20:[function(require,module,exports){
 module.exports = Level;
 
 
@@ -1030,6 +1124,9 @@ Level.prototype = {
                 var drop = this.parseDrop(data.properties.drop);
                 var brkplat = new BrkPlat(this, data, platform, drop);
                 platform.collides(this.bulletsCG, brkplat.break, brkplat);
+            } else if (data.properties && data.properties.passable) {
+                // TODO: Passables should be their own thing.
+                // new BrkPlat(this, data, platform);
             } else {
                 platform.collides(this.bulletsCG);
             }
@@ -1124,7 +1221,7 @@ Level.prototype = {
 }
 
 
-},{"./entities/BrkPlat.js":3,"./entities/entities.js":17}],20:[function(require,module,exports){
+},{"./entities/BrkPlat.js":3,"./entities/entities.js":18}],21:[function(require,module,exports){
 module.exports = (function() {
 
     Load = function() {
@@ -1147,7 +1244,7 @@ module.exports = (function() {
     return Load;
 })();
 
-},{"../assets/assets.json":1}],21:[function(require,module,exports){
+},{"../assets/assets.json":1}],22:[function(require,module,exports){
 module.exports = function(subjects, source, magnitude, range, invert) {
     range = range || 0;
 
@@ -1177,7 +1274,7 @@ module.exports = function(subjects, source, magnitude, range, invert) {
     }
 }
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 module.exports = explode;
 
 
@@ -1195,7 +1292,7 @@ function explode(target, source, radius, damage, blast, blastRadius, invert) {
     dotGravity(target, source, -blast, blastRadius, invert);
 }
 
-},{"./dotGravity.js":21}],23:[function(require,module,exports){
+},{"./dotGravity.js":22}],24:[function(require,module,exports){
 module.exports = function() {
 
     Object.defineProperty(Phaser.Group.prototype, 'alive', {
@@ -1266,5 +1363,5 @@ module.exports = function() {
     }
 }
 
-},{}]},{},[18])(18)
+},{}]},{},[19])(19)
 });

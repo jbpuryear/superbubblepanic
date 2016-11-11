@@ -16,7 +16,7 @@ function Bullet(state, x, y, texture) {
     this.body.setCircle(this.width/2);
     this.body.data.gravityScale = 0;
     this.body.collideWorldBounds = false;
-    this.body.mass = 5;
+    this.body.mass = 1.25;
     this.checkWorldBounds = true;
     this.outOfBoundsKill = true;
     this.body.setCollisionGroup(state.bulletsCG);
@@ -25,6 +25,8 @@ function Bullet(state, x, y, texture) {
 
 
 Bullet.prototype = Object.create(Phaser.Sprite.prototype);
+
+Bullet.prototype.attack = 1;
 
 
 Bullet.prototype.hit = function() {

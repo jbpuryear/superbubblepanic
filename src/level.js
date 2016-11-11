@@ -75,6 +75,9 @@ Level.prototype = {
                 var drop = this.parseDrop(data.properties.drop);
                 var brkplat = new BrkPlat(this, data, platform, drop);
                 platform.collides(this.bulletsCG, brkplat.break, brkplat);
+            } else if (data.properties && data.properties.passable) {
+                // TODO: Passables should be their own thing.
+                // new BrkPlat(this, data, platform);
             } else {
                 platform.collides(this.bulletsCG);
             }

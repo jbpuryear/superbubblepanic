@@ -2,6 +2,7 @@ var Hydroid = require('./Enemies/Hydroid.js');
 var Enemy = require('./Enemies/Enemy.js');
 var Hex = require('./Enemies/Hex.js');
 var Seeker = require('./Enemies/Seeker.js');
+var SeekBoss = require('./Enemies/SeekBoss.js');
 
 var Gun = require('./Gun.js');
 var Bullet = require('./Bullets/Bullet.js');
@@ -26,6 +27,8 @@ module.exports = {
         return new Hydroid(state, data, drop, Seeker);
     },
     
+    seekboss: SeekBoss,
+
 
     // Buffs
     repel: require('./Buffs/Repel.js'),
@@ -70,6 +73,20 @@ module.exports = {
             speedVar: 0.05,
         }, Bullet);
     },
+
+    smg: function(state, data) {
+        return new Gun(state, {
+            x: data.x,
+            y: data.y,
+            texture: 'gun',
+            auto: true,
+            rate: 100,
+            accuracy: Math.PI/16,
+            clips: 1,
+            clipSize: 30,
+        }, Bullet);
+    },
+
 
     gravgun: function(state, data) {
         return new Gun(state, {

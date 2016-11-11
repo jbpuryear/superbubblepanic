@@ -9,6 +9,7 @@ function Enemy(state, data, drop) {
     data.texture = data.texture || TEXTURE;
     Phaser.Sprite.call(this, state.game, data.x, data.y, data.texture);
     state.physics.p2.enable(this);
+    state.enemies.add(this);
     this._circle = this.body.setCircle(1);
     this.body.setCollisionGroup(state.enemiesCG);
     this.body.collides(state.platformsCG);
@@ -42,7 +43,8 @@ Enemy.prototype.getHit = function(_, bullet) {
     // TODO: Yech, this so Hydroid can set spawn velocities. Gotta
     // be a better way.
     var theta = Math.atan2(bullet.velocity.y, bullet.velocity.x);
-    this.damage(1, theta);
+    var dmg = bullet.sprite.attack || 1;
+    this.damage(dmg, theta);
 }
 
 
