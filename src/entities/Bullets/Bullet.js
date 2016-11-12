@@ -1,16 +1,14 @@
 module.exports = Bullet;
 
 
-var BULLET_SPEED = 300;
-var DEFAULT_TEXTURE = 'bullet';
+var SPEED = 300;
+var TEXTURE = 'bullet';
 
 
 function Bullet(state, x, y, texture) {
-    texture = texture || DEFAULT_TEXTURE;
+    texture = texture || TEXTURE;
     Phaser.Sprite.call(this, state.game, x, y, texture);
-    this.kill();
-
-    this.speed = BULLET_SPEED;
+    Phaser.Sprite.prototype.kill.call(this);
 
     state.game.physics.p2.enable(this);
     this.body.setCircle(this.width/2);
@@ -27,10 +25,15 @@ function Bullet(state, x, y, texture) {
 Bullet.prototype = Object.create(Phaser.Sprite.prototype);
 
 Bullet.prototype.attack = 1;
+Bullet.prototype.speed = SPEED;
 
 
-Bullet.prototype.hit = function() {
+Bullet.prototype.hit = function(_, target) {
     this.kill();
+    if (target.sprite) {
+        var theta = Math.atan2(this.body.velocity.y, this.body.velocity.x);
+        target.sprite.damage(this.attack, theta);
+    }
 }
 
 

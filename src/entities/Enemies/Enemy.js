@@ -40,11 +40,6 @@ Enemy.prototype.spawn = function(x, y, width, velx, vely, drop) {
 
 
 Enemy.prototype.getHit = function(_, bullet) {
-    // TODO: Yech, this so Hydroid can set spawn velocities. Gotta
-    // be a better way.
-    var theta = Math.atan2(bullet.velocity.y, bullet.velocity.x);
-    var dmg = bullet.sprite.attack || 1;
-    this.damage(dmg, theta);
 }
 
 

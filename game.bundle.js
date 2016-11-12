@@ -45,7 +45,22 @@ module.exports={
             "key": "seeker",
             "url": "assets/levels/seeker.json",
             "format": "TILED_JSON"
+        },
+        
+        {
+            "type": "tilemap",
+            "key": "grid",
+            "url": "assets/levels/grid.json",
+            "format": "TILED_JSON"
+        },
+        
+        {
+            "type": "tilemap",
+            "key": "blank",
+            "url": "assets/levels/blank.json",
+            "format": "TILED_JSON"
         }
+
     ]
 }
 
@@ -174,7 +189,7 @@ Buff.prototype.pickUp = function(_, playerBody) {
     this.destroy();
 }
 
-},{"../Item.js":17}],5:[function(require,module,exports){
+},{"../Item.js":18}],5:[function(require,module,exports){
 module.exports = Ears;
 
 
@@ -225,7 +240,7 @@ Repel.prototype.buffProto = {
     }
 }
 
-},{"../../magic/dotGravity.js":22,"./Buff.js":4}],7:[function(require,module,exports){
+},{"../../magic/dotGravity.js":23,"./Buff.js":4}],7:[function(require,module,exports){
 module.exports = Slomo;
 
 
@@ -266,16 +281,14 @@ Slomo.prototype.buffProto = {
 module.exports = Bullet;
 
 
-var BULLET_SPEED = 300;
-var DEFAULT_TEXTURE = 'bullet';
+var SPEED = 300;
+var TEXTURE = 'bullet';
 
 
 function Bullet(state, x, y, texture) {
-    texture = texture || DEFAULT_TEXTURE;
+    texture = texture || TEXTURE;
     Phaser.Sprite.call(this, state.game, x, y, texture);
-    this.kill();
-
-    this.speed = BULLET_SPEED;
+    Phaser.Sprite.prototype.kill.call(this);
 
     state.game.physics.p2.enable(this);
     this.body.setCircle(this.width/2);
@@ -292,10 +305,15 @@ function Bullet(state, x, y, texture) {
 Bullet.prototype = Object.create(Phaser.Sprite.prototype);
 
 Bullet.prototype.attack = 1;
+Bullet.prototype.speed = SPEED;
 
 
-Bullet.prototype.hit = function() {
+Bullet.prototype.hit = function(_, target) {
     this.kill();
+    if (target.sprite) {
+        var theta = Math.atan2(this.body.velocity.y, this.body.velocity.x);
+        target.sprite.damage(this.attack, theta);
+    }
 }
 
 
@@ -370,7 +388,71 @@ Gravity.prototype.reset = function(x, y, health) {
     this.lifespan = LIFESPAN;
 }
 
-},{"../../magic/dotGravity.js":22,"../../magic/explode.js":23,"./Bullet.js":8}],10:[function(require,module,exports){
+},{"../../magic/dotGravity.js":23,"../../magic/explode.js":24,"./Bullet.js":8}],10:[function(require,module,exports){
+module.exports = Grenade;
+
+
+var Bullet = require('./Bullet.js');
+var explode = require('../../magic/explode.js');
+
+var TEXTURE = 'bullet';
+var SPEED = 400;
+var MASS = 0.5;
+var RADIUS = 60;
+var LIFE = 2500;
+var DAMAGE = 5;
+var BLAST = 800;
+
+
+function Grenade(state, x, y, texture) {
+    texture = texture || TEXTURE;
+    Bullet.call(this, state, x, y, texture);
+    if (!Grenade.prototype.material) {
+        Grenade.prototype.material = state.physics.p2.createMaterial('grenade');
+        state.physics.p2.createContactMaterial(this.material, state.platformMaterial, {
+            friction: 0.4,
+            restitution: 0.7
+        });
+        state.physics.p2.createContactMaterial(this.material, state.worldMaterial, {
+            friction: 0.4,
+            restitution: 0.7
+        });
+    }
+    this.body.setMaterial(Grenade.prototype.material);
+    this.body.data.gravityScale = 1;
+    this.body.mass = MASS;
+    this.target = state.enemies;
+    this.body.removeCollisionGroup(state.platformsCG);
+    this.body.collides(state.platformsCG);
+    this.body.collideWorldBounds = true;
+}
+
+
+Grenade.prototype = Object.create(Bullet.prototype);
+
+Grenade.prototype.speed = SPEED;
+
+
+Grenade.prototype.kill = function() {
+    if (!this.target) return;
+    explode(this.target, this, RADIUS, DAMAGE, BLAST);
+    Bullet.prototype.kill.apply(this, arguments);
+}
+
+
+Grenade.prototype.fire = function(x, y, theta, speedBonus) {
+    Bullet.prototype.fire.apply(this, arguments);
+    this.body.angularVelocity = (this.body.rotation > Math.PI/2 || this.body.rotation < -Math.PI/2) ?
+        Math.PI : -Math.PI;
+    this.lifespan = LIFE;
+}
+
+
+Grenade.prototype.hit = function(_, target) {
+    this.kill();
+}
+
+},{"../../magic/explode.js":24,"./Bullet.js":8}],11:[function(require,module,exports){
 module.exports = Enemy;
 
 
@@ -413,11 +495,6 @@ Enemy.prototype.spawn = function(x, y, width, velx, vely, drop) {
 
 
 Enemy.prototype.getHit = function(_, bullet) {
-    // TODO: Yech, this so Hydroid can set spawn velocities. Gotta
-    // be a better way.
-    var theta = Math.atan2(bullet.velocity.y, bullet.velocity.x);
-    var dmg = bullet.sprite.attack || 1;
-    this.damage(dmg, theta);
 }
 
 
@@ -437,7 +514,7 @@ Enemy.prototype.damage = function(amnt, angle) {
     Phaser.Sprite.prototype.damage.call(this, amnt);
 }
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports = Hex;
 
 var Enemy = require('./Enemy.js');
@@ -455,7 +532,7 @@ function Hex(state, data, drop) {
 
 Hex.prototype = Object.create(Enemy.prototype);
 
-},{"./Enemy.js":10}],12:[function(require,module,exports){
+},{"./Enemy.js":11}],13:[function(require,module,exports){
 module.exports = Hydroid;
 
 
@@ -530,7 +607,7 @@ Hydroid.prototype.onChildDeath = function(enemy) {
     this.spawn(x - xOff, y - yOff, width, velx, vely, dropL);
 }
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 module.exports = SeekBoss;
 
 
@@ -592,7 +669,7 @@ SeekBoss.prototype.getHit = function(_, bullet) {
     this.childPool.getFirstDead().getFirstDead().spawn(this.x, this.y, CHILD_WIDTH, v.x - CHILD_VEL, v.y + -CHILD_VEL);
 }
 
-},{"./Seeker.js":14}],14:[function(require,module,exports){
+},{"./Seeker.js":15}],15:[function(require,module,exports){
 module.exports = Seeker;
 
 
@@ -659,7 +736,7 @@ Seeker.prototype.update = function() {
     }
 }
 
-},{"./Enemy.js":10}],15:[function(require,module,exports){
+},{"./Enemy.js":11}],16:[function(require,module,exports){
 module.exports = Gun;
 
 
@@ -730,7 +807,7 @@ Gun.prototype.fire = function(newShot) {
     }
 }
 
-},{"./Bullets/Bullet.js":8,"./Item.js":17}],16:[function(require,module,exports){
+},{"./Bullets/Bullet.js":8,"./Item.js":18}],17:[function(require,module,exports){
 module.exports = Player;
 
 var TEXTURE = 'player';
@@ -879,7 +956,7 @@ Player.prototype.update = function() {
     this.flying = false;
 }
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 // Time in ms before item disappears.
 var LIFESPAN = 5000;
 
@@ -923,7 +1000,7 @@ Item.prototype.reset = function(x, y, health) {
     this.revive(health);
 }
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 var Hydroid = require('./Enemies/Hydroid.js');
 var Enemy = require('./Enemies/Enemy.js');
 var Hex = require('./Enemies/Hex.js');
@@ -933,6 +1010,7 @@ var SeekBoss = require('./Enemies/SeekBoss.js');
 var Gun = require('./Gun.js');
 var Bullet = require('./Bullets/Bullet.js');
 var Gravity = require('./Bullets/Gravity.js');
+var Grenade = require('./Bullets/Grenade.js');
 
 
 module.exports = {
@@ -1023,9 +1101,33 @@ module.exports = {
             clipSize: 1,
         }, Gravity);
     },
+
+    grenade: function(state, data) {
+        return new Gun(state, {
+            x: data.x,
+            y: data.y,
+            texture: 'gun',
+            clips: 1,
+            clipSize: 1,
+        }, Grenade);
+    },
+
+    shotgrenade: function(state, data) {
+        return new Gun(state, {
+            x: data.x,
+            y: data.y,
+            texture: 'gun',
+            rate: 1000,
+            spread: Math.PI/8,
+            accuracy: Math.PI/8,
+            clips: 8,
+            clipSize: 3,
+            speedVar: 0.05,
+        }, Grenade);
+    },
 }
 
-},{"./Buffs/Ears.js":5,"./Buffs/Repel.js":6,"./Buffs/Slomo.js":7,"./Bullets/Bullet.js":8,"./Bullets/Gravity.js":9,"./Enemies/Enemy.js":10,"./Enemies/Hex.js":11,"./Enemies/Hydroid.js":12,"./Enemies/SeekBoss.js":13,"./Enemies/Seeker.js":14,"./Gun.js":15,"./Heroes/Player.js":16}],19:[function(require,module,exports){
+},{"./Buffs/Ears.js":5,"./Buffs/Repel.js":6,"./Buffs/Slomo.js":7,"./Bullets/Bullet.js":8,"./Bullets/Gravity.js":9,"./Bullets/Grenade.js":10,"./Enemies/Enemy.js":11,"./Enemies/Hex.js":12,"./Enemies/Hydroid.js":13,"./Enemies/SeekBoss.js":14,"./Enemies/Seeker.js":15,"./Gun.js":16,"./Heroes/Player.js":17}],20:[function(require,module,exports){
 module.exports = Game;
 
 
@@ -1046,7 +1148,7 @@ function Game(parent) {
     return game;
 }
 
-},{"./boot.js":2,"./level.js":20,"./load.js":21,"./phaserPatch.js":24}],20:[function(require,module,exports){
+},{"./boot.js":2,"./level.js":21,"./load.js":22,"./phaserPatch.js":25}],21:[function(require,module,exports){
 module.exports = Level;
 
 
@@ -1221,7 +1323,7 @@ Level.prototype = {
 }
 
 
-},{"./entities/BrkPlat.js":3,"./entities/entities.js":18}],21:[function(require,module,exports){
+},{"./entities/BrkPlat.js":3,"./entities/entities.js":19}],22:[function(require,module,exports){
 module.exports = (function() {
 
     Load = function() {
@@ -1244,7 +1346,7 @@ module.exports = (function() {
     return Load;
 })();
 
-},{"../assets/assets.json":1}],22:[function(require,module,exports){
+},{"../assets/assets.json":1}],23:[function(require,module,exports){
 module.exports = function(subjects, source, magnitude, range, invert) {
     range = range || 0;
 
@@ -1274,7 +1376,7 @@ module.exports = function(subjects, source, magnitude, range, invert) {
     }
 }
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 module.exports = explode;
 
 
@@ -1292,7 +1394,7 @@ function explode(target, source, radius, damage, blast, blastRadius, invert) {
     dotGravity(target, source, -blast, blastRadius, invert);
 }
 
-},{"./dotGravity.js":22}],24:[function(require,module,exports){
+},{"./dotGravity.js":23}],25:[function(require,module,exports){
 module.exports = function() {
 
     Object.defineProperty(Phaser.Group.prototype, 'alive', {
@@ -1363,5 +1465,5 @@ module.exports = function() {
     }
 }
 
-},{}]},{},[19])(19)
+},{}]},{},[20])(20)
 });

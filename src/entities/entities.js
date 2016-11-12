@@ -7,6 +7,7 @@ var SeekBoss = require('./Enemies/SeekBoss.js');
 var Gun = require('./Gun.js');
 var Bullet = require('./Bullets/Bullet.js');
 var Gravity = require('./Bullets/Gravity.js');
+var Grenade = require('./Bullets/Grenade.js');
 
 
 module.exports = {
@@ -96,5 +97,29 @@ module.exports = {
             clips: 1,
             clipSize: 1,
         }, Gravity);
+    },
+
+    grenade: function(state, data) {
+        return new Gun(state, {
+            x: data.x,
+            y: data.y,
+            texture: 'gun',
+            clips: 1,
+            clipSize: 1,
+        }, Grenade);
+    },
+
+    shotgrenade: function(state, data) {
+        return new Gun(state, {
+            x: data.x,
+            y: data.y,
+            texture: 'gun',
+            rate: 1000,
+            spread: Math.PI/8,
+            accuracy: Math.PI/8,
+            clips: 8,
+            clipSize: 3,
+            speedVar: 0.05,
+        }, Grenade);
     },
 }
