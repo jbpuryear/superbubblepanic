@@ -99,8 +99,10 @@ Player.prototype.shoot = function(isNew) {
 }
 
 
-Player.prototype.die = function() {
-    //TODO: Add death animation.
+Player.prototype.die = function(_, enemy) {
+    if (enemy.sprite && typeof enemy.sprite.damage === 'function') {
+        enemy.sprite.damage(1, this.world.angle(enemy.sprite));
+    }
     this.alive = false;
     this.kill();
 }

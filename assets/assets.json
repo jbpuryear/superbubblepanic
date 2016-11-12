@@ -44,6 +44,28 @@
             "key": "seeker",
             "url": "assets/levels/seeker.json",
             "format": "TILED_JSON"
+        },
+        
+        {
+            "type": "tilemap",
+            "key": "grid",
+            "url": "assets/levels/grid.json",
+            "format": "TILED_JSON"
+        },
+        
+        {
+            "type": "tilemap",
+            "key": "blank",
+            "url": "assets/levels/blank.json",
+            "format": "TILED_JSON"
+        },
+
+        {
+            "type": "tilemap",
+            "key": "placement test",
+            "url": "assets/levels/placement-test.json",
+            "format": "TILED_JSON"
         }
+
     ]
 }

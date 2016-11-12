@@ -59,6 +59,13 @@ module.exports={
             "key": "blank",
             "url": "assets/levels/blank.json",
             "format": "TILED_JSON"
+        },
+
+        {
+            "type": "tilemap",
+            "key": "placement test",
+            "url": "assets/levels/placement-test.json",
+            "format": "TILED_JSON"
         }
 
     ]
@@ -909,8 +916,10 @@ Player.prototype.shoot = function(isNew) {
 }
 
 
-Player.prototype.die = function() {
-    //TODO: Add death animation.
+Player.prototype.die = function(_, enemy) {
+    if (enemy.sprite && typeof enemy.sprite.damage === 'function') {
+        enemy.sprite.damage(1, this.world.angle(enemy.sprite));
+    }
     this.alive = false;
     this.kill();
 }
@@ -1270,8 +1279,8 @@ Level.prototype = {
         var type = data.type;
         var drop = this.parseDrop(data.properties.drop);
         // Tiled uses different coordinates than Phaser.
-        var x = data.x + data.width / 2;
-        var y = data.y + data.height / 2;
+        data.x = data.x + data.width / 2;
+        data.y = data.y + data.height / 2;
         console.log('Creating ' + type + '...');
         if (!this.entities.hasOwnProperty(type)) {
             throw "Failed to read Tiled map, no game object of type '" + type + ".'";

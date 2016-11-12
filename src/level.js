@@ -119,8 +119,8 @@ Level.prototype = {
         var type = data.type;
         var drop = this.parseDrop(data.properties.drop);
         // Tiled uses different coordinates than Phaser.
-        var x = data.x + data.width / 2;
-        var y = data.y + data.height / 2;
+        data.x = data.x + data.width / 2;
+        data.y = data.y + data.height / 2;
         console.log('Creating ' + type + '...');
         if (!this.entities.hasOwnProperty(type)) {
             throw "Failed to read Tiled map, no game object of type '" + type + ".'";
