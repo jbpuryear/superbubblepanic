@@ -8,6 +8,7 @@ var Gun = require('./Gun.js');
 var Bullet = require('./Bullets/Bullet.js');
 var Gravity = require('./Bullets/Gravity.js');
 var Grenade = require('./Bullets/Grenade.js');
+var Bouncy = require('./Bullets/Bouncy');
 
 
 module.exports = {
@@ -121,5 +122,16 @@ module.exports = {
             clipSize: 3,
             speedVar: 0.05,
         }, Grenade);
+    },
+
+    bouncy: function(state, data) {
+        return new Gun(state, {
+            x: data.x,
+            y: data.y,
+            texture: 'gun',
+            rate: 100,
+            clips: 1,
+            clipSize: 3,
+        }, Bouncy);
     },
 }
