@@ -21,6 +21,7 @@ Slomo.prototype.buffProto = {
     rate: 4,
     start: function() {
         var rate = this.rate;
+        this.state.bulletTime /= rate;
         this.state.enemies.recurse(function(enemy) {
             enemy.body.mass *= rate;
             enemy.body.velocity.x /= rate;

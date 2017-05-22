@@ -59,6 +59,7 @@ Level.prototype = {
         });
 
         this.buffs = [];
+        this.bulletTime = 1;
     },
 
     
