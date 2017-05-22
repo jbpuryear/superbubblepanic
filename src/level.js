@@ -126,7 +126,6 @@ Level.prototype = {
         if (!this.entities.hasOwnProperty(type)) {
             throw "Failed to read Tiled map, no game object of type '" + type + ".'";
         }
-        if (data.drop) drop = this.parseDrop(data.drop);
         return new this.entities[type](this, data, drop);
     },
 

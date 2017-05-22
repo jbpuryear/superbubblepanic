@@ -55,7 +55,7 @@
         
         {
             "type": "tilemap",
-            "key": "blank",
+            "key": "_arcade",
             "url": "assets/levels/blank.json",
             "format": "TILED_JSON"
         },
