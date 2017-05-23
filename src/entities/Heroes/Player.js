@@ -14,12 +14,13 @@ var DIE = [20, 21, 22, 23];
 var DIE_RATE = 10;
 
 
-function Player(state, data) {
+function Player(state, data, ctlr) {
     var game = state.game;
     var x = data.x || 0;
     var y = data.y || 0;
     var texture = data.texture || TEXTURE;
     var weapon = state.parseDrop(data.properties.weapon || DEFAULT_WEAPON);
+    this.ctlr = ctlr;
 
     // This three-part sprite shenanigans lets us control
     // whether the gun is rendered above or below the character.
@@ -105,9 +106,13 @@ Player.prototype.shoot = function(isNew) {
     }
     if (didShoot) {
         var direction = this.character.scale.x;
-        this.body.x -= 1 * direction;
-        // TODO: Player should call it's own shoot function.
+        this.body.x -= 3 * direction;
         this.shooting = true;
+        this.weapon.x = -2;
+        this.game.time.events.add(40, function() {
+            this.shooting = false;
+            this.weapon.x = 0;
+        }, this);
     }
 }
 
@@ -122,6 +127,17 @@ Player.prototype.die = function(_, enemy) {
 
 
 Player.prototype.update = function() {
+    // TODO: move all this to the player class.
+    if (this.ctlr.right.isDown) this.goRight(this.speed);
+    if (this.ctlr.left.isDown) this.goLeft(this.speed);
+    if (this.ctlr.up.isDown) this.fly();
+    if (this.ctlr.shoot.isDown) {
+        this.shoot(this.ctlr.isNewClick);
+        this.ctlr.isNewClick = false;
+    } else {
+        this.ctlr.isNewClick = true;
+    }
+
     if (this.standing) {
         this.fuel = Math.min(this.maxFuel, this.fuel + this.game.time.physicsElapsedMS / 2);
         var velx = this.body.velocity.x;
@@ -150,7 +166,6 @@ Player.prototype.update = function() {
     if (this.shooting) {
         this.character.animations.stop();
         this.character.frame = 5;
-        this.game.time.events.add(40, function() { this.shooting = false; }, this);
     } else if (this.flying) {
         this.character.animations.play('fly');
     } else if (!this.standing) {

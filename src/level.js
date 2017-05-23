@@ -53,11 +53,6 @@ Level.prototype = {
             friction: 0
         })
 
-        this.keys = this.input.keyboard.addKeys({
-            'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S,
-            'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D
-        });
-
         this.buffs = [];
         this.bulletTime = 1;
     },
@@ -91,17 +86,6 @@ Level.prototype = {
 
 
     update: function() {
-        // TODO: move all this to the player class.
-        if (this.keys.right.isDown) this.p1.goRight(this.p1.speed);
-        if (this.keys.left.isDown) this.p1.goLeft(this.p1.speed);
-        if (this.keys.up.isDown) this.p1.fly();
-        if (this.input.mousePointer.leftButton.isDown) {
-            this.p1.shoot(this.isNewClick);
-            this.isNewClick = false;
-        } else {
-            this.isNewClick = true;
-        }
-
         for (var i=this.buffs.length-1; i>=0; i--) {
             var buff = this.buffs[i];
             buff.timeLeft -= this.time.elapsed;
@@ -144,8 +128,6 @@ Level.prototype = {
     * array of game entities.
     */
     parseDrop: function(drop) {
-
-        // Someone left the drop field blank in their map.
         if (drop === '') return null;
 
         if (Array.isArray(drop)) return drop.map(this.parseDrop, this);
@@ -170,4 +152,3 @@ Level.prototype = {
         return null;
     }
 }
-

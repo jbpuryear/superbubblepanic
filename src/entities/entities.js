@@ -1,3 +1,4 @@
+var Player = require('./Heroes/Player.js');
 var Hydroid = require('./Enemies/Hydroid.js');
 var Enemy = require('./Enemies/Enemy.js');
 var Hex = require('./Enemies/Hex.js');
@@ -13,7 +14,17 @@ var Bouncy = require('./Bullets/Bouncy');
 
 module.exports = {
 
-    player1: require('./Heroes/Player.js'),
+    player1: function(state, data) {
+        var k = state.input.keyboard;
+        var keys = Phaser.Keyboard;
+        var ctlr = {
+            up: k.addKey(keys.W),
+            left: k.addKey(keys.A),
+            right: k.addKey(keys.D),
+            shoot: state.input.mousePointer.leftButton
+        };
+        return new Player(state, data, ctlr);
+    },
 
 
     // Enemies
