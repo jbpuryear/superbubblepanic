@@ -48,11 +48,11 @@ Gun.prototype.fire = function(newShot) {
     if (this.auto || newShot) {
 
         var now = this.game.time.now;
-        if (now - this.lastShot < this.rate) return;
+        if (now - this.lastShot < this.rate) return false;
 
         var bullets = this.clips.map(function(clip) { return clip.getFirstDead(); });
 
-        if (!bullets.every(function(bullet) { return bullet; })) return;
+        if (!bullets.every(function(bullet) { return bullet; })) return false;
 
         this.lastShot = now;
 
@@ -65,5 +65,7 @@ Gun.prototype.fire = function(newShot) {
             var bulletTheta = theta + (this.spread/this.clips.length *i - this.spread/2) + (Math.random()*2 - 1)*this.accuracy;
             bullet.fire(x, y, bulletTheta, speedBonus);
         }, this);
+        return true;
     }
+    return false;
 }
