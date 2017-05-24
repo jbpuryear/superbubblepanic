@@ -2,8 +2,10 @@ module.exports = Bullet;
 
 
 var SPEED = 300;
+var BODY_RADIUS = 4;
 var TEXTURE = 'bullet';
-
+var FLARE = 0;
+var BULLET = 1;
 
 function Bullet(state, x, y, texture) {
     texture = texture || TEXTURE;
@@ -11,7 +13,7 @@ function Bullet(state, x, y, texture) {
     Phaser.Sprite.prototype.kill.call(this);
 
     state.game.physics.p2.enable(this);
-    this.body.setCircle(this.width/2);
+    this.body.setCircle(BODY_RADIUS);
     this.body.data.gravityScale = 0;
     this.body.collideWorldBounds = false;
     this.body.mass = 1.25;
@@ -38,6 +40,10 @@ Bullet.prototype.hit = function(_, target) {
 
 
 Bullet.prototype.fire = function(x, y, theta, speedBonus) {
+    this.frame = FLARE;
+    this.game.time.events.add(40, function() {
+        this.frame = BULLET;
+    }, this);
     speedBonus = speedBonus || 1;
     var speed = this.speed * speedBonus;
     this.reset(x, y);

@@ -15,9 +15,11 @@
             "frameHeight": 8
         },
         {
-            "type": "image",
+            "type": "spritesheet",
             "key": "bullet",
-            "url": "assets/images/bullet.png"
+            "url": "assets/images/bullet.png",
+            "frameWidth": 16,
+            "frameHeight": 16
         },
         {
             "type": "image",
