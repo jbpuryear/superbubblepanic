@@ -1,7 +1,5 @@
 module.exports = Level
 
-var BrkPlat = require('../entities/BrkPlat.js')
-
 
 function Level() {
     return this
@@ -32,6 +30,7 @@ Level.prototype = {
 
 
     changeTime: function(factor) {
+        if (factor === 0 || isNaN(factor)) return
         console.log('weh')
         this.bulletTime *= factor;
         this.enemies.recurse(function(enemy) {

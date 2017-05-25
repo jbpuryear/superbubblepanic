@@ -1,3 +1,6 @@
+var BrkPlat = require('../entities/BrkPlat.js')
+
+
 module.exports = function create() {
     this.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels)
 
