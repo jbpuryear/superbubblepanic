@@ -21,7 +21,8 @@ module.exports = {
             up: k.addKey(keys.W),
             left: k.addKey(keys.A),
             right: k.addKey(keys.D),
-            shoot: state.input.mousePointer.leftButton
+            shoot: state.input.mousePointer.leftButton,
+            position: state.input.mousePointer.position
         };
         return new Player(state, data, ctlr);
     },

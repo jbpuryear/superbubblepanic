@@ -11,7 +11,10 @@ var FLY_RATE = 100;
 var FALL = [12, 13];
 var FALL_RATE = 10;
 var DIE = [20, 21, 22, 23];
-var DIE_RATE = 10;
+var DIE_RATE = 8;
+
+var LEFT = -1;
+var RIGHT = 1;
 
 
 function Player(state, data, ctlr) {
@@ -20,13 +23,18 @@ function Player(state, data, ctlr) {
     var y = data.y || 0;
     var texture = data.texture || TEXTURE;
     var weapon = state.parseDrop(data.properties.weapon || DEFAULT_WEAPON);
+
+    Phaser.Sprite.call(this, game, x, y);
+
+    this.state = state;
     this.ctlr = ctlr;
+    this.ctlr.enabled = true;
+    this.shooting = false;
+    this.flying = false;
+    this.standing = 0;
 
     // This three-part sprite shenanigans lets us control
     // whether the gun is rendered above or below the character.
-    Phaser.Sprite.call(this, game, x, y);
-
-    // Make our character sprite.
     var character = new Phaser.Sprite(game, 0, 0, texture);
     this.character = character;
     character.anchor.setTo(0.5);
@@ -41,7 +49,6 @@ function Player(state, data, ctlr) {
 
     var groundSensor = this.body.addRectangle(character.width*2/3, 2, 0, character.height/2);
     groundSensor.sensor = true;
-    this.standing = 0;
     this.body.onBeginContact.add(function(){ if(arguments[2] === groundSensor) this.standing++ }, this);
     this.body.onEndContact.add(function(){ if(arguments[2] === groundSensor) this.standing-- }, this);
 
@@ -65,6 +72,25 @@ Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.maxFuel = 2000;
 
 Object.defineProperty(Player.prototype, 'speed', {get: function() {return this.speedBonus * SPEED}});
+
+
+Object.defineProperty(Player.prototype, 'facing', {
+    set: function(dir) {
+        this.character.scale.x = dir;
+        if (this.weapon) {
+            if (dir === LEFT) {
+                this.weapon.scale.y = -1;
+                this.removeChild(this.weapon);
+                this.addChild(this.weapon);
+            } else {
+                this.weapon.scale.y = 1;
+                this.removeChild(this.character);
+                this.addChild(this.character);
+            }
+        }
+    },
+    get: function () { return this.character.scale.x > 0 ? RIGHT : LEFT }
+});
 
 
 Player.prototype.equip = function(weapon) {
@@ -118,15 +144,44 @@ Player.prototype.shoot = function(isNew) {
 
 
 Player.prototype.die = function(_, enemy) {
+    this.state.camera.shake(0.02, 200);
     if (enemy.sprite && typeof enemy.sprite.damage === 'function') {
-        enemy.sprite.damage(1, this.world.angle(enemy.sprite));
+        var theta = this.world.angle(enemy.sprite);
+        enemy.sprite.damage(1, theta);
+        this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? LEFT : RIGHT;
     }
     this.alive = false;
-    this.kill();
+    this.ctlr.enabled = false;
+    this.body.removeCollisionGroup([this.state.enemiesCG, this.state.itemsCG]);
+    this.animations.stop();
+    this.character.animations.play('die', DIE_RATE, false);
+    this.body.velocity.x = -100 * (this.facing === LEFT ? -1 : 1);
+    this.body.velocity.y = -150;
+    if (this.weapon) {
+        var x = this.weapon.world.x;
+        var y = this.weapon.world.y;
+        this.weapon.scale.y = 1;
+        this.state.physics.p2.enableBody(this.weapon);
+        this.game.world.add(this.weapon);
+        this.weapon.reset(x, y);
+        this.weapon.body.angularVelocity = 4;
+        this.weapon.body.velocity.x = 60 * (this.facing === LEFT ? -1 : 1);
+        this.weapon.body.velocity.y = -100;
+    }
 }
 
 
 Player.prototype.update = function() {
+    if (this.standing) {
+        this.fuel = Math.min(this.maxFuel, this.fuel + this.game.time.physicsElapsedMS / 2);
+        var velx = this.body.velocity.x;
+        var friction = velx/20 * this.speedBonus;
+        this.body.velocity.x = velx < 0 ?
+            Math.min(velx - friction, 0) : Math.max(velx - friction, 0);
+    }
+
+    if (!this.ctlr.enabled) return;
+    
     // TODO: move all this to the player class.
     if (this.ctlr.right.isDown) this.goRight(this.speed);
     if (this.ctlr.left.isDown) this.goLeft(this.speed);
@@ -138,30 +193,10 @@ Player.prototype.update = function() {
         this.ctlr.isNewClick = true;
     }
 
-    if (this.standing) {
-        this.fuel = Math.min(this.maxFuel, this.fuel + this.game.time.physicsElapsedMS / 2);
-        var velx = this.body.velocity.x;
-        var friction = velx/20 * this.speedBonus;
-        this.body.velocity.x = velx < 0 ?
-            Math.min(velx - friction, 0) : Math.max(velx - friction, 0);
-    }
-    
     // TODO This should work even if a weapon isn't equipped
-    if (this.weapon) {
-        var theta = Phaser.Point.angle(this.game.input.mousePointer.position, this.position);
-        this.weapon.rotation = theta;
-        if (theta > Math.PI/2 || theta < -Math.PI/2) {
-            this.character.scale.x = -1;
-            this.weapon.scale.y = -1;
-            this.removeChild(this.weapon);
-            this.addChild(this.weapon);
-        } else {
-            this.character.scale.x = 1;
-            this.weapon.scale.y = 1;
-            this.removeChild(this.character);
-            this.addChild(this.character);
-        }
-    }
+    var theta = Phaser.Point.angle(this.ctlr.position, this.position);
+    if (this.weapon) this.weapon.rotation = theta;
+    this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? LEFT : RIGHT;
 
     if (this.shooting) {
         this.character.animations.stop();

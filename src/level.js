@@ -16,6 +16,7 @@ Level.prototype = {
 
 
     init: function(map) {
+        this.mapName = map;
         this.map = this.add.tilemap(map);
         this.physics.p2.updateBoundsCollisionGroup();
         this.physics.p2.setImpactEvents(true);
@@ -55,6 +56,8 @@ Level.prototype = {
 
         this.buffs = [];
         this.bulletTime = 1;
+
+
     },
 
     
@@ -82,6 +85,21 @@ Level.prototype = {
         this.map.objects.object.forEach(this.addEntity, this);
         // TODO Change if we ever have more than one player.
         this.p1 = this.players.getChildAt(0);
+
+        var GOtext = this.make.retroFont('font-small', 8, 8, Phaser.RetroFont.TEXT_SET2);
+        GOtext.text = 'x: retry c: menu';
+        var gameOverScreen = this.make.graphics();
+        gameOverScreen.beginFill(0x000000);
+        gameOverScreen.drawRect(0, 0, this.world.width, this.world.height);
+        gameOverScreen.endFill();
+        this.gameOverScreen = this.make.image(0, 0, gameOverScreen.generateTexture());
+        var t = this.make.image(16, this.world.height-16, GOtext);
+        t.anchor.setTo(0, 1);
+        this.gameOverScreen.addChild(t);
+        this.gameOverScreen.alpha = 0;
+        this.world.addChild(this.gameOverScreen);
+
+        this.world.addChild(this.players);
     },
 
 
@@ -96,6 +114,30 @@ Level.prototype = {
                 this.buffs.splice(i, 1);
             }
         }
+
+        if (!this.p1.alive) { this.gameOver(); }
+    },
+
+
+    gameOver: function() {
+        var self = this;
+        this.input.keyboard.addKey(Phaser.Keyboard.X).onDown.addOnce(function() {
+            self.state.start(self.key, true, false, self.mapName);
+        });
+        this.input.keyboard.addKey(Phaser.Keyboard.C).onDown.addOnce(this.exit.bind(this));
+        this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start();
+        this.time.slowMotion = 6;
+    },
+
+
+    exit: function() {
+        this.state.start('Menu');
+    },
+
+
+    shutdown: function() {
+        this.stage.removeChild(this.gameOverScreen);
+        this.time.slowMotion = 1;
     },
 
 

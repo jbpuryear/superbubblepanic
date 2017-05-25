@@ -23,6 +23,11 @@
         },
         {
             "type": "image",
+            "key": "font-small",
+            "url": "assets/images/font-small.png"
+        },
+        {
+            "type": "image",
             "key": "gun",
             "url": "assets/images/gun.png"
         },
