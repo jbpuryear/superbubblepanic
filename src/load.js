@@ -13,7 +13,7 @@ module.exports = (function() {
         },
 
         create: function() {
-            this.state.start('Level', true, false, 'level1');
+            this.state.start('Arcade', true, false, 'level1');
         }
     }
 

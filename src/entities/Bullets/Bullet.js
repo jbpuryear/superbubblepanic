@@ -1,7 +1,7 @@
 module.exports = Bullet;
 
 
-var SPEED = 300;
+var SPEED = 500;
 var BODY_RADIUS = 4;
 var TEXTURE = 'bullet';
 var FLARE = 0;
@@ -16,7 +16,7 @@ function Bullet(state, x, y, texture) {
     this.body.setCircle(BODY_RADIUS);
     this.body.data.gravityScale = 0;
     this.body.collideWorldBounds = false;
-    this.body.mass = 1.25;
+    this.body.mass = 0.6;
     this.checkWorldBounds = true;
     this.outOfBoundsKill = true;
     this.body.setCollisionGroup(state.bulletsCG);

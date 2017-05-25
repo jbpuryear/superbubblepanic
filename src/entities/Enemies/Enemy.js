@@ -44,11 +44,20 @@ Enemy.prototype.getHit = function(_, bullet) {
 
 
 Enemy.prototype.kill = function() {
-    if (this.drop && typeof this.drop.reset === 'function') {
-        this.drop.reset(this.x, this.y);
-        this.drop = null;
-    }
-    Phaser.Sprite.prototype.kill.call(this);
+    if (this.pendingDoom) return;
+    this.pendingDoom = true;
+    this.game.add.tween(this).to({width: this.width*1.2, height: this.height*1.2, alpha: 0.8}, 60).start()
+        .onComplete.addOnce(function() {
+            if (this.drop && typeof this.drop.reset === 'function') {
+                this.drop.reset(this.x, this.y);
+                this.drop = null;
+            }
+            this.pendingDoom = false;
+            this.height /= 1.2;
+            this.width /= 1.2;
+            this.alpha = 1;
+            Phaser.Sprite.prototype.kill.call(this);
+        }, this);
 }
 
 

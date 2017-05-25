@@ -4,9 +4,25 @@ module.exports = Gun;
 var Item = require('./Item.js');
 var Bullet = require('./Bullets/Bullet.js');
 
+var SHELL = 'shell';
+
 
 function Gun(state, data, BulletClass) {
     Item.call(this, state, data);
+    this.state = state;
+
+    if (!state.shellPool || !state.shellPool.children[0]) {
+        state.shellPool = state.add.group();
+        state.shellPool.physicsBodyType = Phaser.Physics.P2JS;
+        state.shellPool.enableBody = true;
+        state.shellPool.createMultiple(30, SHELL);
+        state.shellPool.forEach(function(shell) {
+            shell.body.setRectangle(4, 2);
+            shell.body.setCollisionGroup(state.shellsCG);
+            shell.body.collides(state.platformsCG);
+        });
+        state.world.addChildAt(state.shellPool, 0);
+    }
 
     this.rate = data.rate || 100;
     this.auto = data.auto || false;
@@ -65,6 +81,16 @@ Gun.prototype.fire = function(newShot) {
             var bulletTheta = theta + (this.spread/this.clips.length *i - this.spread/2) + (Math.random()*2 - 1)*this.accuracy;
             bullet.fire(x, y, bulletTheta, speedBonus);
         }, this);
+
+        var dir = theta > Math.PI/2 || theta < -Math.PI/2 ? -2 : 2;
+        this.game.camera.shake(0.01, 60);
+
+        var shell = this.state.shellPool.getFirstDead() || this.state.shellPool.getRandom();
+        shell.reset(this.world.x, this.world.y);
+        shell.body.angularVelocity = Math.random() * 8;
+        shell.body.velocity.x = (Math.random() * 40 + 20) * -dir;
+        shell.body.velocity.y = -120;
+
         return true;
     }
     return false;

@@ -28,6 +28,11 @@
         },
         {
             "type": "image",
+            "key": "shell",
+            "url": "assets/images/shell.png"
+        },
+        {
+            "type": "image",
             "key": "gun",
             "url": "assets/images/gun.png"
         },

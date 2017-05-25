@@ -4,13 +4,13 @@ var MAX_ENEMY_WIDTH = 100;
 var ENEMIES = [
     {
         type: 'enemy',
-        chance: 10,
+        chance: 6,
         velx: 90,
         vely: 0
     },
     {
         type: 'hex',
-        chance: 5,
+        chance: 4,
         velx: 90,
         vely: 90
     },
@@ -59,6 +59,11 @@ Arcade.prototype.create = function() {
     this.maxTime = 20000;
     this.timer = this.maxTime;
     this.level = 1;
+
+    this.font = this.make.retroFont('font-small', 8, 8, Phaser.RetroFont.TEXT_SET2);
+    this.font.text = '0';
+    this.score = this.add.image(16, 16, this.font);
+    this._score = 0;
 
     this.enemyPools = {};
     var enemyData = {
@@ -116,7 +121,7 @@ Arcade.prototype.spawnEnemy = function() {
     enemy.body.velocity.x = spawnData.velx * this.bulletTime;
     enemy.body.velocity.y = spawnData.vely * this.bulletTime;
 
-    this.maxTime *= 0.98;
+    this.maxTime *= 0.95;
     this.timer = this.maxTime;
     this.level++;
 
@@ -131,6 +136,8 @@ Arcade.prototype.spawnEnemy = function() {
 }
 
 Arcade.prototype.getDrop = function(enemy) {
+    this._score += Math.ceil(enemy.width) * 10;
+    this.font.text = this._score + '';
     if (Math.random() > DROP_CHANCE) { return null; }
 
     var roll = Math.floor(Math.random() * CHANCE_SUM);

@@ -195,7 +195,10 @@ Player.prototype.update = function() {
 
     // TODO This should work even if a weapon isn't equipped
     var theta = Phaser.Point.angle(this.ctlr.position, this.position);
-    if (this.weapon) this.weapon.rotation = theta;
+    if (this.weapon) {
+        this.weapon.y = 0;
+        this.weapon.rotation = theta;
+    }
     this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? LEFT : RIGHT;
 
     if (this.shooting) {
@@ -203,10 +206,14 @@ Player.prototype.update = function() {
         this.character.frame = 5;
     } else if (this.flying) {
         this.character.animations.play('fly');
+        this.weapon.y = 2;
     } else if (!this.standing) {
-        this.body.velocity.y > 30 ?
-            this.character.animations.play('fall') :
+        if (this.body.velocity.y > 30) {
+            this.character.animations.play('fall');
+            this.weapon.y = -2;
+        } else {
             this.character.frame = 12;
+        }
     } else if (Math.abs(this.body.velocity.x) >= this.speed/2) {
         this.character.animations.play('walk');
     } else {

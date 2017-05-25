@@ -16,6 +16,7 @@ Level.prototype = {
 
 
     init: function(map) {
+        this.stage.backgroundColor = 0x313839;
         this.mapName = map;
         this.map = this.add.tilemap(map);
         this.physics.p2.updateBoundsCollisionGroup();
@@ -34,6 +35,7 @@ Level.prototype = {
         this.enemiesCG = this.physics.p2.createCollisionGroup();
         this.platformsCG = this.physics.p2.createCollisionGroup();
         this.bulletsCG = this.physics.p2.createCollisionGroup();
+        this.shellsCG = this.physics.p2.createCollisionGroup();
 
         this.worldMaterial = this.physics.p2.createMaterial('worldMaterial');
         this.physics.p2.setWorldMaterial(this.worldMaterial);
@@ -69,7 +71,7 @@ Level.prototype = {
         plats.forEach(function(platform, i) {
             var data = this.map.objects.platform[i];
             platform.setCollisionGroup(this.platformsCG);
-            platform.collides([this.enemiesCG, this.playersCG, this.itemsCG]);
+            platform.collides([this.enemiesCG, this.playersCG, this.itemsCG, this.shellsCG]);
             if (data.properties && data.properties.breakable) {
                 var drop = this.parseDrop(data.properties.drop);
                 var brkplat = new BrkPlat(this, data, platform, drop);
@@ -87,7 +89,7 @@ Level.prototype = {
         this.p1 = this.players.getChildAt(0);
 
         var GOtext = this.make.retroFont('font-small', 8, 8, Phaser.RetroFont.TEXT_SET2);
-        GOtext.text = 'x: retry c: menu';
+        GOtext.text = 'r: retry x: menu';
         var gameOverScreen = this.make.graphics();
         gameOverScreen.beginFill(0x000000);
         gameOverScreen.drawRect(0, 0, this.world.width, this.world.height);
@@ -121,10 +123,10 @@ Level.prototype = {
 
     gameOver: function() {
         var self = this;
-        this.input.keyboard.addKey(Phaser.Keyboard.X).onDown.addOnce(function() {
+        this.input.keyboard.addKey(Phaser.Keyboard.R).onDown.addOnce(function() {
             self.state.start(self.key, true, false, self.mapName);
         });
-        this.input.keyboard.addKey(Phaser.Keyboard.C).onDown.addOnce(this.exit.bind(this));
+        this.input.keyboard.addKey(Phaser.Keyboard.X).onDown.addOnce(this.exit.bind(this));
         this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start();
         this.time.slowMotion = 6;
     },

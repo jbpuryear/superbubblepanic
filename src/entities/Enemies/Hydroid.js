@@ -16,7 +16,9 @@ function Hydroid(state, data, drop, EnemyClass) {
     }
     i = Math.pow(2, i);
     for (; i>0; i--) this.add(new EnemyClass(state, data));
-    this.callAll('kill');
+    this.setAll('alive', false);
+    this.setAll('exists', false);
+    this.setAll('visible', false);
     this.forEach(function(enemy) {
         enemy.events.onKilled.add(this.onChildDeath, this);
     }, this);

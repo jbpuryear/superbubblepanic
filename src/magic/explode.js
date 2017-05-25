@@ -13,4 +13,5 @@ function explode(target, source, radius, damage, blast, blastRadius, invert) {
         enemy.damage(damage, source.world.angle(enemy));
     });
     dotGravity(target, source, -blast, blastRadius, invert);
+    target.game.camera.shake(0.01, 400);
 }
