@@ -40,6 +40,7 @@ Gun.prototype = Object.create(Item.prototype)
 
 Gun.prototype.pickUp = function(_, playerBody) {
     this.lifespan = 0
+    Item.prototype.pickup.call(this)
     playerBody.sprite.equip(this)
 }
 

@@ -12,11 +12,16 @@ function Item(state, data) {
     if (!texture) console.warn('Creating Item with no texture.');
 
     Phaser.Sprite.call(this, state.game, x, y, texture);
+
+    this.pulse = state.add.tween(this)
+    this.pulse.to({alpha: 0.2}, 60, null, false, this._lifespan - 750, null, true)
+
     state.physics.p2.enable(this);
     this.body.setCollisionGroup(state.itemsCG);
     this.body.collides(state.platformsCG);
     this.body.collides(state.playersCG, this.pickUp, this);
     this.lifespan = this._lifespan;
+
     state.items.add(this);
 }
 
@@ -27,17 +32,18 @@ Item.prototype._lifespan = LIFESPAN;
 
 
 Item.prototype.pickup = function(thisBody, heroBody) {
-    console.warn("This item doesn't do anything when it's picked up.");
+    this.pulse.stop()
+    this.alpha = 1
+    this.body.destroy()
+    this.x = 0
+    this.y = 0
 }
 
-
-Item.prototype.revive = function(health) {
-    Phaser.Sprite.prototype.reset.call(this, this.x, this.y,health);
-    this.lifespan = this._lifespan;
-}
 
 Item.prototype.reset = function(x, y, health) {
+    this.lifespan = this._lifespan
+    this.pulse.start()
     this.x = x;
     this.y = y;
-    this.revive(health);
+    Phaser.Sprite.prototype.reset.call(this, this.x, this.y,health);
 }

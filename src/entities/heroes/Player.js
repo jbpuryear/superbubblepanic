@@ -53,7 +53,6 @@ function Player(state, data, ctlr) {
     this.body.onEndContact.add(function(){ if(arguments[2] === groundSensor) this.standing-- }, this);
 
     this.addChild(character);
-    this.equip(weapon);
 
     this.fuel = this.maxFuel;
     this.speedBonus = 1;
@@ -63,6 +62,8 @@ function Player(state, data, ctlr) {
     this.body.collides(state.enemiesCG, this.die, this);
     this.body.collides([state.itemsCG, state.platformsCG]);
 
+    weapon.exists = true
+    weapon.pickUp(null, this.body)
     state.players.add(this);
 }
 
@@ -95,12 +96,9 @@ Object.defineProperty(Player.prototype, 'facing', {
 
 Player.prototype.equip = function(weapon) {
     if (this.weapon instanceof Phaser.Sprite) this.weapon.destroy();
-    if (weapon.body) weapon.body.destroy();
     weapon.anchor.setTo(0, 0.5);
     // abs because character is flipped by setting scale to -1.
     weapon.pivot.setTo(-Math.abs(this.character.width/8), 0);
-    weapon.reset(0, 0);
-    weapon.lifespan = 0;
     this.weapon = weapon;
     this.addChild(weapon);
 }
