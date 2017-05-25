@@ -1,15 +1,15 @@
-var Player = require('./Heroes/Player.js');
-var Hydroid = require('./Enemies/Hydroid.js');
-var Enemy = require('./Enemies/Enemy.js');
-var Hex = require('./Enemies/Hex.js');
-var Seeker = require('./Enemies/Seeker.js');
-var SeekBoss = require('./Enemies/SeekBoss.js');
+var Player = require('./heroes/Player.js');
+var Hydroid = require('./enemies/Hydroid.js');
+var Enemy = require('./enemies/Enemy.js');
+var Hex = require('./enemies/Hex.js');
+var Seeker = require('./enemies/Seeker.js');
+var SeekBoss = require('./enemies/SeekBoss.js');
 
 var Gun = require('./Gun.js');
-var Bullet = require('./Bullets/Bullet.js');
-var Gravity = require('./Bullets/Gravity.js');
-var Grenade = require('./Bullets/Grenade.js');
-var Bouncy = require('./Bullets/Bouncy');
+var Bullet = require('./bullets/Bullet.js');
+var Gravity = require('./bullets/Gravity.js');
+var Grenade = require('./bullets/Grenade.js');
+var Bouncy = require('./bullets/Bouncy');
 
 
 module.exports = {
@@ -45,9 +45,9 @@ module.exports = {
 
 
     // Buffs
-    repel: require('./Buffs/Repel.js'),
-    slomo: require('./Buffs/Slomo.js'),
-    ears: require('./Buffs/Ears.js'),
+    repel: require('./buffs/Repel.js'),
+    slomo: require('./buffs/Slomo.js'),
+    ears: require('./buffs/Ears.js'),
 
 
     // Guns

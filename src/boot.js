@@ -1,23 +1,23 @@
-module.exports = (function() {
-    Boot = function() {
-        return this;
-    };
+module.exports = Boot
 
-    Boot.prototype = {
-        init: function() {
-            this.game.scale.pageAlignHorizontally = true;
-            this.game.scale.pageAlignVertically = true;
-            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
-            this.game.physics.startSystem(Phaser.Physics.P2JS);
 
-            this.game.camera.bounds = null;
-        },
+function Boot() {
+    return this
+}
 
-        create: function() {
-            this.state.start('Load');
-        }
+
+Boot.prototype = {
+    init: function() {
+        this.game.scale.pageAlignHorizontally = true
+        this.game.scale.pageAlignVertically = true
+        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+        Phaser.Canvas.setImageRenderingCrisp(this.game.canvas)
+        this.game.physics.startSystem(Phaser.Physics.P2JS)
+
+        this.game.camera.bounds = null
+    },
+
+    create: function() {
+        this.state.start('Load')
     }
-
-    return Boot;
-})();
+}

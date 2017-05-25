@@ -5,6 +5,7 @@ module.exports = Item;
 
 
 function Item(state, data) {
+    this.state = state;
     var x = data.x || 0;
     var y = data.y || 0;
     var texture = data.texture;

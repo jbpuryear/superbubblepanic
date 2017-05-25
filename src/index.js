@@ -3,7 +3,7 @@ module.exports = Game;
 
 var Boot = require('./boot.js');
 var Load = require('./load.js');
-var Level = require('./level.js');
+var Level = require('./level/Level.js');
 var Arcade = require('./arcade.js');
 
 

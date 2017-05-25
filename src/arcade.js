@@ -39,8 +39,8 @@ var DROPS = [
 var DROP_CHANCE = 0.05;
 var CHANCE_SUM = DROPS.reduce(function(sum, item) { return sum + item.chance; }, 0);
 
-var Level = require('./level.js');
-var Hydroid = require('./entities/Enemies/Hydroid.js');
+var Level = require('./level/Level.js');
+var Hydroid = require('./entities/enemies/Hydroid.js');
 
 function Arcade() {
     return Level.call(this);
