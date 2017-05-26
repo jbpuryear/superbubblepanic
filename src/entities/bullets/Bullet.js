@@ -33,7 +33,7 @@ Bullet.prototype.speed = SPEED;
 Bullet.prototype.hit = function(_, target) {
     this.kill();
     if (target.sprite) {
-        var theta = Math.atan2(this.body.velocity.y, this.body.velocity.x);
+        var theta = this.body.rotation;
         target.sprite.damage(this.attack, theta);
     }
 }

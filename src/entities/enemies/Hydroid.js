@@ -40,10 +40,6 @@ Hydroid.prototype.spawn = function(x, y, width, velx, vely, drop) {
 
 
 Hydroid.prototype.onChildDeath = function(enemy) {
-    var width = enemy.width / 2;
-    var x = enemy.x;
-    var y = enemy.y;
-
     var drop = enemy.drop;
     enemy.drop = null;
     var dropL = null, dropR = null;
@@ -56,10 +52,18 @@ Hydroid.prototype.onChildDeath = function(enemy) {
         drop.reset(x, y);
     }
 
+    var width = enemy.width / 2;
+    var x = enemy.x;
+    var y = enemy.y;
     var vx = enemy.body.velocity.x;
     var vy = enemy.body.velocity.y;
-    // TODO: See Enemy.prototype.getHit.
-    var theta = enemy.killTheta;
+    var theta;
+
+    // TODO: This switch is weird and is gonna cause problems. 
+    enemy.body.data.gravityScale === 0 ?
+        theta = Math.atan2(vy, vx) :
+        theta = enemy.killTheta;
+
     var mag = Math.sqrt( vx*vx + vy*vy );
     var xOff = Math.cos(theta + Math.PI/2) * width/2;
     var yOff = Math.sin(theta + Math.PI/2) * width/2;
