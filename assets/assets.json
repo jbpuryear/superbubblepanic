@@ -2,6 +2,13 @@
     "images": [
         {
             "type": "spritesheet",
+            "key": "bullet",
+            "url": "assets/images/bullet.png",
+            "frameWidth": 16,
+            "frameHeight": 16
+        },
+        {
+            "type": "spritesheet",
             "key": "player",
             "url": "assets/images/player.png",
             "frameWidth": 16,
@@ -15,11 +22,9 @@
             "frameHeight": 8
         },
         {
-            "type": "spritesheet",
-            "key": "bullet",
-            "url": "assets/images/bullet.png",
-            "frameWidth": 16,
-            "frameHeight": 16
+            "type": "image",
+            "key": "enemy",
+            "url": "assets/images/enemy.png"
         },
         {
             "type": "image",
@@ -28,8 +33,8 @@
         },
         {
             "type": "image",
-            "key": "shell",
-            "url": "assets/images/shell.png"
+            "key": "gravgun",
+            "url": "assets/images/gravgun.png"
         },
         {
             "type": "image",
@@ -38,8 +43,38 @@
         },
         {
             "type": "image",
-            "key": "enemy",
-            "url": "assets/images/enemy.png"
+            "key": "hex",
+            "url": "assets/images/hex.png"
+        },
+        {
+            "type": "image",
+            "key": "repel",
+            "url": "assets/images/repel.png"
+        },
+        {
+            "type": "image",
+            "key": "shell",
+            "url": "assets/images/shell.png"
+        },
+        {
+            "type": "image",
+            "key": "shoes",
+            "url": "assets/images/shoes.png"
+        },
+        {
+            "type": "image",
+            "key": "shotgun",
+            "url": "assets/images/shotgun.png"
+        },
+        {
+            "type": "image",
+            "key": "slomo",
+            "url": "assets/images/slomo.png"
+        },
+        {
+            "type": "image",
+            "key": "smg",
+            "url": "assets/images/smg.png"
         }
     ],
     

@@ -78,7 +78,7 @@ module.exports = {
         return new Gun(state, {
             x: data.x,
             y: data.y,
-            texture: 'gun',
+            texture: 'shotgun',
             rate: 300,
             spread: Math.PI/8,
             accuracy: Math.PI/8,
@@ -92,7 +92,7 @@ module.exports = {
         return new Gun(state, {
             x: data.x,
             y: data.y,
-            texture: 'gun',
+            texture: 'smg',
             auto: true,
             rate: 100,
             accuracy: Math.PI/16,
@@ -106,7 +106,7 @@ module.exports = {
         return new Gun(state, {
             x: data.x,
             y: data.y,
-            texture: 'gun',
+            texture: 'gravgun',
             clips: 1,
             clipSize: 1,
         }, Gravity);

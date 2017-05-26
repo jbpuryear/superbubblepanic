@@ -5,7 +5,7 @@ var Buff = require('./Buff.js');
 var dotGravity =  require('../../magic/dotGravity.js');
 
 
-var TEXTURE = 'gun';
+var TEXTURE = 'repel';
 
 
 function Repel(state, data) {

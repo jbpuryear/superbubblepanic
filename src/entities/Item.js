@@ -14,7 +14,7 @@ function Item(state, data) {
     Phaser.Sprite.call(this, state.game, x, y, texture);
 
     this.pulse = state.add.tween(this)
-    this.pulse.to({alpha: 0.2}, 60, null, false, this._lifespan - 750, null, true)
+    this.pulse.to({alpha: 0.2}, 100, null, false, this._lifespan - 750, null, true)
 
     state.physics.p2.enable(this);
     this.body.setCollisionGroup(state.itemsCG);

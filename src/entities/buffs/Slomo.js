@@ -4,7 +4,7 @@ module.exports = Slomo;
 var Buff = require('./Buff.js');
 
 
-var TEXTURE = 'gun';
+var TEXTURE = 'slomo';
 
 
 function Slomo(state, data) {
