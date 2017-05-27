@@ -14,6 +14,8 @@ function Gun(state, data, BulletClass) {
     this.accuracy = data.accuracy || 0
     this.speedMul = data.speedMul || 1
     this.speedVar = data.speedVar || 0
+    this.shotSound = state.add.sound(data.sound || 'gunshot')
+
 
     this.clips = []
     this.lastShot = 0
@@ -70,8 +72,8 @@ Gun.prototype.fire = function(newShot) {
         var dir = theta > Math.PI/2 || theta < -Math.PI/2 ? 2 : -2
         this.state.throwShell(this.world.x, this.world.y, dir)
 
-        this.game.camera.shake(0.01, 60)
-
+        this.state.playSound(this.shotSound, 400)
+        this.game.camera.shake(0.015, 70)
         return true
     }
     return false

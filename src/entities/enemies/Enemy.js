@@ -8,6 +8,7 @@ var MAX_HEALTH = 1;
 function Enemy(state, data, drop) {
     data.texture = data.texture || TEXTURE;
     Phaser.Sprite.call(this, state.game, data.x, data.y, data.texture);
+    this.state = state;
     state.physics.p2.enable(this);
     state.enemies.add(this);
     this._circle = this.body.setCircle(1);
@@ -46,7 +47,9 @@ Enemy.prototype.getHit = function(_, bullet) {
 Enemy.prototype.kill = function() {
     if (this.pendingDoom) return;
     this.pendingDoom = true;
-    this.game.add.tween(this).to({width: this.width*1.2, height: this.height*1.2, alpha: 0.8}, 60).start()
+    this.game.add.tween(this)
+        .to({width: this.width*1.2, height: this.height*1.2, alpha: 0.8}, 60)
+        .start()
         .onComplete.addOnce(function() {
             if (this.drop && typeof this.drop.reset === 'function') {
                 this.drop.reset(this.x, this.y);

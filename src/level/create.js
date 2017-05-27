@@ -7,15 +7,6 @@ module.exports = function create() {
     makeMap(this)
     makeGameOverScreen(this)
 
-    this.shellPool.physicsBodyType = Phaser.Physics.P2JS
-    this.shellPool.enableBody = true
-    this.shellPool.createMultiple(40, 'shell')
-    this.shellPool.forEach(function(shell) {
-        shell.body.setRectangle(4, 2)
-        shell.body.setCollisionGroup(this.shellsCG)
-        shell.body.collides(this.platformsCG)
-    }, this)
-
     // TODO Change if we ever have more than one player.
     this.p1 = this.players.getChildAt(0)
     this.world.addChild(this.players)
@@ -39,16 +30,31 @@ function makeGameOverScreen(state) {
 
     state.gameOverScreen.addChild(t)
     state.gameOverScreen.alpha = 0
+    state.gameOverScreen.exists = false
     state.world.addChild(state.gameOverScreen)
 }
 
 
 function makeMap(state) {
+    if (state.map.properties && state.map.properties.bgImage) {
+        var bg = state.add.image( state.world.width/2, state.world.height/2,
+            state.map.properties.bgImage)
+        var wWidth = state.world.width
+        var wHeight = state.world.height
+        bg.anchor.setTo(0.5)
+        bg.x = wWidth/2
+        bg.y = wHeight/2
+        var scale = Math.max(wWidth/bg.width, wHeight/bg.height)
+        bg.width *= scale
+        bg.height *= scale
+    }
     state.map.addTilesetImage('tiles', 'tiles', 8, 8)
     state.map.createLayer('background')
 
     var plats = state.physics.p2
         .convertCollisionObjects(state.map, 'platform', true)
+    
+    populate(state)
 
     plats.forEach(function(platform, i) {
         var data = state.map.objects.platform[i]
@@ -71,6 +77,24 @@ function makeMap(state) {
 
         platform.setMaterial(state.platformMaterial)
     }, state)
+}
 
+
+function populate(state) {
+    state.shellPool = state.add.group()
+    state.items = state.add.group()
+    state.players = state.add.group()
+    state.enemies = state.add.group()
+    state.platforms = state.add.group()
+
+    state.shellPool.physicsBodyType = Phaser.Physics.P2JS
+    state.shellPool.enableBody = true
+    state.shellPool.createMultiple(30, 'shell')
+    state.shellPool.forEach(function(shell) {
+        shell.body.setRectangle(4, 2)
+        shell.body.setCollisionGroup(state.shellsCG)
+        shell.body.collides(state.platformsCG)
+    }, state)
+    
     state.map.objects.object.forEach(state.addEntity, state)
 }

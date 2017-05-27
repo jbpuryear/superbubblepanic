@@ -80,6 +80,14 @@
         }],
  "nextobjectid":287,
  "orientation":"orthogonal",
+ "properties":
+    {
+     "bgImage":"city"
+    },
+ "propertytypes":
+    {
+     "bgImage":"string"
+    },
  "renderorder":"right-down",
  "tileheight":8,
  "tilesets":[

@@ -1,6 +1,30 @@
 {
     "images": [
         {
+            "type": "audio",
+            "key": "gunshot",
+            "urls": ["assets/audio/pistol.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "hit",
+            "urls": ["assets/audio/hit.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "shotgun",
+            "urls": ["assets/audio/shotgun.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "step",
+            "urls": ["assets/audio/step.ogg"],
+            "autoDecode": true
+	},
+        {
             "type": "spritesheet",
             "key": "bullet",
             "url": "assets/images/bullet.png",
@@ -20,6 +44,11 @@
             "url": "assets/images/tiles.png",
             "frameWidth": 8,
             "frameHeight": 8
+        },
+        {
+            "type": "image",
+            "key": "city",
+            "url": "assets/images/city.png"
         },
         {
             "type": "image",

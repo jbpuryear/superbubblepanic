@@ -79,12 +79,13 @@ module.exports = {
             x: data.x,
             y: data.y,
             texture: 'shotgun',
-            rate: 300,
+            rate: 1000,
             spread: Math.PI/8,
             accuracy: Math.PI/8,
             clips: 8,
             clipSize: 3,
             speedVar: 0.05,
+            sound: 'shotgun'
         }, Bullet);
     },
 

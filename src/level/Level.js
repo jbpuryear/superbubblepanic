@@ -53,7 +53,18 @@ Level.prototype = {
         })
         this.input.keyboard.addKey(Phaser.Keyboard.X).onDown.addOnce(this.exit.bind(this))
         this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
+        this.gameOverScreen.exists = true
         this.time.slowMotion = 6
+    },
+
+
+    playSound: function(sound, randomize) {
+        sound.play()
+        if (sound._sound && sound.usingWebAudio)
+            sound._sound.playbackRate.value = this.bulletTime
+            if (randomize)
+                sound._sound.detune.value = Math.random() * -randomize
+        return sound
     },
 
 

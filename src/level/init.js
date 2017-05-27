@@ -4,12 +4,6 @@ module.exports = function init(map) {
     this.map = this.add.tilemap(map)
     this.mapName = map
 
-    this.shellPool = this.add.group()
-    this.items = this.add.group()
-    this.players = this.add.group()
-    this.enemies = this.add.group()
-    this.platforms = this.add.group()
-    
     this.stage.backgroundColor = 0x313839
     setPhysics(this)
 }

@@ -32,6 +32,11 @@ function Player(state, data, ctlr) {
     this.shooting = false;
     this.flying = false;
     this.standing = 0;
+    this.lastStep = 0;
+    this.sounds = {
+        step: state.add.sound('step'),
+        hit: state.add.sound('hit')
+    };
 
     // This three-part sprite shenanigans lets us control
     // whether the gun is rendered above or below the character.
@@ -142,6 +147,7 @@ Player.prototype.shoot = function(isNew) {
 
 
 Player.prototype.die = function(_, enemy) {
+    this.state.playSound(this.sounds.hit)
     this.state.camera.shake(0.02, 200);
     if (enemy.sprite && typeof enemy.sprite.damage === 'function') {
         var theta = this.world.angle(enemy.sprite);
@@ -214,6 +220,10 @@ Player.prototype.update = function() {
         }
     } else if (Math.abs(this.body.velocity.x) >= this.speed/2) {
         this.character.animations.play('walk');
+        if (this.lastStep < this.state.time.now - 200) {
+            this.state.playSound(this.sounds.step, 200)
+            this.lastStep = this.state.time.now
+        }
     } else {
         this.character.animations.stop();
         this.character.frame = 0;
