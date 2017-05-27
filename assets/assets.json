@@ -33,6 +33,27 @@
         },
         {
             "type": "spritesheet",
+            "key": "dust",
+            "url": "assets/images/dust.png",
+            "frameWidth": 4,
+            "frameHeight": 4
+        },
+        {
+            "type": "spritesheet",
+            "key": "flame",
+            "url": "assets/images/flame.png",
+            "frameWidth": 4,
+            "frameHeight": 4
+        },
+        {
+            "type": "spritesheet",
+            "key": "frag",
+            "url": "assets/images/frag.png",
+            "frameWidth": 4,
+            "frameHeight": 4
+        },
+        {
+            "type": "spritesheet",
             "key": "player",
             "url": "assets/images/player.png",
             "frameWidth": 16,

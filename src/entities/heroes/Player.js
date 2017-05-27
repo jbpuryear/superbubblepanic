@@ -33,10 +33,31 @@ function Player(state, data, ctlr) {
     this.flying = false;
     this.standing = 0;
     this.lastStep = 0;
+    this.wasStanding = true;
     this.sounds = {
         step: state.add.sound('step'),
         hit: state.add.sound('hit')
     };
+    this.fx = {
+        dust: state.add.emitter(0, 0, 10),
+        flame: state.add.emitter(0, 0, 30)
+    };
+
+    this.fx.dust.makeParticles('dust', [0, 1, 2, 3]);
+    this.fx.dust.setScale(0.5, 2, 0.5, 2, 400);
+    this.fx.dust.setRotation(0);
+    this.fx.dust.setXSpeed(-100, 100);
+    this.fx.dust.setYSpeed(-20, -80);
+    this.fx.dust.setAlpha(1, 0.2, 400);
+    this.fx.dust.setScale(0.25, 1, 0.25, 1, 200);
+
+    this.fx.flame.makeParticles('flame', [0, 1, 2, 3]);
+    this.fx.flame.setScale(0.25, 1, 0.25, 1, 200);
+    this.fx.flame.setAlpha(1, 0.2, 400);
+    this.fx.flame.setRotation(0);
+    this.fx.flame.setXSpeed(-40, 40);
+    this.fx.flame.setYSpeed(60, 80);
+    this.fx.flame.lifespan = 400;
 
     // This three-part sprite shenanigans lets us control
     // whether the gun is rendered above or below the character.
@@ -124,6 +145,9 @@ Player.prototype.fly = function() {
         this.body.thrust(this.game.physics.p2.gravity.y * 2.5 * this.speedBonus);
         this.fuel = Math.max(this.fuel - this.game.time.physicsElapsedMS, 0);
         this.flying = true;
+        this.fx.flame.x = this.x;
+        this.fx.flame.y = this.y;
+        this.fx.flame.emitParticle();
     }
 }
 
@@ -176,13 +200,47 @@ Player.prototype.die = function(_, enemy) {
 
 
 Player.prototype.update = function() {
-    if (this.standing) {
+    // TODO: Time to make this a state machine.
+    var standing = this.standing;
+    if (standing) {
         this.fuel = Math.min(this.maxFuel, this.fuel + this.game.time.physicsElapsedMS / 2);
         var velx = this.body.velocity.x;
         var friction = velx/20 * this.speedBonus;
         this.body.velocity.x = velx < 0 ?
             Math.min(velx - friction, 0) : Math.max(velx - friction, 0);
     }
+
+    if (!this.alive) return;
+
+    if (this.shooting) {
+        this.character.animations.stop();
+        this.character.frame = 5;
+    } else if (this.flying) {
+        this.character.animations.play('fly');
+        this.weapon.y = 2;
+    } else if (!standing) {
+        if (this.body.velocity.y > 30) {
+            this.character.animations.play('fall');
+            this.weapon.y = -2;
+        } else {
+            this.character.frame = 12;
+        }
+    } else if (!this.wasStanding) {
+        this.fx.dust.x = this.x;
+        this.fx.dust.y = this.y + this.character.height/2;
+        this.fx.dust.explode(100, 6);
+    } else if (Math.abs(this.body.velocity.x) >= this.speed/2) {
+        this.character.animations.play('walk');
+        if (this.lastStep < this.state.time.now - 200) {
+            this.state.playSound(this.sounds.step, 200)
+            this.lastStep = this.state.time.now
+        }
+    } else {
+        this.character.animations.stop();
+        this.character.frame = 0;
+    }
+    this.flying = false;
+    this.wasStanding = standing;
 
     if (!this.ctlr.enabled) return;
     
@@ -204,29 +262,4 @@ Player.prototype.update = function() {
         this.weapon.rotation = theta;
     }
     this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? LEFT : RIGHT;
-
-    if (this.shooting) {
-        this.character.animations.stop();
-        this.character.frame = 5;
-    } else if (this.flying) {
-        this.character.animations.play('fly');
-        this.weapon.y = 2;
-    } else if (!this.standing) {
-        if (this.body.velocity.y > 30) {
-            this.character.animations.play('fall');
-            this.weapon.y = -2;
-        } else {
-            this.character.frame = 12;
-        }
-    } else if (Math.abs(this.body.velocity.x) >= this.speed/2) {
-        this.character.animations.play('walk');
-        if (this.lastStep < this.state.time.now - 200) {
-            this.state.playSound(this.sounds.step, 200)
-            this.lastStep = this.state.time.now
-        }
-    } else {
-        this.character.animations.stop();
-        this.character.frame = 0;
-    }
-    this.flying = false;
 }

@@ -12,6 +12,8 @@ function Bullet(state, x, y, texture) {
     Phaser.Sprite.call(this, state.game, x, y, texture);
     Phaser.Sprite.prototype.kill.call(this);
 
+    this.state = state;
+
     state.game.physics.p2.enable(this);
     this.body.setCircle(BODY_RADIUS);
     this.body.data.gravityScale = 0;
@@ -32,6 +34,9 @@ Bullet.prototype.speed = SPEED;
 
 Bullet.prototype.hit = function(_, target) {
     this.kill();
+    this.state.frag.x = this.x;
+    this.state.frag.y = this.y;
+    this.state.frag.explode(40, 5);
     if (target.sprite) {
         var theta = this.body.rotation;
         target.sprite.damage(this.attack, theta);

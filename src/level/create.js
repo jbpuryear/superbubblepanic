@@ -4,6 +4,9 @@ var BrkPlat = require('../entities/BrkPlat.js')
 module.exports = function create() {
     this.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels)
 
+    if (this.map.properties && this.map.properties.bgImage) 
+        paintBackground(this)
+    makeParticles(this)
     makeMap(this)
     makeGameOverScreen(this)
 
@@ -35,27 +38,26 @@ function makeGameOverScreen(state) {
 }
 
 
-function makeMap(state) {
-    if (state.map.properties && state.map.properties.bgImage) {
-        var bg = state.add.image( state.world.width/2, state.world.height/2,
-            state.map.properties.bgImage)
-        var wWidth = state.world.width
-        var wHeight = state.world.height
-        bg.anchor.setTo(0.5)
-        bg.x = wWidth/2
-        bg.y = wHeight/2
-        var scale = Math.max(wWidth/bg.width, wHeight/bg.height)
-        bg.width *= scale
-        bg.height *= scale
-    }
-    state.map.addTilesetImage('tiles', 'tiles', 8, 8)
-    state.map.createLayer('background')
+function paintBackground(state) {
+    var bg = state.add.image( state.world.width/2, state.world.height/2,
+        state.map.properties.bgImage)
+    var wWidth = state.world.width
+    var wHeight = state.world.height
+    bg.anchor.setTo(0.5)
+    bg.x = wWidth/2
+    bg.y = wHeight/2
+    var scale = Math.max(wWidth/bg.width, wHeight/bg.height)
+    bg.width *= scale
+    bg.height *= scale
+}
 
+
+function makeMap(state) {
+    state.map.addTilesetImage('tiles', 'tiles', 8, 8)
     var plats = state.physics.p2
         .convertCollisionObjects(state.map, 'platform', true)
     
-    populate(state)
-
+    state.map.createLayer('background')
     plats.forEach(function(platform, i) {
         var data = state.map.objects.platform[i]
 
@@ -77,10 +79,12 @@ function makeMap(state) {
 
         platform.setMaterial(state.platformMaterial)
     }, state)
+
+    state.map.objects.object.forEach(state.addEntity, state)
 }
 
 
-function populate(state) {
+function makeParticles(state) {
     state.shellPool = state.add.group()
     state.items = state.add.group()
     state.players = state.add.group()
@@ -95,6 +99,14 @@ function populate(state) {
         shell.body.setCollisionGroup(state.shellsCG)
         shell.body.collides(state.platformsCG)
     }, state)
-    
-    state.map.objects.object.forEach(state.addEntity, state)
+
+    state.frag = state.add.emitter(0, 0, 100)
+    state.frag.makeParticles('flame', [0, 1, 2, 3])
+    state.frag.setScale(0.5, 1, 0.5, 1.)
+    state.frag.setRotation(0, 0)
+    state.frag.gravity = 0
+    state.frag.setXSpeed(-400, 400)
+    state.frag.setYSpeed(-400, 400)
+    state.frag.setAlpha(1, 0.2, 400)
+    state.frag.lifespan = 200
 }
