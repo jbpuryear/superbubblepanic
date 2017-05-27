@@ -13,6 +13,7 @@ module.exports = function create() {
     // TODO Change if we ever have more than one player.
     this.p1 = this.players.getChildAt(0)
     this.world.addChild(this.players)
+    console.log(this.sound._sounds)
 }
 
 
