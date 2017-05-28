@@ -35,8 +35,10 @@ function Player(state, data, ctlr) {
     this.lastStep = 0;
     this.wasStanding = true;
     this.sounds = {
-        step: state.add.sound('step'),
-        hit: state.add.sound('hit')
+        death: state.add.sound('death'),
+        jetpack: state.add.sound('jetpack'),
+        land: state.add.sound('land'),
+        step: state.add.sound('step')
     };
     this.fx = {
         dust: state.add.emitter(0, 0, 10),
@@ -142,6 +144,7 @@ Player.prototype.goRight = function() {
 
 Player.prototype.fly = function() {
     if (this.fuel > 0) {
+        if (!this.sounds.jetpack.isPlaying) this.state.playSound(this.sounds.jetpack);
         this.body.thrust(this.game.physics.p2.gravity.y * 2.5 * this.speedBonus);
         this.fuel = Math.max(this.fuel - this.game.time.physicsElapsedMS, 0);
         this.flying = true;
@@ -171,7 +174,7 @@ Player.prototype.shoot = function(isNew) {
 
 
 Player.prototype.die = function(_, enemy) {
-    this.state.playSound(this.sounds.hit)
+    this.state.playSound(this.sounds.death)
     this.state.camera.shake(0.02, 200);
     if (enemy.sprite && typeof enemy.sprite.damage === 'function') {
         var theta = this.world.angle(enemy.sprite);
@@ -202,6 +205,7 @@ Player.prototype.die = function(_, enemy) {
 Player.prototype.update = function() {
     // TODO: Time to make this a state machine.
     var standing = this.standing;
+    console.log(standing, this.standing)
     if (standing) {
         this.fuel = Math.min(this.maxFuel, this.fuel + this.game.time.physicsElapsedMS / 2);
         var velx = this.body.velocity.x;
@@ -210,9 +214,10 @@ Player.prototype.update = function() {
             Math.min(velx - friction, 0) : Math.max(velx - friction, 0);
     }
 
-    if (!this.alive) return;
+    if (!this.flying) this.sounds.jetpack.stop();
 
-    if (this.shooting) {
+    if (!this.alive) {
+    } else if (this.shooting) {
         this.character.animations.stop();
         this.character.frame = 5;
     } else if (this.flying) {
@@ -226,6 +231,7 @@ Player.prototype.update = function() {
             this.character.frame = 12;
         }
     } else if (!this.wasStanding) {
+        this.state.playSound(this.sounds.land);
         this.fx.dust.x = this.x;
         this.fx.dust.y = this.y + this.character.height/2;
         this.fx.dust.explode(100, 6);

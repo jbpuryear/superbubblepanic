@@ -13,7 +13,6 @@ module.exports = function create() {
     // TODO Change if we ever have more than one player.
     this.p1 = this.players.getChildAt(0)
     this.world.addChild(this.players)
-    console.log(this.sound._sounds)
 }
 
 
@@ -87,9 +86,9 @@ function makeMap(state) {
 
 function makeParticles(state) {
     state.shellPool = state.add.group()
-    state.items = state.add.group()
     state.players = state.add.group()
     state.enemies = state.add.group()
+    state.items = state.add.group()
     state.platforms = state.add.group()
 
     state.shellPool.physicsBodyType = Phaser.Physics.P2JS

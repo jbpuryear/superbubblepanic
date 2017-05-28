@@ -2,6 +2,12 @@
     "images": [
         {
             "type": "audio",
+            "key": "death",
+            "urls": ["assets/audio/death.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "gunshot",
             "urls": ["assets/audio/pistol.ogg"],
             "autoDecode": true
@@ -10,6 +16,30 @@
             "type": "audio",
             "key": "hit",
             "urls": ["assets/audio/hit.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "jetpack",
+            "urls": ["assets/audio/jetpack.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "land",
+            "urls": ["assets/audio/land.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "pop",
+            "urls": ["assets/audio/pop.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "reload",
+            "urls": ["assets/audio/reload.ogg"],
             "autoDecode": true
 	},
         {
