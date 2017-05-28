@@ -2,6 +2,12 @@
     "images": [
         {
             "type": "audio",
+            "key": "clock",
+            "urls": ["assets/audio/clock.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "death",
             "urls": ["assets/audio/death.ogg"],
             "autoDecode": true
@@ -44,8 +50,26 @@
 	},
         {
             "type": "audio",
+            "key": "shoe-pickup",
+            "urls": ["assets/audio/shoe-pickup.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "shotgun",
             "urls": ["assets/audio/shotgun.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "speedup",
+            "urls": ["assets/audio/speedup.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "slowdown",
+            "urls": ["assets/audio/slowdown.ogg"],
             "autoDecode": true
 	},
         {
