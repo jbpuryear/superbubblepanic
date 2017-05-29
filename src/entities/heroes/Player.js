@@ -91,7 +91,7 @@ function Player(state, data, ctlr) {
     this.body.collides([state.itemsCG, state.platformsCG]);
 
     weapon.exists = true
-    weapon.pickUp(null, this.body)
+    weapon.pickup(null, this.body)
     state.players.add(this);
 }
 
@@ -205,7 +205,6 @@ Player.prototype.die = function(_, enemy) {
 Player.prototype.update = function() {
     // TODO: Time to make this a state machine.
     var standing = this.standing;
-    console.log(standing, this.standing)
     if (standing) {
         this.fuel = Math.min(this.maxFuel, this.fuel + this.game.time.physicsElapsedMS / 2);
         var velx = this.body.velocity.x;

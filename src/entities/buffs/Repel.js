@@ -11,6 +11,7 @@ var TEXTURE = 'repel';
 function Repel(state, data) {
     data.texture = TEXTURE;
     Buff.call(this, state, data);
+    this.sounds.pickup = state.add.sound('repel-pickup');
 }
 
 

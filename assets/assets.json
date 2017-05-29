@@ -50,6 +50,18 @@
 	},
         {
             "type": "audio",
+            "key": "repel-pickup",
+            "urls": ["assets/audio/repel-pickup.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "shield-pickup",
+            "urls": ["assets/audio/shield-pickup.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "shoe-pickup",
             "urls": ["assets/audio/shoe-pickup.ogg"],
             "autoDecode": true

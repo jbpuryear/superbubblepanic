@@ -14,12 +14,14 @@ function Item(state, data) {
     Phaser.Sprite.call(this, state.game, x, y, texture);
 
     this.pulse = state.add.tween(this)
+    this.sounds = {}
+
     this.pulse.to({alpha: 0.2}, 100, null, false, this._lifespan - 750, null, true)
 
     state.physics.p2.enable(this);
     this.body.setCollisionGroup(state.itemsCG);
     this.body.collides(state.platformsCG);
-    this.body.collides(state.playersCG, this.pickUp, this);
+    this.body.collides(state.playersCG, this.pickup, this);
     this.lifespan = this._lifespan;
 
     state.items.add(this);
@@ -32,6 +34,7 @@ Item.prototype._lifespan = LIFESPAN;
 
 
 Item.prototype.pickup = function(thisBody, heroBody) {
+    if (this.sounds.pickup) this.state.playSound(this.sounds.pickup)
     this.pulse.stop()
     this.alpha = 1
     this.body.destroy()
