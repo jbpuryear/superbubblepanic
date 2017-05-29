@@ -85,7 +85,7 @@ module.exports = {
             clips: 8,
             clipSize: 3,
             speedVar: 0.05,
-            sound: 'shotgun'
+            shotSound: 'shotgun'
         }, Bullet);
     },
 
