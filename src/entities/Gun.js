@@ -14,10 +14,8 @@ function Gun(state, data, BulletClass) {
     this.accuracy = data.accuracy || 0
     this.speedMul = data.speedMul || 1
     this.speedVar = data.speedVar || 0
-    this.sounds = {
-        pickup: state.add.sound(data.equip || 'reload'),
-        shot: state.add.sound(data.sound || 'gunshot')
-    }
+    this.sounds.pickup = state.add.sound(data.equipSound || 'reload')
+    this.sounds.shot = state.add.sound(data.shotSound || 'gunshot')
 
     this.clips = []
     this.lastShot = 0
@@ -42,8 +40,7 @@ function Gun(state, data, BulletClass) {
 Gun.prototype = Object.create(Item.prototype)
 
 
-Gun.prototype.pickUp = function(_, playerBody) {
-    this.state.playSound(this.sounds.pickup)
+Gun.prototype.pickup = function(_, playerBody) {
     this.lifespan = 0
     Item.prototype.pickup.call(this)
     playerBody.sprite.equip(this)

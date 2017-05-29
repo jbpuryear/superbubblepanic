@@ -22,7 +22,8 @@ Buff.prototype.buffProto = {
 }
 
 
-Buff.prototype.pickUp = function(_, playerBody) {
+Buff.prototype.pickup = function(_, playerBody) {
+    Item.prototype.pickup.call(this);
     var buff = this.buff;
     buff.target = playerBody.sprite;
     if (typeof buff.start === 'function') buff.start(buff.target);
