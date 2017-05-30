@@ -62,6 +62,12 @@
 	},
         {
             "type": "audio",
+            "key": "repel-stop",
+            "urls": ["assets/audio/repel-stop.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "shield-pickup",
             "urls": ["assets/audio/shield-pickup.ogg"],
             "autoDecode": true

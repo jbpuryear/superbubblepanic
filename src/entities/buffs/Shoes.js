@@ -17,6 +17,7 @@ Shoes.prototype = Object.create(Buff.prototype);
 
 Shoes.prototype.buffProto = {
     start: function() {
+        this.sprite.destroy();
         this.target.speedBonus *= 1.35;
     }
 }

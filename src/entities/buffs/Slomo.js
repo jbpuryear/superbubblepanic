@@ -17,6 +17,7 @@ Slomo.prototype.buffProto = {
     duration: 6500,
     rate: 0.25,
     start: function() {
+        this.sprite.destroy()
         this.speedUp = this.state.sound.play('slowdown')
         this.tick = this.state.sound.play('clock', 1, true)
         this.slowDown = this.state.add.sound('speedup')
