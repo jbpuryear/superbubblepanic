@@ -2,6 +2,24 @@
     "images": [
         {
             "type": "audio",
+            "key": "clock",
+            "urls": ["assets/audio/clock.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "death",
+            "urls": ["assets/audio/death.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "explode",
+            "urls": ["assets/audio/explode.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "gunshot",
             "urls": ["assets/audio/pistol.ogg"],
             "autoDecode": true
@@ -14,8 +32,68 @@
 	},
         {
             "type": "audio",
+            "key": "jetpack",
+            "urls": ["assets/audio/jetpack.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "land",
+            "urls": ["assets/audio/land.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "pop",
+            "urls": ["assets/audio/pop.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "reload",
+            "urls": ["assets/audio/reload.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "repel-pickup",
+            "urls": ["assets/audio/repel-pickup.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "repel-stop",
+            "urls": ["assets/audio/repel-stop.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "shield-pickup",
+            "urls": ["assets/audio/shield-pickup.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "shoe-pickup",
+            "urls": ["assets/audio/shoe-pickup.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "shotgun",
             "urls": ["assets/audio/shotgun.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "speedup",
+            "urls": ["assets/audio/speedup.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "slowdown",
+            "urls": ["assets/audio/slowdown.ogg"],
             "autoDecode": true
 	},
         {
@@ -37,6 +115,13 @@
             "url": "assets/images/dust.png",
             "frameWidth": 4,
             "frameHeight": 4
+        },
+        {
+            "type": "spritesheet",
+            "key": "explosion",
+            "url": "assets/images/explosion.png",
+            "frameWidth": 64,
+            "frameHeight": 64
         },
         {
             "type": "spritesheet",

@@ -47,7 +47,7 @@ module.exports = {
     // Buffs
     repel: require('./buffs/Repel.js'),
     slomo: require('./buffs/Slomo.js'),
-    ears: require('./buffs/Ears.js'),
+    shoes: require('./buffs/Shoes.js'),
 
 
     // Guns
@@ -85,7 +85,7 @@ module.exports = {
             clips: 8,
             clipSize: 3,
             speedVar: 0.05,
-            sound: 'shotgun'
+            shotSound: 'shotgun'
         }, Bullet);
     },
 

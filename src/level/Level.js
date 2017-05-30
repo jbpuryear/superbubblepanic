@@ -38,11 +38,21 @@ Level.prototype = {
             enemy.body.velocity.y *= factor;
             enemy.body.data.gravityScale *= factor * factor;
         });
+        if (this.sound.usingWebAudio) {
+            this.sound._sounds.forEach(function(snd) {
+                if (snd._snd) snd._snd.playbackRate *= factor
+            });
+        }
     },
 
 
     exit: function() {
         this.state.start('Menu')
+    },
+
+
+    explode: function(x, y, width) {
+        this.explosionPool.getFirstDead(true).reset(x, y, width)
     },
 
 

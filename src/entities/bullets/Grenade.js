@@ -43,8 +43,7 @@ Grenade.prototype.speed = SPEED;
 
 
 Grenade.prototype.kill = function() {
-    if (!this.target) return;
-    explode(this.target, this, RADIUS, DAMAGE, BLAST);
+    this.state.explode(this.x, this.y);
     Bullet.prototype.kill.apply(this, arguments);
 }
 

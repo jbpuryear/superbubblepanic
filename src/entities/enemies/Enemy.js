@@ -8,7 +8,12 @@ var MAX_HEALTH = 1;
 function Enemy(state, data, drop) {
     data.texture = data.texture || TEXTURE;
     Phaser.Sprite.call(this, state.game, data.x, data.y, data.texture);
+
     this.state = state;
+    this.sounds = {
+        pop: state.add.sound('pop')
+    }
+
     state.physics.p2.enable(this);
     state.enemies.add(this);
     this._circle = this.body.setCircle(1);
@@ -25,6 +30,8 @@ function Enemy(state, data, drop) {
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
 
 Enemy.prototype.maxHealth = MAX_HEALTH;
+
+Enemy.prototype.maxSpeed = 600;
 
 
 Enemy.prototype.spawn = function(x, y, width, velx, vely, drop) {
@@ -46,6 +53,7 @@ Enemy.prototype.getHit = function(_, bullet) {
 
 Enemy.prototype.kill = function() {
     if (this.pendingDoom) return;
+    this.state.playSound(this.sounds.pop, 400);
     this.pendingDoom = true;
     this.game.add.tween(this)
         .to({width: this.width*1.2, height: this.height*1.2, alpha: 0.8}, 60)
@@ -69,4 +77,16 @@ Enemy.prototype.damage = function(amnt, angle) {
     if (Number.isNaN(angle)) throw 'No angle given.';
     this.killTheta = angle;
     Phaser.Sprite.prototype.damage.call(this, amnt);
+}
+
+
+Enemy.prototype.update = function() {
+    var vx = this.body.velocity.x;
+    var vy = this.body.velocity.y;
+    var msSq = this.maxSpeed*this.maxSpeed;
+    var speedSq = vx*vx + vy*vy;
+    if (speedSq < msSq) return;
+    var speed = Math.sqrt(speedSq);
+    this.body.velocity.x = this.maxSpeed * vx/speed;
+    this.body.velocity.y = this.maxSpeed * vy/speed;
 }

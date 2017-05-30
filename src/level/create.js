@@ -1,4 +1,5 @@
 var BrkPlat = require('../entities/BrkPlat.js')
+var Explosion = require('../magic/Explosion.js')
 
 
 module.exports = function create() {
@@ -8,12 +9,24 @@ module.exports = function create() {
         paintBackground(this)
     makeParticles(this)
     makeMap(this)
+    makeExplosions(this)
     makeGameOverScreen(this)
 
     // TODO Change if we ever have more than one player.
     this.p1 = this.players.getChildAt(0)
     this.world.addChild(this.players)
-    console.log(this.sound._sounds)
+}
+
+
+function makeExplosions(state) {
+    state.explosionPool = state.add.group()
+    state.explosionPool.classType = Explosion
+    state.explosionPool.createMultiple(10)
+    var sound = state.add.sound('explode')
+    state.explosionPool.forEach(function(ex) {
+        ex.sounds = {}
+        ex.sounds.explode = sound
+    })
 }
 
 
@@ -87,9 +100,9 @@ function makeMap(state) {
 
 function makeParticles(state) {
     state.shellPool = state.add.group()
-    state.items = state.add.group()
     state.players = state.add.group()
     state.enemies = state.add.group()
+    state.items = state.add.group()
     state.platforms = state.add.group()
 
     state.shellPool.physicsBodyType = Phaser.Physics.P2JS
