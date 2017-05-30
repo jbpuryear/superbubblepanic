@@ -14,6 +14,12 @@
 	},
         {
             "type": "audio",
+            "key": "explode",
+            "urls": ["assets/audio/explode.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "gunshot",
             "urls": ["assets/audio/pistol.ogg"],
             "autoDecode": true
@@ -103,6 +109,13 @@
             "url": "assets/images/dust.png",
             "frameWidth": 4,
             "frameHeight": 4
+        },
+        {
+            "type": "spritesheet",
+            "key": "explosion",
+            "url": "assets/images/explosion.png",
+            "frameWidth": 64,
+            "frameHeight": 64
         },
         {
             "type": "spritesheet",

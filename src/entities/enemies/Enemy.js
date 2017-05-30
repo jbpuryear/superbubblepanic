@@ -31,6 +31,8 @@ Enemy.prototype = Object.create(Phaser.Sprite.prototype);
 
 Enemy.prototype.maxHealth = MAX_HEALTH;
 
+Enemy.prototype.maxSpeed = 600;
+
 
 Enemy.prototype.spawn = function(x, y, width, velx, vely, drop) {
     this.reset(x, y, this.maxHealth);
@@ -75,4 +77,16 @@ Enemy.prototype.damage = function(amnt, angle) {
     if (Number.isNaN(angle)) throw 'No angle given.';
     this.killTheta = angle;
     Phaser.Sprite.prototype.damage.call(this, amnt);
+}
+
+
+Enemy.prototype.update = function() {
+    var vx = this.body.velocity.x;
+    var vy = this.body.velocity.y;
+    var msSq = this.maxSpeed*this.maxSpeed;
+    var speedSq = vx*vx + vy*vy;
+    if (speedSq < msSq) return;
+    var speed = Math.sqrt(speedSq);
+    this.body.velocity.x = this.maxSpeed * vx/speed;
+    this.body.velocity.y = this.maxSpeed * vy/speed;
 }

@@ -5,7 +5,7 @@ var Enemy = require('./Enemy.js');
 
 var TEXTURE = 'enemy';
 var ACCEL = 2;
-var MAX_SPEED = 80;
+var PREFER_SPEED = 80;
 
 
 function Seeker(state, data, drop) {
@@ -16,14 +16,14 @@ function Seeker(state, data, drop) {
     this.body.data.gravityScale = 0;
     this.body.mass = 0.5;
     // Tying speed to mass makes slowmo work.
-    this._maxSpeed = this.body.mass*MAX_SPEED;
+    this._preferSpeed = this.body.mass*PREFER_SPEED;
     this.body.removeCollisionGroup(state.platformsCG);
 }
 
 
 Seeker.prototype = Object.create(Enemy.prototype);
 
-Object.defineProperty(Seeker.prototype, 'maxSpeed', {get: function() { return this._maxSpeed/this.body.mass; }});
+Object.defineProperty(Seeker.prototype, 'preferSpeed', {get: function() { return this._preferSpeed/this.body.mass; }});
 
 
 Seeker.prototype.update = function() {
@@ -33,7 +33,7 @@ Seeker.prototype.update = function() {
     var goRight = target.world.x >= this.world.x ? true : false;
     var goDown = target.world.y >= this.world.y ? true : false;
     var vel = this.body.velocity;
-    var max = this.maxSpeed;
+    var max = this.preferSpeed;
     var accel = this.accel;
     // TODO: SRSLY!!! Do we need all this?
     if (goRight === true) {

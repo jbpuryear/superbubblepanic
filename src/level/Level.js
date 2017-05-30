@@ -51,6 +51,11 @@ Level.prototype = {
     },
 
 
+    explode: function(x, y, width) {
+        this.explosionPool.getFirstDead(true).reset(x, y, width)
+    },
+
+
     gameOver: function() {
         var self = this
         this.input.keyboard.addKey(Phaser.Keyboard.R).onDown.addOnce(function() {
