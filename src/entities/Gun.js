@@ -53,6 +53,8 @@ Gun.prototype.fire = function(newShot) {
         var now = this.game.time.now
         if (now - this.lastShot < this.rate) return false
 
+        // TODO: Not the best way to do this. Maybe ask bullets
+        // if they're ready instead of dead?
         var bullets = this.clips.map(function(clip) { return clip.getFirstDead() })
 
         if (!bullets.every(function(bullet) { return bullet })) return false

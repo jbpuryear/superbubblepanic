@@ -117,9 +117,10 @@ module.exports = {
         return new Gun(state, {
             x: data.x,
             y: data.y,
-            texture: 'gun',
+            texture: 'grenade-launcher',
             clips: 1,
             clipSize: 1,
+            shotSound: 'launch'
         }, Grenade);
     },
 

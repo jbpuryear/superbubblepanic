@@ -44,6 +44,12 @@
 	},
         {
             "type": "audio",
+            "key": "launch",
+            "urls": ["assets/audio/launch.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "pop",
             "urls": ["assets/audio/pop.ogg"],
             "autoDecode": true
@@ -139,6 +145,13 @@
         },
         {
             "type": "spritesheet",
+            "key": "grenade",
+            "url": "assets/images/grenade.png",
+            "frameWidth": 16,
+            "frameHeight": 16
+        },
+        {
+            "type": "spritesheet",
             "key": "player",
             "url": "assets/images/player.png",
             "frameWidth": 16,
@@ -170,6 +183,11 @@
             "type": "image",
             "key": "gravgun",
             "url": "assets/images/gravgun.png"
+        },
+        {
+            "type": "image",
+            "key": "grenade-launcher",
+            "url": "assets/images/grenade-launcher.png"
         },
         {
             "type": "image",
