@@ -15,6 +15,15 @@ Boot.prototype = {
         this.game.physics.startSystem(Phaser.Physics.P2JS)
 
         this.game.camera.bounds = null
+
+        if (this.sound.usingWebAudio) {
+            this.sound.masterGain.disconnect(this.sound.context.destination)
+            var filter = this.sound.context.createBiquadFilter()
+            this.sound.masterGain.connect(filter)
+            filter.connect(this.sound.context.destination)
+            filter.type = 'highpass'
+            filter.frequency.value = 60;
+        }
     },
 
     create: function() {
