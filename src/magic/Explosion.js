@@ -11,6 +11,10 @@ function Explosion(game, x, y, key, frame) {
     this.state = game.state.getCurrentState()
     game.physics.p2.enable(this)
 
+    this.sounds = {
+        explode: this.state.add.sound('explode')
+    }
+
     this.width = this.height = 128
     this.shape = this.body.setCircle(this.width/2)
     this.shape.sensor = true

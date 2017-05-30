@@ -22,11 +22,6 @@ function makeExplosions(state) {
     state.explosionPool = state.add.group()
     state.explosionPool.classType = Explosion
     state.explosionPool.createMultiple(10)
-    var sound = state.add.sound('explode')
-    state.explosionPool.forEach(function(ex) {
-        ex.sounds = {}
-        ex.sounds.explode = sound
-    })
 }
 
 
