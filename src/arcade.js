@@ -80,6 +80,9 @@ Arcade.prototype.create = function() {
         pool.forEach(function(enemy) {
             enemy.events.onKilled.add(this.getDrop, this);
         }, this);
+        pool.setAll('alive', false)
+        pool.setAll('exists', false)
+        pool.setAll('visible', false)
     }
     this.spawnEnemy();
 }
@@ -97,11 +100,12 @@ Arcade.prototype.update = function() {
             break;
         }
     }
-    if (noEnemy) { this.timer = Math.min(this.timer, 1000); }
+    if (noEnemy) { this.timer = Math.min(this.timer, 400); }
 }
 
 
 Arcade.prototype.spawnEnemy = function() {
+    console.log(this.enemyPools)
     var width = (Math.random() * MAX_ENEMY_WIDTH + MAX_ENEMY_WIDTH)/2;
     var x = Math.random() * (this.world.width - width - 10) + width/2 + 5;
     var y = -width/2;

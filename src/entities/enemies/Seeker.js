@@ -3,13 +3,11 @@ module.exports = Seeker;
 
 var Enemy = require('./Enemy.js');
 
-var TEXTURE = 'enemy';
 var ACCEL = 2;
 var PREFER_SPEED = 80;
 
 
 function Seeker(state, data, drop) {
-    data.texture = data.texture || TEXTURE;
     Enemy.call(this, state, data, drop);
     this.targets = state.players;
     this.accel = ACCEL;
@@ -24,6 +22,8 @@ function Seeker(state, data, drop) {
 Seeker.prototype = Object.create(Enemy.prototype);
 
 Object.defineProperty(Seeker.prototype, 'preferSpeed', {get: function() { return this._preferSpeed/this.body.mass; }});
+
+Seeker.prototype.defaultFrame = 2;
 
 
 Seeker.prototype.update = function() {

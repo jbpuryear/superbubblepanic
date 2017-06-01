@@ -130,6 +130,13 @@
         },
         {
             "type": "spritesheet",
+            "key": "enemies",
+            "url": "assets/images/enemies.png",
+            "frameWidth": 64,
+            "frameHeight": 64
+        },
+        {
+            "type": "spritesheet",
             "key": "explosion",
             "url": "assets/images/explosion.png",
             "frameWidth": 64,

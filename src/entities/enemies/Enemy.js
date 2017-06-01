@@ -1,7 +1,7 @@
 module.exports = Enemy
 
 
-var TEXTURE = 'enemy'
+var TEXTURE = 'enemies'
 var MAX_HEALTH = 1
 
 
@@ -14,6 +14,8 @@ function Enemy(state, data, drop) {
         pop: state.add.sound('pop'),
         bounce: state.add.sound('bounce')
     }
+
+    this.frame = this.defaultFrame
 
     this.exists = false
     this.alive = false
@@ -33,6 +35,9 @@ function Enemy(state, data, drop) {
     this.body.collides([state.playersCG, state.bulletsCG], this.getHit, this)
     this.body.setMaterial(state.enemyMaterial)
     this.body.fixedRotation = true
+
+    this.animations.add('flash', [5, 7])
+        .onComplete.add(function() {this.frame = this.defaultFrame}, this)
 }
 
 
@@ -42,12 +47,16 @@ Enemy.prototype.maxHealth = MAX_HEALTH
 
 Enemy.prototype.maxSpeed = 600
 
+Enemy.prototype.defaultFrame = 0
+
 
 Enemy.prototype.damage = function(amnt, angle) {
     amnt = amnt || 1
     if (Number.isNaN(angle)) angle = -Math.PI/2
     this.killTheta = angle
     Phaser.Sprite.prototype.damage.call(this, amnt)
+    this.animations.play('flash')
+    this.state.camera.shake(0.005, 100)
 }
 
 
@@ -62,15 +71,15 @@ Enemy.prototype.kill = function() {
     this.state.playSound(this.sounds.pop, 400)
 
     var tween = this.game.add.tween(this)
-    tween.to({width: this.width*1.2, height: this.height*1.2, alpha: 0.8}, 60)
+    tween.to({width: this.width*2, height: this.height*2, alpha: 0.8}, 60)
     tween.onComplete.addOnce(function() {
             if (this.drop && typeof this.drop.reset === 'function') {
                 this.drop.reset(this.x, this.y)
                 this.drop = null
             }
             this.pendingDoom = false
-            this.height /= 1.2
-            this.width /= 1.2
+            this.height /= 2
+            this.width /= 2
             this.alpha = 1
             Phaser.Sprite.prototype.kill.call(this)
         }, this)

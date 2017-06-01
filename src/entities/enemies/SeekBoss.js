@@ -3,7 +3,6 @@ module.exports = SeekBoss;
 
 var Seeker = require('./Seeker.js');
 
-var TEXTURE = 'enemy';
 var HEALTH = 20;
 var POOL_SIZE = 120;
 var CHILD_WIDTH = 30;
@@ -11,7 +10,6 @@ var CHILD_VEL = 100;
 
 
 function SeekBoss(state, data) {
-    data.texture = data.texture || TEXTURE;
     Seeker.call(this, state, data);
     this.childPool = state.add.group();
     state.enemies.add(this.childPool);

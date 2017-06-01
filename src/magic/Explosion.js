@@ -5,7 +5,7 @@ module.exports = Explosion
 
 
 function Explosion(game, x, y, key, frame) {
-    key = key || 'explosion'
+    key = 'enemies'
     Phaser.Sprite.call(this, game, x, y, key, frame)
 
     this.state = game.state.getCurrentState()
@@ -18,7 +18,7 @@ function Explosion(game, x, y, key, frame) {
     this.width = this.height = 128
     this.shape = this.body.setCircle(this.width/2)
     this.shape.sensor = true
-    var ex = this.animations.add('explode', null, 60, false)
+    var ex = this.animations.add('explode', [4, 5, 6, 7], 60, false)
     ex.killOnComplete = true
 
     this.body.collideWorldBounds = false
