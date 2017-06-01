@@ -13,6 +13,7 @@ Boot.prototype = {
         this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
         Phaser.Canvas.setImageRenderingCrisp(this.game.canvas)
         this.game.physics.startSystem(Phaser.Physics.P2JS)
+        this.game.physics.p2.setBounds(0, 0, 0, 0, false, false, false, false)
 
         this.game.camera.bounds = null
 

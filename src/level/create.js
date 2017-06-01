@@ -89,6 +89,25 @@ function makeMap(state) {
         platform.setMaterial(state.platformMaterial)
     }, state)
 
+    var p2 = state.physics.p2
+    var bounds = [
+        p2.createBody(0, state.world.height, 0, true),
+        p2.createBody(0, 0, 0, true),
+        p2.createBody(0, 0, 0, true),
+        p2.createBody(state.world.width, 0, 0, true)
+    ]
+    for (var i = 0; i < bounds.length; i++) {
+        bounds[i].rotation = i * Math.PI/2
+        bounds[i].addCircle(8)
+        bounds[i].addPlane()
+        bounds[i].setCollisionGroup(p2.boundsCollisionGroup)
+        bounds[i].collides([
+            state.enemiesCG, state.playersCG, state.itemsCG,
+            state.shellsCG, state.bulletsCG
+        ])
+        bounds[i].setMaterial(state.platformMaterial)
+    }
+
     state.map.objects.object.forEach(state.addEntity, state)
 }
 

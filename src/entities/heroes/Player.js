@@ -175,7 +175,7 @@ Player.prototype.shoot = function(isNew) {
 
 Player.prototype.die = function(_, enemy) {
     this.state.playSound(this.sounds.death)
-    this.state.camera.shake(0.02, 200);
+    this.state.camera.flash(0xf6eeee, 500)
     if (enemy.sprite && typeof enemy.sprite.damage === 'function') {
         var theta = this.world.angle(enemy.sprite);
         enemy.sprite.damage(1, theta);

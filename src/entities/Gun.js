@@ -75,7 +75,7 @@ Gun.prototype.fire = function(newShot) {
         this.state.throwShell(this.world.x, this.world.y, dir)
 
         this.state.playSound(this.sounds.shot, 400)
-        this.game.camera.shake(0.015, 70)
+        this.game.camera.shake(0.01, 70)
         return true
     }
     return false

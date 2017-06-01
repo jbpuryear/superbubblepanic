@@ -77,7 +77,6 @@ Arcade.prototype.create = function() {
         enemyData.type = eType;
         var pool = this.addEntity(enemyData);
         this.enemyPools[eType] = pool;
-        pool.setAll('alive', false);
         pool.forEach(function(enemy) {
             enemy.events.onKilled.add(this.getDrop, this);
         }, this);

@@ -33,10 +33,10 @@ Explosion.prototype = Object.create(Phaser.Sprite.prototype)
 
 
 Explosion.prototype.explode = function(body) {
+    this.removeNextStep = true
     var trgt = body.sprite
     var theta = this.world.angle(trgt.world)
     trgt.damage(10, theta)
-    this.removeNextStep = true
 }
 
 Explosion.prototype.kill = function() {

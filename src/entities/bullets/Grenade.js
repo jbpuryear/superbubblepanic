@@ -50,7 +50,6 @@ function Round(state, x, y, texture) {
     this.body.setMaterial(Round.prototype.material);
     this.body.data.gravityScale = 1;
     this.body.mass = MASS;
-    this.target = state.enemies;
     this.body.removeCollisionGroup(state.platformsCG);
     this.body.collides(state.platformsCG);
     this.body.collideWorldBounds = true;

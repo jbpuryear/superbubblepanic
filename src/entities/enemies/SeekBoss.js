@@ -13,7 +13,6 @@ var CHILD_VEL = 100;
 function SeekBoss(state, data) {
     data.texture = data.texture || TEXTURE;
     Seeker.call(this, state, data);
-    this.health = HEALTH;
     this.childPool = state.add.group();
     state.enemies.add(this.childPool);
     var childData = {
@@ -38,10 +37,14 @@ function SeekBoss(state, data) {
         prize.kill();
         this.drops.push(prize);
     }
+
+    this.spawn(data.x, data.y, data.width)
 }
 
 
 SeekBoss.prototype = Object.create(Seeker.prototype);
+
+SeekBoss.prototype.maxHealth = HEALTH;
 
 
 SeekBoss.prototype.getHit = function(_, bullet) {
