@@ -105,7 +105,6 @@ Arcade.prototype.update = function() {
 
 
 Arcade.prototype.spawnEnemy = function() {
-    console.log(this.enemyPools)
     var width = (Math.random() * MAX_ENEMY_WIDTH + MAX_ENEMY_WIDTH)/2;
     var x = Math.random() * (this.world.width - width - 10) + width/2 + 5;
     var y = -width/2;

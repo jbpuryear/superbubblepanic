@@ -1,9 +1,10 @@
 module.exports = PlayerStateMachine
 
 
+var DEATH_FRAME = 23
 var SHOOTING_FRAME = 5
 var STANDING_FRAME = 0
-var DEATH_FRAME = 23
+var STUN_FRAME = 20
 
 
 function PlayerStateMachine(player, ctlr) {
@@ -16,6 +17,7 @@ function PlayerStateMachine(player, ctlr) {
         falling: new Falling(this),
         flying: new Flying(this),
         standing: new Standing(this),
+        stunned: new Stunned(this)
     }
 
     this.current = this.states.standing
@@ -116,7 +118,9 @@ Dead.prototype = {
         plyr.state.playSound(plyr.sounds.death)
         plyr.state.camera.flash(0xf6eeee, 500)
         plyr.alive = false
-        plyr.body.removeCollisionGroup([plyr.state.enemiesCG, plyr.state.itemsCG])
+        plyr.body.removeCollisionGroup([
+            plyr.state.enemiesCG, plyr.state.itemsCG
+        ])
         plyr.character.animations.stop()
         plyr.character.frame = DEATH_FRAME - 2
         plyr.body.velocity.x = -100 * plyr.facing
@@ -275,4 +279,53 @@ Standing.prototype.update = function() {
     }
 
     PlayerState.prototype.update.call(this)
+}
+
+
+function Stunned(machine) {
+    PlayerState.call(this, machine)
+}
+
+
+Stunned.prototype = {
+    exit: function() {},
+    update: function() {
+        this.player.character.frame = STUN_FRAME
+    },
+
+    enter: function() {
+        var plyr = this.player
+        var lvl = plyr.state
+
+        plyr.body.removeCollisionGroup(lvl.enemiesCG, false)
+
+        if (plyr.weapon)
+            plyr.weapon.rotation = plyr.facing === 1 ? 0 : Math.PI
+        plyr.body.velocity.x = 40 * -plyr.facing
+
+        this.tween = this.player.state.add.tween(this.player.character)
+        this.tween.to({alpha: 0.2}, 75, null, false, 0, -1, true)
+        this.tween.start()
+
+        lvl.time.events.add(800, this.endStun, this)
+    },
+
+    end: function() {
+        this.tween.pause()
+        this.player.character.alpha = 1
+        this.player.body.collides(this.player.state.enemiesCG)
+    },
+
+    endStun: function() {
+        this.player.state.time.events.add(1600, this.end, this)
+        if (this.ctlr.up && this.machine.fuel > 0) {
+            this.machine.change('flying')
+            return
+        }
+        if (!this.player.standing) {
+            this.machine.change('falling')
+            return
+        }
+        this.machine.change('standing')
+    }
 }

@@ -45,14 +45,14 @@ SeekBoss.prototype = Object.create(Seeker.prototype);
 SeekBoss.prototype.maxHealth = HEALTH;
 
 
-SeekBoss.prototype.getHit = function(_, bullet) {
+SeekBoss.prototype.damage = function(_, bullet) {
     if (this.health % 10 === 1) {
         this.drops.pop().reset(this.x, this.y);
         this.width *= 2/3;
         this.height *= 2/3;
         this._circle *= 2/3;
     }
-    Seeker.prototype.getHit.apply(this, arguments);
+    Seeker.prototype.damage.apply(this, arguments);
     var v = this.body.velocity;
     this.childPool.getFirstDead().getFirstDead().spawn(this.x, this.y, CHILD_WIDTH, v.x + CHILD_VEL, v.y + CHILD_VEL);
     this.childPool.getFirstDead().getFirstDead().spawn(this.x, this.y, CHILD_WIDTH, v.x + CHILD_VEL, v.y + -CHILD_VEL);

@@ -14,7 +14,7 @@ module.exports = function create() {
 
     // TODO Change if we ever have more than one player.
     this.p1 = this.players.getChildAt(0)
-    this.world.addChild(this.players)
+    //this.world.addChild(this.players)
 }
 
 
@@ -66,6 +66,7 @@ function makeMap(state) {
     var plats = state.physics.p2
         .convertCollisionObjects(state.map, 'platform', true)
     
+    state.map.objects.object.forEach(state.addEntity, state)
     state.map.createLayer('background')
     plats.forEach(function(platform, i) {
         var data = state.map.objects.platform[i]
@@ -108,7 +109,6 @@ function makeMap(state) {
         bounds[i].setMaterial(state.platformMaterial)
     }
 
-    state.map.objects.object.forEach(state.addEntity, state)
 }
 
 

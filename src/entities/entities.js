@@ -40,8 +40,9 @@ module.exports = {
 
     // Buffs
     repel: require('./buffs/Repel.js'),
-    slomo: require('./buffs/Slomo.js'),
+    shield: require('./buffs/Shield.js'),
     shoes: require('./buffs/Shoes.js'),
+    slomo: require('./buffs/Slomo.js'),
 
 
     // Guns

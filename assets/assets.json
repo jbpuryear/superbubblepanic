@@ -2,6 +2,12 @@
     "images": [
         {
             "type": "audio",
+            "key": "block",
+            "urls": ["assets/audio/block.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "bounce",
             "urls": ["assets/audio/bounce.ogg"],
             "autoDecode": true
@@ -221,6 +227,11 @@
             "type": "image",
             "key": "shell",
             "url": "assets/images/shell.png"
+        },
+        {
+            "type": "image",
+            "key": "shield",
+            "url": "assets/images/shield.png"
         },
         {
             "type": "image",

@@ -37,10 +37,6 @@ Bullet.prototype.hit = function(_, target) {
     this.state.frag.x = this.x;
     this.state.frag.y = this.y;
     this.state.frag.explode(40, 5);
-    if (target.sprite) {
-        var theta = this.body.rotation;
-        target.sprite.damage(this.attack, theta);
-    }
 }
 
 

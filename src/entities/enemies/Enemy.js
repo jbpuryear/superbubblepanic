@@ -1,6 +1,9 @@
 module.exports = Enemy
 
 
+var Bullet = require('../bullets/Bullet.js')
+
+
 var TEXTURE = 'enemies'
 var MAX_HEALTH = 1
 
@@ -32,7 +35,7 @@ function Enemy(state, data, drop) {
             this.sounds.bounce._sound.detune.value = 128/this.width * 400
         }
     }, this)
-    this.body.collides([state.playersCG, state.bulletsCG], this.getHit, this)
+    this.body.collides([state.playersCG, state.bulletsCG], this.damage, this)
     this.body.setMaterial(state.enemyMaterial)
     this.body.fixedRotation = true
 
@@ -50,17 +53,13 @@ Enemy.prototype.maxSpeed = 600
 Enemy.prototype.defaultFrame = 0
 
 
-Enemy.prototype.damage = function(amnt, angle) {
-    amnt = amnt || 1
-    if (Number.isNaN(angle)) angle = -Math.PI/2
-    this.killTheta = angle
-    Phaser.Sprite.prototype.damage.call(this, amnt)
+Enemy.prototype.damage = function(_, src) {
+    if (src.sprite instanceof Bullet)
+        this.killTheta = src.rotation
+    else
+        this.killTheta = src.sprite.world.angle(this.world)
     this.animations.play('flash')
-    this.state.camera.shake(0.005, 100)
-}
-
-
-Enemy.prototype.getHit = function() {
+    Phaser.Sprite.prototype.damage.call(this, src.attack || 1)
 }
 
 
@@ -69,6 +68,7 @@ Enemy.prototype.kill = function() {
     this.pendingDoom = true
 
     this.state.playSound(this.sounds.pop, 400)
+    this.state.camera.shake(0.005, 100)
 
     var tween = this.game.add.tween(this)
     tween.to({width: this.width*2, height: this.height*2, alpha: 0.8}, 60)
@@ -81,6 +81,8 @@ Enemy.prototype.kill = function() {
             this.height /= 2
             this.width /= 2
             this.alpha = 1
+            this.animations.stop()
+            this.frame = this.defaultFrame
             Phaser.Sprite.prototype.kill.call(this)
         }, this)
 

@@ -14,6 +14,7 @@ function Explosion(game, x, y, key, frame) {
     this.sounds = {
         explode: this.state.add.sound('explode')
     }
+    this.targets = []
 
     this.width = this.height = 128
     this.shape = this.body.setCircle(this.width/2)
@@ -33,14 +34,19 @@ Explosion.prototype = Object.create(Phaser.Sprite.prototype)
 
 
 Explosion.prototype.explode = function(body) {
-    this.removeNextStep = true
-    var trgt = body.sprite
-    var theta = this.world.angle(trgt.world)
-    trgt.damage(10, theta)
+    for (var i = 0; i < this.targets.length; i++)
+        if (body.sprite === this.targets[i]) return
+
+    this.targets.push(body.sprite)
 }
+
 
 Explosion.prototype.kill = function() {
     Phaser.Sprite.prototype.kill.call(this)
+
+    for (var i = 0; i < this.targets.length; i++)
+        this.targets[i].damage(null, this.body)
+
     this.state.enemies.recurseAlive(function(enemy) {
         var distance = Math.max(this.world.distance(enemy.world), 1);
         var r = 512;
@@ -55,8 +61,9 @@ Explosion.prototype.kill = function() {
 
 
 Explosion.prototype.reset = function(x, y, radius) {
+    this.targets = []
     if (radius > 0) {
-        this.width = this.height = radius *2
+        this.width = this.height = radius * 1.5
         this.shape.radius = radius
     }
     this.body.addToWorld()

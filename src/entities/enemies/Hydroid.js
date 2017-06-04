@@ -46,12 +46,7 @@ Hydroid.prototype.childDeath = function(enemy) {
     var y = enemy.y
     var vx = enemy.body.velocity.x
     var vy = enemy.body.velocity.y
-    var theta
-
-    // TODO: This switch is weird and is gonna cause problems. 
-    enemy.body.data.gravityScale === 0 ?
-        theta = Math.atan2(vy, vx) :
-        theta = enemy.killTheta
+    var theta = enemy.killTheta
 
     var mag = Math.sqrt( vx*vx + vy*vy )
     var xOff = Math.cos(theta + Math.PI/2) * width/2

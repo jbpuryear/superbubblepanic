@@ -24,10 +24,10 @@ function Player(state, data, ctlr) {
     this.speedBonus = 1
     this.standing = 0
 
+    this.character = new Character(state)
     this.playerState = new PlayerStateMachine(this, ctlr)
     this.sounds = new PlayerSounds(state)
     this.fx = new PlayerFX(state)
-    this.character = new Character(state)
 
     setPhysics(this)
 
@@ -73,6 +73,15 @@ Object.defineProperty(Player.prototype, 'facing', {
 })
 
 
+Player.prototype.damage = function(_, enemy) {
+    var theta = this.world.angle(enemy.sprite)
+    this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? -1 : 1
+    this.health -= 1
+    if (this.health <= 0) this.kill()
+    else this.playerState.change('stunned')
+}
+
+
 Player.prototype.equip = function(weapon) {
     if (this.weapon instanceof Phaser.Sprite) this.weapon.destroy()
     weapon.anchor.setTo(0, 0.5)
@@ -83,12 +92,7 @@ Player.prototype.equip = function(weapon) {
 }
 
 
-Player.prototype.die = function(_, enemy) {
-    if (enemy.sprite && typeof enemy.sprite.damage === 'function') {
-        var theta = this.world.angle(enemy.sprite)
-        enemy.sprite.damage(1, theta)
-        this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? -1 : 1
-    }
+Player.prototype.kill = function(_, enemy) {
     this.playerState.change('dead')
 }
 

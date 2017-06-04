@@ -18,7 +18,7 @@ module.exports = function setPhysics(player) {
 
     player.body.setMaterial(state.playerMaterial);
     player.body.setCollisionGroup(state.playersCG);
-    player.body.collides(state.enemiesCG, player.die, player);
+    player.body.collides(state.enemiesCG, player.damage, player);
     player.body.collides([state.itemsCG, state.platformsCG]);
 
     player.body.fixedRotation = true

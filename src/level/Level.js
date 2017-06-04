@@ -65,6 +65,7 @@ Level.prototype = {
         this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
         this.gameOverScreen.exists = true
         this.time.slowMotion = 6
+        this.world.add(this.p1)
     },
 
 
@@ -90,8 +91,9 @@ Level.prototype = {
     update: function() {
         for (var i=this.buffs.length-1; i>=0; i--) {
             var buff = this.buffs[i]
-            buff.timeLeft -= this.time.elapsed
-            if (buff.timeLeft >= 0) {
+            if (buff.timeLeft !== -1)
+                buff.timeLeft = Math.max(buff.timeLeft - this.time.elapsed, 0)
+            if (buff.timeLeft !== 0) {
                 if (typeof buff.update === 'function') buff.update()
             } else {
                 if (typeof buff.stop === 'function') buff.stop()
