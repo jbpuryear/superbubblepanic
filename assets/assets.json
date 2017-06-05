@@ -232,6 +232,11 @@
         },
         {
             "type": "image",
+            "key": "repel-aura",
+            "url": "assets/images/repel-aura.png"
+        },
+        {
+            "type": "image",
             "key": "shell",
             "url": "assets/images/shell.png"
         },

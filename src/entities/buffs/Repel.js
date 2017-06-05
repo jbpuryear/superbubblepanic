@@ -25,7 +25,10 @@ Repel.prototype.buffProto = {
     start: function() {
         this.targets = []
         this.state.physics.p2.enable(this.sprite)
-        this.sprite.lifespan = -1
+        this.sprite.destroy()
+        this.sprite = this.state.add.sprite(0, 0, 'repel-aura')
+        this.state.items.addChild(this.sprite)
+        this.state.physics.p2.enable(this.sprite)
         var body = this.sprite.body
         var r = this.target.height*3
         this.r = r
