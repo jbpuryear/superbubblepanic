@@ -3,6 +3,36 @@ module.exports={
     "images": [
         {
             "type": "audio",
+            "key": "block",
+            "urls": ["assets/audio/block.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "bounce",
+            "urls": ["assets/audio/bounce.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "clock",
+            "urls": ["assets/audio/clock.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "death",
+            "urls": ["assets/audio/death.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "explode",
+            "urls": ["assets/audio/explode.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "gunshot",
             "urls": ["assets/audio/pistol.ogg"],
             "autoDecode": true
@@ -15,8 +45,74 @@ module.exports={
 	},
         {
             "type": "audio",
+            "key": "jetpack",
+            "urls": ["assets/audio/jetpack.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "land",
+            "urls": ["assets/audio/land.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "launch",
+            "urls": ["assets/audio/launch.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "pop",
+            "urls": ["assets/audio/pop.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "reload",
+            "urls": ["assets/audio/reload.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "repel-pickup",
+            "urls": ["assets/audio/repel-pickup.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "repel-stop",
+            "urls": ["assets/audio/repel-stop.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "shield-pickup",
+            "urls": ["assets/audio/shield-pickup.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "shoe-pickup",
+            "urls": ["assets/audio/shoe-pickup.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "shotgun",
             "urls": ["assets/audio/shotgun.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "speedup",
+            "urls": ["assets/audio/speedup.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "slowdown",
+            "urls": ["assets/audio/slowdown.ogg"],
             "autoDecode": true
 	},
         {
@@ -41,6 +137,20 @@ module.exports={
         },
         {
             "type": "spritesheet",
+            "key": "enemies",
+            "url": "assets/images/enemies.png",
+            "frameWidth": 64,
+            "frameHeight": 64
+        },
+        {
+            "type": "spritesheet",
+            "key": "explosion",
+            "url": "assets/images/explosion.png",
+            "frameWidth": 64,
+            "frameHeight": 64
+        },
+        {
+            "type": "spritesheet",
             "key": "flame",
             "url": "assets/images/flame.png",
             "frameWidth": 4,
@@ -52,6 +162,20 @@ module.exports={
             "url": "assets/images/frag.png",
             "frameWidth": 4,
             "frameHeight": 4
+        },
+        {
+            "type": "spritesheet",
+            "key": "grenade",
+            "url": "assets/images/grenade.png",
+            "frameWidth": 16,
+            "frameHeight": 16
+        },
+        {
+            "type": "spritesheet",
+            "key": "pellet",
+            "url": "assets/images/pellet.png",
+            "frameWidth": 16,
+            "frameHeight": 16
         },
         {
             "type": "spritesheet",
@@ -89,6 +213,11 @@ module.exports={
         },
         {
             "type": "image",
+            "key": "grenade-launcher",
+            "url": "assets/images/grenade-launcher.png"
+        },
+        {
+            "type": "image",
             "key": "gun",
             "url": "assets/images/gun.png"
         },
@@ -106,6 +235,11 @@ module.exports={
             "type": "image",
             "key": "shell",
             "url": "assets/images/shell.png"
+        },
+        {
+            "type": "image",
+            "key": "shield",
+            "url": "assets/images/shield.png"
         },
         {
             "type": "image",
@@ -171,47 +305,9 @@ module.exports={
 },{}],2:[function(require,module,exports){
 module.exports = Arcade;
 
-var MAX_ENEMY_WIDTH = 100;
-var ENEMIES = [
-    {
-        type: 'enemy',
-        chance: 6,
-        velx: 90,
-        vely: 0
-    },
-    {
-        type: 'hex',
-        chance: 4,
-        velx: 90,
-        vely: 90
-    },
-    {
-        type: 'seeker',
-        chance: 2,
-        velx: 0,
-        vely: 0
-    }
-];
-var ENEMIES_SUM = ENEMIES.reduce(function(sum, item) { return sum + item.chance; }, 0);
-var DROPS = [
-    {
-        type: 'repel',
-        chance: 2
-    },
-    {
-        type: 'slomo',
-        chance: 8,
-    },
-    {
-        type: 'shotgun',
-        chance: 1
-    },
-];
-var DROP_CHANCE = 0.05;
-var CHANCE_SUM = DROPS.reduce(function(sum, item) { return sum + item.chance; }, 0);
 
-var Level = require('./level/Level.js');
-var Hydroid = require('./entities/enemies/Hydroid.js');
+var Level = require('../level/Level.js');
+var Hydroid = require('../entities/enemies/Hydroid.js');
 
 function Arcade() {
     return Level.call(this);
@@ -230,6 +326,17 @@ Arcade.prototype.create = function() {
     this.maxTime = 20000;
     this.timer = this.maxTime;
     this.level = 1;
+    this.maxEnemyWidth = 100
+    this.nextDrop = 5 + Math.floor(Math.random() * 20)
+
+    this.enemyConfig = require('./enemyConfig.js')()
+    this.enemyChance = this.enemyConfig.reduce(function(sum, item) {
+        return sum + item.chance;
+    }, 0)
+    this.itemConfig = require('./itemConfig.js')()
+    this.itemChance = this.itemConfig.reduce(function(sum, item) {
+        return sum + item.chance
+    }, 0)
 
     this.font = this.make.retroFont('font-small', 8, 8, Phaser.RetroFont.TEXT_SET2);
     this.font.text = '0';
@@ -243,15 +350,17 @@ Arcade.prototype.create = function() {
         width: 40 * Hydroid.prototype.minWidth,
         properties: {}
     }
-    for (var i = 0; i < ENEMIES.length; i++) {
-        var eType = ENEMIES[i].type;
+    for (var i = 0; i < this.enemyConfig.length; i++) {
+        var eType = this.enemyConfig[i].type;
         enemyData.type = eType;
         var pool = this.addEntity(enemyData);
         this.enemyPools[eType] = pool;
-        pool.setAll('alive', false);
         pool.forEach(function(enemy) {
             enemy.events.onKilled.add(this.getDrop, this);
         }, this);
+        pool.setAll('alive', false)
+        pool.setAll('exists', false)
+        pool.setAll('visible', false)
     }
     this.spawnEnemy();
 }
@@ -263,25 +372,25 @@ Arcade.prototype.update = function() {
     this.timer -= this.time.physicsElapsedMS;
     if (this.timer < 0) this.spawnEnemy();
     var noEnemy = true;
-    for (var i = 0; i < ENEMIES.length; i++) {
-        if (this.enemyPools[ENEMIES[i].type].getFirstAlive()) {
+    for (var i = 0; i < this.enemyConfig.length; i++) {
+        if (this.enemyPools[this.enemyConfig[i].type].getFirstAlive()) {
             noEnemy = false
             break;
         }
     }
-    if (noEnemy) { this.timer = Math.min(this.timer, 1000); }
+    if (noEnemy) { this.timer = Math.min(this.timer, 400); }
 }
 
 
 Arcade.prototype.spawnEnemy = function() {
-    var width = (Math.random() * MAX_ENEMY_WIDTH + MAX_ENEMY_WIDTH)/2;
+    var width = (Math.random() * this.maxEnemyWidth + this.maxEnemyWidth)/2;
     var x = Math.random() * (this.world.width - width - 10) + width/2 + 5;
     var y = -width/2;
-    var roll = Math.floor(Math.random() * (Math.min(this.level, ENEMIES_SUM)));
-    for (var i = 0, acc = 0; i < ENEMIES.length; i++) {
-        acc += ENEMIES[i].chance;
+    var roll = Math.floor(Math.random() * (Math.min(this.level, this.enemyChance)));
+    for (var i = 0, acc = 0; i < this.enemyConfig.length; i++) {
+        acc += this.enemyConfig[i].chance;
         if (roll < acc) {
-            var spawnData = ENEMIES[i];
+            var spawnData = this.enemyConfig[i];
             break;
         }
     }
@@ -289,10 +398,12 @@ Arcade.prototype.spawnEnemy = function() {
 
     if (!enemy) return;
 
+    this.maxEnemyWidth = Math.min(this.maxEnemyWidth + 4, 256)
+
     enemy.body.velocity.x = spawnData.velx * this.bulletTime;
     enemy.body.velocity.y = spawnData.vely * this.bulletTime;
 
-    this.maxTime *= 0.95;
+    this.maxTime *= 0.98;
     this.timer = this.maxTime;
     this.level++;
 
@@ -309,20 +420,81 @@ Arcade.prototype.spawnEnemy = function() {
 Arcade.prototype.getDrop = function(enemy) {
     this._score += Math.ceil(enemy.width) * 10;
     this.font.text = this._score + '';
-    if (Math.random() > DROP_CHANCE) { return null; }
 
-    var roll = Math.floor(Math.random() * CHANCE_SUM);
-    for (var i = 0, acc = 0; i < DROPS.length; i++) {
-        acc += DROPS[i].chance;
+    if (--this.nextDrop !== 0) return null
+    this.nextDrop = 5 + Math.floor(Math.random() * 20)
+
+    var roll = Math.floor(Math.random() * this.itemChance);
+    for (var i = 0, acc = 0; i < this.itemConfig.length; i++) {
+        acc += this.itemConfig[i].chance;
         if (roll < acc) {
-            var drop = this.addEntity({x: 0, y: 0, type: DROPS[i].type});
+            var type = this.itemConfig[i].type
+            var drop = this.addEntity({x: 0, y: 0, type: type});
+            if (type === 'shoes') {
+                this.itemChance -= this.itemConfig[i].chance
+                this.itemConfig[i].chance = 0
+            }
             drop.reset(enemy.x, enemy.y);
             return drop;
         }
     }
 }
 
-},{"./entities/enemies/Hydroid.js":17,"./level/Level.js":23}],3:[function(require,module,exports){
+},{"../entities/enemies/Hydroid.js":20,"../level/Level.js":32,"./enemyConfig.js":3,"./itemConfig.js":4}],3:[function(require,module,exports){
+module.exports = function() {
+    return [
+        {
+            "type": "enemy",
+            "chance": 6,
+            "velx": 90,
+            "vely": 0
+        },
+        {
+            "type": "hex",
+            "chance": 4,
+            "velx": 120,
+            "vely": 120
+        },
+        {
+            "type": "seeker",
+            "chance": 2,
+            "velx": 0,
+            "vely": 0
+        }
+    ]
+}
+
+},{}],4:[function(require,module,exports){
+module.exports = function() {
+    return [
+        {
+            type: 'repel',
+            chance: 2
+        },
+        {
+            type: 'slomo',
+            chance: 8,
+        },
+        {
+            type: 'shield',
+            chance: 2
+        },
+        {
+            type: 'shoes',
+            chance: 2
+        },
+        {
+            type: 'shotgun',
+            chance: 1
+        },
+        {
+            type: 'grenade',
+            chance: 1
+        },
+    ]
+}
+
+},{}],5:[function(require,module,exports){
 module.exports = Boot
 
 
@@ -338,8 +510,18 @@ Boot.prototype = {
         this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
         Phaser.Canvas.setImageRenderingCrisp(this.game.canvas)
         this.game.physics.startSystem(Phaser.Physics.P2JS)
+        this.game.physics.p2.setBounds(0, 0, 0, 0, false, false, false, false)
 
         this.game.camera.bounds = null
+
+        if (this.sound.usingWebAudio) {
+            this.sound.masterGain.disconnect(this.sound.context.destination)
+            var filter = this.sound.context.createBiquadFilter()
+            this.sound.masterGain.connect(filter)
+            filter.connect(this.sound.context.destination)
+            filter.type = 'highpass'
+            filter.frequency.value = 60;
+        }
     },
 
     create: function() {
@@ -347,7 +529,7 @@ Boot.prototype = {
     }
 }
 
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 module.exports = BrkPlat;
 
 // TODO: This is a hack to let us draw a Tiled polyline to the
@@ -412,7 +594,7 @@ BrkPlat.prototype.break = function() {
     this._body.destroy();
 }
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 module.exports = Gun
 
 
@@ -429,8 +611,8 @@ function Gun(state, data, BulletClass) {
     this.accuracy = data.accuracy || 0
     this.speedMul = data.speedMul || 1
     this.speedVar = data.speedVar || 0
-    this.shotSound = state.add.sound(data.sound || 'gunshot')
-
+    this.sounds.pickup = state.add.sound(data.equipSound || 'reload')
+    this.sounds.shot = state.add.sound(data.shotSound || 'gunshot')
 
     this.clips = []
     this.lastShot = 0
@@ -455,7 +637,7 @@ function Gun(state, data, BulletClass) {
 Gun.prototype = Object.create(Item.prototype)
 
 
-Gun.prototype.pickUp = function(_, playerBody) {
+Gun.prototype.pickup = function(_, playerBody) {
     this.lifespan = 0
     Item.prototype.pickup.call(this)
     playerBody.sprite.equip(this)
@@ -468,6 +650,8 @@ Gun.prototype.fire = function(newShot) {
         var now = this.game.time.now
         if (now - this.lastShot < this.rate) return false
 
+        // TODO: Not the best way to do this. Maybe ask bullets
+        // if they're ready instead of dead?
         var bullets = this.clips.map(function(clip) { return clip.getFirstDead() })
 
         if (!bullets.every(function(bullet) { return bullet })) return false
@@ -487,14 +671,14 @@ Gun.prototype.fire = function(newShot) {
         var dir = theta > Math.PI/2 || theta < -Math.PI/2 ? 2 : -2
         this.state.throwShell(this.world.x, this.world.y, dir)
 
-        this.state.playSound(this.shotSound, 400)
-        this.game.camera.shake(0.015, 70)
+        this.state.playSound(this.sounds.shot, 400)
+        this.game.camera.shake(0.01, 70)
         return true
     }
     return false
 }
 
-},{"./Item.js":6,"./bullets/Bullet.js":12}],6:[function(require,module,exports){
+},{"./Item.js":8,"./bullets/Bullet.js":15}],8:[function(require,module,exports){
 // Time in ms before item disappears.
 var LIFESPAN = 5000;
 
@@ -511,12 +695,14 @@ function Item(state, data) {
     Phaser.Sprite.call(this, state.game, x, y, texture);
 
     this.pulse = state.add.tween(this)
+    this.sounds = {}
+
     this.pulse.to({alpha: 0.2}, 100, null, false, this._lifespan - 750, null, true)
 
     state.physics.p2.enable(this);
     this.body.setCollisionGroup(state.itemsCG);
     this.body.collides(state.platformsCG);
-    this.body.collides(state.playersCG, this.pickUp, this);
+    this.body.collides(state.playersCG, this.pickup, this);
     this.lifespan = this._lifespan;
 
     state.items.add(this);
@@ -529,6 +715,7 @@ Item.prototype._lifespan = LIFESPAN;
 
 
 Item.prototype.pickup = function(thisBody, heroBody) {
+    if (this.sounds.pickup) this.state.playSound(this.sounds.pickup)
     this.pulse.stop()
     this.alpha = 1
     this.body.destroy()
@@ -545,7 +732,7 @@ Item.prototype.reset = function(x, y, health) {
     Phaser.Sprite.prototype.reset.call(this, this.x, this.y,health);
 }
 
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 var Item = require('../Item.js');
 
 module.exports = Buff;
@@ -555,6 +742,7 @@ function Buff(state, data) {
     Item.call(this, state, data);
     // We will pass to our Level's  buff array which is updated each loop.
     this.buff = Object.create(this.buffProto);
+    this.buff.sprite = this;
     this.buff.state = state;
     this.lifespan = this._lifespan;
 }
@@ -570,81 +758,215 @@ Buff.prototype.buffProto = {
 }
 
 
-Buff.prototype.pickUp = function(_, playerBody) {
+Buff.prototype.pickup = function(_, playerBody) {
+    Item.prototype.pickup.call(this);
     var buff = this.buff;
     buff.target = playerBody.sprite;
-    if (typeof buff.start === 'function') buff.start(buff.target);
 
-    if (buff.duration > 0) {
+    if (buff.duration !== 0) {
         buff.timeLeft = buff.duration;
         buff.state.buffs.push(buff);
     }
-    this.destroy();
+
+    if (typeof buff.start === 'function') buff.start(buff.target);
+
+    buff.sounds = this.sounds;
+    return buff;
 }
 
-},{"../Item.js":6}],8:[function(require,module,exports){
-module.exports = Ears;
+},{"../Item.js":8}],10:[function(require,module,exports){
+module.exports = Repel
+
+
+var Buff = require('./Buff.js')
+var dotGravity =  require('../../magic/dotGravity.js')
+
+
+var TEXTURE = 'repel'
+
+
+function Repel(state, data) {
+    data.texture = TEXTURE
+    Buff.call(this, state, data)
+    this.sounds.pickup = state.add.sound('repel-pickup')
+    this.sounds.stop = state.add.sound('repel-stop')
+}
+
+
+Repel.prototype = Object.create(Buff.prototype)
+
+
+Repel.prototype.buffProto = {
+    duration: 15000,
+
+    start: function() {
+        this.targets = []
+        this.state.physics.p2.enable(this.sprite)
+        this.sprite.lifespan = -1
+        var body = this.sprite.body
+        var r = this.target.height*3
+        this.r = r
+        this.rInner = this.target.height
+        var shape = body.setCircle(r)
+        body.setCollisionGroup(this.state.platformsCG)
+        body.collides(this.state.enemiesCG)
+        body.fixedRotation = true
+        body.static = true
+        shape.sensor = true
+        body.onBeginContact.add(this.addTarget, this)
+        body.onEndContact.add(this.removeTarget, this)
+        this.sprite.height = 2
+        this.sprite.width = 2
+        this.sprite.alpha = .6
+        this.state.add.tween(this.sprite)
+            .to({width: r, height: r}, 500, null, true)
+            .loop()
+        this.overFlag = false
+    },
+
+    stop: function() {
+        this.sprite.destroy()
+    },
+
+    update: function() {
+        if (this.timeLeft < 800 && !this.overFlag) {
+            this.sounds.stop.play()
+            this.overFlag = true
+        }
+        this.sprite.body.x = this.target.world.x
+        this.sprite.body.y = this.target.world.y
+
+        this.targets.forEach(function(trgt) {
+            var dist = this.sprite.world.distance(trgt.world)
+            var angle = this.sprite.world.angle(trgt.world)
+            normDist = (dist - trgt.width/2 - this.rInner) / (this.r - this.rInner)
+            normDist = Math.max(normDist, 0.0001)
+            var mag = 1 / (normDist)
+            trgt.body.thrustRight(mag * Math.cos(angle))
+            trgt.body.thrust(-mag * Math.sin(angle))
+        }, this)
+    },
+
+    addTarget: function(body) {
+        var sprite = body.sprite
+        for (var i = 0; i < this.targets.length; i++)
+            if (sprite === this.targets[i]) return
+        this.targets.push(sprite)
+    },
+
+    removeTarget: function(body) {
+        var sprite = body.sprite
+        for (var i = this.targets.length-1; i >= 0; i--)
+            if (sprite === this.targets[i]) this.targets.splice(i, 1)
+    }
+}
+
+},{"../../magic/dotGravity.js":38,"./Buff.js":9}],11:[function(require,module,exports){
+module.exports = Shield
+
+
+var Buff = require('./Buff.js')
+
+
+function Shield(state, data) {
+    data.texture = 'shield'
+    Buff.call(this, state, data)
+    this.sounds.pickup = state.add.sound('shield-pickup')
+    this.alpha = 0.8
+}
+
+
+Shield.prototype = Object.create(Buff.prototype)
+
+
+Shield.prototype.buffProto = {
+    duration: -1,
+
+    start: function(target) {
+        this.sprite.destroy()
+
+        if (target.health > 1) {
+            this.timeLeft = 0
+            return
+        }
+
+        target.health = 2
+        this.block = this.state.add.sound('block')
+
+        this.sprite = this.state.add.sprite(0, 0, target.character.texture)
+
+        this.alpha = 0.3
+        this.scale = 1.2
+
+        this.sprite.anchor.setTo(0.5)
+        this.sprite.tint = 0x62cade
+        this.sprite.frame = target.character.frame
+        this.sprite.width = target.character.width * 1.2
+        this.sprite.height = target.character.height * 1.2
+        this.state.items.addChild(this.sprite)
+        this.sprite.shader = new Phaser.Filter(this.state.game, {alpha: {type: '1f', value: this.alpha}}, [
+            'precision mediump float;',
+            'uniform sampler2D uSampler;',
+            'uniform float alpha;',
+            'varying vec2 vTextureCoord;',
+            'void main(void) {',
+            'gl_FragColor = texture2D(uSampler, vTextureCoord);',
+            'if (gl_FragColor.a == 0.0) return;',
+            'gl_FragColor = vec4(0.3843137254901961 * alpha, 0.792156862745098 * alpha, 0.8705882352941177 * alpha, alpha);',
+            '}'
+        ])
+        this.state.add.tween(this).to({scale: 1.5, alpha: 0.8}, 500, Phaser.Easing.Sinusoidal.InOut, true, 0, -1, true)
+        target.addChildAt(this.sprite, 0)
+    },
+
+    update: function() {
+        if (this.target.health <= 1) {
+            this.state.playSound(this.block)
+            this.sprite.destroy()
+            this.timeLeft = 0
+            return
+        }
+        this.sprite.width = this.target.character.width * this.scale
+        this.sprite.height = this.target.character.height * this.scale
+        this.sprite.alpha = this.alpha
+        //this.sprite.shader.uniforms.alpha.value = this.alpha
+    }
+}
+
+},{"./Buff.js":9}],12:[function(require,module,exports){
+module.exports = Shoes;
 
 
 var Buff = require('./Buff.js');
 
-var TEXTURE = 'gun';
 
-
-function Ears(state, data) {
-    data.texture = TEXTURE;
+function Shoes(state, data) {
+    data.texture = 'shoes';
     Buff.call(this, state, data);
+
+    this.sounds.pickup = this.state.add.sound('shoe-pickup');
 }
 
 
-Ears.prototype = Object.create(Buff.prototype);
+Shoes.prototype = Object.create(Buff.prototype);
 
 
-Ears.prototype.buffProto = {
+Shoes.prototype.buffProto = {
     start: function() {
+        this.sprite.destroy();
         this.target.speedBonus *= 1.35;
     }
 }
 
-},{"./Buff.js":7}],9:[function(require,module,exports){
-module.exports = Repel;
-
-
-var Buff = require('./Buff.js');
-var dotGravity =  require('../../magic/dotGravity.js');
-
-
-var TEXTURE = 'repel';
-
-
-function Repel(state, data) {
-    data.texture = TEXTURE;
-    Buff.call(this, state, data);
-}
-
-
-Repel.prototype = Object.create(Buff.prototype);
-
-
-Repel.prototype.buffProto = {
-    duration: 8000,
-    update: function() {
-        dotGravity(this.state.enemies, this.target, -90, 70);
-    }
-}
-
-},{"../../magic/dotGravity.js":28,"./Buff.js":7}],10:[function(require,module,exports){
+},{"./Buff.js":9}],13:[function(require,module,exports){
 module.exports = Slomo;
 
 
 var Buff = require('./Buff.js');
 
 
-var TEXTURE = 'slomo';
-
-
 function Slomo(state, data) {
-    data.texture = TEXTURE;
+    data.texture = 'slomo';
     Buff.call(this, state, data);
 }
 
@@ -656,14 +978,22 @@ Slomo.prototype.buffProto = {
     duration: 6500,
     rate: 0.25,
     start: function() {
+        this.sprite.destroy()
+        this.speedUp = this.state.sound.play('slowdown')
+        this.tick = this.state.sound.play('clock', 1, true)
+        this.slowDown = this.state.add.sound('speedup')
         this.state.changeTime(this.rate)
     },
     stop: function() {
-        this.state.changeTime(1/this.rate)
+        this.tick.stop()
+        this.slowDown.onStop.addOnce(function() {
+            this.state.changeTime(1/this.rate)
+        }, this)
+        this.slowDown.play();
     }
 }
 
-},{"./Buff.js":7}],11:[function(require,module,exports){
+},{"./Buff.js":9}],14:[function(require,module,exports){
 module.exports = Bouncy;
 
 
@@ -696,7 +1026,7 @@ Bouncy.prototype.fire = function(x, y, theta, speedBonus) {
     this.lifespan = this._lifespan;
 }
 
-},{"./Bullet.js":12}],12:[function(require,module,exports){
+},{"./Bullet.js":15}],15:[function(require,module,exports){
 module.exports = Bullet;
 
 
@@ -736,10 +1066,6 @@ Bullet.prototype.hit = function(_, target) {
     this.state.frag.x = this.x;
     this.state.frag.y = this.y;
     this.state.frag.explode(40, 5);
-    if (target.sprite) {
-        var theta = this.body.rotation;
-        target.sprite.damage(this.attack, theta);
-    }
 }
 
 
@@ -756,7 +1082,7 @@ Bullet.prototype.fire = function(x, y, theta, speedBonus) {
     this.body.velocity.y = Math.sin(theta) * speed;
 } 
 
-},{}],13:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 module.exports = Gravity;
 
 
@@ -818,14 +1144,13 @@ Gravity.prototype.reset = function(x, y, health) {
     this.lifespan = LIFESPAN;
 }
 
-},{"../../magic/dotGravity.js":28,"../../magic/explode.js":29,"./Bullet.js":12}],14:[function(require,module,exports){
+},{"../../magic/dotGravity.js":38,"../../magic/explode.js":39,"./Bullet.js":15}],17:[function(require,module,exports){
 module.exports = Grenade;
 
 
 var Bullet = require('./Bullet.js');
-var explode = require('../../magic/explode.js');
 
-var TEXTURE = 'bullet';
+var TEXTURE = 'grenade';
 var SPEED = 400;
 var MASS = 0.5;
 var RADIUS = 60;
@@ -835,10 +1160,31 @@ var BLAST = 800;
 
 
 function Grenade(state, x, y, texture) {
+    Phaser.Group.call(this, state.game);
     texture = texture || TEXTURE;
+    this.addChild(new Round(state, x, y, texture));
+}
+
+
+Grenade.prototype = Object.create(Phaser.Group.prototype);
+
+// TODO: This is to get around how guns fire their bullets, which
+// which needs to be fixed.
+Object.defineProperty(Grenade.prototype, 'alive', {get: function() {return false}});
+
+
+Grenade.prototype.fire = function(x, y, theta, speedBonus) {
+    var round = this.children[0];
+    console.log(round);
+    if (round.exists) round.kill();
+    else round.fire(x, y, theta, speedBonus);
+}
+
+
+function Round(state, x, y, texture) {
     Bullet.call(this, state, x, y, texture);
-    if (!Grenade.prototype.material) {
-        Grenade.prototype.material = state.physics.p2.createMaterial('grenade');
+    if (!Round.prototype.material) {
+        Round.prototype.material = state.physics.p2.createMaterial('grenade');
         state.physics.p2.createContactMaterial(this.material, state.platformMaterial, {
             friction: 0.4,
             restitution: 0.7
@@ -848,125 +1194,162 @@ function Grenade(state, x, y, texture) {
             restitution: 0.7
         });
     }
-    this.body.setMaterial(Grenade.prototype.material);
+    this.body.setMaterial(Round.prototype.material);
     this.body.data.gravityScale = 1;
     this.body.mass = MASS;
-    this.target = state.enemies;
     this.body.removeCollisionGroup(state.platformsCG);
     this.body.collides(state.platformsCG);
     this.body.collideWorldBounds = true;
 }
 
 
-Grenade.prototype = Object.create(Bullet.prototype);
+Round.prototype = Object.create(Bullet.prototype);
 
-Grenade.prototype.speed = SPEED;
+Round.prototype.speed = SPEED;
 
 
-Grenade.prototype.kill = function() {
-    if (!this.target) return;
-    explode(this.target, this, RADIUS, DAMAGE, BLAST);
+Round.prototype.kill = function() {
+    this.state.explode(this.x, this.y);
     Bullet.prototype.kill.apply(this, arguments);
 }
 
 
-Grenade.prototype.fire = function(x, y, theta, speedBonus) {
+Round.prototype.fire = function(x, y, theta, speedBonus) {
+    this.lifespan = LIFE;
     Bullet.prototype.fire.apply(this, arguments);
     this.body.angularVelocity = (this.body.rotation > Math.PI/2 || this.body.rotation < -Math.PI/2) ?
         Math.PI : -Math.PI;
-    this.lifespan = LIFE;
 }
 
 
-Grenade.prototype.hit = function(_, target) {
+Round.prototype.hit = function(_, target) {
     this.kill();
 }
 
-},{"../../magic/explode.js":29,"./Bullet.js":12}],15:[function(require,module,exports){
-module.exports = Enemy;
+},{"./Bullet.js":15}],18:[function(require,module,exports){
+module.exports = Enemy
 
 
-var TEXTURE = 'enemy';
-var MAX_HEALTH = 1;
+var Bullet = require('../bullets/Bullet.js')
+
+
+var TEXTURE = 'enemies'
+var MAX_HEALTH = 1
 
 
 function Enemy(state, data, drop) {
-    data.texture = data.texture || TEXTURE;
-    Phaser.Sprite.call(this, state.game, data.x, data.y, data.texture);
-    this.state = state;
-    state.physics.p2.enable(this);
-    state.enemies.add(this);
-    this._circle = this.body.setCircle(1);
-    this.body.setCollisionGroup(state.enemiesCG);
-    this.body.collides(state.platformsCG);
-    this.body.collides([state.playersCG, state.bulletsCG], this.getHit, this);
-    this.body.setMaterial(state.enemyMaterial);
-    this.body.fixedRotation = true;
-    this.spawn(this.x, this.y, data.width, data.properties.velx,
-            data.properties.vely, drop);
+    data.texture = data.texture || TEXTURE
+    Phaser.Sprite.call(this, state.game, data.x, data.y, data.texture)
+
+    this.state = state
+    this.sounds = {
+        pop: state.add.sound('pop'),
+        bounce: state.add.sound('bounce')
+    }
+
+    this.frame = this.defaultFrame
+
+    this.exists = false
+    this.alive = false
+    this.visible = false
+
+    state.physics.p2.enable(this)
+    state.enemies.add(this)
+    this._circle = this.body.setCircle(1)
+    this.body.setCollisionGroup(state.enemiesCG)
+    this.body.collideWorldBounds = false;
+    this.body.collides([state.platformsCG, state.physics.p2.boundsCollisionGroup], function() {
+        state.playSound(this.sounds.bounce)
+        if (this.sounds.bounce.usingWebAudio) {
+            this.sounds.bounce._sound.detune.value = 128/this.width * 400
+        }
+    }, this)
+    this.body.collides([state.playersCG, state.bulletsCG], this.damage, this)
+    this.body.setMaterial(state.enemyMaterial)
+    this.body.fixedRotation = true
+
+    this.animations.add('flash', [5, 7])
+        .onComplete.add(function() {this.frame = this.defaultFrame}, this)
 }
 
 
-Enemy.prototype = Object.create(Phaser.Sprite.prototype);
+Enemy.prototype = Object.create(Phaser.Sprite.prototype)
 
-Enemy.prototype.maxHealth = MAX_HEALTH;
+Enemy.prototype.maxHealth = MAX_HEALTH
 
+Enemy.prototype.maxSpeed = 600
 
-Enemy.prototype.spawn = function(x, y, width, velx, vely, drop) {
-    this.reset(x, y, this.maxHealth);
-    this.drop = drop || null;
-    this.width = width;
-    this.height = width;
-    this._circle.radius = this.game.physics.p2.pxm(width / 2);
-    this.body.velocity.x = velx || 0;
-    this.body.velocity.y = vely || 0;
-    this.killTheta = Math.PI/4;
-    return this;
-}
+Enemy.prototype.defaultFrame = 0
 
 
-Enemy.prototype.getHit = function(_, bullet) {
+Enemy.prototype.damage = function(_, src) {
+    if (src.sprite instanceof Bullet)
+        this.killTheta = src.rotation
+    else
+        this.killTheta = src.sprite.world.angle(this.world)
+    this.animations.play('flash')
+    Phaser.Sprite.prototype.damage.call(this, src.attack || 1)
 }
 
 
 Enemy.prototype.kill = function() {
-    if (this.pendingDoom) return;
-    this.pendingDoom = true;
-    this.game.add.tween(this)
-        .to({width: this.width*1.2, height: this.height*1.2, alpha: 0.8}, 60)
-        .start()
-        .onComplete.addOnce(function() {
+    if (this.pendingDoom) return
+    this.pendingDoom = true
+
+    this.state.playSound(this.sounds.pop, 400)
+    this.state.camera.shake(0.005, 100)
+
+    var tween = this.game.add.tween(this)
+    tween.to({width: this.width*2, height: this.height*2, alpha: 0.8}, 60)
+    tween.onComplete.addOnce(function() {
             if (this.drop && typeof this.drop.reset === 'function') {
-                this.drop.reset(this.x, this.y);
-                this.drop = null;
+                this.drop.reset(this.x, this.y)
+                this.drop = null
             }
-            this.pendingDoom = false;
-            this.height /= 1.2;
-            this.width /= 1.2;
-            this.alpha = 1;
-            Phaser.Sprite.prototype.kill.call(this);
-        }, this);
+            this.pendingDoom = false
+            this.height /= 2
+            this.width /= 2
+            this.alpha = 1
+            this.animations.stop()
+            this.frame = this.defaultFrame
+            Phaser.Sprite.prototype.kill.call(this)
+        }, this)
+
+    tween.start()
 }
 
 
-Enemy.prototype.damage = function(amnt, angle) {
-    amnt = amnt || 1;
-    if (Number.isNaN(angle)) throw 'No angle given.';
-    this.killTheta = angle;
-    Phaser.Sprite.prototype.damage.call(this, amnt);
+Enemy.prototype.spawn = function(x, y, width, velx, vely, drop) {
+    this.reset(x, y, this.maxHealth)
+    this.drop = drop || null
+    this.width = width
+    this.height = width
+    this._circle.radius = this.game.physics.p2.pxm(width / 2)
+    this.body.velocity.x = velx || 0
+    this.body.velocity.y = vely || 0
+    this.killTheta = Math.PI/4
+    return this
 }
 
-},{}],16:[function(require,module,exports){
+
+Enemy.prototype.update = function() {
+    var vx = this.body.velocity.x
+    var vy = this.body.velocity.y
+    var msSq = this.maxSpeed*this.maxSpeed
+    var speedSq = vx*vx + vy*vy
+    if (speedSq < msSq) return
+    var speed = Math.sqrt(speedSq)
+    this.body.velocity.x = this.maxSpeed * vx/speed
+    this.body.velocity.y = this.maxSpeed * vy/speed
+}
+
+},{"../bullets/Bullet.js":15}],19:[function(require,module,exports){
 module.exports = Hex;
 
 var Enemy = require('./Enemy.js');
 
 
-var TEXTURE = 'hex';
-
-
 function Hex(state, data, drop) {
-    data.texture = TEXTURE;
     Enemy.call(this, state, data, drop);
     this.body.data.gravityScale = 0;
 }
@@ -974,94 +1357,82 @@ function Hex(state, data, drop) {
 
 Hex.prototype = Object.create(Enemy.prototype);
 
-},{"./Enemy.js":15}],17:[function(require,module,exports){
-module.exports = Hydroid;
+Hex.prototype.defaultFrame = 1
+
+},{"./Enemy.js":18}],20:[function(require,module,exports){
+module.exports = Hydroid
 
 
-var MIN_WIDTH = 8;
+var MIN_WIDTH = 10
 
 
 function Hydroid(state, data, drop, EnemyClass) {
-    var w = data.width;
-    Phaser.Group.call(this, state.game);
-    state.enemies.add(this);
-    if (w < this.minWidth) { return; }
-    var i = 0;
-    while (w >= this.minWidth) {
-        w /= 2;
-        i++;
-    }
-    i = Math.pow(2, i);
-    for (; i>0; i--) this.add(new EnemyClass(state, data));
-    this.setAll('alive', false);
-    this.setAll('exists', false);
-    this.setAll('visible', false);
+    Phaser.Group.call(this, state.game)
+    state.enemies.add(this)
+
+    var w = data.width
+    if (w < MIN_WIDTH) return
+
+    var i = Math.ceil(w/MIN_WIDTH) + 1
+    for (; i>0; i--) this.add(new EnemyClass(state, data))
+
     this.forEach(function(enemy) {
-        enemy.events.onKilled.add(this.onChildDeath, this);
-    }, this);
+        enemy.events.onKilled.add(this.childDeath, this)
+    }, this)
+
     this.spawn(data.x, data.y, data.width, data.properties.velx,
-            data.properties.vely, drop);
+            data.properties.vely, drop)
 }
 
 
-Hydroid.prototype = Object.create(Phaser.Group.prototype);
+Hydroid.prototype = Object.create(Phaser.Group.prototype)
 
-Hydroid.prototype.minWidth = MIN_WIDTH;
+Hydroid.prototype.minWidth = MIN_WIDTH
+
+
+Hydroid.prototype.childDeath = function(enemy) {
+    var drop = enemy.drop
+    enemy.drop = null
+    var dropL = null, dropR = null
+    if (Array.isArray(drop)) {
+        dropL = drop[1] || null
+        dropR = drop[2] || null
+        drop = drop[0] || null
+    }
+    if (drop && typeof drop.reset === 'function') {
+        drop.reset(x, y)
+    }
+
+    var width = enemy.width / 2
+    var x = enemy.x
+    var y = enemy.y
+    var vx = enemy.body.velocity.x
+    var vy = enemy.body.velocity.y
+    var theta = enemy.killTheta
+
+    var mag = Math.sqrt( vx*vx + vy*vy )
+    var xOff = Math.cos(theta + Math.PI/2) * width/2
+    var yOff = Math.sin(theta + Math.PI/2) * width/2
+    var velx = Math.cos(theta + Math.PI/4) * mag
+    var vely = Math.sin(theta + Math.PI/4) * mag
+
+    this.spawn(x + xOff, y + yOff, width, velx, vely, dropL)
+    this.spawn(x - xOff, y - yOff, width, vely, -velx, dropL)
+}
 
 
 Hydroid.prototype.spawn = function(x, y, width, velx, vely, drop) {
-    var enemy = this.getFirstDead();
-    if (!enemy || width < this.minWidth) { return null; }
-    return enemy.spawn(x, y, width, velx, vely, drop);
+    var enemy = this.getFirstDead()
+    if (!enemy || width < MIN_WIDTH) return null
+    return enemy.spawn(x, y, width, velx, vely, drop)
 }
 
-
-Hydroid.prototype.onChildDeath = function(enemy) {
-    var drop = enemy.drop;
-    enemy.drop = null;
-    var dropL = null, dropR = null;
-    if (Array.isArray(drop)) {
-        dropL = drop[1] || null;
-        dropR = drop[2] || null;
-        drop = drop[0] || null;
-    }
-    if (drop && typeof drop.reset === 'function') {
-        drop.reset(x, y);
-    }
-
-    var width = enemy.width / 2;
-    var x = enemy.x;
-    var y = enemy.y;
-    var vx = enemy.body.velocity.x;
-    var vy = enemy.body.velocity.y;
-    var theta;
-
-    // TODO: This switch is weird and is gonna cause problems. 
-    enemy.body.data.gravityScale === 0 ?
-        theta = Math.atan2(vy, vx) :
-        theta = enemy.killTheta;
-
-    var mag = Math.sqrt( vx*vx + vy*vy );
-    var xOff = Math.cos(theta + Math.PI/2) * width/2;
-    var yOff = Math.sin(theta + Math.PI/2) * width/2;
-    var velx = Math.cos(theta + Math.PI/4) * mag;
-    var vely = Math.sin(theta + Math.PI/4) * mag;
-
-    this.spawn(x + xOff, y + yOff, width, velx, vely, dropL);
-
-    var velx = Math.cos(theta - Math.PI/4) * mag;
-    var vely = Math.sin(theta - Math.PI/4) * mag;
-
-    this.spawn(x - xOff, y - yOff, width, velx, vely, dropL);
-}
-
-},{}],18:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 module.exports = SeekBoss;
 
 
 var Seeker = require('./Seeker.js');
 
-var TEXTURE = 'enemy';
 var HEALTH = 20;
 var POOL_SIZE = 120;
 var CHILD_WIDTH = 30;
@@ -1069,9 +1440,7 @@ var CHILD_VEL = 100;
 
 
 function SeekBoss(state, data) {
-    data.texture = data.texture || TEXTURE;
     Seeker.call(this, state, data);
-    this.health = HEALTH;
     this.childPool = state.add.group();
     state.enemies.add(this.childPool);
     var childData = {
@@ -1096,20 +1465,24 @@ function SeekBoss(state, data) {
         prize.kill();
         this.drops.push(prize);
     }
+
+    this.spawn(data.x, data.y, data.width)
 }
 
 
 SeekBoss.prototype = Object.create(Seeker.prototype);
 
+SeekBoss.prototype.maxHealth = HEALTH;
 
-SeekBoss.prototype.getHit = function(_, bullet) {
+
+SeekBoss.prototype.damage = function(_, bullet) {
     if (this.health % 10 === 1) {
         this.drops.pop().reset(this.x, this.y);
         this.width *= 2/3;
         this.height *= 2/3;
         this._circle *= 2/3;
     }
-    Seeker.prototype.getHit.apply(this, arguments);
+    Seeker.prototype.damage.apply(this, arguments);
     var v = this.body.velocity;
     this.childPool.getFirstDead().getFirstDead().spawn(this.x, this.y, CHILD_WIDTH, v.x + CHILD_VEL, v.y + CHILD_VEL);
     this.childPool.getFirstDead().getFirstDead().spawn(this.x, this.y, CHILD_WIDTH, v.x + CHILD_VEL, v.y + -CHILD_VEL);
@@ -1117,33 +1490,33 @@ SeekBoss.prototype.getHit = function(_, bullet) {
     this.childPool.getFirstDead().getFirstDead().spawn(this.x, this.y, CHILD_WIDTH, v.x - CHILD_VEL, v.y + -CHILD_VEL);
 }
 
-},{"./Seeker.js":19}],19:[function(require,module,exports){
+},{"./Seeker.js":22}],22:[function(require,module,exports){
 module.exports = Seeker;
 
 
 var Enemy = require('./Enemy.js');
 
-var TEXTURE = 'enemy';
 var ACCEL = 2;
-var MAX_SPEED = 80;
+var PREFER_SPEED = 80;
 
 
 function Seeker(state, data, drop) {
-    data.texture = data.texture || TEXTURE;
     Enemy.call(this, state, data, drop);
     this.targets = state.players;
     this.accel = ACCEL;
     this.body.data.gravityScale = 0;
     this.body.mass = 0.5;
     // Tying speed to mass makes slowmo work.
-    this._maxSpeed = this.body.mass*MAX_SPEED;
+    this._preferSpeed = this.body.mass*PREFER_SPEED;
     this.body.removeCollisionGroup(state.platformsCG);
 }
 
 
 Seeker.prototype = Object.create(Enemy.prototype);
 
-Object.defineProperty(Seeker.prototype, 'maxSpeed', {get: function() { return this._maxSpeed/this.body.mass; }});
+Object.defineProperty(Seeker.prototype, 'preferSpeed', {get: function() { return this._preferSpeed/this.body.mass; }});
+
+Seeker.prototype.defaultFrame = 2;
 
 
 Seeker.prototype.update = function() {
@@ -1153,7 +1526,7 @@ Seeker.prototype.update = function() {
     var goRight = target.world.x >= this.world.x ? true : false;
     var goDown = target.world.y >= this.world.y ? true : false;
     var vel = this.body.velocity;
-    var max = this.maxSpeed;
+    var max = this.preferSpeed;
     var accel = this.accel;
     // TODO: SRSLY!!! Do we need all this?
     if (goRight === true) {
@@ -1184,8 +1557,10 @@ Seeker.prototype.update = function() {
     }
 }
 
-},{"./Enemy.js":15}],20:[function(require,module,exports){
+},{"./Enemy.js":18}],23:[function(require,module,exports){
 var Player = require('./heroes/Player.js');
+var DefaultCtlr = require('./heroes/DefaultCtlr');
+
 var Hydroid = require('./enemies/Hydroid.js');
 var Enemy = require('./enemies/Enemy.js');
 var Hex = require('./enemies/Hex.js');
@@ -1202,15 +1577,7 @@ var Bouncy = require('./bullets/Bouncy');
 module.exports = {
 
     player1: function(state, data) {
-        var k = state.input.keyboard;
-        var keys = Phaser.Keyboard;
-        var ctlr = {
-            up: k.addKey(keys.W),
-            left: k.addKey(keys.A),
-            right: k.addKey(keys.D),
-            shoot: state.input.mousePointer.leftButton,
-            position: state.input.mousePointer.position
-        };
+        var ctlr = new DefaultCtlr(state);
         return new Player(state, data, ctlr);
     },
 
@@ -1233,8 +1600,9 @@ module.exports = {
 
     // Buffs
     repel: require('./buffs/Repel.js'),
+    shield: require('./buffs/Shield.js'),
+    shoes: require('./buffs/Shoes.js'),
     slomo: require('./buffs/Slomo.js'),
-    ears: require('./buffs/Ears.js'),
 
 
     // Guns
@@ -1267,12 +1635,13 @@ module.exports = {
             y: data.y,
             texture: 'shotgun',
             rate: 1000,
-            spread: Math.PI/8,
-            accuracy: Math.PI/8,
-            clips: 8,
+            spread: Math.PI/18,
+            accuracy: Math.PI/54,
+            bulletTexture: 'pellet',
+            clips: 5,
             clipSize: 3,
-            speedVar: 0.05,
-            sound: 'shotgun'
+            speedVar: 0.1,
+            shotSound: 'shotgun'
         }, Bullet);
     },
 
@@ -1304,9 +1673,10 @@ module.exports = {
         return new Gun(state, {
             x: data.x,
             y: data.y,
-            texture: 'gun',
+            texture: 'grenade-launcher',
             clips: 1,
             clipSize: 1,
+            shotSound: 'launch'
         }, Grenade);
     },
 
@@ -1336,281 +1706,594 @@ module.exports = {
     },
 }
 
-},{"./Gun.js":5,"./buffs/Ears.js":8,"./buffs/Repel.js":9,"./buffs/Slomo.js":10,"./bullets/Bouncy":11,"./bullets/Bullet.js":12,"./bullets/Gravity.js":13,"./bullets/Grenade.js":14,"./enemies/Enemy.js":15,"./enemies/Hex.js":16,"./enemies/Hydroid.js":17,"./enemies/SeekBoss.js":18,"./enemies/Seeker.js":19,"./heroes/Player.js":21}],21:[function(require,module,exports){
-module.exports = Player;
-
-var TEXTURE = 'player';
-var DEFAULT_WEAPON = 'pistol';
-var SPEED = 100;
-// Animations
-var WALK = [0, 1, 2, 3];
-var WALK_RATE = 15;
-var FLY = [10, 11];
-var FLY_RATE = 100;
-var FALL = [12, 13];
-var FALL_RATE = 10;
-var DIE = [20, 21, 22, 23];
-var DIE_RATE = 8;
-
-var LEFT = -1;
-var RIGHT = 1;
+},{"./Gun.js":7,"./buffs/Repel.js":10,"./buffs/Shield.js":11,"./buffs/Shoes.js":12,"./buffs/Slomo.js":13,"./bullets/Bouncy":14,"./bullets/Bullet.js":15,"./bullets/Gravity.js":16,"./bullets/Grenade.js":17,"./enemies/Enemy.js":18,"./enemies/Hex.js":19,"./enemies/Hydroid.js":20,"./enemies/SeekBoss.js":21,"./enemies/Seeker.js":22,"./heroes/DefaultCtlr":25,"./heroes/Player.js":26}],24:[function(require,module,exports){
+module.exports = Character
 
 
-function Player(state, data, ctlr) {
-    var game = state.game;
-    var x = data.x || 0;
-    var y = data.y || 0;
-    var texture = data.texture || TEXTURE;
-    var weapon = state.parseDrop(data.properties.weapon || DEFAULT_WEAPON);
+var WALK = [0, 1, 2, 3]
+var WALK_RATE = 15
+var FLY = [10, 11]
+var FLY_RATE = 100
+var FALL = [12, 13]
+var FALL_RATE = 10
+var DIE = [22, 23]
+var DIE_RATE = 4
 
-    Phaser.Sprite.call(this, game, x, y);
 
-    this.state = state;
-    this.ctlr = ctlr;
-    this.ctlr.enabled = true;
-    this.shooting = false;
-    this.flying = false;
-    this.standing = 0;
-    this.lastStep = 0;
-    this.wasStanding = true;
-    this.sounds = {
-        step: state.add.sound('step'),
-        hit: state.add.sound('hit')
-    };
-    this.fx = {
-        dust: state.add.emitter(0, 0, 10),
-        flame: state.add.emitter(0, 0, 30)
-    };
+function Character(state) {
+    var character = new Phaser.Sprite(state.game, 0, 0, 'player')
 
-    this.fx.dust.makeParticles('dust', [0, 1, 2, 3]);
-    this.fx.dust.setScale(0.5, 2, 0.5, 2, 400);
-    this.fx.dust.setRotation(0);
-    this.fx.dust.setXSpeed(-100, 100);
-    this.fx.dust.setYSpeed(-20, -80);
-    this.fx.dust.setAlpha(1, 0.2, 400);
-    this.fx.dust.setScale(0.25, 1, 0.25, 1, 200);
+    character.anchor.setTo(0.5)
 
-    this.fx.flame.makeParticles('flame', [0, 1, 2, 3]);
-    this.fx.flame.setScale(0.25, 1, 0.25, 1, 200);
-    this.fx.flame.setAlpha(1, 0.2, 400);
-    this.fx.flame.setRotation(0);
-    this.fx.flame.setXSpeed(-40, 40);
-    this.fx.flame.setYSpeed(60, 80);
-    this.fx.flame.lifespan = 400;
+    character.animations.add('walk', WALK, WALK_RATE, true)
+    character.animations.add('fall', FALL, FALL_RATE, true)
+    character.animations.add('fly', FLY, FLY_RATE, true)
+    character.animations.add('die', DIE, DIE_RATE, true)
 
-    // This three-part sprite shenanigans lets us control
-    // whether the gun is rendered above or below the character.
-    var character = new Phaser.Sprite(game, 0, 0, texture);
-    this.character = character;
-    character.anchor.setTo(0.5);
-    this.character.animations.add('walk', WALK, WALK_RATE, true);
-    this.character.animations.add('fall', FALL, FALL_RATE, true);
-    this.character.animations.add('fly', FLY, FLY_RATE, true);
-    this.character.animations.add('die', DIE, DIE_RATE, true);
+    return character
+}
 
-    game.physics.p2.enable(this)
-    this.body.fixedRotation = true;
-    this.body.setRectangle(character.width/2, character.height);
+},{}],25:[function(require,module,exports){
+module.exports = DefaultCtlr
 
-    var groundSensor = this.body.addRectangle(character.width*2/3, 2, 0, character.height/2);
-    groundSensor.sensor = true;
-    this.body.onBeginContact.add(function(){ if(arguments[2] === groundSensor) this.standing++ }, this);
-    this.body.onEndContact.add(function(){ if(arguments[2] === groundSensor) this.standing-- }, this);
 
-    this.addChild(character);
+function DefaultCtlr(state) {
+    var k = state.input.keyboard
+    var keys = Phaser.Keyboard
 
-    this.fuel = this.maxFuel;
-    this.speedBonus = 1;
+    this._w = k.addKey(keys.W)
+    this._a = k.addKey(keys.A)
+    this._d = k.addKey(keys.D)
+    this._left = k.addKey(keys.LEFT)
+    this._right = k.addKey(keys.RIGHT)
+    this._up = k.addKey(keys.UP)
+    this.position = state.input.mousePointer.position
+    this.newShot = true
 
-    this.body.setMaterial(state.playerMaterial);
-    this.body.setCollisionGroup(state.playersCG);
-    this.body.collides(state.enemiesCG, this.die, this);
-    this.body.collides([state.itemsCG, state.platformsCG]);
-
-    weapon.exists = true
-    weapon.pickUp(null, this.body)
-    state.players.add(this);
+    this._wasDown = false
+    this._pointer = state.input.mousePointer
 }
 
 
-Player.prototype = Object.create(Phaser.Sprite.prototype);
+DefaultCtlr.prototype = {
+    get left() {
+        return this._a.isDown || this._left.isDown
+    },
+    get up() {
+        return this._w.isDown || this._up.isDown
+    },
+    get right() {
+        return this._d.isDown || this._right.isDown
+    },
+    get shoot() {
+        return this._pointer.leftButton.isDown
+    },
 
-Player.prototype.maxFuel = 2000;
+    update: function() {
+        if (!this.shoot) {
+            this._wasDown = false
+            return
+        }
 
-Object.defineProperty(Player.prototype, 'speed', {get: function() {return this.speedBonus * SPEED}});
+        if (this._wasDown)
+            this.newShot = false
+        else
+            this.newShot = true
+
+        this._wasDown = true
+    }
+}
+
+},{}],26:[function(require,module,exports){
+module.exports = Player
+
+
+var PlayerStateMachine = require('./PlayerStateMachine.js')
+var PlayerSounds = require('./PlayerSounds.js')
+var PlayerFX = require('./PlayerFX.js')
+var Character = require('./Character.js')
+var setPhysics = require('./setPhysics.js')
+
+var DEFAULT_WEAPON = 'pistol'
+var SPEED = 100
+
+
+function Player(state, data, ctlr) {
+    var game = state.game
+    var x = data.x || 0
+    var y = data.y || 0
+    var weapon = state.parseDrop(data.properties.weapon || DEFAULT_WEAPON)
+
+    Phaser.Sprite.call(this, game, x, y)
+
+    this.state = state
+
+    this.speedBonus = 1
+    this.standing = 0
+
+    this.character = new Character(state)
+    this.playerState = new PlayerStateMachine(this, ctlr)
+    this.sounds = new PlayerSounds(state)
+    this.fx = new PlayerFX(state)
+
+    setPhysics(this)
+
+    this.addChild(this.character)
+
+    weapon.exists = true
+    weapon.pickup(null, this.body)
+
+    state.players.add(this)
+}
+
+
+Player.prototype = Object.create(Phaser.Sprite.prototype)
+
+Player.prototype.maxFuel = 2000
+
+Object.defineProperty(Player.prototype, 'speed', {
+    get: function() {
+        return this.speedBonus * SPEED
+    }
+})
 
 
 Object.defineProperty(Player.prototype, 'facing', {
     set: function(dir) {
-        this.character.scale.x = dir;
+        this.character.scale.x = dir
         if (this.weapon) {
-            if (dir === LEFT) {
-                this.weapon.scale.y = -1;
-                this.removeChild(this.weapon);
-                this.addChild(this.weapon);
+            if (dir === -1) {
+                this.weapon.scale.y = -1
+                this.removeChild(this.weapon)
+                this.addChild(this.weapon)
             } else {
-                this.weapon.scale.y = 1;
-                this.removeChild(this.character);
-                this.addChild(this.character);
+                this.weapon.scale.y = 1
+                this.removeChild(this.character)
+                this.addChild(this.character)
             }
         }
     },
-    get: function () { return this.character.scale.x > 0 ? RIGHT : LEFT }
-});
+
+    get: function () {
+        return this.character.scale.x > 0 ? 1 : -1
+    }
+})
+
+
+Player.prototype.damage = function(_, enemy) {
+    var theta = this.world.angle(enemy.sprite)
+    this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? -1 : 1
+    this.health -= 1
+    if (this.health <= 0) this.kill()
+    else this.playerState.change('stunned')
+}
 
 
 Player.prototype.equip = function(weapon) {
-    if (this.weapon instanceof Phaser.Sprite) this.weapon.destroy();
-    weapon.anchor.setTo(0, 0.5);
+    if (this.weapon instanceof Phaser.Sprite) this.weapon.destroy()
+    weapon.anchor.setTo(0, 0.5)
     // abs because character is flipped by setting scale to -1.
-    weapon.pivot.setTo(-Math.abs(this.character.width/8), 0);
-    this.weapon = weapon;
-    this.addChild(weapon);
+    weapon.pivot.setTo(-Math.abs(this.character.width/8), 0)
+    this.weapon = weapon
+    this.addChild(weapon)
 }
 
 
-Player.prototype.goLeft = function() {
-    this.body.velocity.x = -this.speed;
-}
-
-
-Player.prototype.goRight = function() {
-    this.body.velocity.x = this.speed;
-}
-
-
-Player.prototype.fly = function() {
-    if (this.fuel > 0) {
-        this.body.thrust(this.game.physics.p2.gravity.y * 2.5 * this.speedBonus);
-        this.fuel = Math.max(this.fuel - this.game.time.physicsElapsedMS, 0);
-        this.flying = true;
-        this.fx.flame.x = this.x;
-        this.fx.flame.y = this.y;
-        this.fx.flame.emitParticle();
-    }
-}
-
-
-Player.prototype.shoot = function(isNew) {
-    var didShoot;
-    if (this.alive && this.weapon && typeof this.weapon.fire === 'function') {
-        didShoot = this.weapon.fire(isNew);
-    }
-    if (didShoot) {
-        var direction = this.character.scale.x;
-        this.body.x -= 3 * direction;
-        this.shooting = true;
-        this.weapon.x = -2;
-        this.game.time.events.add(40, function() {
-            this.shooting = false;
-            this.weapon.x = 0;
-        }, this);
-    }
-}
-
-
-Player.prototype.die = function(_, enemy) {
-    this.state.playSound(this.sounds.hit)
-    this.state.camera.shake(0.02, 200);
-    if (enemy.sprite && typeof enemy.sprite.damage === 'function') {
-        var theta = this.world.angle(enemy.sprite);
-        enemy.sprite.damage(1, theta);
-        this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? LEFT : RIGHT;
-    }
-    this.alive = false;
-    this.ctlr.enabled = false;
-    this.body.removeCollisionGroup([this.state.enemiesCG, this.state.itemsCG]);
-    this.animations.stop();
-    this.character.animations.play('die', DIE_RATE, false);
-    this.body.velocity.x = -100 * (this.facing === LEFT ? -1 : 1);
-    this.body.velocity.y = -150;
-    if (this.weapon) {
-        var x = this.weapon.world.x;
-        var y = this.weapon.world.y;
-        this.weapon.scale.y = 1;
-        this.state.physics.p2.enableBody(this.weapon);
-        this.game.world.add(this.weapon);
-        this.weapon.reset(x, y);
-        this.weapon.body.angularVelocity = 4;
-        this.weapon.body.velocity.x = 60 * (this.facing === LEFT ? -1 : 1);
-        this.weapon.body.velocity.y = -100;
-    }
+Player.prototype.kill = function(_, enemy) {
+    this.playerState.change('dead')
 }
 
 
 Player.prototype.update = function() {
-    // TODO: Time to make this a state machine.
-    var standing = this.standing;
-    if (standing) {
-        this.fuel = Math.min(this.maxFuel, this.fuel + this.game.time.physicsElapsedMS / 2);
-        var velx = this.body.velocity.x;
-        var friction = velx/20 * this.speedBonus;
-        this.body.velocity.x = velx < 0 ?
-            Math.min(velx - friction, 0) : Math.max(velx - friction, 0);
-    }
-
-    if (!this.alive) return;
-
-    if (this.shooting) {
-        this.character.animations.stop();
-        this.character.frame = 5;
-    } else if (this.flying) {
-        this.character.animations.play('fly');
-        this.weapon.y = 2;
-    } else if (!standing) {
-        if (this.body.velocity.y > 30) {
-            this.character.animations.play('fall');
-            this.weapon.y = -2;
-        } else {
-            this.character.frame = 12;
-        }
-    } else if (!this.wasStanding) {
-        this.fx.dust.x = this.x;
-        this.fx.dust.y = this.y + this.character.height/2;
-        this.fx.dust.explode(100, 6);
-    } else if (Math.abs(this.body.velocity.x) >= this.speed/2) {
-        this.character.animations.play('walk');
-        if (this.lastStep < this.state.time.now - 200) {
-            this.state.playSound(this.sounds.step, 200)
-            this.lastStep = this.state.time.now
-        }
-    } else {
-        this.character.animations.stop();
-        this.character.frame = 0;
-    }
-    this.flying = false;
-    this.wasStanding = standing;
-
-    if (!this.ctlr.enabled) return;
-    
-    // TODO: move all this to the player class.
-    if (this.ctlr.right.isDown) this.goRight(this.speed);
-    if (this.ctlr.left.isDown) this.goLeft(this.speed);
-    if (this.ctlr.up.isDown) this.fly();
-    if (this.ctlr.shoot.isDown) {
-        this.shoot(this.ctlr.isNewClick);
-        this.ctlr.isNewClick = false;
-    } else {
-        this.ctlr.isNewClick = true;
-    }
-
-    // TODO This should work even if a weapon isn't equipped
-    var theta = Phaser.Point.angle(this.ctlr.position, this.position);
-    if (this.weapon) {
-        this.weapon.y = 0;
-        this.weapon.rotation = theta;
-    }
-    this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? LEFT : RIGHT;
+    this.playerState.update()
 }
 
-},{}],22:[function(require,module,exports){
+},{"./Character.js":24,"./PlayerFX.js":27,"./PlayerSounds.js":28,"./PlayerStateMachine.js":29,"./setPhysics.js":30}],27:[function(require,module,exports){
+module.exports = PlayerFX
+
+
+function PlayerFX(state) {
+    this.dust = state.add.emitter(0, 0, 10)
+    this.flame = state.add.emitter(0, 0, 30)
+
+    this.dust.makeParticles('dust', [0, 1, 2, 3])
+    this.dust.setScale(0.5, 2, 0.5, 2, 400)
+    this.dust.setRotation(0)
+    this.dust.setXSpeed(-100, 100)
+    this.dust.setYSpeed(-20, -80)
+    this.dust.setAlpha(1, 0.2, 400)
+    this.dust.setScale(0.25, 1, 0.25, 1, 200)
+
+    this.flame.makeParticles('flame', [0, 1, 2, 3])
+    this.flame.setScale(0.25, 1, 0.25, 1, 200)
+    this.flame.setAlpha(1, 0.2, 400)
+    this.flame.setRotation(0)
+    this.flame.setXSpeed(-40, 40)
+    this.flame.setYSpeed(60, 80)
+    this.flame.lifespan = 400
+}
+
+},{}],28:[function(require,module,exports){
+module.exports = PlayerSounds
+
+
+function PlayerSounds(state) {
+    return {
+        death: state.add.sound('death'),
+        jetpack: state.add.sound('jetpack'),
+        land: state.add.sound('land'),
+        step: state.add.sound('step')
+    }
+}
+
+},{}],29:[function(require,module,exports){
+module.exports = PlayerStateMachine
+
+
+var DEATH_FRAME = 23
+var SHOOTING_FRAME = 5
+var STANDING_FRAME = 0
+var STUN_FRAME = 20
+
+
+function PlayerStateMachine(player, ctlr) {
+    this.player = player
+    this.ctlr = ctlr
+
+    this.fuel = this.maxFuel
+    this.states = {
+        dead: new Dead(this),
+        falling: new Falling(this),
+        flying: new Flying(this),
+        standing: new Standing(this),
+        stunned: new Stunned(this)
+    }
+
+    this.current = this.states.standing
+}
+
+
+PlayerStateMachine.prototype = {
+    maxFuel: 2000,
+
+    change: function(key){
+        this.current.exit()
+        this.current = this.states[key]
+        this.current.enter()
+    },
+
+    update: function() {
+        this.ctlr.update()
+        this.current.update()
+    }
+}
+
+
+function PlayerState(machine) {
+    this.machine = machine
+    this.player = machine.player
+    this.ctlr = machine.ctlr
+}
+
+PlayerState.prototype = {
+    enter: function() {},
+    exit: function() {},
+
+    update: function() {
+        var plyr = this.player
+        var ctlr = this.ctlr
+
+        if (this.machine.shooting) {
+            plyr.character.animations.stop()
+            plyr.character.frame = SHOOTING_FRAME
+        }
+
+        var theta = Phaser.Point.angle(ctlr.position, plyr.position)
+        if (plyr.weapon) {
+            plyr.weapon.rotation = theta
+        }
+        plyr.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? -1 : 1
+
+        if (ctlr.left) this.onLeft()
+        if (ctlr.right) this.onRight()
+        if (ctlr.up) this.onUp()
+        if (ctlr.shoot) this.onShoot()
+    },
+
+    onUp: function() {
+        if (this.machine.fuel > 0) this.machine.change('flying')
+    },
+
+    onLeft: function() {
+        if (!this.ctlr.right) this.player.body.velocity.x = -this.player.speed
+        else this.player.body.velocity.x = 0
+    },
+
+    onRight: function() {
+        if (!this.ctlr.left) this.player.body.velocity.x = this.player.speed
+        else this.player.body.velocity.x = 0
+    },
+
+    onShoot: function() {
+        var plyr = this.player
+        if (!plyr.weapon) return
+        if (plyr.weapon.fire(this.ctlr.newShot)) {
+            plyr.character.animations.stop()
+            plyr.character.frame = SHOOTING_FRAME
+            var direction = plyr.facing
+            plyr.body.x -= 3 * direction
+            plyr.weapon.x = -2
+            plyr.game.time.events.add(80, function() {
+                this.machine.shooting = false
+                plyr.weapon.x = 0
+            }, this)
+        }
+    }
+}
+
+
+function Dead(machine) {
+    PlayerState.call(this, machine)
+    this.wasStanding = false
+}
+
+
+Dead.prototype = {
+    exit: function() {},
+
+    enter: function() {
+        var plyr = this.player
+
+        plyr.state.playSound(plyr.sounds.death)
+        plyr.state.camera.flash(0xf6eeee, 500)
+        plyr.alive = false
+        plyr.body.removeCollisionGroup([
+            plyr.state.enemiesCG, plyr.state.itemsCG
+        ])
+        plyr.character.animations.stop()
+        plyr.character.frame = DEATH_FRAME - 2
+        plyr.body.velocity.x = -100 * plyr.facing
+        plyr.body.velocity.y = -150
+        if (plyr.weapon) {
+            var x = plyr.weapon.world.x
+            var y = plyr.weapon.world.y
+            plyr.weapon.scale.y = 1
+            plyr.game.world.add(plyr.weapon)
+            plyr.weapon.x = x
+            plyr.weapon.y = y
+            plyr.state.physics.p2.enableBody(plyr.weapon)
+            plyr.weapon.body.collideWorldBounds = false
+            plyr.weapon.body.angularVelocity = 4
+            plyr.weapon.body.velocity.x = 60 * plyr.facing
+            plyr.weapon.body.velocity.y = -100
+        }
+    },
+
+    update: function() {
+        if (!this.player.standing) {
+            this.player.character.frame = DEATH_FRAME - 2
+            this.wasStanding = false
+            return
+        }
+        velx = this.player.body.velocity.x
+        if (velx > 0)
+            this.player.body.velocity.x = Math.max(velx - 2, 0)
+        else if (velx < 0)
+            this.player.body.velocity.x = Math.min(velx + 2, 0)
+        if (!this.wasStanding) {
+            this.player.character.animations.play('die', null, false)
+            this.wasStanding = true
+        }
+    }
+}
+
+
+function Falling(machine) {
+    PlayerState.call(this, machine)
+}
+
+
+Falling.prototype = Object.create(PlayerState.prototype)
+
+
+Falling.prototype.exit = function() {
+    this.player.weapon.y = 0
+}
+
+
+Falling.prototype.update = function() {
+    var plyr = this.player
+
+    if (plyr.standing) {
+        plyr.state.playSound(plyr.sounds.land)
+        plyr.fx.dust.x = plyr.x
+        plyr.fx.dust.y = plyr.y + plyr.character.height/2
+        plyr.fx.dust.explode(100, 6)
+
+        this.machine.change('standing')
+        return
+    }
+
+    if (plyr.body.velocity.y > 30) {
+        plyr.character.animations.play('fall')
+        plyr.weapon.y = -2
+    } else {
+        plyr.character.frame = 12
+    }
+
+    PlayerState.prototype.update.call(this)
+}
+
+
+function Flying(machine) {
+    PlayerState.call(this, machine)
+}
+
+
+Flying.prototype = Object.create(PlayerState.prototype)
+
+
+Flying.prototype.enter = function() {
+    this.player.state.playSound(this.player.sounds.jetpack)
+}
+
+Flying.prototype.exit = function() {
+    this.player.sounds.jetpack.stop()
+    this.player.weapon.y = 0
+}
+
+Flying.prototype.update = function() {
+    var plyr = this.player
+    var mchn = this.machine
+
+    if (mchn.fuel <= 0 || !this.ctlr.up) {
+        mchn.change('falling')
+        return
+    }
+
+    plyr.character.animations.play('fly')
+
+    plyr.weapon.y = plyr.body.velocity.y < -30 ? 2 : 0
+
+    plyr.body.thrust(plyr.game.physics.p2.gravity.y * 2.5)
+    mchn.fuel = Math.max(mchn.fuel - plyr.game.time.physicsElapsedMS, 0)
+
+    plyr.fx.flame.x = plyr.x
+    plyr.fx.flame.y = plyr.y
+    plyr.fx.flame.emitParticle()
+
+    PlayerState.prototype.update.call(this)
+}
+
+
+Flying.prototype.onUp = function() {
+    return
+}
+
+
+function Standing(machine) {
+    PlayerState.call(this, machine)
+}
+
+
+Standing.prototype = Object.create(PlayerState.prototype)
+
+
+Standing.prototype.update = function() {
+    var plyr = this.player
+    var mchn = this.machine
+    var velx = plyr.body.velocity.x
+
+    if (mchn.fuel < mchn.maxFuel) {
+        var fuel = mchn.fuel + plyr.game.time.physicsElapsedMS / 2
+        mchn.fuel = Math.min(mchn.maxFuel, fuel)
+    }
+
+    if (velx !== 0) {
+        var friction = velx/20 * plyr.speedBonus
+        plyr.body.velocity.x = velx < 0 ?
+            Math.min(velx - friction, 0) :
+            Math.max(velx - friction, 0)
+    }
+
+    if (Math.abs(velx) >= plyr.speed/2) {
+        plyr.character.animations.play('walk')
+        if (this.lastStep < plyr.state.time.now - 200) {
+            plyr.state.playSound(plyr.sounds.step, 200)
+            this.lastStep = plyr.state.time.now
+        }
+    } else {
+        plyr.character.animations.stop()
+        plyr.character.frame = STANDING_FRAME
+    }
+
+    PlayerState.prototype.update.call(this)
+}
+
+
+function Stunned(machine) {
+    PlayerState.call(this, machine)
+}
+
+
+Stunned.prototype = {
+    exit: function() {},
+    update: function() {
+        this.player.character.frame = STUN_FRAME
+    },
+
+    enter: function() {
+        var plyr = this.player
+        var lvl = plyr.state
+
+        plyr.body.removeCollisionGroup(lvl.enemiesCG, false)
+
+        if (plyr.weapon)
+            plyr.weapon.rotation = plyr.facing === 1 ? 0 : Math.PI
+        plyr.body.velocity.x = 40 * -plyr.facing
+
+        this.tween = this.player.state.add.tween(this.player.character)
+        this.tween.to({alpha: 0.2}, 75, null, false, 0, -1, true)
+        this.tween.start()
+
+        lvl.time.events.add(800, this.endStun, this)
+    },
+
+    end: function() {
+        this.tween.pause()
+        this.player.character.alpha = 1
+        this.player.body.collides(this.player.state.enemiesCG)
+    },
+
+    endStun: function() {
+        this.player.state.time.events.add(1600, this.end, this)
+        if (this.ctlr.up && this.machine.fuel > 0) {
+            this.machine.change('flying')
+            return
+        }
+        if (!this.player.standing) {
+            this.machine.change('falling')
+            return
+        }
+        this.machine.change('standing')
+    }
+}
+
+},{}],30:[function(require,module,exports){
+module.exports = function setPhysics(player) {
+    var state = player.state
+
+    player.game.physics.p2.enable(player)
+    player.body.setRectangle(player.character.width/2, player.character.height)
+
+    var groundSensor = player.body.addRectangle(
+        player.character.width*2/3, 2, 0, player.character.height/2
+    )
+    groundSensor.sensor = true
+
+    player.body.onBeginContact.add(function(){
+        if(arguments[2] === groundSensor) player.standing++
+    }, player)
+    player.body.onEndContact.add(function(){
+        if(arguments[2] === groundSensor) player.standing--
+    }, player)
+
+    player.body.setMaterial(state.playerMaterial);
+    player.body.setCollisionGroup(state.playersCG);
+    player.body.collides(state.enemiesCG, player.damage, player);
+    player.body.collides([state.itemsCG, state.platformsCG]);
+
+    player.body.fixedRotation = true
+}
+
+},{}],31:[function(require,module,exports){
 module.exports = Game;
 
 
 var Boot = require('./boot.js');
 var Load = require('./load.js');
 var Level = require('./level/Level.js');
-var Arcade = require('./arcade.js');
+var Arcade = require('./arcade/arcade.js');
 
 
 function Game(parent) {
@@ -1626,7 +2309,7 @@ function Game(parent) {
     return game;
 }
 
-},{"./arcade.js":2,"./boot.js":3,"./level/Level.js":23,"./load.js":27,"./phaserPatch.js":30}],23:[function(require,module,exports){
+},{"./arcade/arcade.js":2,"./boot.js":5,"./level/Level.js":32,"./load.js":36,"./phaserPatch.js":40}],32:[function(require,module,exports){
 module.exports = Level
 
 
@@ -1667,11 +2350,21 @@ Level.prototype = {
             enemy.body.velocity.y *= factor;
             enemy.body.data.gravityScale *= factor * factor;
         });
+        if (this.sound.usingWebAudio) {
+            this.sound._sounds.forEach(function(snd) {
+                if (snd._snd) snd._snd.playbackRate *= factor
+            });
+        }
     },
 
 
     exit: function() {
         this.state.start('Menu')
+    },
+
+
+    explode: function(x, y, width) {
+        this.explosionPool.getFirstDead(true).reset(x, y, width)
     },
 
 
@@ -1684,6 +2377,7 @@ Level.prototype = {
         this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
         this.gameOverScreen.exists = true
         this.time.slowMotion = 6
+        this.world.add(this.p1)
     },
 
 
@@ -1709,8 +2403,9 @@ Level.prototype = {
     update: function() {
         for (var i=this.buffs.length-1; i>=0; i--) {
             var buff = this.buffs[i]
-            buff.timeLeft -= this.time.elapsed
-            if (buff.timeLeft >= 0) {
+            if (buff.timeLeft !== -1)
+                buff.timeLeft = Math.max(buff.timeLeft - this.time.elapsed, 0)
+            if (buff.timeLeft !== 0) {
                 if (typeof buff.update === 'function') buff.update()
             } else {
                 if (typeof buff.stop === 'function') buff.stop()
@@ -1728,8 +2423,9 @@ Level.prototype = {
     }
 }
 
-},{"../entities/entities.js":20,"./create.js":24,"./init.js":25,"./parseDrop.js":26}],24:[function(require,module,exports){
+},{"../entities/entities.js":23,"./create.js":33,"./init.js":34,"./parseDrop.js":35}],33:[function(require,module,exports){
 var BrkPlat = require('../entities/BrkPlat.js')
+var Explosion = require('../magic/Explosion.js')
 
 
 module.exports = function create() {
@@ -1739,12 +2435,19 @@ module.exports = function create() {
         paintBackground(this)
     makeParticles(this)
     makeMap(this)
+    makeExplosions(this)
     makeGameOverScreen(this)
 
     // TODO Change if we ever have more than one player.
     this.p1 = this.players.getChildAt(0)
-    this.world.addChild(this.players)
-    console.log(this.sound._sounds)
+    //this.world.addChild(this.players)
+}
+
+
+function makeExplosions(state) {
+    state.explosionPool = state.add.group()
+    state.explosionPool.classType = Explosion
+    state.explosionPool.createMultiple(10)
 }
 
 
@@ -1789,6 +2492,7 @@ function makeMap(state) {
     var plats = state.physics.p2
         .convertCollisionObjects(state.map, 'platform', true)
     
+    state.map.objects.object.forEach(state.addEntity, state)
     state.map.createLayer('background')
     plats.forEach(function(platform, i) {
         var data = state.map.objects.platform[i]
@@ -1812,15 +2516,33 @@ function makeMap(state) {
         platform.setMaterial(state.platformMaterial)
     }, state)
 
-    state.map.objects.object.forEach(state.addEntity, state)
+    var p2 = state.physics.p2
+    var bounds = [
+        p2.createBody(0, state.world.height, 0, true),
+        p2.createBody(0, 0, 0, true),
+        p2.createBody(0, 0, 0, true),
+        p2.createBody(state.world.width, 0, 0, true)
+    ]
+    for (var i = 0; i < bounds.length; i++) {
+        bounds[i].rotation = i * Math.PI/2
+        bounds[i].addCircle(8)
+        bounds[i].addPlane()
+        bounds[i].setCollisionGroup(p2.boundsCollisionGroup)
+        bounds[i].collides([
+            state.enemiesCG, state.playersCG, state.itemsCG,
+            state.shellsCG, state.bulletsCG
+        ])
+        bounds[i].setMaterial(state.platformMaterial)
+    }
+
 }
 
 
 function makeParticles(state) {
     state.shellPool = state.add.group()
-    state.items = state.add.group()
     state.players = state.add.group()
     state.enemies = state.add.group()
+    state.items = state.add.group()
     state.platforms = state.add.group()
 
     state.shellPool.physicsBodyType = Phaser.Physics.P2JS
@@ -1843,7 +2565,7 @@ function makeParticles(state) {
     state.frag.lifespan = 200
 }
 
-},{"../entities/BrkPlat.js":4}],25:[function(require,module,exports){
+},{"../entities/BrkPlat.js":6,"../magic/Explosion.js":37}],34:[function(require,module,exports){
 module.exports = function init(map) {
     this.buffs = []
     this.bulletTime = 1
@@ -1857,7 +2579,6 @@ module.exports = function init(map) {
 
 function setPhysics(state) {
     var p2 = state.physics.p2
-    p2.updateBoundsCollisionGroup()
     p2.setImpactEvents(true)
     p2.gravity.y = 400
     p2.applyGravity = true
@@ -1890,7 +2611,7 @@ function setPhysics(state) {
     })
 }
 
-},{}],26:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 /*
 * The tiled representation of enemies have a recursive JSON list
 * of what they drop. It looks like:
@@ -1929,7 +2650,7 @@ module.exports = function parseDrop(drop) {
     return null
 }
 
-},{}],27:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 module.exports = Load
     
     
@@ -1951,7 +2672,83 @@ Load.prototype = {
     }
 }
 
-},{"../assets/assets.json":1}],28:[function(require,module,exports){
+},{"../assets/assets.json":1}],37:[function(require,module,exports){
+var dotGravity = require('./dotGravity.js')
+
+
+module.exports = Explosion
+
+
+function Explosion(game, x, y, key, frame) {
+    key = 'enemies'
+    Phaser.Sprite.call(this, game, x, y, key, frame)
+
+    this.state = game.state.getCurrentState()
+    game.physics.p2.enable(this)
+
+    this.sounds = {
+        explode: this.state.add.sound('explode')
+    }
+    this.targets = []
+
+    this.width = this.height = 160
+    this.shape = this.body.setCircle(this.width/2)
+    this.shape.sensor = true
+    var ex = this.animations.add('explode', [4, 5, 6, 7], 60, false)
+    ex.killOnComplete = true
+
+    this.body.collideWorldBounds = false
+    this.body.setCollisionGroup(this.state.bulletsCG)
+    this.body.collides(this.state.enemiesCG)
+    this.body.onBeginContact.add(this.explode, this)
+    game.physics.p2.removeBody(this.body)
+}
+
+
+Explosion.prototype = Object.create(Phaser.Sprite.prototype)
+
+
+Explosion.prototype.explode = function(body) {
+    for (var i = 0; i < this.targets.length; i++)
+        if (body.sprite === this.targets[i]) return
+
+    this.targets.push(body.sprite)
+}
+
+
+Explosion.prototype.kill = function() {
+    Phaser.Sprite.prototype.kill.call(this)
+
+    for (var i = 0; i < this.targets.length; i++)
+        this.targets[i].damage(null, this.body)
+
+    this.state.enemies.recurseAlive(function(enemy) {
+        var distance = Math.max(this.world.distance(enemy.world), 1);
+        var r = 512;
+        if (distance > r) return
+        var angle = this.world.angle(enemy.world);
+        var d2 = distance*distance;
+        var mag = 400 * (1 - distance/r) * this.state.bulletTime
+        enemy.body.velocity.x += mag * Math.cos(angle)
+        enemy.body.velocity.y += mag * Math.sin(angle)
+    }, this)
+}
+
+
+Explosion.prototype.reset = function(x, y, radius) {
+    this.targets = []
+    if (radius > 0) {
+        this.width = this.height = radius * 1.5
+        this.shape.radius = radius
+    }
+    this.body.addToWorld()
+    Phaser.Sprite.prototype.reset.call(this, x, y)
+    this.animations.play('explode')
+    this.state.playSound(this.sounds.explode)
+    this.state.camera.shake(0.015, 400);
+}
+
+},{"./dotGravity.js":38}],38:[function(require,module,exports){
 module.exports = function(subjects, source, magnitude, range, invert) {
     range = range || 0;
 
@@ -1981,7 +2778,7 @@ module.exports = function(subjects, source, magnitude, range, invert) {
     }
 }
 
-},{}],29:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 module.exports = explode;
 
 
@@ -2000,7 +2797,7 @@ function explode(target, source, radius, damage, blast, blastRadius, invert) {
     target.game.camera.shake(0.01, 400);
 }
 
-},{"./dotGravity.js":28}],30:[function(require,module,exports){
+},{"./dotGravity.js":38}],40:[function(require,module,exports){
 module.exports = function() {
 
     Object.defineProperty(Phaser.Group.prototype, 'alive', {
@@ -2071,5 +2868,5 @@ module.exports = function() {
     }
 }
 
-},{}]},{},[22])(22)
+},{}]},{},[31])(31)
 });
