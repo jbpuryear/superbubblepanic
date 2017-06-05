@@ -77,12 +77,10 @@ PlayerState.prototype = {
 
     onLeft: function() {
         if (!this.ctlr.right) this.player.body.velocity.x = -this.player.speed
-        else this.player.body.velocity.x = 0
     },
 
     onRight: function() {
         if (!this.ctlr.left) this.player.body.velocity.x = this.player.speed
-        else this.player.body.velocity.x = 0
     },
 
     onShoot: function() {
