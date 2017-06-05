@@ -27,12 +27,14 @@ Buff.prototype.pickup = function(_, playerBody) {
     Item.prototype.pickup.call(this);
     var buff = this.buff;
     buff.target = playerBody.sprite;
-    if (typeof buff.start === 'function') buff.start(buff.target);
 
     if (buff.duration !== 0) {
         buff.timeLeft = buff.duration;
         buff.state.buffs.push(buff);
     }
+
+    if (typeof buff.start === 'function') buff.start(buff.target);
+
     buff.sounds = this.sounds;
     return buff;
 }

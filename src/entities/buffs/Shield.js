@@ -19,12 +19,15 @@ Shield.prototype.buffProto = {
     duration: -1,
 
     start: function(target) {
-        if (target.health > 1) return
-        target.health = 2
-
-        this.block = this.state.add.sound('block')
-
         this.sprite.destroy()
+
+        if (target.health > 1) {
+            this.timeLeft = 0
+            return
+        }
+
+        target.health = 2
+        this.block = this.state.add.sound('block')
 
         this.sprite = this.state.add.sprite(0, 0, target.character.texture)
 
