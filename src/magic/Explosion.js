@@ -16,7 +16,7 @@ function Explosion(game, x, y, key, frame) {
     }
     this.targets = []
 
-    this.width = this.height = 128
+    this.width = this.height = 160
     this.shape = this.body.setCircle(this.width/2)
     this.shape.sensor = true
     var ex = this.animations.add('explode', [4, 5, 6, 7], 60, false)

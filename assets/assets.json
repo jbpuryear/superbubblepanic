@@ -171,6 +171,13 @@
         },
         {
             "type": "spritesheet",
+            "key": "pellet",
+            "url": "assets/images/pellet.png",
+            "frameWidth": 16,
+            "frameHeight": 16
+        },
+        {
+            "type": "spritesheet",
             "key": "player",
             "url": "assets/images/player.png",
             "frameWidth": 16,
