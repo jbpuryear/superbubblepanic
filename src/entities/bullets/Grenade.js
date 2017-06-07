@@ -28,7 +28,6 @@ Object.defineProperty(Grenade.prototype, 'alive', {get: function() {return false
 
 Grenade.prototype.fire = function(x, y, theta, speedBonus) {
     var round = this.children[0];
-    console.log(round);
     if (round.exists) round.kill();
     else round.fire(x, y, theta, speedBonus);
 }
