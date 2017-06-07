@@ -7,8 +7,7 @@ var Buff = require('./Buff.js');
 function Shoes(state, data) {
     data.texture = 'shoes';
     Buff.call(this, state, data);
-
-    this.sounds.pickup = this.state.add.sound('shoe-pickup');
+    this.sounds.pickup = 'shoe-pickup';
 }
 
 

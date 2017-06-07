@@ -2,7 +2,6 @@ module.exports = Player
 
 
 var PlayerStateMachine = require('./PlayerStateMachine.js')
-var PlayerSounds = require('./PlayerSounds.js')
 var PlayerFX = require('./PlayerFX.js')
 var Character = require('./Character.js')
 var setPhysics = require('./setPhysics.js')
@@ -26,7 +25,6 @@ function Player(state, data, ctlr) {
 
     this.character = new Character(state)
     this.playerState = new PlayerStateMachine(this, ctlr)
-    this.sounds = new PlayerSounds(state)
     this.fx = new PlayerFX(state)
 
     setPhysics(this)

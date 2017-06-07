@@ -11,8 +11,8 @@ var TEXTURE = 'repel'
 function Repel(state, data) {
     data.texture = TEXTURE
     Buff.call(this, state, data)
-    this.sounds.pickup = state.add.sound('repel-pickup')
-    this.sounds.stop = state.add.sound('repel-stop')
+    this.sounds.pickup = 'repel-pickup'
+    this.sounds.stop = 'repel-stop'
 }
 
 
@@ -54,7 +54,7 @@ Repel.prototype.buffProto = {
 
     update: function() {
         if (this.timeLeft < 800 && !this.overFlag) {
-            this.sounds.stop.play()
+            this.state.playSound(this.sounds.stop, undefined, false)
             this.overFlag = true
         }
         this.sprite.body.x = this.target.world.x

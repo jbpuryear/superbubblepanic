@@ -14,8 +14,8 @@ function Gun(state, data, BulletClass) {
     this.accuracy = data.accuracy || 0
     this.speedMul = data.speedMul || 1
     this.speedVar = data.speedVar || 0
-    this.sounds.pickup = state.add.sound(data.equipSound || 'reload')
-    this.sounds.shot = state.add.sound(data.shotSound || 'gunshot')
+    this.sounds.pickup = data.equipSound || 'reload'
+    this.sounds.shot = data.shotSound || 'gunshot'
 
     this.clips = []
     this.lastShot = 0

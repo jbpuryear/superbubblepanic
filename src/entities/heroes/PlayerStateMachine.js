@@ -108,7 +108,7 @@ Dead.prototype = {
     enter: function() {
         var plyr = this.player
 
-        plyr.state.playSound(plyr.sounds.death)
+        plyr.state.playSound('death')
         plyr.state.camera.flash(0xf6eeee, 500)
         plyr.alive = false
         plyr.body.removeCollisionGroup([
@@ -169,7 +169,7 @@ Falling.prototype.update = function() {
     var plyr = this.player
 
     if (plyr.standing) {
-        plyr.state.playSound(plyr.sounds.land)
+        plyr.state.playSound('land')
         plyr.fx.dust.x = plyr.x
         plyr.fx.dust.y = plyr.y + plyr.character.height/2
         plyr.fx.dust.explode(100, 6)
@@ -198,11 +198,11 @@ Flying.prototype = Object.create(PlayerState.prototype)
 
 
 Flying.prototype.enter = function() {
-    this.player.state.playSound(this.player.sounds.jetpack)
+    this.jet = this.player.state.playSound('jetpack', undefined, true, true)
 }
 
 Flying.prototype.exit = function() {
-    this.player.sounds.jetpack.stop()
+    if (this.jet && this.jet.isPlaying) this.jet.stop()
     this.player.weapon.y = 0
 }
 
@@ -237,6 +237,7 @@ Flying.prototype.onUp = function() {
 
 function Standing(machine) {
     PlayerState.call(this, machine)
+    this.lastStep = 0
 }
 
 
@@ -263,7 +264,7 @@ Standing.prototype.update = function() {
     if (Math.abs(velx) >= plyr.speed/2) {
         plyr.character.animations.play('walk')
         if (this.lastStep < plyr.state.time.now - 200) {
-            plyr.state.playSound(plyr.sounds.step, 200)
+            plyr.state.playSound('step', 200)
             this.lastStep = plyr.state.time.now
         }
     } else {

@@ -15,8 +15,8 @@ function Enemy(state, data, drop) {
 
     this.state = state
     this.sounds = {
-        pop: state.add.sound('pop'),
-        bounce: state.add.sound('bounce')
+        pop: 'pop',
+        bounce: 'bounce'
     }
 
     this.frameName = this.defaultFrame

@@ -7,7 +7,7 @@ var Buff = require('./Buff.js')
 function Shield(state, data) {
     data.texture = 'shield'
     Buff.call(this, state, data)
-    this.sounds.pickup = state.add.sound('shield-pickup')
+    this.sounds.pickup = 'shield-pickup'
     this.alpha = 0.8
 }
 
@@ -27,7 +27,6 @@ Shield.prototype.buffProto = {
         }
 
         target.health = 2
-        this.block = this.state.add.sound('block')
 
         this.sprite = this.state.add.sprite(0, 0, target.character.texture)
 
@@ -57,7 +56,7 @@ Shield.prototype.buffProto = {
 
     update: function() {
         if (this.target.health <= 1) {
-            this.state.playSound(this.block)
+            this.state.playSound('block')
             this.sprite.destroy()
             this.timeLeft = 0
             return

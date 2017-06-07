@@ -69,12 +69,41 @@ Level.prototype = {
     },
 
 
-    playSound: function(sound, randomize) {
-        sound.play()
-        if (sound._sound && sound.usingWebAudio)
-            sound._sound.playbackRate.value = this.bulletTime
+    playSound: function(key, randomize, useBulletTime, lock, repeat) {
+        lock = lock || false
+        repeat = repeat || false
+
+        var sound = null
+
+        for (var i = 0; i < this.soundPool.length; i++) {
+            if (!this.soundPool[i].isPlaying) {
+                sound = this.soundPool[i]
+                break
+            }
+        }
+
+        if (!sound) {
+            for (i = 0; i < this.soundPool.length; i++) {
+                if (!this.soundPool[i].isLocked) {
+                    sound = this.soundPool[i]
+                    break
+                }
+            }
+        }
+
+        if (!sound) return null
+
+        sound.key = key
+        sound.isLocked = lock
+        sound.play('', 0, 1, repeat, true)
+
+        if (sound._sound && sound.usingWebAudio) {
+            if (useBulletTime)
+                sound._sound.playbackRate.value = this.bulletTime
             if (randomize)
                 sound._sound.detune.value = Math.random() * -randomize
+        }
+
         return sound
     },
 

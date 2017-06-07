@@ -18,16 +18,16 @@ Slomo.prototype.buffProto = {
     rate: 0.25,
     start: function() {
         this.sprite.destroy()
-        this.speedUp = this.state.sound.play('slowdown')
-        this.tick = this.state.sound.play('clock', 1, true)
-        this.slowDown = this.state.add.sound('speedup')
+        this.state.playSound('slowdown', undefined, false)
+        this.tick = this.state.playSound('clock', undefined, false, true, true)
         this.state.changeTime(this.rate)
     },
     stop: function() {
-        this.tick.stop()
-        this.slowDown.onStop.addOnce(function() {
-            this.state.changeTime(1/this.rate)
-        }, this)
-        this.slowDown.play();
+        if (this.tick && this.tick.isPlaying) this.tick.stop()
+
+        this.state.playSound('speedup', undefined, false)
+        this.state.time.events.add(900, function() {
+                this.state.changeTime(1/this.rate)
+            }, this)
     }
 }

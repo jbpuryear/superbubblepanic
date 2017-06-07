@@ -10,11 +10,6 @@ function Explosion(game, x, y, key, frame) {
     this.state = game.state.getCurrentState()
     game.physics.p2.enable(this)
 
-    this.sounds = {
-        explode: this.state.add.sound('explode')
-    }
-    this.targets = []
-
     this.width = this.height = 160
     this.shape = this.body.setCircle(this.width/2)
     this.shape.sensor = true
@@ -69,6 +64,6 @@ Explosion.prototype.reset = function(x, y, radius) {
     this.body.addToWorld()
     Phaser.Sprite.prototype.reset.call(this, x, y)
     this.animations.play('explode')
-    this.state.playSound(this.sounds.explode)
+    this.state.playSound('explode')
     this.state.camera.shake(0.015, 400);
 }
