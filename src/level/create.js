@@ -14,7 +14,6 @@ module.exports = function create() {
 
     // TODO Change if we ever have more than one player.
     this.p1 = this.players.getChildAt(0)
-    //this.world.addChild(this.players)
 }
 
 
@@ -121,7 +120,7 @@ function makeParticles(state) {
 
     state.shellPool.physicsBodyType = Phaser.Physics.P2JS
     state.shellPool.enableBody = true
-    state.shellPool.createMultiple(30, 'shell')
+    state.shellPool.createMultiple(30, 'sprites', 'shell')
     state.shellPool.forEach(function(shell) {
         shell.body.setRectangle(4, 2)
         shell.body.setCollisionGroup(state.shellsCG)
@@ -129,7 +128,8 @@ function makeParticles(state) {
     }, state)
 
     state.frag = state.add.emitter(0, 0, 100)
-    state.frag.makeParticles('flame', [0, 1, 2, 3])
+    state.frag.makeParticles('sprites', 
+        Phaser.Animation.generateFrameNames('flame', 1, 4))
     state.frag.setScale(0.5, 1, 0.5, 1.)
     state.frag.setRotation(0, 0)
     state.frag.gravity = 0

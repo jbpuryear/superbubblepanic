@@ -1,5 +1,5 @@
 {
-    "images": [
+    "audio": [
         {
             "type": "audio",
             "key": "block",
@@ -120,69 +120,9 @@
             "urls": ["assets/audio/step.ogg"],
             "autoDecode": true
 	},
-        {
-            "type": "spritesheet",
-            "key": "bullet",
-            "url": "assets/images/bullet.png",
-            "frameWidth": 16,
-            "frameHeight": 16
-        },
-        {
-            "type": "spritesheet",
-            "key": "dust",
-            "url": "assets/images/dust.png",
-            "frameWidth": 4,
-            "frameHeight": 4
-        },
-        {
-            "type": "spritesheet",
-            "key": "enemies",
-            "url": "assets/images/enemies.png",
-            "frameWidth": 64,
-            "frameHeight": 64
-        },
-        {
-            "type": "spritesheet",
-            "key": "explosion",
-            "url": "assets/images/explosion.png",
-            "frameWidth": 64,
-            "frameHeight": 64
-        },
-        {
-            "type": "spritesheet",
-            "key": "flame",
-            "url": "assets/images/flame.png",
-            "frameWidth": 4,
-            "frameHeight": 4
-        },
-        {
-            "type": "spritesheet",
-            "key": "frag",
-            "url": "assets/images/frag.png",
-            "frameWidth": 4,
-            "frameHeight": 4
-        },
-        {
-            "type": "spritesheet",
-            "key": "grenade",
-            "url": "assets/images/grenade.png",
-            "frameWidth": 16,
-            "frameHeight": 16
-        },
-        {
-            "type": "spritesheet",
-            "key": "pellet",
-            "url": "assets/images/pellet.png",
-            "frameWidth": 16,
-            "frameHeight": 16
-        },
-        {
-            "type": "spritesheet",
-            "key": "player",
-            "url": "assets/images/player.png",
-            "frameWidth": 16,
-            "frameHeight": 16
-        },
+    ],
+    
+    "images": [
         {
             "type": "spritesheet",
             "key": "tiles",
@@ -193,77 +133,18 @@
         {
             "type": "image",
             "key": "city",
-            "url": "assets/images/city.png"
+            "url": "assets/images/backgrounds/city.png"
         },
         {
-            "type": "image",
-            "key": "enemy",
-            "url": "assets/images/enemy.png"
+            "type": "atlasJSONHash",
+            "key": "sprites",
+            "textureURL": "assets/images/spritesheet.png",
+            "atlasURL": "assets/images/sprites.json",
         },
         {
             "type": "image",
             "key": "font-small",
             "url": "assets/images/font-small.png"
-        },
-        {
-            "type": "image",
-            "key": "gravgun",
-            "url": "assets/images/gravgun.png"
-        },
-        {
-            "type": "image",
-            "key": "grenade-launcher",
-            "url": "assets/images/grenade-launcher.png"
-        },
-        {
-            "type": "image",
-            "key": "gun",
-            "url": "assets/images/gun.png"
-        },
-        {
-            "type": "image",
-            "key": "hex",
-            "url": "assets/images/hex.png"
-        },
-        {
-            "type": "image",
-            "key": "repel",
-            "url": "assets/images/repel.png"
-        },
-        {
-            "type": "image",
-            "key": "repel-aura",
-            "url": "assets/images/repel-aura.png"
-        },
-        {
-            "type": "image",
-            "key": "shell",
-            "url": "assets/images/shell.png"
-        },
-        {
-            "type": "image",
-            "key": "shield",
-            "url": "assets/images/shield.png"
-        },
-        {
-            "type": "image",
-            "key": "shoes",
-            "url": "assets/images/shoes.png"
-        },
-        {
-            "type": "image",
-            "key": "shotgun",
-            "url": "assets/images/shotgun.png"
-        },
-        {
-            "type": "image",
-            "key": "slomo",
-            "url": "assets/images/slomo.png"
-        },
-        {
-            "type": "image",
-            "key": "smg",
-            "url": "assets/images/smg.png"
         }
     ],
     

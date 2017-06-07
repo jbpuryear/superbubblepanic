@@ -23,7 +23,7 @@ Seeker.prototype = Object.create(Enemy.prototype);
 
 Object.defineProperty(Seeker.prototype, 'preferSpeed', {get: function() { return this._preferSpeed/this.body.mass; }});
 
-Seeker.prototype.defaultFrame = 2;
+Seeker.prototype.defaultFrame = 'seeker';
 
 
 Seeker.prototype.update = function() {

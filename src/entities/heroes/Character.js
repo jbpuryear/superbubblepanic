@@ -1,18 +1,18 @@
 module.exports = Character
 
 
-var WALK = [0, 1, 2, 3]
+var WALK = Phaser.Animation.generateFrameNames('p1-walk', 1, 4)
 var WALK_RATE = 15
-var FLY = [10, 11]
+var FLY = Phaser.Animation.generateFrameNames('p1-fly', 1, 2)
 var FLY_RATE = 100
-var FALL = [12, 13]
+var FALL = Phaser.Animation.generateFrameNames('p1-fall', 1, 2)
 var FALL_RATE = 10
-var DIE = [22, 23]
+var DIE = Phaser.Animation.generateFrameNames('p1-die', 3, 4)
 var DIE_RATE = 4
 
 
 function Character(state) {
-    var character = new Phaser.Sprite(state.game, 0, 0, 'player')
+    var character = new Phaser.Sprite(state.game, 0, 0, 'sprites', 'p1-stand')
 
     character.anchor.setTo(0.5)
 

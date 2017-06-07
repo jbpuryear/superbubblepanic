@@ -11,4 +11,4 @@ function Hex(state, data, drop) {
 
 Hex.prototype = Object.create(Enemy.prototype);
 
-Hex.prototype.defaultFrame = 1
+Hex.prototype.defaultFrame = 'hex'

@@ -4,13 +4,14 @@ module.exports = Enemy
 var Bullet = require('../bullets/Bullet.js')
 
 
-var TEXTURE = 'enemies'
+var TEXTURE = 'enemy'
 var MAX_HEALTH = 1
 
 
 function Enemy(state, data, drop) {
-    data.texture = data.texture || TEXTURE
-    Phaser.Sprite.call(this, state.game, data.x, data.y, data.texture)
+    Phaser.Sprite.call(this, state.game, data.x, data.y, 'sprites')
+
+    if (data.texture) this.defaultFrame = data.texture
 
     this.state = state
     this.sounds = {
@@ -18,7 +19,7 @@ function Enemy(state, data, drop) {
         bounce: state.add.sound('bounce')
     }
 
-    this.frame = this.defaultFrame
+    this.frameName = this.defaultFrame
 
     this.exists = false
     this.alive = false
@@ -39,8 +40,8 @@ function Enemy(state, data, drop) {
     this.body.setMaterial(state.enemyMaterial)
     this.body.fixedRotation = true
 
-    this.animations.add('flash', [5, 7])
-        .onComplete.add(function() {this.frame = this.defaultFrame}, this)
+    this.animations.add('flash', Phaser.Animation.generateFrameNames('explosion', 1, 4))
+        .onComplete.add(function() {this.frameName = this.defaultFrame}, this)
 }
 
 
@@ -50,7 +51,7 @@ Enemy.prototype.maxHealth = MAX_HEALTH
 
 Enemy.prototype.maxSpeed = 600
 
-Enemy.prototype.defaultFrame = 0
+Enemy.prototype.defaultFrame = 'enemy'
 
 
 Enemy.prototype.damage = function(_, src) {
@@ -82,7 +83,7 @@ Enemy.prototype.kill = function() {
             this.width /= 2
             this.alpha = 1
             this.animations.stop()
-            this.frame = this.defaultFrame
+            this.frameName = this.defaultFrame
             Phaser.Sprite.prototype.kill.call(this)
         }, this)
 

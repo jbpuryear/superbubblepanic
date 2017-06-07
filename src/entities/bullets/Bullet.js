@@ -4,12 +4,12 @@ module.exports = Bullet;
 var SPEED = 500;
 var BODY_RADIUS = 4;
 var TEXTURE = 'bullet';
-var FLARE = 0;
-var BULLET = 1;
+
 
 function Bullet(state, x, y, texture) {
-    texture = texture || TEXTURE;
-    Phaser.Sprite.call(this, state.game, x, y, texture);
+    Phaser.Sprite.call(this, state.game, x, y, 'sprites');
+    if (texture) this.defaultFrame = texture;
+    this.frameName = this.defaultFrame;
     Phaser.Sprite.prototype.kill.call(this);
 
     this.state = state;
@@ -29,6 +29,7 @@ function Bullet(state, x, y, texture) {
 Bullet.prototype = Object.create(Phaser.Sprite.prototype);
 
 Bullet.prototype.attack = 1;
+Bullet.prototype.defaultFrame = 'bullet';
 Bullet.prototype.speed = SPEED;
 
 
@@ -41,9 +42,9 @@ Bullet.prototype.hit = function(_, target) {
 
 
 Bullet.prototype.fire = function(x, y, theta, speedBonus) {
-    this.frame = FLARE;
+    this.frameName = 'muzzle-flare';
     this.game.time.events.add(40, function() {
-        this.frame = BULLET;
+        this.frameName = this.defaultFrame;
     }, this);
     speedBonus = speedBonus || 1;
     var speed = this.speed * speedBonus;

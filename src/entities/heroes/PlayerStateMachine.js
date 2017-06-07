@@ -1,12 +1,6 @@
 module.exports = PlayerStateMachine
 
 
-var DEATH_FRAME = 23
-var SHOOTING_FRAME = 5
-var STANDING_FRAME = 0
-var STUN_FRAME = 20
-
-
 function PlayerStateMachine(player, ctlr) {
     this.player = player
     this.ctlr = ctlr
@@ -56,7 +50,7 @@ PlayerState.prototype = {
 
         if (this.machine.shooting) {
             plyr.character.animations.stop()
-            plyr.character.frame = SHOOTING_FRAME
+            plyr.character.frameName = 'p1-shoot'
         }
 
         var theta = Phaser.Point.angle(ctlr.position, plyr.position)
@@ -88,11 +82,12 @@ PlayerState.prototype = {
         if (!plyr.weapon) return
         if (plyr.weapon.fire(this.ctlr.newShot)) {
             plyr.character.animations.stop()
-            plyr.character.frame = SHOOTING_FRAME
+            plyr.character.frameName = 'p1-shoot'
             var direction = plyr.facing
             plyr.body.x -= 3 * direction
             plyr.weapon.x = -2
-            plyr.game.time.events.add(80, function() {
+            this.machine.shooting = true
+            plyr.game.time.events.add(60, function() {
                 this.machine.shooting = false
                 plyr.weapon.x = 0
             }, this)
@@ -120,7 +115,7 @@ Dead.prototype = {
             plyr.state.enemiesCG, plyr.state.itemsCG
         ])
         plyr.character.animations.stop()
-        plyr.character.frame = DEATH_FRAME - 2
+        plyr.character.frameName = 'p1-die2'
         plyr.body.velocity.x = -100 * plyr.facing
         plyr.body.velocity.y = -150
         if (plyr.weapon) {
@@ -140,7 +135,7 @@ Dead.prototype = {
 
     update: function() {
         if (!this.player.standing) {
-            this.player.character.frame = DEATH_FRAME - 2
+            this.player.character.frameName = 'p1-die2'
             this.wasStanding = false
             return
         }
@@ -187,7 +182,7 @@ Falling.prototype.update = function() {
         plyr.character.animations.play('fall')
         plyr.weapon.y = -2
     } else {
-        plyr.character.frame = 12
+        plyr.character.frameName = 'p1-fall1'
     }
 
     PlayerState.prototype.update.call(this)
@@ -273,7 +268,7 @@ Standing.prototype.update = function() {
         }
     } else {
         plyr.character.animations.stop()
-        plyr.character.frame = STANDING_FRAME
+        plyr.character.frameName = 'p1-stand'
     }
 
     PlayerState.prototype.update.call(this)
@@ -288,7 +283,7 @@ function Stunned(machine) {
 Stunned.prototype = {
     exit: function() {},
     update: function() {
-        this.player.character.frame = STUN_FRAME
+        this.player.character.frame = 'p1-stun'
     },
 
     enter: function() {
