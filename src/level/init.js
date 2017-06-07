@@ -4,7 +4,8 @@ module.exports = function init(map) {
     this.map = this.add.tilemap(map)
     this.mapName = map
 
-    this.stage.backgroundColor = 0x313839
+    this.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels)
+
     setPhysics(this)
 }
 

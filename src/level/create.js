@@ -3,8 +3,6 @@ var Explosion = require('../magic/Explosion.js')
 
 
 module.exports = function create() {
-    this.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels)
-
     this.soundPool = []
     for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
 

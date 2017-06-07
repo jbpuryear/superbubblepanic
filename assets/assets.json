@@ -140,11 +140,6 @@
             "key": "sprites",
             "textureURL": "assets/images/spritesheet.png",
             "atlasURL": "assets/images/sprites.json",
-        },
-        {
-            "type": "image",
-            "key": "font-small",
-            "url": "assets/images/font-small.png"
         }
     ],
     

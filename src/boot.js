@@ -8,6 +8,7 @@ function Boot() {
 
 Boot.prototype = {
     init: function() {
+        this.stage.backgroundColor = 0x180c08
         this.game.scale.pageAlignHorizontally = true
         this.game.scale.pageAlignVertically = true
         this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
@@ -29,5 +30,9 @@ Boot.prototype = {
 
     create: function() {
         this.state.start('Load')
+    }, 
+
+    preload: function() {
+        this.load.image('font-small', 'assets/images/font-small.png')
     }
 }
