@@ -1,5 +1,48 @@
 module.exports = function() {
 
+    Phaser.SoundManager.prototype.reset = function() {
+        this.stopAll();
+
+        for (var i = 0; i < this._sounds.length; i++) {
+            if (this._sounds[i]) {
+                this._sounds[i].destroy();
+            }
+        }
+
+        this._sounds = [];
+
+        this.onSoundDecode.dispose();
+    }
+
+    Phaser.StateManager.prototype.clearCurrentState = function() {
+        if (this.current) {
+            if (this.onShutDownCallback) {
+                this.onShutDownCallback.call(this.callbackContext, this.game);
+            }
+
+            this.game.tweens.removeAll();
+            this.game.camera.reset();
+            this.game.input.reset(true);
+            this.game.physics.clear();
+            this.game.time.removeAll();
+            this.game.scale.reset(this._clearWorld);
+            this.game.sound.reset();
+
+            if (this.game.debug) {
+                this.game.debug.reset();
+            }
+
+            if (this._clearWorld) {
+                this.game.world.shutdown();
+
+                if (this._clearCache) {
+                    this.game.cache.destroy();
+                }
+            }
+        }
+    }
+
+
     Object.defineProperty(Phaser.Group.prototype, 'alive', {
         get: function() { return !!this.getFirstAlive() }
     })
