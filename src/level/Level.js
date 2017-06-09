@@ -141,5 +141,18 @@ Level.prototype = {
 
     loseCondition: function() {
         return !this.p1.alive
+    },
+
+    startFX: function() {
+        var go = this.add.image(this.world.width/2, this.world.height/2,
+            'sprites', 'go')
+        go.anchor.setTo(0.5)
+        var goTween = this.add.tween(go)
+        goTween.to({width: go.width * 4, height: go.height * 4, alpha: 0},
+            800, Phaser.Easing.Quartic.In)
+        goTween.onComplete.addOnce(go.kill, go)
+        goTween.start()
+
+        this.camera.flash(0x180c08, 1000)
     }
 }

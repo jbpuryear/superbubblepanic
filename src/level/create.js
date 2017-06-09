@@ -18,7 +18,7 @@ module.exports = function create() {
     if (this.players.length > 0)
         this.p1 = this.players.getChildAt(0)
 
-    this.camera.flash(0x180c08, 1000)
+    this.startFX()
 }
 
 

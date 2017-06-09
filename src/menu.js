@@ -65,3 +65,8 @@ Menu.prototype.start = function() {
         this.camera.fade(0x180c08, 800)
     }, this)
 }
+
+
+Menu.prototype.startFX = function() {
+    this.camera.flash(0x180c08, 1000)
+}
