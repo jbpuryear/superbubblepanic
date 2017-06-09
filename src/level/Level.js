@@ -130,12 +130,16 @@ Level.prototype = {
             }
         }
 
-        if (!this.p1.alive) { this.gameOver() }
+        if (this.loseCondition()) this.gameOver()
     },
 
 
     shutdown: function() {
         this.stage.removeChild(this.gameOverScreen)
         this.time.slowMotion = 1
+    },
+
+    loseCondition: function() {
+        return !this.p1.alive
     }
 }

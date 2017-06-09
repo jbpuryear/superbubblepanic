@@ -4,6 +4,7 @@ var Explosion = require('../magic/Explosion.js')
 
 module.exports = function create() {
     this.soundPool = []
+    console.log(this.mapName, this.map)
     for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
 
     if (this.map.properties && this.map.properties.bgImage) 
@@ -14,7 +15,10 @@ module.exports = function create() {
     makeGameOverScreen(this)
 
     // TODO Change if we ever have more than one player.
-    this.p1 = this.players.getChildAt(0)
+    if (this.players.length > 0)
+        this.p1 = this.players.getChildAt(0)
+
+    this.camera.flash(0x180c08, 1000)
 }
 
 

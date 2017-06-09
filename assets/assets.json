@@ -136,6 +136,11 @@
             "url": "assets/images/backgrounds/city.png"
         },
         {
+            "type": "image",
+            "key": "desert",
+            "url": "assets/images/backgrounds/desert.png"
+        },
+        {
             "type": "atlasJSONHash",
             "key": "sprites",
             "textureURL": "assets/images/spritesheet.png",
@@ -169,6 +174,13 @@
             "type": "tilemap",
             "key": "_arcade",
             "url": "assets/levels/blank.json",
+            "format": "TILED_JSON"
+        },
+        
+        {
+            "type": "tilemap",
+            "key": "_menu",
+            "url": "assets/levels/menu.json",
             "format": "TILED_JSON"
         },
 
