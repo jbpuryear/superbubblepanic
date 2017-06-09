@@ -72,6 +72,7 @@ Level.prototype = {
     playSound: function(key, randomize, useBulletTime, lock, repeat) {
         lock = lock || false
         repeat = repeat || false
+        if (useBulletTime === undefined) useBulletTime = true
 
         var sound = null
 
