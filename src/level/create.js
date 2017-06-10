@@ -4,7 +4,6 @@ var Explosion = require('../magic/Explosion.js')
 
 module.exports = function create() {
     this.soundPool = []
-    console.log(this.mapName, this.map)
     for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
 
     if (this.map.properties && this.map.properties.bgImage) 
@@ -38,13 +37,12 @@ function makeGameOverScreen(state) {
     state.gameOverScreen = state.make.image(
         0, 0, gameOverScreen.generateTexture())
 
-    var GOtext = state.make.retroFont(
-        'font-small', 8, 8, Phaser.RetroFont.TEXT_SET2)
-    GOtext.text = 'r: retry x: menu'
-    var t = state.make.image(16, state.world.height-16, GOtext)
-    t.anchor.setTo(0, 1)
+    var GOtext = state.entities.smallFont(state, 'r: retry x: menu')
+    GOtext.anchor.setTo(0, 1)
+    GOtext.x = 16
+    GOtext.y = state.world.height-16
 
-    state.gameOverScreen.addChild(t)
+    state.gameOverScreen.addChild(GOtext)
     state.gameOverScreen.alpha = 0
     state.gameOverScreen.exists = false
     state.world.addChild(state.gameOverScreen)

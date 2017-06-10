@@ -33,10 +33,12 @@ Arcade.prototype.create = function() {
         return sum + item.chance
     }, 0)
 
-    this.font = this.make.retroFont('font-small', 8, 8, Phaser.RetroFont.TEXT_SET2);
-    this.font.text = '0';
-    this.score = this.add.image(16, 16, this.font);
     this._score = 0;
+    this.score = this.entities.smallFont(this, this._score + '')
+    this.score.anchor.setTo(0)
+    this.score.x = 16
+    this.score.y = 16
+    this.world.add(this.score)
 
     this.enemyPools = {};
     var enemyData = {
@@ -64,6 +66,9 @@ Arcade.prototype.create = function() {
 Arcade.prototype.update = function() {
     Level.prototype.update.call(this);
 
+    // Force repaint to get around a bug in Phaser
+    this.score.font.buildRetroFontText()
+
     this.timer -= this.time.physicsElapsedMS;
     if (this.timer < 0) this.spawnEnemy();
     var noEnemy = true;
@@ -74,6 +79,12 @@ Arcade.prototype.update = function() {
         }
     }
     if (noEnemy) { this.timer = Math.min(this.timer, 400); }
+}
+
+
+Arcade.prototype.gameOver = function() {
+    Level.prototype.gameOver.call(this)
+    this.game.data.checkScore(this._score)
 }
 
 
@@ -114,7 +125,7 @@ Arcade.prototype.spawnEnemy = function() {
 
 Arcade.prototype.getDrop = function(enemy) {
     this._score += Math.ceil(enemy.width) * 10;
-    this.font.text = this._score + '';
+    this.score.font.text = '' + this._score;
 
     if (--this.nextDrop !== 0) return null
     this.nextDrop = 5 + Math.floor(Math.random() * 20)
