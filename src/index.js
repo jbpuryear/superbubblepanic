@@ -28,6 +28,39 @@ function Game(parent) {
 
 
 function GameData() {
+    var hiScore
+    try {
+        hiScore = localStorage.getItem('hiScore')
+        this.localStore = true
+    } catch (e) {
+        this.localStore = false
+    }
+
+    if (!hiScore) hiScore = 0
+
+    this._hiScore = hiScore
+}
+
+
+GameData.prototype = {
+    checkScore: function(score) {
+        if (score > this._hiScore) {
+            this._hiScore = score
+            if (this.localStore) localStorage.setItem('hiScore', score)
+            return true
+        }
+        return false
+    },
+
+    getHiScore: function() {
+        return this._hiScore
+    },
+}
+
+
+// TODO: Do we want a top 10 scoreboard? Local or server?
+/*
+function GameData() {
     var hiScores
     try {
         hiScores = localStorage.getItem('hiScores')
@@ -79,3 +112,4 @@ GameData.prototype = {
         return this.newHiScores.length > 0
     }
 }
+*/
