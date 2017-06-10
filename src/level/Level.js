@@ -57,12 +57,14 @@ Level.prototype = {
 
 
     gameOver: function() {
-        var self = this
         this.input.keyboard.addKey(Phaser.Keyboard.R).onDown.addOnce(function() {
-            self.state.start(self.key, true, false, self.mapName)
-        })
-        this.input.keyboard.addKey(Phaser.Keyboard.X).onDown.addOnce(this.exit.bind(this))
+            this.state.start(this.key, true, false, this.mapName)
+        }, this)
+        this.input.keyboard.addKey(Phaser.Keyboard.X).onDown.addOnce(this.exit, this)
         this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
+        this.input.mousePointer.leftButton.onDown.addOnce(function() {
+            this.state.start(this.key, true, false, this.mapName)
+        }, this)
         this.gameOverScreen.exists = true
         this.time.slowMotion = 6
         this.world.add(this.p1)

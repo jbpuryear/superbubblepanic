@@ -18,6 +18,9 @@ module.exports = function create() {
         this.p1 = this.players.getChildAt(0)
 
     this.startFX()
+
+    this.input.keyboard.addKey(Phaser.Keyboard.ESC)
+        .onDown.add(this.exit, this)
 }
 
 
@@ -37,7 +40,7 @@ function makeGameOverScreen(state) {
     state.gameOverScreen = state.make.image(
         0, 0, gameOverScreen.generateTexture())
 
-    var GOtext = state.entities.smallFont(state, 'r: retry x: menu')
+    var GOtext = state.entities.smallFont(state, 'x: menu r: retry')
     GOtext.anchor.setTo(0, 1)
     GOtext.x = 16
     GOtext.y = state.world.height-16

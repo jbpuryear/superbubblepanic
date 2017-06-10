@@ -11,6 +11,7 @@ function HowToModal(state, gui) {
     info.font.multiLine = true
     info.font.align = Phaser.RetroFont.ALIGN_CENTER
     info.font.text = 'CONTROLS\n\n'
+        + 'ESC - MAIN MENU\n\n'
         + 'W - FLY\n'
         + 'A - LEFT\n'
         + 'D - RIGHT\n'

@@ -40,6 +40,11 @@ Menu.prototype.create = function() {
 } 
 
 
+Menu.prototype.exit = function() {
+    return
+}
+
+
 Menu.prototype.loseCondition = function() {
     return false
 }
