@@ -41,7 +41,7 @@ Hydroid.prototype.childDeath = function(enemy) {
         drop.reset(x, y)
     }
 
-    var width = enemy.width / 2
+    var width = enemy.width * 2/3
     var x = enemy.x
     var y = enemy.y
     var vx = enemy.body.velocity.x
@@ -49,8 +49,8 @@ Hydroid.prototype.childDeath = function(enemy) {
     var theta = enemy.killTheta
 
     var mag = Math.sqrt( vx*vx + vy*vy )
-    var xOff = Math.cos(theta + Math.PI/2) * width/2
-    var yOff = Math.sin(theta + Math.PI/2) * width/2
+    var xOff = Math.cos(theta + Math.PI/2) * width * 1/3
+    var yOff = Math.sin(theta + Math.PI/2) * width * 1/3
     var velx = Math.cos(theta + Math.PI/4) * mag
     var vely = Math.sin(theta + Math.PI/4) * mag
 
