@@ -1,6 +1,6 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.SBP = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports={
-    "images": [
+    "audio": [
         {
             "type": "audio",
             "key": "block",
@@ -121,69 +121,9 @@ module.exports={
             "urls": ["assets/audio/step.ogg"],
             "autoDecode": true
 	},
-        {
-            "type": "spritesheet",
-            "key": "bullet",
-            "url": "assets/images/bullet.png",
-            "frameWidth": 16,
-            "frameHeight": 16
-        },
-        {
-            "type": "spritesheet",
-            "key": "dust",
-            "url": "assets/images/dust.png",
-            "frameWidth": 4,
-            "frameHeight": 4
-        },
-        {
-            "type": "spritesheet",
-            "key": "enemies",
-            "url": "assets/images/enemies.png",
-            "frameWidth": 64,
-            "frameHeight": 64
-        },
-        {
-            "type": "spritesheet",
-            "key": "explosion",
-            "url": "assets/images/explosion.png",
-            "frameWidth": 64,
-            "frameHeight": 64
-        },
-        {
-            "type": "spritesheet",
-            "key": "flame",
-            "url": "assets/images/flame.png",
-            "frameWidth": 4,
-            "frameHeight": 4
-        },
-        {
-            "type": "spritesheet",
-            "key": "frag",
-            "url": "assets/images/frag.png",
-            "frameWidth": 4,
-            "frameHeight": 4
-        },
-        {
-            "type": "spritesheet",
-            "key": "grenade",
-            "url": "assets/images/grenade.png",
-            "frameWidth": 16,
-            "frameHeight": 16
-        },
-        {
-            "type": "spritesheet",
-            "key": "pellet",
-            "url": "assets/images/pellet.png",
-            "frameWidth": 16,
-            "frameHeight": 16
-        },
-        {
-            "type": "spritesheet",
-            "key": "player",
-            "url": "assets/images/player.png",
-            "frameWidth": 16,
-            "frameHeight": 16
-        },
+    ],
+    
+    "images": [
         {
             "type": "spritesheet",
             "key": "tiles",
@@ -194,72 +134,18 @@ module.exports={
         {
             "type": "image",
             "key": "city",
-            "url": "assets/images/city.png"
+            "url": "assets/images/backgrounds/city.png"
         },
         {
             "type": "image",
-            "key": "enemy",
-            "url": "assets/images/enemy.png"
+            "key": "desert",
+            "url": "assets/images/backgrounds/desert.png"
         },
         {
-            "type": "image",
-            "key": "font-small",
-            "url": "assets/images/font-small.png"
-        },
-        {
-            "type": "image",
-            "key": "gravgun",
-            "url": "assets/images/gravgun.png"
-        },
-        {
-            "type": "image",
-            "key": "grenade-launcher",
-            "url": "assets/images/grenade-launcher.png"
-        },
-        {
-            "type": "image",
-            "key": "gun",
-            "url": "assets/images/gun.png"
-        },
-        {
-            "type": "image",
-            "key": "hex",
-            "url": "assets/images/hex.png"
-        },
-        {
-            "type": "image",
-            "key": "repel",
-            "url": "assets/images/repel.png"
-        },
-        {
-            "type": "image",
-            "key": "shell",
-            "url": "assets/images/shell.png"
-        },
-        {
-            "type": "image",
-            "key": "shield",
-            "url": "assets/images/shield.png"
-        },
-        {
-            "type": "image",
-            "key": "shoes",
-            "url": "assets/images/shoes.png"
-        },
-        {
-            "type": "image",
-            "key": "shotgun",
-            "url": "assets/images/shotgun.png"
-        },
-        {
-            "type": "image",
-            "key": "slomo",
-            "url": "assets/images/slomo.png"
-        },
-        {
-            "type": "image",
-            "key": "smg",
-            "url": "assets/images/smg.png"
+            "type": "atlasJSONHash",
+            "key": "sprites",
+            "textureURL": "assets/images/spritesheet.png",
+            "atlasURL": "assets/images/sprites.json",
         }
     ],
     
@@ -289,6 +175,13 @@ module.exports={
             "type": "tilemap",
             "key": "_arcade",
             "url": "assets/levels/blank.json",
+            "format": "TILED_JSON"
+        },
+        
+        {
+            "type": "tilemap",
+            "key": "_menu",
+            "url": "assets/levels/menu.json",
             "format": "TILED_JSON"
         },
 
@@ -338,10 +231,12 @@ Arcade.prototype.create = function() {
         return sum + item.chance
     }, 0)
 
-    this.font = this.make.retroFont('font-small', 8, 8, Phaser.RetroFont.TEXT_SET2);
-    this.font.text = '0';
-    this.score = this.add.image(16, 16, this.font);
     this._score = 0;
+    this.score = this.entities.smallFont(this, this._score + '')
+    this.score.anchor.setTo(0)
+    this.score.x = 16
+    this.score.y = 16
+    this.world.add(this.score)
 
     this.enemyPools = {};
     var enemyData = {
@@ -369,6 +264,9 @@ Arcade.prototype.create = function() {
 Arcade.prototype.update = function() {
     Level.prototype.update.call(this);
 
+    // Force repaint to get around a bug in Phaser
+    this.score.font.buildRetroFontText()
+
     this.timer -= this.time.physicsElapsedMS;
     if (this.timer < 0) this.spawnEnemy();
     var noEnemy = true;
@@ -379,6 +277,12 @@ Arcade.prototype.update = function() {
         }
     }
     if (noEnemy) { this.timer = Math.min(this.timer, 400); }
+}
+
+
+Arcade.prototype.gameOver = function() {
+    Level.prototype.gameOver.call(this)
+    this.game.data.checkScore(this._score)
 }
 
 
@@ -419,7 +323,7 @@ Arcade.prototype.spawnEnemy = function() {
 
 Arcade.prototype.getDrop = function(enemy) {
     this._score += Math.ceil(enemy.width) * 10;
-    this.font.text = this._score + '';
+    this.score.font.text = '' + this._score;
 
     if (--this.nextDrop !== 0) return null
     this.nextDrop = 5 + Math.floor(Math.random() * 20)
@@ -440,7 +344,7 @@ Arcade.prototype.getDrop = function(enemy) {
     }
 }
 
-},{"../entities/enemies/Hydroid.js":20,"../level/Level.js":32,"./enemyConfig.js":3,"./itemConfig.js":4}],3:[function(require,module,exports){
+},{"../entities/enemies/Hydroid.js":20,"../level/Level.js":31,"./enemyConfig.js":3,"./itemConfig.js":4}],3:[function(require,module,exports){
 module.exports = function() {
     return [
         {
@@ -505,6 +409,7 @@ function Boot() {
 
 Boot.prototype = {
     init: function() {
+        this.stage.backgroundColor = 0x180c08
         this.game.scale.pageAlignHorizontally = true
         this.game.scale.pageAlignVertically = true
         this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
@@ -526,6 +431,10 @@ Boot.prototype = {
 
     create: function() {
         this.state.start('Load')
+    }, 
+
+    preload: function() {
+        this.load.image('font-small', 'assets/images/font-small.png')
     }
 }
 
@@ -611,8 +520,8 @@ function Gun(state, data, BulletClass) {
     this.accuracy = data.accuracy || 0
     this.speedMul = data.speedMul || 1
     this.speedVar = data.speedVar || 0
-    this.sounds.pickup = state.add.sound(data.equipSound || 'reload')
-    this.sounds.shot = state.add.sound(data.shotSound || 'gunshot')
+    this.sounds.pickup = data.equipSound || 'reload'
+    this.sounds.shot = data.shotSound || 'gunshot'
 
     this.clips = []
     this.lastShot = 0
@@ -692,7 +601,8 @@ function Item(state, data) {
     var texture = data.texture;
     if (!texture) console.warn('Creating Item with no texture.');
 
-    Phaser.Sprite.call(this, state.game, x, y, texture);
+    Phaser.Sprite.call(this, state.game, x, y, 'sprites');
+    this.frameName = texture;
 
     this.pulse = state.add.tween(this)
     this.sounds = {}
@@ -788,8 +698,8 @@ var TEXTURE = 'repel'
 function Repel(state, data) {
     data.texture = TEXTURE
     Buff.call(this, state, data)
-    this.sounds.pickup = state.add.sound('repel-pickup')
-    this.sounds.stop = state.add.sound('repel-stop')
+    this.sounds.pickup = 'repel-pickup'
+    this.sounds.stop = 'repel-stop'
 }
 
 
@@ -802,7 +712,8 @@ Repel.prototype.buffProto = {
     start: function() {
         this.targets = []
         this.state.physics.p2.enable(this.sprite)
-        this.sprite.lifespan = -1
+        this.sprite.frameName = 'repel-aura'
+        this.sprite.lifespan = 0
         var body = this.sprite.body
         var r = this.target.height*3
         this.r = r
@@ -830,7 +741,7 @@ Repel.prototype.buffProto = {
 
     update: function() {
         if (this.timeLeft < 800 && !this.overFlag) {
-            this.sounds.stop.play()
+            this.state.playSound(this.sounds.stop, undefined, false)
             this.overFlag = true
         }
         this.sprite.body.x = this.target.world.x
@@ -861,7 +772,7 @@ Repel.prototype.buffProto = {
     }
 }
 
-},{"../../magic/dotGravity.js":38,"./Buff.js":9}],11:[function(require,module,exports){
+},{"../../magic/dotGravity.js":37,"./Buff.js":9}],11:[function(require,module,exports){
 module.exports = Shield
 
 
@@ -871,7 +782,7 @@ var Buff = require('./Buff.js')
 function Shield(state, data) {
     data.texture = 'shield'
     Buff.call(this, state, data)
-    this.sounds.pickup = state.add.sound('shield-pickup')
+    this.sounds.pickup = 'shield-pickup'
     this.alpha = 0.8
 }
 
@@ -891,7 +802,6 @@ Shield.prototype.buffProto = {
         }
 
         target.health = 2
-        this.block = this.state.add.sound('block')
 
         this.sprite = this.state.add.sprite(0, 0, target.character.texture)
 
@@ -921,7 +831,7 @@ Shield.prototype.buffProto = {
 
     update: function() {
         if (this.target.health <= 1) {
-            this.state.playSound(this.block)
+            this.state.playSound('block')
             this.sprite.destroy()
             this.timeLeft = 0
             return
@@ -943,8 +853,7 @@ var Buff = require('./Buff.js');
 function Shoes(state, data) {
     data.texture = 'shoes';
     Buff.call(this, state, data);
-
-    this.sounds.pickup = this.state.add.sound('shoe-pickup');
+    this.sounds.pickup = 'shoe-pickup';
 }
 
 
@@ -979,17 +888,17 @@ Slomo.prototype.buffProto = {
     rate: 0.25,
     start: function() {
         this.sprite.destroy()
-        this.speedUp = this.state.sound.play('slowdown')
-        this.tick = this.state.sound.play('clock', 1, true)
-        this.slowDown = this.state.add.sound('speedup')
+        this.state.playSound('slowdown', undefined, false)
+        this.tick = this.state.playSound('clock', undefined, false, true, true)
         this.state.changeTime(this.rate)
     },
     stop: function() {
-        this.tick.stop()
-        this.slowDown.onStop.addOnce(function() {
-            this.state.changeTime(1/this.rate)
-        }, this)
-        this.slowDown.play();
+        if (this.tick && this.tick.isPlaying) this.tick.stop()
+
+        this.state.playSound('speedup', undefined, false)
+        this.state.time.events.add(900, function() {
+                this.state.changeTime(1/this.rate)
+            }, this)
     }
 }
 
@@ -1033,12 +942,12 @@ module.exports = Bullet;
 var SPEED = 500;
 var BODY_RADIUS = 4;
 var TEXTURE = 'bullet';
-var FLARE = 0;
-var BULLET = 1;
+
 
 function Bullet(state, x, y, texture) {
-    texture = texture || TEXTURE;
-    Phaser.Sprite.call(this, state.game, x, y, texture);
+    Phaser.Sprite.call(this, state.game, x, y, 'sprites');
+    if (texture) this.defaultFrame = texture;
+    this.frameName = this.defaultFrame;
     Phaser.Sprite.prototype.kill.call(this);
 
     this.state = state;
@@ -1058,6 +967,7 @@ function Bullet(state, x, y, texture) {
 Bullet.prototype = Object.create(Phaser.Sprite.prototype);
 
 Bullet.prototype.attack = 1;
+Bullet.prototype.defaultFrame = 'bullet';
 Bullet.prototype.speed = SPEED;
 
 
@@ -1070,9 +980,9 @@ Bullet.prototype.hit = function(_, target) {
 
 
 Bullet.prototype.fire = function(x, y, theta, speedBonus) {
-    this.frame = FLARE;
+    this.frameName = 'muzzle-flare';
     this.game.time.events.add(40, function() {
-        this.frame = BULLET;
+        this.frameName = this.defaultFrame;
     }, this);
     speedBonus = speedBonus || 1;
     var speed = this.speed * speedBonus;
@@ -1144,7 +1054,7 @@ Gravity.prototype.reset = function(x, y, health) {
     this.lifespan = LIFESPAN;
 }
 
-},{"../../magic/dotGravity.js":38,"../../magic/explode.js":39,"./Bullet.js":15}],17:[function(require,module,exports){
+},{"../../magic/dotGravity.js":37,"../../magic/explode.js":38,"./Bullet.js":15}],17:[function(require,module,exports){
 module.exports = Grenade;
 
 
@@ -1175,7 +1085,6 @@ Object.defineProperty(Grenade.prototype, 'alive', {get: function() {return false
 
 Grenade.prototype.fire = function(x, y, theta, speedBonus) {
     var round = this.children[0];
-    console.log(round);
     if (round.exists) round.kill();
     else round.fire(x, y, theta, speedBonus);
 }
@@ -1233,21 +1142,22 @@ module.exports = Enemy
 var Bullet = require('../bullets/Bullet.js')
 
 
-var TEXTURE = 'enemies'
+var TEXTURE = 'enemy'
 var MAX_HEALTH = 1
 
 
 function Enemy(state, data, drop) {
-    data.texture = data.texture || TEXTURE
-    Phaser.Sprite.call(this, state.game, data.x, data.y, data.texture)
+    Phaser.Sprite.call(this, state.game, data.x, data.y, 'sprites')
+
+    if (data.texture) this.defaultFrame = data.texture
 
     this.state = state
     this.sounds = {
-        pop: state.add.sound('pop'),
-        bounce: state.add.sound('bounce')
+        pop: 'pop',
+        bounce: 'bounce'
     }
 
-    this.frame = this.defaultFrame
+    this.frameName = this.defaultFrame
 
     this.exists = false
     this.alive = false
@@ -1268,8 +1178,8 @@ function Enemy(state, data, drop) {
     this.body.setMaterial(state.enemyMaterial)
     this.body.fixedRotation = true
 
-    this.animations.add('flash', [5, 7])
-        .onComplete.add(function() {this.frame = this.defaultFrame}, this)
+    this.animations.add('flash', Phaser.Animation.generateFrameNames('explosion', 1, 4))
+        .onComplete.add(function() {this.frameName = this.defaultFrame}, this)
 }
 
 
@@ -1279,7 +1189,7 @@ Enemy.prototype.maxHealth = MAX_HEALTH
 
 Enemy.prototype.maxSpeed = 600
 
-Enemy.prototype.defaultFrame = 0
+Enemy.prototype.defaultFrame = 'enemy'
 
 
 Enemy.prototype.damage = function(_, src) {
@@ -1311,7 +1221,7 @@ Enemy.prototype.kill = function() {
             this.width /= 2
             this.alpha = 1
             this.animations.stop()
-            this.frame = this.defaultFrame
+            this.frameName = this.defaultFrame
             Phaser.Sprite.prototype.kill.call(this)
         }, this)
 
@@ -1357,7 +1267,7 @@ function Hex(state, data, drop) {
 
 Hex.prototype = Object.create(Enemy.prototype);
 
-Hex.prototype.defaultFrame = 1
+Hex.prototype.defaultFrame = 'hex'
 
 },{"./Enemy.js":18}],20:[function(require,module,exports){
 module.exports = Hydroid
@@ -1516,7 +1426,7 @@ Seeker.prototype = Object.create(Enemy.prototype);
 
 Object.defineProperty(Seeker.prototype, 'preferSpeed', {get: function() { return this._preferSpeed/this.body.mass; }});
 
-Seeker.prototype.defaultFrame = 2;
+Seeker.prototype.defaultFrame = 'seeker';
 
 
 Seeker.prototype.update = function() {
@@ -1575,6 +1485,24 @@ var Bouncy = require('./bullets/Bouncy');
 
 
 module.exports = {
+    smallFontText: function(state, text, type) {
+        type = type || 'plain'
+        text = text || ''
+
+        var font = state.make.retroFont('font-small', 8, 8,
+            Phaser.RetroFont.TEXT_SET2);
+        font.text = text
+        return font
+    },
+
+    smallFont: function(state, text, type) {
+        var font = this.smallFontText(state, text, type)
+        var img = state.make.image(0, 0, font)
+        img.font = font
+        img.anchor.setTo(0.5)
+        img.tint = 0xf6eeee
+        return img
+    },
 
     player1: function(state, data) {
         var ctlr = new DefaultCtlr(state);
@@ -1710,18 +1638,18 @@ module.exports = {
 module.exports = Character
 
 
-var WALK = [0, 1, 2, 3]
+var WALK = Phaser.Animation.generateFrameNames('p1-walk', 1, 4)
 var WALK_RATE = 15
-var FLY = [10, 11]
+var FLY = Phaser.Animation.generateFrameNames('p1-fly', 1, 2)
 var FLY_RATE = 100
-var FALL = [12, 13]
+var FALL = Phaser.Animation.generateFrameNames('p1-fall', 1, 2)
 var FALL_RATE = 10
-var DIE = [22, 23]
+var DIE = Phaser.Animation.generateFrameNames('p1-die', 3, 4)
 var DIE_RATE = 4
 
 
 function Character(state) {
-    var character = new Phaser.Sprite(state.game, 0, 0, 'player')
+    var character = new Phaser.Sprite(state.game, 0, 0, 'sprites', 'p1-stand')
 
     character.anchor.setTo(0.5)
 
@@ -1789,7 +1717,6 @@ module.exports = Player
 
 
 var PlayerStateMachine = require('./PlayerStateMachine.js')
-var PlayerSounds = require('./PlayerSounds.js')
 var PlayerFX = require('./PlayerFX.js')
 var Character = require('./Character.js')
 var setPhysics = require('./setPhysics.js')
@@ -1813,7 +1740,6 @@ function Player(state, data, ctlr) {
 
     this.character = new Character(state)
     this.playerState = new PlayerStateMachine(this, ctlr)
-    this.sounds = new PlayerSounds(state)
     this.fx = new PlayerFX(state)
 
     setPhysics(this)
@@ -1888,7 +1814,7 @@ Player.prototype.update = function() {
     this.playerState.update()
 }
 
-},{"./Character.js":24,"./PlayerFX.js":27,"./PlayerSounds.js":28,"./PlayerStateMachine.js":29,"./setPhysics.js":30}],27:[function(require,module,exports){
+},{"./Character.js":24,"./PlayerFX.js":27,"./PlayerStateMachine.js":28,"./setPhysics.js":29}],27:[function(require,module,exports){
 module.exports = PlayerFX
 
 
@@ -1896,7 +1822,8 @@ function PlayerFX(state) {
     this.dust = state.add.emitter(0, 0, 10)
     this.flame = state.add.emitter(0, 0, 30)
 
-    this.dust.makeParticles('dust', [0, 1, 2, 3])
+    this.dust.makeParticles('sprites', 
+        Phaser.Animation.generateFrameNames('dust', 1, 4))
     this.dust.setScale(0.5, 2, 0.5, 2, 400)
     this.dust.setRotation(0)
     this.dust.setXSpeed(-100, 100)
@@ -1904,7 +1831,8 @@ function PlayerFX(state) {
     this.dust.setAlpha(1, 0.2, 400)
     this.dust.setScale(0.25, 1, 0.25, 1, 200)
 
-    this.flame.makeParticles('flame', [0, 1, 2, 3])
+    this.flame.makeParticles('sprites',
+        Phaser.Animation.generateFrameNames('flame', 1, 4))
     this.flame.setScale(0.25, 1, 0.25, 1, 200)
     this.flame.setAlpha(1, 0.2, 400)
     this.flame.setRotation(0)
@@ -1914,26 +1842,7 @@ function PlayerFX(state) {
 }
 
 },{}],28:[function(require,module,exports){
-module.exports = PlayerSounds
-
-
-function PlayerSounds(state) {
-    return {
-        death: state.add.sound('death'),
-        jetpack: state.add.sound('jetpack'),
-        land: state.add.sound('land'),
-        step: state.add.sound('step')
-    }
-}
-
-},{}],29:[function(require,module,exports){
 module.exports = PlayerStateMachine
-
-
-var DEATH_FRAME = 23
-var SHOOTING_FRAME = 5
-var STANDING_FRAME = 0
-var STUN_FRAME = 20
 
 
 function PlayerStateMachine(player, ctlr) {
@@ -1985,7 +1894,7 @@ PlayerState.prototype = {
 
         if (this.machine.shooting) {
             plyr.character.animations.stop()
-            plyr.character.frame = SHOOTING_FRAME
+            plyr.character.frameName = 'p1-shoot'
         }
 
         var theta = Phaser.Point.angle(ctlr.position, plyr.position)
@@ -2006,12 +1915,10 @@ PlayerState.prototype = {
 
     onLeft: function() {
         if (!this.ctlr.right) this.player.body.velocity.x = -this.player.speed
-        else this.player.body.velocity.x = 0
     },
 
     onRight: function() {
         if (!this.ctlr.left) this.player.body.velocity.x = this.player.speed
-        else this.player.body.velocity.x = 0
     },
 
     onShoot: function() {
@@ -2019,11 +1926,12 @@ PlayerState.prototype = {
         if (!plyr.weapon) return
         if (plyr.weapon.fire(this.ctlr.newShot)) {
             plyr.character.animations.stop()
-            plyr.character.frame = SHOOTING_FRAME
+            plyr.character.frameName = 'p1-shoot'
             var direction = plyr.facing
             plyr.body.x -= 3 * direction
             plyr.weapon.x = -2
-            plyr.game.time.events.add(80, function() {
+            this.machine.shooting = true
+            plyr.game.time.events.add(60, function() {
                 this.machine.shooting = false
                 plyr.weapon.x = 0
             }, this)
@@ -2044,14 +1952,14 @@ Dead.prototype = {
     enter: function() {
         var plyr = this.player
 
-        plyr.state.playSound(plyr.sounds.death)
+        plyr.state.playSound('death')
         plyr.state.camera.flash(0xf6eeee, 500)
         plyr.alive = false
         plyr.body.removeCollisionGroup([
             plyr.state.enemiesCG, plyr.state.itemsCG
         ])
         plyr.character.animations.stop()
-        plyr.character.frame = DEATH_FRAME - 2
+        plyr.character.frameName = 'p1-die2'
         plyr.body.velocity.x = -100 * plyr.facing
         plyr.body.velocity.y = -150
         if (plyr.weapon) {
@@ -2071,7 +1979,7 @@ Dead.prototype = {
 
     update: function() {
         if (!this.player.standing) {
-            this.player.character.frame = DEATH_FRAME - 2
+            this.player.character.frameName = 'p1-die2'
             this.wasStanding = false
             return
         }
@@ -2105,7 +2013,7 @@ Falling.prototype.update = function() {
     var plyr = this.player
 
     if (plyr.standing) {
-        plyr.state.playSound(plyr.sounds.land)
+        plyr.state.playSound('land')
         plyr.fx.dust.x = plyr.x
         plyr.fx.dust.y = plyr.y + plyr.character.height/2
         plyr.fx.dust.explode(100, 6)
@@ -2118,7 +2026,7 @@ Falling.prototype.update = function() {
         plyr.character.animations.play('fall')
         plyr.weapon.y = -2
     } else {
-        plyr.character.frame = 12
+        plyr.character.frameName = 'p1-fall1'
     }
 
     PlayerState.prototype.update.call(this)
@@ -2134,11 +2042,11 @@ Flying.prototype = Object.create(PlayerState.prototype)
 
 
 Flying.prototype.enter = function() {
-    this.player.state.playSound(this.player.sounds.jetpack)
+    this.jet = this.player.state.playSound('jetpack', undefined, true, true)
 }
 
 Flying.prototype.exit = function() {
-    this.player.sounds.jetpack.stop()
+    if (this.jet && this.jet.isPlaying) this.jet.stop()
     this.player.weapon.y = 0
 }
 
@@ -2173,6 +2081,7 @@ Flying.prototype.onUp = function() {
 
 function Standing(machine) {
     PlayerState.call(this, machine)
+    this.lastStep = 0
 }
 
 
@@ -2199,12 +2108,12 @@ Standing.prototype.update = function() {
     if (Math.abs(velx) >= plyr.speed/2) {
         plyr.character.animations.play('walk')
         if (this.lastStep < plyr.state.time.now - 200) {
-            plyr.state.playSound(plyr.sounds.step, 200)
+            plyr.state.playSound('step', 200)
             this.lastStep = plyr.state.time.now
         }
     } else {
         plyr.character.animations.stop()
-        plyr.character.frame = STANDING_FRAME
+        plyr.character.frameName = 'p1-stand'
     }
 
     PlayerState.prototype.update.call(this)
@@ -2219,7 +2128,7 @@ function Stunned(machine) {
 Stunned.prototype = {
     exit: function() {},
     update: function() {
-        this.player.character.frame = STUN_FRAME
+        this.player.character.frame = 'p1-stun'
     },
 
     enter: function() {
@@ -2259,7 +2168,7 @@ Stunned.prototype = {
     }
 }
 
-},{}],30:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 module.exports = function setPhysics(player) {
     var state = player.state
 
@@ -2286,7 +2195,7 @@ module.exports = function setPhysics(player) {
     player.body.fixedRotation = true
 }
 
-},{}],31:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 module.exports = Game;
 
 
@@ -2294,22 +2203,116 @@ var Boot = require('./boot.js');
 var Load = require('./load.js');
 var Level = require('./level/Level.js');
 var Arcade = require('./arcade/arcade.js');
+var Menu = require('./menu/menu.js');
 
 
 function Game(parent) {
     require('./phaserPatch.js')();
 
-    var game = new Phaser.Game(800, 600);
+    var game = new Phaser.Game(800, 600, undefined,
+        undefined, undefined, false, false)
+
+    game.data = new GameData()
+
     game.state.add('Boot', new Boot);
     game.state.add('Load', new Load);
     game.state.add('Level', new Level);
+    game.state.add('Menu', new Menu);
     game.state.add('Arcade', new Arcade);
     
     game.state.start('Boot');
     return game;
 }
 
-},{"./arcade/arcade.js":2,"./boot.js":5,"./level/Level.js":32,"./load.js":36,"./phaserPatch.js":40}],32:[function(require,module,exports){
+
+function GameData() {
+    var hiScore
+    try {
+        hiScore = localStorage.getItem('hiScore')
+        this.localStore = true
+    } catch (e) {
+        this.localStore = false
+    }
+
+    if (!hiScore) hiScore = 0
+
+    this._hiScore = hiScore
+}
+
+
+GameData.prototype = {
+    checkScore: function(score) {
+        if (score > this._hiScore) {
+            this._hiScore = score
+            if (this.localStore) localStorage.setItem('hiScore', score)
+            return true
+        }
+        return false
+    },
+
+    getHiScore: function() {
+        return this._hiScore
+    },
+}
+
+
+// TODO: Do we want a top 10 scoreboard? Local or server?
+/*
+function GameData() {
+    var hiScores
+    try {
+        hiScores = localStorage.getItem('hiScores')
+    } catch (e) {
+    }
+
+    if (!hiScores) {
+        hiScores = []
+        for (var i = 0; i < 10; i++)
+            hiScores.push({name: 'AAA', score: 0})
+    }
+
+    this.hiScores = hiScores
+    this.newHiScores = []
+
+    this.fetchHiScores()
+}
+
+
+GameData.prototype = {
+    checkScore: function(score) {
+        this.newHiScores.push(score)
+        this.scrubNewScores()
+    },
+
+    fetchHiScores: function() {
+    },
+
+    getHiScores: function() {
+        return this.hiScores
+    },
+
+    scrubNewScores: function() {
+        this.newHiScores.sort(function(a, b) { return b - a })
+
+        var newHSi = 0
+        var HSi = 0
+
+        for (var i = 0; i < 10; i++) {
+            this.newHiScores[newHSi] > this.hiScores[HSi].score ?
+                newHSi++
+                : HSi++
+        }
+
+        this.newHiScores.splice(newHSi)
+    },
+
+    get scoresPending() {
+        return this.newHiScores.length > 0
+    }
+}
+*/
+
+},{"./arcade/arcade.js":2,"./boot.js":5,"./level/Level.js":31,"./load.js":35,"./menu/menu.js":44,"./phaserPatch.js":45}],31:[function(require,module,exports){
 module.exports = Level
 
 
@@ -2369,24 +2372,56 @@ Level.prototype = {
 
 
     gameOver: function() {
-        var self = this
         this.input.keyboard.addKey(Phaser.Keyboard.R).onDown.addOnce(function() {
-            self.state.start(self.key, true, false, self.mapName)
-        })
-        this.input.keyboard.addKey(Phaser.Keyboard.X).onDown.addOnce(this.exit.bind(this))
+            this.state.start(this.key, true, false, this.mapName)
+        }, this)
+        this.input.keyboard.addKey(Phaser.Keyboard.X).onDown.addOnce(this.exit, this)
         this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
+        this.input.mousePointer.leftButton.onDown.addOnce(function() {
+            this.state.start(this.key, true, false, this.mapName)
+        }, this)
         this.gameOverScreen.exists = true
         this.time.slowMotion = 6
         this.world.add(this.p1)
     },
 
 
-    playSound: function(sound, randomize) {
-        sound.play()
-        if (sound._sound && sound.usingWebAudio)
-            sound._sound.playbackRate.value = this.bulletTime
+    playSound: function(key, randomize, useBulletTime, lock, repeat) {
+        lock = lock || false
+        repeat = repeat || false
+        if (useBulletTime === undefined) useBulletTime = true
+
+        var sound = null
+
+        for (var i = 0; i < this.soundPool.length; i++) {
+            if (!this.soundPool[i].isPlaying) {
+                sound = this.soundPool[i]
+                break
+            }
+        }
+
+        if (!sound) {
+            for (i = 0; i < this.soundPool.length; i++) {
+                if (!this.soundPool[i].isLocked) {
+                    sound = this.soundPool[i]
+                    break
+                }
+            }
+        }
+
+        if (!sound) return null
+
+        sound.key = key
+        sound.isLocked = lock
+        sound.play('', 0, 1, repeat, true)
+
+        if (sound._sound && sound.usingWebAudio) {
+            if (useBulletTime)
+                sound._sound.playbackRate.value = this.bulletTime
             if (randomize)
                 sound._sound.detune.value = Math.random() * -randomize
+        }
+
         return sound
     },
 
@@ -2413,23 +2448,41 @@ Level.prototype = {
             }
         }
 
-        if (!this.p1.alive) { this.gameOver() }
+        if (this.loseCondition()) this.gameOver()
     },
 
 
     shutdown: function() {
         this.stage.removeChild(this.gameOverScreen)
         this.time.slowMotion = 1
+    },
+
+    loseCondition: function() {
+        return !this.p1.alive
+    },
+
+    startFX: function() {
+        var go = this.add.image(this.world.width/2, this.world.height/2,
+            'sprites', 'go')
+        go.anchor.setTo(0.5)
+        var goTween = this.add.tween(go)
+        goTween.to({width: go.width * 4, height: go.height * 4, alpha: 0},
+            800, Phaser.Easing.Quartic.In)
+        goTween.onComplete.addOnce(go.kill, go)
+        goTween.start()
+
+        this.camera.flash(0x180c08, 1000)
     }
 }
 
-},{"../entities/entities.js":23,"./create.js":33,"./init.js":34,"./parseDrop.js":35}],33:[function(require,module,exports){
+},{"../entities/entities.js":23,"./create.js":32,"./init.js":33,"./parseDrop.js":34}],32:[function(require,module,exports){
 var BrkPlat = require('../entities/BrkPlat.js')
 var Explosion = require('../magic/Explosion.js')
 
 
 module.exports = function create() {
-    this.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels)
+    this.soundPool = []
+    for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
 
     if (this.map.properties && this.map.properties.bgImage) 
         paintBackground(this)
@@ -2439,8 +2492,13 @@ module.exports = function create() {
     makeGameOverScreen(this)
 
     // TODO Change if we ever have more than one player.
-    this.p1 = this.players.getChildAt(0)
-    //this.world.addChild(this.players)
+    if (this.players.length > 0)
+        this.p1 = this.players.getChildAt(0)
+
+    this.startFX()
+
+    this.input.keyboard.addKey(Phaser.Keyboard.ESC)
+        .onDown.add(this.exit, this)
 }
 
 
@@ -2460,13 +2518,12 @@ function makeGameOverScreen(state) {
     state.gameOverScreen = state.make.image(
         0, 0, gameOverScreen.generateTexture())
 
-    var GOtext = state.make.retroFont(
-        'font-small', 8, 8, Phaser.RetroFont.TEXT_SET2)
-    GOtext.text = 'r: retry x: menu'
-    var t = state.make.image(16, state.world.height-16, GOtext)
-    t.anchor.setTo(0, 1)
+    var GOtext = state.entities.smallFont(state, 'x: menu r: retry')
+    GOtext.anchor.setTo(0, 1)
+    GOtext.x = 16
+    GOtext.y = state.world.height-16
 
-    state.gameOverScreen.addChild(t)
+    state.gameOverScreen.addChild(GOtext)
     state.gameOverScreen.alpha = 0
     state.gameOverScreen.exists = false
     state.world.addChild(state.gameOverScreen)
@@ -2547,7 +2604,7 @@ function makeParticles(state) {
 
     state.shellPool.physicsBodyType = Phaser.Physics.P2JS
     state.shellPool.enableBody = true
-    state.shellPool.createMultiple(30, 'shell')
+    state.shellPool.createMultiple(30, 'sprites', 'shell')
     state.shellPool.forEach(function(shell) {
         shell.body.setRectangle(4, 2)
         shell.body.setCollisionGroup(state.shellsCG)
@@ -2555,7 +2612,8 @@ function makeParticles(state) {
     }, state)
 
     state.frag = state.add.emitter(0, 0, 100)
-    state.frag.makeParticles('flame', [0, 1, 2, 3])
+    state.frag.makeParticles('sprites', 
+        Phaser.Animation.generateFrameNames('flame', 1, 4))
     state.frag.setScale(0.5, 1, 0.5, 1.)
     state.frag.setRotation(0, 0)
     state.frag.gravity = 0
@@ -2565,14 +2623,15 @@ function makeParticles(state) {
     state.frag.lifespan = 200
 }
 
-},{"../entities/BrkPlat.js":6,"../magic/Explosion.js":37}],34:[function(require,module,exports){
+},{"../entities/BrkPlat.js":6,"../magic/Explosion.js":36}],33:[function(require,module,exports){
 module.exports = function init(map) {
     this.buffs = []
     this.bulletTime = 1
     this.map = this.add.tilemap(map)
     this.mapName = map
 
-    this.stage.backgroundColor = 0x313839
+    this.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels)
+
     setPhysics(this)
 }
 
@@ -2611,7 +2670,7 @@ function setPhysics(state) {
     })
 }
 
-},{}],35:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /*
 * The tiled representation of enemies have a recursive JSON list
 * of what they drop. It looks like:
@@ -2650,8 +2709,11 @@ module.exports = function parseDrop(drop) {
     return null
 }
 
-},{}],36:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 module.exports = Load
+
+
+var entities = require('./entities/entities.js')
     
     
 function Load() {
@@ -2665,14 +2727,22 @@ Load.prototype = {
         for (var section in assets) {
             this.load.pack(section, null, assets)
         }
+        this.progress = entities.smallFont(this, 'LOADING 0%')
+        this.progress.x = this.world.width/2
+        this.progress.y = this.world.height/2
+        this.world.add(this.progress)
+    },
+
+    loadUpdate: function() {
+        this.progress.font.text = 'LOADING ' + this.load.progress + '%'
     },
 
     create: function() {
-        this.state.start('Arcade', true, false, 'level1')
+        this.state.start('Menu')
     }
 }
 
-},{"../assets/assets.json":1}],37:[function(require,module,exports){
+},{"../assets/assets.json":1,"./entities/entities.js":23}],36:[function(require,module,exports){
 var dotGravity = require('./dotGravity.js')
 
 
@@ -2680,21 +2750,16 @@ module.exports = Explosion
 
 
 function Explosion(game, x, y, key, frame) {
-    key = 'enemies'
-    Phaser.Sprite.call(this, game, x, y, key, frame)
+    Phaser.Sprite.call(this, game, x, y, 'sprites', 'explosion2')
 
     this.state = game.state.getCurrentState()
     game.physics.p2.enable(this)
 
-    this.sounds = {
-        explode: this.state.add.sound('explode')
-    }
-    this.targets = []
-
     this.width = this.height = 160
     this.shape = this.body.setCircle(this.width/2)
     this.shape.sensor = true
-    var ex = this.animations.add('explode', [4, 5, 6, 7], 60, false)
+    var ex = this.animations.add('explode', 
+        Phaser.Animation.generateFrameNames('explosion', 1, 4), 60, false)
     ex.killOnComplete = true
 
     this.body.collideWorldBounds = false
@@ -2744,11 +2809,11 @@ Explosion.prototype.reset = function(x, y, radius) {
     this.body.addToWorld()
     Phaser.Sprite.prototype.reset.call(this, x, y)
     this.animations.play('explode')
-    this.state.playSound(this.sounds.explode)
+    this.state.playSound('explode')
     this.state.camera.shake(0.015, 400);
 }
 
-},{"./dotGravity.js":38}],38:[function(require,module,exports){
+},{"./dotGravity.js":37}],37:[function(require,module,exports){
 module.exports = function(subjects, source, magnitude, range, invert) {
     range = range || 0;
 
@@ -2778,7 +2843,7 @@ module.exports = function(subjects, source, magnitude, range, invert) {
     }
 }
 
-},{}],39:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 module.exports = explode;
 
 
@@ -2797,8 +2862,299 @@ function explode(target, source, radius, damage, blast, blastRadius, invert) {
     target.game.camera.shake(0.01, 400);
 }
 
-},{"./dotGravity.js":38}],40:[function(require,module,exports){
+},{"./dotGravity.js":37}],39:[function(require,module,exports){
+module.exports = GUI
+
+
+//var HiScoresModal = require('./HiScoresModal.js')
+var HowToModal = require('./HowToModal.js')
+var MenuModal = require('./MenuModal.js')
+//var NewScoreModal = require('./NewScoreModal.js')
+
+
+function GUI(state) {
+    this.modals = {
+        //hiScores: new HiScoresModal(state, this),
+        howTo: new HowToModal(state, this),
+        menu: new MenuModal(state, this),
+        //newScore: new NewScoreModal(state, this)
+    }
+
+    var mm = this.modals.menu
+    mm.visible = true
+    this.currentModal = mm
+    mm.y = state.world.height/2 - mm.height/2
+}
+
+
+GUI.prototype.switchModal = function(key) {
+    if (this.currentModal)
+        this.currentModal.exit()
+    this.currentModal = this.modals[key]
+    this.modals[key].enter()
+}
+
+},{"./HowToModal.js":40,"./MenuModal.js":41}],40:[function(require,module,exports){
+module.exports = HowToModal
+
+
+var Modal = require('./Modal.js')
+var Btn = require('./TextButton.js')
+
+
+function HowToModal(state, gui) {
+    Modal.call(this, state, gui)
+    var info = state.entities.smallFont(state)
+    info.font.multiLine = true
+    info.font.align = Phaser.RetroFont.ALIGN_CENTER
+    info.font.text = 'CONTROLS\n\n'
+        + 'ESC - MAIN MENU\n\n'
+        + 'W - FLY\n'
+        + 'A - LEFT\n'
+        + 'D - RIGHT\n'
+        + '\n'
+        + 'MOUSE - SHOOT'
+    info.anchor.setTo(0.5)
+    info.height *= 2
+    info.width *= 2
+    info.y = info.height/2
+
+    var backBtn = Btn(state, 'back', function() {
+        this.gui.switchModal('menu')
+    }, this)
+    backBtn.y = info.bottom + 32
+
+    this.addMultiple([info, backBtn])
+}
+
+
+HowToModal.prototype = Object.create(Modal.prototype)
+
+},{"./Modal.js":42,"./TextButton.js":43}],41:[function(require,module,exports){
+module.exports = MenuModal
+
+
+var Modal = require('./Modal.js')
+var Btn = require('./TextButton.js')
+
+
+function MenuModal(state, gui) {
+    Modal.call(this, state, gui)
+
+    var logo = state.make.image(0, 0, 'sprites', 'logo')
+    logo.width = 256
+    logo.height = 172
+    logo.anchor.setTo(0.5)
+    logo.y = logo.height/2
+
+    var score = state.game.data.getHiScore()
+    var hiScore = state.entities.smallFont(state, 'HI-SCORE ' + score)
+    hiScore.y = logo.bottom + 32
+
+    var startBtn = Btn(state, 'start', function() {
+        state.start()
+    }, state)
+    startBtn.y = hiScore.bottom + 32
+
+    /*
+    var scoresBtn = Btn(state, 'HI-SCORES', function() {
+        this.gui.switchModal('hiScores')
+    }, this)
+    scoresBtn.y = startBtn.y + 32
+    */
+
+    var howToBtn = Btn(state, 'INSTRUCTIONS', function() {
+        this.gui.switchModal('howTo')
+    }, this)
+    howToBtn.y = startBtn.bottom + 32
+
+    this.addMultiple([logo, hiScore, startBtn, howToBtn])
+}
+
+
+MenuModal.prototype = Object.create(Modal.prototype)
+
+},{"./Modal.js":42,"./TextButton.js":43}],42:[function(require,module,exports){
+module.exports = Modal
+
+
+function Modal(state, gui) {
+    Phaser.Group.call(this, state.game)
+    this.gui = gui
+    this.x = 144
+    this.y = 16
+    this.visible = false
+}
+
+
+Modal.prototype = Object.create(Phaser.Group.prototype)
+
+
+Modal.prototype.enter = function() {
+    this.y = this.game.world.height/2 - this.height/2
+    var tween = this.game.add.tween(this)
+    tween.from({
+        alpha: 0,
+    }, 500, Phaser.Easing.Cubic.In)
+    this.game.time.events.add(500, function() {
+        this.visible = true
+        tween.start()
+    }, this)
+}
+
+
+Modal.prototype.exit = function() {
+    var y = this.y
+    var height = this.height
+    var width = this.width
+    var tween = this.game.add.tween(this)
+    this.ignoreChildInput = true
+    tween.to({
+        alpha: 0
+    }, 500, Phaser.Easing.Cubic.In)
+    tween.onComplete.add(function() {
+        this.visible = false
+        this.y = y
+        this.height = height
+        this.width = width
+        this.alpha = 1
+        this.ignoreChildInput = false
+    }, this)
+    tween.start()
+}
+
+},{}],43:[function(require,module,exports){
+module.exports = TextButton
+
+
+function TextButton(state, text, callback, ctx) {
+    var font = state.entities.smallFontText(state, text)
+    var btn = state.make.button(0, 0, font, callback, ctx)
+    btn.width *= 2
+    btn.height *= 2
+    btn.anchor.setTo(0.5)
+    return btn
+}
+
+},{}],44:[function(require,module,exports){
+module.exports = Menu
+
+
+var Level = require('../level/Level.js')
+var GUI = require('./GUI.js')
+
+
+function Menu() {
+    return this
+}
+
+
+Menu.prototype = Object.create(Level.prototype)
+    
+
+Menu.prototype.init = function() {
+    Level.prototype.init.call(this, '_menu')
+} 
+
+
+Menu.prototype.create = function() {
+    Level.prototype.create.call(this)
+
+    this.p1 = this.add.sprite(568, 72, 'sprites', 'p1-sit1')
+    this.p1.anchor.setTo(0.5)
+    this.p1.scale.x = -1
+
+    var frames = Phaser.Animation.generateFrameNames('p1-sit', 1, 3)
+    frames = frames.concat(frames)
+    frames = frames.concat(frames)
+    frames = frames.concat(frames)
+    frames[0] = 'p1-sit-blink'
+
+    this.p1.animations.add('sit', frames, 5, true, false)
+    this.p1.animations.add('walk',
+        Phaser.Animation.generateFrameNames('p1-walk', 1, 4), 15, true)
+    this.p1.animations.play('sit')
+
+    this.modals = new GUI(this)
+} 
+
+
+Menu.prototype.exit = function() {
+    return
+}
+
+
+Menu.prototype.loseCondition = function() {
+    return false
+}
+
+
+Menu.prototype.start = function() {
+    this.p1.animations.stop()
+    this.p1.frameName = 'p1-stand'
+    this.time.events.add(100, function() {
+        this.p1.animations.play('walk')
+        this.p1.scale.x = 1
+        this.add.tween(this.p1)
+            .to({x: this.world.width + 16}, 800)
+            .start()
+        this.camera.onFadeComplete.addOnce(function() {
+            this.state.start('Arcade')
+        }, this)
+        this.camera.fade(0x180c08, 800)
+    }, this)
+}
+
+
+Menu.prototype.startFX = function() {
+    this.camera.flash(0x180c08, 1000)
+}
+
+},{"../level/Level.js":31,"./GUI.js":39}],45:[function(require,module,exports){
 module.exports = function() {
+
+    Phaser.SoundManager.prototype.reset = function() {
+        this.stopAll();
+
+        for (var i = 0; i < this._sounds.length; i++) {
+            if (this._sounds[i]) {
+                this._sounds[i].destroy();
+            }
+        }
+
+        this._sounds = [];
+
+        this.onSoundDecode.dispose();
+    }
+
+    Phaser.StateManager.prototype.clearCurrentState = function() {
+        if (this.current) {
+            if (this.onShutDownCallback) {
+                this.onShutDownCallback.call(this.callbackContext, this.game);
+            }
+
+            this.game.tweens.removeAll();
+            this.game.camera.reset();
+            this.game.input.reset(true);
+            this.game.physics.clear();
+            this.game.time.removeAll();
+            this.game.scale.reset(this._clearWorld);
+            this.game.sound.reset();
+
+            if (this.game.debug) {
+                this.game.debug.reset();
+            }
+
+            if (this._clearWorld) {
+                this.game.world.shutdown();
+
+                if (this._clearCache) {
+                    this.game.cache.destroy();
+                }
+            }
+        }
+    }
+
 
     Object.defineProperty(Phaser.Group.prototype, 'alive', {
         get: function() { return !!this.getFirstAlive() }
@@ -2868,5 +3224,5 @@ module.exports = function() {
     }
 }
 
-},{}]},{},[31])(31)
+},{}]},{},[30])(30)
 });
