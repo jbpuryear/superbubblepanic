@@ -53,6 +53,9 @@ Level.prototype = {
 
     explode: function(x, y, width) {
         this.explosionPool.getFirstDead(true).reset(x, y, width)
+        this.puffs.x = x
+        this.puffs.y = y
+        this.puffs.explode(800, 20)
     },
 
 

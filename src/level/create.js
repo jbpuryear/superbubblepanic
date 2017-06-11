@@ -126,14 +126,14 @@ function makeParticles(state) {
 
     state.shellPool.physicsBodyType = Phaser.Physics.P2JS
     state.shellPool.enableBody = true
-    state.shellPool.createMultiple(30, 'sprites', 'shell')
+    state.shellPool.createMultiple(50, 'sprites', 'shell')
     state.shellPool.forEach(function(shell) {
         shell.body.setRectangle(4, 2)
         shell.body.setCollisionGroup(state.shellsCG)
         shell.body.collides(state.platformsCG)
     }, state)
 
-    state.frag = state.add.emitter(0, 0, 100)
+    state.frag = state.add.emitter(0, 0, 50)
     state.frag.makeParticles('sprites', 
         Phaser.Animation.generateFrameNames('flame', 1, 4))
     state.frag.setScale(0.5, 1, 0.5, 1.)
@@ -143,4 +143,14 @@ function makeParticles(state) {
     state.frag.setYSpeed(-400, 400)
     state.frag.setAlpha(1, 0.2, 400)
     state.frag.lifespan = 200
+
+    state.puffs = state.add.emitter(0, 0, 100)
+    state.puffs.makeParticles('sprites', 
+        Phaser.Animation.generateFrameNames('dust', 1, 4))
+    state.puffs.gravity = -40
+    state.puffs.setAlpha(0.8, 0, 800, Phaser.Easing.Quadratic.Out)
+    state.puffs.setScale(3, 10, 3, 10, 800)
+    state.puffs.setXSpeed(-100, 100)
+    state.puffs.setYSpeed(-100, 20)
+    state.puffs.setRotation(0, 0)
 }
