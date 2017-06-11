@@ -13,26 +13,11 @@ var Gravity = require('./bullets/Gravity.js');
 var Grenade = require('./bullets/Grenade.js');
 var Bouncy = require('./bullets/Bouncy');
 
+var SmallFont = require('./SmallFont.js')
+
 
 module.exports = {
-    smallFontText: function(state, text, type) {
-        type = type || 'plain'
-        text = text || ''
-
-        var font = state.make.retroFont('font-small', 8, 8,
-            Phaser.RetroFont.TEXT_SET2);
-        font.text = text
-        return font
-    },
-
-    smallFont: function(state, text, type) {
-        var font = this.smallFontText(state, text, type)
-        var img = state.make.image(0, 0, font)
-        img.font = font
-        img.anchor.setTo(0.5)
-        img.tint = 0xf6eeee
-        return img
-    },
+    smallFont: SmallFont,
 
     player1: function(state, data) {
         var ctlr = new DefaultCtlr(state);

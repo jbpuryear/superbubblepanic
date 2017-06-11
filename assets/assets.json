@@ -14,6 +14,12 @@
 	},
         {
             "type": "audio",
+            "key": "click",
+            "urls": ["assets/audio/click.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "clock",
             "urls": ["assets/audio/clock.ogg"],
             "autoDecode": true
@@ -86,6 +92,12 @@
 	},
         {
             "type": "audio",
+            "key": "rollover",
+            "urls": ["assets/audio/rollover.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "shield-pickup",
             "urls": ["assets/audio/shield-pickup.ogg"],
             "autoDecode": true
@@ -112,6 +124,12 @@
             "type": "audio",
             "key": "slowdown",
             "urls": ["assets/audio/slowdown.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
+            "key": "start",
+            "urls": ["assets/audio/start.ogg"],
             "autoDecode": true
 	},
         {
