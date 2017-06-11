@@ -138,6 +138,7 @@ Level.prototype = {
 
 
     shutdown: function() {
+        this.input.mousePointer.leftButton.onDown.dispose()
         this.stage.removeChild(this.gameOverScreen)
         this.time.slowMotion = 1
     },
