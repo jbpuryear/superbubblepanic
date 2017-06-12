@@ -1,5 +1,6 @@
 var BrkPlat = require('../entities/BrkPlat.js')
 var Explosion = require('../magic/Explosion.js')
+var Blood = require('../magic/Blood.js')
 
 
 module.exports = function create() {
@@ -9,8 +10,16 @@ module.exports = function create() {
     if (this.map.properties && this.map.properties.bgImage) 
         paintBackground(this)
     makeParticles(this)
+
+    this.splatter = this.make.bitmapData(this.world.width, this.world.height)
+    this.splatter.mask = this.make.bitmapData(this.world.width, this.world.height)
+
     makeMap(this)
+
+    this.add.image(0, 0, this.splatter)
+
     makeExplosions(this)
+
     makeGameOverScreen(this)
 
     // TODO Change if we ever have more than one player.
@@ -76,6 +85,47 @@ function makeMap(state) {
     plats.forEach(function(platform, i) {
         var data = state.map.objects.platform[i]
 
+        var xMin=0, xMax=0, yMin=0, yMax=0;
+        var poly = data.polyline;
+        for (var i=0; i<poly.length; i++) {
+            // P2.converCollisionObjects converts the tilemap data to P2 units
+            // so change them back so we can draw with them.
+            var x = poly[i][0] = state.physics.p2.mpxi(poly[i][0]);
+            var y = poly[i][1] = state.physics.p2.mpxi(poly[i][1]);
+            if (x < xMin) xMin = x;
+            if (x > xMax) xMax = x;
+            if (y < yMin) yMin = y;
+            if (y > yMax) yMax = y;
+        }
+        var width = xMax - xMin;
+        var height = yMax - yMin;
+
+        var points = [];
+        for (i=0; i<poly.length; i++) {
+            var x = poly[i][0] - xMin;
+            var y = poly[i][1] - yMin;
+            points.push([x, y]);
+        }
+        points.cx = width/2 + data.x  + xMin;
+        points.cy = height/2 + data.y + yMin;
+        data.points = points;
+
+        var texture = new Phaser.Graphics(state.game);
+        texture.beginFill(0xFFFFFF, 1);
+        texture.drawPolygon(points);
+        texture.endFill();
+
+        var img = state.make.image(x, y, texture.generateTexture());
+        texture.destroy();
+
+        img.anchor.setTo(0.5)
+        img.x = points.cx
+        img.y = points.cy
+        data.mask = img
+
+        this.splatter.mask.draw(img)
+
+
         platform.setCollisionGroup(state.platformsCG)
         platform.collides(
             [state.enemiesCG, state.playersCG, state.itemsCG, state.shellsCG]
@@ -120,20 +170,21 @@ function makeMap(state) {
 function makeParticles(state) {
     state.shellPool = state.add.group()
     state.players = state.add.group()
+    state.blood = state.add.group()
     state.enemies = state.add.group()
     state.items = state.add.group()
     state.platforms = state.add.group()
 
     state.shellPool.physicsBodyType = Phaser.Physics.P2JS
     state.shellPool.enableBody = true
-    state.shellPool.createMultiple(30, 'sprites', 'shell')
+    state.shellPool.createMultiple(50, 'sprites', 'shell')
     state.shellPool.forEach(function(shell) {
         shell.body.setRectangle(4, 2)
         shell.body.setCollisionGroup(state.shellsCG)
         shell.body.collides(state.platformsCG)
     }, state)
 
-    state.frag = state.add.emitter(0, 0, 100)
+    state.frag = state.add.emitter(0, 0, 50)
     state.frag.makeParticles('sprites', 
         Phaser.Animation.generateFrameNames('flame', 1, 4))
     state.frag.setScale(0.5, 1, 0.5, 1.)
@@ -143,4 +194,17 @@ function makeParticles(state) {
     state.frag.setYSpeed(-400, 400)
     state.frag.setAlpha(1, 0.2, 400)
     state.frag.lifespan = 200
+
+    state.puffs = state.add.emitter(0, 0, 100)
+    state.puffs.makeParticles('sprites', 
+        Phaser.Animation.generateFrameNames('dust', 1, 4))
+    state.puffs.gravity = -40
+    state.puffs.setAlpha(0.8, 0, 800, Phaser.Easing.Quadratic.Out)
+    state.puffs.setScale(3, 10, 3, 10, 800)
+    state.puffs.setXSpeed(-100, 100)
+    state.puffs.setYSpeed(-100, 20)
+    state.puffs.setRotation(0, 0)
+
+    state.blood.classType = Blood
+    state.blood.createMultiple(100, 'sprites', 'blood')
 }

@@ -29,6 +29,19 @@ Level.prototype = {
     },
 
 
+    bleed: function(object) {
+        for (var i = 0; i < 5; i++) {
+            var drop = this.blood.getFirstDead() || this.blood.getRandom()
+            drop.reset(object.world.x + Math.random() * 5 - 2.5, object.y)
+            drop.body.velocity.x = (Math.random() * 220 + 170) * Math.cos(object.killTheta)
+            drop.body.velocity.y = (Math.random() * 220 + 170) * Math.sin(object.killTheta)
+            drop.body.velocity.x *= this.bulletTime
+            drop.body.velocity.y *= this.bulletTime
+            drop.scale.setTo(Math.random()/2 + 0.25)
+        }
+    },
+
+
     changeTime: function(factor) {
         if (factor === 0 || isNaN(factor)) return
         this.bulletTime *= factor;
@@ -37,6 +50,13 @@ Level.prototype = {
             enemy.body.velocity.x *= factor;
             enemy.body.velocity.y *= factor;
             enemy.body.data.gravityScale *= factor * factor;
+        });
+        this.blood.recurse(function(drop) {
+            drop.body.mass /= factor;
+            drop.body.velocity.x *= factor;
+            drop.body.velocity.y *= factor;
+            drop.body.data.gravityScale *= factor * factor;
+            drop.slowSpeed *= factor
         });
         if (this.sound.usingWebAudio) {
             this.sound._sounds.forEach(function(snd) {
@@ -53,6 +73,17 @@ Level.prototype = {
 
     explode: function(x, y, width) {
         this.explosionPool.getFirstDead(true).reset(x, y, width)
+        this.puffs.x = x
+        this.puffs.y = y
+        this.puffs.explode(800, 20)
+    },
+
+
+    FXMaskErase: function(sprite) {
+        this.splatter.mask.blendDestinationOut()
+        this.splatter.mask.draw(sprite)
+        this.splatter.mask.blendSourceOver()
+        this.splatter.unclean = true
     },
 
 
@@ -68,6 +99,21 @@ Level.prototype = {
         this.gameOverScreen.exists = true
         this.time.slowMotion = 6
         this.world.add(this.p1)
+    },
+
+
+    paintFX: function(sprite) {
+        this.splatter.draw(sprite)
+        this.splatter.unclean = true
+    },
+
+
+    paintFXupdate: function() {
+        if (!this.splatter.unclean) return
+        this.splatter.blendDestinationIn()
+        this.splatter.draw(this.splatter.mask)
+        this.splatter.blendSourceOver()
+        this.splatter.unclean = false
     },
 
 
@@ -96,6 +142,8 @@ Level.prototype = {
 
         if (!sound) return null
 
+        sound.volume = 1
+
         sound.key = key
         sound.isLocked = lock
         sound.play('', 0, 1, repeat, true)
@@ -103,8 +151,13 @@ Level.prototype = {
         if (sound._sound && sound.usingWebAudio) {
             if (useBulletTime)
                 sound._sound.playbackRate.value = this.bulletTime
+            else
+                sound._sound.playbackRate.value = 1
+
             if (randomize)
                 sound._sound.detune.value = Math.random() * -randomize
+            else
+                sound._sound.detune.value = 0
         }
 
         return sound
@@ -121,6 +174,8 @@ Level.prototype = {
 
 
     update: function() {
+        this.paintFXupdate()
+
         for (var i=this.buffs.length-1; i>=0; i--) {
             var buff = this.buffs[i]
             if (buff.timeLeft !== -1)
@@ -138,6 +193,9 @@ Level.prototype = {
 
 
     shutdown: function() {
+        this.splatter.mask.destroy()
+        this.splatter.destroy()
+        this.input.mousePointer.leftButton.onDown.dispose()
         this.stage.removeChild(this.gameOverScreen)
         this.time.slowMotion = 1
     },

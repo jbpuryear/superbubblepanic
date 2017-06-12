@@ -37,6 +37,11 @@ Explosion.prototype.explode = function(body) {
 
 
 Explosion.prototype.kill = function() {
+    this.alpha = 0.4
+    this.frameName = 'burn'
+    this.body.rotation = Math.random() * Math.PI * 2
+    this.state.paintFX(this)
+    this.alpha = 1
     Phaser.Sprite.prototype.kill.call(this)
 
     for (var i = 0; i < this.targets.length; i++)

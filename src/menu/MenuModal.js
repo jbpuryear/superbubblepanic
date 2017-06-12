@@ -21,6 +21,7 @@ function MenuModal(state, gui) {
     var startBtn = Btn(state, 'start', function() {
         state.start()
     }, state)
+    startBtn.onDownSound = state.sound.add('start')
     startBtn.y = hiScore.bottom + 32
 
     /*

@@ -31,9 +31,11 @@ function Enemy(state, data, drop) {
     this.body.setCollisionGroup(state.enemiesCG)
     this.body.collideWorldBounds = false;
     this.body.collides([state.platformsCG, state.physics.p2.boundsCollisionGroup], function() {
-        state.playSound(this.sounds.bounce)
-        if (this.sounds.bounce.usingWebAudio) {
-            this.sounds.bounce._sound.detune.value = 128/this.width * 400
+        var snd = state.playSound(this.sounds.bounce)
+        if (snd && snd.isPlaying && snd.usingWebAudio) {
+            var scale = 128/this.width
+            snd._sound.detune.value = scale * 400
+            snd.volume = Math.min(0.5+0.5/scale, 1)
         }
     }, this)
     this.body.collides([state.playersCG, state.bulletsCG], this.damage, this)
@@ -60,6 +62,7 @@ Enemy.prototype.damage = function(_, src) {
     else
         this.killTheta = src.sprite.world.angle(this.world)
     this.animations.play('flash')
+    this.state.bleed(this)
     Phaser.Sprite.prototype.damage.call(this, src.attack || 1)
 }
 
