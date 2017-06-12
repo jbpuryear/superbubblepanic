@@ -35,18 +35,7 @@ Grenade.prototype.fire = function(x, y, theta, speedBonus) {
 
 function Round(state, x, y, texture) {
     Bullet.call(this, state, x, y, texture);
-    if (!Round.prototype.material) {
-        Round.prototype.material = state.physics.p2.createMaterial('grenade');
-        state.physics.p2.createContactMaterial(this.material, state.platformMaterial, {
-            friction: 0.4,
-            restitution: 0.7
-        });
-        state.physics.p2.createContactMaterial(this.material, state.worldMaterial, {
-            friction: 0.4,
-            restitution: 0.7
-        });
-    }
-    this.body.setMaterial(Round.prototype.material);
+    this.body.setMaterial(state.grenadeMaterial);
     this.body.data.gravityScale = 1;
     this.body.mass = MASS;
     this.body.removeCollisionGroup(state.platformsCG);
