@@ -122,6 +122,12 @@
 	},
         {
             "type": "audio",
+            "key": "splat",
+            "urls": ["assets/audio/splat.ogg"],
+            "autoDecode": true
+	},
+        {
+            "type": "audio",
             "key": "slowdown",
             "urls": ["assets/audio/slowdown.ogg"],
             "autoDecode": true
