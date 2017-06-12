@@ -29,6 +29,19 @@ Level.prototype = {
     },
 
 
+    bleed: function(object) {
+        for (var i = 0; i < 5; i++) {
+            var drop = this.blood.getFirstDead() || this.blood.getRandom()
+            drop.reset(object.world.x + Math.random() * 5 - 2.5, object.y)
+            drop.body.velocity.x = (Math.random() * 220 + 170) * Math.cos(object.killTheta)
+            drop.body.velocity.y = (Math.random() * 220 + 170) * Math.sin(object.killTheta)
+            drop.body.velocity.x *= this.bulletTime
+            drop.body.velocity.y *= this.bulletTime
+            drop.scale.setTo(Math.random()/2 + 0.25)
+        }
+    },
+
+
     changeTime: function(factor) {
         if (factor === 0 || isNaN(factor)) return
         this.bulletTime *= factor;
@@ -37,6 +50,13 @@ Level.prototype = {
             enemy.body.velocity.x *= factor;
             enemy.body.velocity.y *= factor;
             enemy.body.data.gravityScale *= factor * factor;
+        });
+        this.blood.recurse(function(drop) {
+            drop.body.mass /= factor;
+            drop.body.velocity.x *= factor;
+            drop.body.velocity.y *= factor;
+            drop.body.data.gravityScale *= factor * factor;
+            drop.slowSpeed *= factor
         });
         if (this.sound.usingWebAudio) {
             this.sound._sounds.forEach(function(snd) {

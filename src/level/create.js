@@ -1,5 +1,6 @@
 var BrkPlat = require('../entities/BrkPlat.js')
 var Explosion = require('../magic/Explosion.js')
+var Blood = require('../magic/Blood.js')
 
 
 module.exports = function create() {
@@ -120,6 +121,7 @@ function makeMap(state) {
 function makeParticles(state) {
     state.shellPool = state.add.group()
     state.players = state.add.group()
+    state.blood = state.add.group()
     state.enemies = state.add.group()
     state.items = state.add.group()
     state.platforms = state.add.group()
@@ -153,4 +155,7 @@ function makeParticles(state) {
     state.puffs.setXSpeed(-100, 100)
     state.puffs.setYSpeed(-100, 20)
     state.puffs.setRotation(0, 0)
+
+    state.blood.classType = Blood
+    state.blood.createMultiple(100, 'sprites', 'blood')
 }

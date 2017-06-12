@@ -60,6 +60,7 @@ Enemy.prototype.damage = function(_, src) {
     else
         this.killTheta = src.sprite.world.angle(this.world)
     this.animations.play('flash')
+    this.state.bleed(this)
     Phaser.Sprite.prototype.damage.call(this, src.attack || 1)
 }
 
