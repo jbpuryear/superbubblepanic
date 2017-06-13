@@ -69,21 +69,21 @@ function inputDown() {
 function inputOver() {
     var tint = smallFont.colors.PLAIN
     this.tint = tint
-    var r = Math.trunc(tint / 0x10000)
-    var g = ((tint % 0x10000) - r) / 0x100
-    var b = tint % 0x100 
+    var r = (tint & 0xff0000) >>  16
+    var g = (tint & 0xff00) >> 8
+    var b = tint & 0xff 
     var color = { r: r, g: g, b: b }
     var tint2 = smallFont.colors.HILIGHT
-    var r2 = Math.trunc(tint2 / 0x10000)
-    var g2 = ((tint2 % 0x10000) - r) / 0x100
-    var b2 = tint2 % 0x100 
+    var r2 = (tint2 & 0xff0000) >> 16
+    var g2 = (tint2 & 0xff00) >> 8
+    var b2 = tint2 & 0xff
     var tween = this.game.add.tween(color)
     tween.from({r: r2, g: g2, b: b2}, 200, Phaser.Easing.Quadratic.Out)
     tween.onUpdateCallback(function() {
-        var r = Math.round(color.r)
-        var g = Math.round(color.g)
-        var b = Math.round(color.b)
-        this.tint = r * 0x10000 + g * 0x100 + b
+        var r = (color.r & 0xff) << 16
+        var g = (color.g & 0xff) << 8
+        var b = color.b & 0xff
+        this.tint = r | g | b
     }, this)
     tween.start()
 }
