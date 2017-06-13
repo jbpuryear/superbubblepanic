@@ -24,7 +24,6 @@ module.exports = function parseDrop(drop) {
             return this.parseDrop(dropOb)
         } catch (e) {
             if (e instanceof SyntaxError) {
-                console.log('Processing Tiled object drop, ' + drop + '...')
                 var item = this.addEntity({x: 0, y: 0, type: drop})
                 item.kill()
                 return item

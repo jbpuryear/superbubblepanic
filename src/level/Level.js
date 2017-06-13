@@ -21,7 +21,6 @@ Level.prototype = {
         // Tiled uses different coordinates than Phaser.
         data.x = data.x + data.width / 2
         data.y = data.y + data.height / 2
-        console.log('Creating ' + type + '...')
         if (!this.entities.hasOwnProperty(type)) {
             throw "Failed to read Tiled map, no game object of type '" + type + ".'"
         }
@@ -93,9 +92,6 @@ Level.prototype = {
         }, this)
         this.input.keyboard.addKey(Phaser.Keyboard.X).onDown.addOnce(this.exit, this)
         this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
-        this.input.mousePointer.leftButton.onDown.addOnce(function() {
-            this.state.start(this.key, true, false, this.mapName)
-        }, this)
         this.gameOverScreen.exists = true
         this.time.slowMotion = 6
         this.world.add(this.p1)
@@ -195,7 +191,6 @@ Level.prototype = {
     shutdown: function() {
         this.splatter.mask.destroy()
         this.splatter.destroy()
-        this.input.mousePointer.leftButton.onDown.dispose()
         this.stage.removeChild(this.gameOverScreen)
         this.time.slowMotion = 1
     },

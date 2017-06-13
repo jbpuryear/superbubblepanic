@@ -40,7 +40,6 @@ Blood.prototype.kill = function() {
         snd._sound.detune.value = 300 / scale
         snd._sound.playbackRate = Math.random() * 0.3 + 0.75
         snd.volume = scale * scale
-        console.log(snd)
     }
     this.frameName = 'splatter'
     this.alpha = 0.7

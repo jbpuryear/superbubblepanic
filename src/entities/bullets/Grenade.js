@@ -35,29 +35,30 @@ Grenade.prototype.fire = function(x, y, theta, speedBonus) {
 
 function Round(state, x, y, texture) {
     Bullet.call(this, state, x, y, texture);
-    if (!Round.prototype.material) {
-        Round.prototype.material = state.physics.p2.createMaterial('grenade');
-        state.physics.p2.createContactMaterial(this.material, state.platformMaterial, {
-            friction: 0.4,
-            restitution: 0.7
-        });
-        state.physics.p2.createContactMaterial(this.material, state.worldMaterial, {
-            friction: 0.4,
-            restitution: 0.7
-        });
-    }
-    this.body.setMaterial(Round.prototype.material);
+    this.body.setMaterial(state.grenadeMaterial);
     this.body.data.gravityScale = 1;
     this.body.mass = MASS;
     this.body.removeCollisionGroup(state.platformsCG);
     this.body.collides(state.platformsCG);
     this.body.collideWorldBounds = true;
+
+    var frames = Array(9).fill('grenade');
+    frames.unshift('grenade-flash')
+    this.animations.add('rest', frames, 10, true)
+        .onLoop.add(this.beep, this);
+    this.animations.play('rest');
 }
 
 
 Round.prototype = Object.create(Bullet.prototype);
 
 Round.prototype.speed = SPEED;
+
+
+Round.prototype.beep = function() {
+    var snd = this.state.playSound('start');
+    if (snd) snd.volume = 0.6;
+}
 
 
 Round.prototype.kill = function() {
@@ -68,6 +69,8 @@ Round.prototype.kill = function() {
 
 Round.prototype.fire = function(x, y, theta, speedBonus) {
     this.lifespan = LIFE;
+    this.animations.getAnimation('rest').restart();
+    this.beep();
     Bullet.prototype.fire.apply(this, arguments);
     this.body.angularVelocity = (this.body.rotation > Math.PI/2 || this.body.rotation < -Math.PI/2) ?
         Math.PI : -Math.PI;

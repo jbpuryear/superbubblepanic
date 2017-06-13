@@ -6,6 +6,7 @@ var GUI = require('./GUI.js')
 
 
 function Menu() {
+    this.firstTime = true
     return this
 }
 
@@ -37,6 +38,18 @@ Menu.prototype.create = function() {
     this.p1.animations.play('sit')
 
     this.modals = new GUI(this)
+
+
+    var menu = this.modals.modals.menu
+    menu.hiScore.visible = false
+    menu.startBtn.visible = false
+    menu.howToBtn.visible = false
+    
+    this.time.events.add(2000, function() {
+        menu.hiScore.visible = true
+        menu.startBtn.visible = true
+        menu.howToBtn.visible = true
+    })
 } 
 
 

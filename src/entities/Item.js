@@ -9,7 +9,6 @@ function Item(state, data) {
     var x = data.x || 0;
     var y = data.y || 0;
     var texture = data.texture;
-    if (!texture) console.warn('Creating Item with no texture.');
 
     Phaser.Sprite.call(this, state.game, x, y, 'sprites');
     this.frameName = texture;

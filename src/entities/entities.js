@@ -103,13 +103,17 @@ module.exports = {
 
 
     gravgun: function(state, data) {
-        return new Gun(state, {
+        var gun = new Gun(state, {
             x: data.x,
             y: data.y,
-            texture: 'gravgun',
+            texture: 'gravgun1',
             clips: 1,
             clipSize: 1,
         }, Gravity);
+        gun.animations.add('rest',
+            Phaser.Animation.generateFrameNames('gravgun', 1, 4), 6, true)
+            .play()
+        return gun
     },
 
     grenade: function(state, data) {
