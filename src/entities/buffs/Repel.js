@@ -5,7 +5,7 @@ var Buff = require('./Buff.js')
 var dotGravity =  require('../../magic/dotGravity.js')
 
 
-var TEXTURE = 'repel'
+var TEXTURE = 'repel1'
 
 
 function Repel(state, data) {
@@ -13,6 +13,9 @@ function Repel(state, data) {
     Buff.call(this, state, data)
     this.sounds.pickup = 'repel-pickup'
     this.sounds.stop = 'repel-stop'
+    this.animations.add('rest',
+        Phaser.Animation.generateFrameNames('repel', 1, 4), 5, true)
+    this.animations.play('rest')
 }
 
 
@@ -25,6 +28,7 @@ Repel.prototype.buffProto = {
     start: function() {
         this.targets = []
         this.state.physics.p2.enable(this.sprite)
+        this.sprite.animations.stop()
         this.sprite.frameName = 'repel-aura'
         this.sprite.lifespan = 0
         var body = this.sprite.body
@@ -39,11 +43,11 @@ Repel.prototype.buffProto = {
         shape.sensor = true
         body.onBeginContact.add(this.addTarget, this)
         body.onEndContact.add(this.removeTarget, this)
-        this.sprite.height = 2
-        this.sprite.width = 2
-        this.sprite.alpha = .6
+        this.sprite.height = 8
+        this.sprite.width = 8
+        this.sprite.alpha = 0.4
         this.state.add.tween(this.sprite)
-            .to({width: r, height: r}, 500, null, true)
+            .to({width: r, height: r}, 500, Phaser.Easing.Quadratic.In, true)
             .loop()
         this.overFlag = false
     },
