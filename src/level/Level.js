@@ -21,7 +21,6 @@ Level.prototype = {
         // Tiled uses different coordinates than Phaser.
         data.x = data.x + data.width / 2
         data.y = data.y + data.height / 2
-        console.log('Creating ' + type + '...')
         if (!this.entities.hasOwnProperty(type)) {
             throw "Failed to read Tiled map, no game object of type '" + type + ".'"
         }
