@@ -604,7 +604,6 @@ function Item(state, data) {
     var x = data.x || 0;
     var y = data.y || 0;
     var texture = data.texture;
-    if (!texture) console.warn('Creating Item with no texture.');
 
     Phaser.Sprite.call(this, state.game, x, y, 'sprites');
     this.frameName = texture;
@@ -727,7 +726,7 @@ var Buff = require('./Buff.js')
 var dotGravity =  require('../../magic/dotGravity.js')
 
 
-var TEXTURE = 'repel'
+var TEXTURE = 'repel1'
 
 
 function Repel(state, data) {
@@ -735,6 +734,9 @@ function Repel(state, data) {
     Buff.call(this, state, data)
     this.sounds.pickup = 'repel-pickup'
     this.sounds.stop = 'repel-stop'
+    this.animations.add('rest',
+        Phaser.Animation.generateFrameNames('repel', 1, 4), 5, true)
+    this.animations.play('rest')
 }
 
 
@@ -747,6 +749,7 @@ Repel.prototype.buffProto = {
     start: function() {
         this.targets = []
         this.state.physics.p2.enable(this.sprite)
+        this.sprite.animations.stop()
         this.sprite.frameName = 'repel-aura'
         this.sprite.lifespan = 0
         var body = this.sprite.body
@@ -761,11 +764,11 @@ Repel.prototype.buffProto = {
         shape.sensor = true
         body.onBeginContact.add(this.addTarget, this)
         body.onEndContact.add(this.removeTarget, this)
-        this.sprite.height = 2
-        this.sprite.width = 2
-        this.sprite.alpha = .6
+        this.sprite.height = 8
+        this.sprite.width = 8
+        this.sprite.alpha = 0.4
         this.state.add.tween(this.sprite)
-            .to({width: r, height: r}, 500, null, true)
+            .to({width: r, height: r}, 500, Phaser.Easing.Quadratic.In, true)
             .loop()
         this.overFlag = false
     },
@@ -1129,29 +1132,30 @@ Grenade.prototype.fire = function(x, y, theta, speedBonus) {
 
 function Round(state, x, y, texture) {
     Bullet.call(this, state, x, y, texture);
-    if (!Round.prototype.material) {
-        Round.prototype.material = state.physics.p2.createMaterial('grenade');
-        state.physics.p2.createContactMaterial(this.material, state.platformMaterial, {
-            friction: 0.4,
-            restitution: 0.7
-        });
-        state.physics.p2.createContactMaterial(this.material, state.worldMaterial, {
-            friction: 0.4,
-            restitution: 0.7
-        });
-    }
-    this.body.setMaterial(Round.prototype.material);
+    this.body.setMaterial(state.grenadeMaterial);
     this.body.data.gravityScale = 1;
     this.body.mass = MASS;
     this.body.removeCollisionGroup(state.platformsCG);
     this.body.collides(state.platformsCG);
     this.body.collideWorldBounds = true;
+
+    var frames = Array(9).fill('grenade');
+    frames.unshift('grenade-flash')
+    this.animations.add('rest', frames, 10, true)
+        .onLoop.add(this.beep, this);
+    this.animations.play('rest');
 }
 
 
 Round.prototype = Object.create(Bullet.prototype);
 
 Round.prototype.speed = SPEED;
+
+
+Round.prototype.beep = function() {
+    var snd = this.state.playSound('start');
+    if (snd) snd.volume = 0.6;
+}
 
 
 Round.prototype.kill = function() {
@@ -1162,6 +1166,8 @@ Round.prototype.kill = function() {
 
 Round.prototype.fire = function(x, y, theta, speedBonus) {
     this.lifespan = LIFE;
+    this.animations.getAnimation('rest').restart();
+    this.beep();
     Bullet.prototype.fire.apply(this, arguments);
     this.body.angularVelocity = (this.body.rotation > Math.PI/2 || this.body.rotation < -Math.PI/2) ?
         Math.PI : -Math.PI;
@@ -1613,13 +1619,17 @@ module.exports = {
 
 
     gravgun: function(state, data) {
-        return new Gun(state, {
+        var gun = new Gun(state, {
             x: data.x,
             y: data.y,
-            texture: 'gravgun',
+            texture: 'gravgun1',
             clips: 1,
             clipSize: 1,
         }, Gravity);
+        gun.animations.add('rest',
+            Phaser.Animation.generateFrameNames('gravgun', 1, 4), 6, true)
+            .play()
+        return gun
     },
 
     grenade: function(state, data) {
@@ -2363,7 +2373,6 @@ Level.prototype = {
         // Tiled uses different coordinates than Phaser.
         data.x = data.x + data.width / 2
         data.y = data.y + data.height / 2
-        console.log('Creating ' + type + '...')
         if (!this.entities.hasOwnProperty(type)) {
             throw "Failed to read Tiled map, no game object of type '" + type + ".'"
         }
@@ -2435,9 +2444,6 @@ Level.prototype = {
         }, this)
         this.input.keyboard.addKey(Phaser.Keyboard.X).onDown.addOnce(this.exit, this)
         this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
-        this.input.mousePointer.leftButton.onDown.addOnce(function() {
-            this.state.start(this.key, true, false, this.mapName)
-        }, this)
         this.gameOverScreen.exists = true
         this.time.slowMotion = 6
         this.world.add(this.p1)
@@ -2537,7 +2543,6 @@ Level.prototype = {
     shutdown: function() {
         this.splatter.mask.destroy()
         this.splatter.destroy()
-        this.input.mousePointer.leftButton.onDown.dispose()
         this.stage.removeChild(this.gameOverScreen)
         this.time.slowMotion = 1
     },
@@ -2804,6 +2809,7 @@ function setPhysics(state) {
     state.playerMaterial = p2.createMaterial('playerMaterial')
     state.platformMaterial = p2.createMaterial('platformMaterial')
     state.enemyMaterial = p2.createMaterial('enemyMaterial')
+    state.grenadeMaterial = p2.createMaterial('grenadeMaterial')
 
     p2.createContactMaterial(state.platformMaterial, state.enemyMaterial, {
         restitution: 1,
@@ -2817,6 +2823,14 @@ function setPhysics(state) {
         restitution: 0,
         friction: 0
     })
+    p2.createContactMaterial(state.grenadeMaterial, state.platformMaterial, {
+        friction: 0.4,
+        restitution: 0.7
+    });
+    p2.createContactMaterial(state.grenadeMaterial, state.worldMaterial, {
+        friction: 0.4,
+        restitution: 0.7
+    });
 }
 
 },{}],35:[function(require,module,exports){
@@ -2846,7 +2860,6 @@ module.exports = function parseDrop(drop) {
             return this.parseDrop(dropOb)
         } catch (e) {
             if (e instanceof SyntaxError) {
-                console.log('Processing Tiled object drop, ' + drop + '...')
                 var item = this.addEntity({x: 0, y: 0, type: drop})
                 item.kill()
                 return item
@@ -2934,7 +2947,6 @@ Blood.prototype.kill = function() {
         snd._sound.detune.value = 300 / scale
         snd._sound.playbackRate = Math.random() * 0.3 + 0.75
         snd.volume = scale * scale
-        console.log(snd)
     }
     this.frameName = 'splatter'
     this.alpha = 0.7
@@ -3160,12 +3172,14 @@ function MenuModal(state, gui) {
     var score = state.game.data.getHiScore()
     var hiScore = state.entities.smallFont(state, 'HI-SCORE ' + score)
     hiScore.y = logo.bottom + 32
+    this.hiScore = hiScore
 
     var startBtn = Btn(state, 'start', function() {
         state.start()
     }, state)
     startBtn.onDownSound = state.sound.add('start')
     startBtn.y = hiScore.bottom + 32
+    this.startBtn = startBtn
 
     /*
     var scoresBtn = Btn(state, 'HI-SCORES', function() {
@@ -3178,6 +3192,7 @@ function MenuModal(state, gui) {
         this.gui.switchModal('howTo')
     }, this)
     howToBtn.y = startBtn.bottom + 32
+    this.howToBtn = howToBtn
 
     this.addMultiple([logo, hiScore, startBtn, howToBtn])
 }
@@ -3334,6 +3349,7 @@ var GUI = require('./GUI.js')
 
 
 function Menu() {
+    this.firstTime = true
     return this
 }
 
@@ -3365,6 +3381,18 @@ Menu.prototype.create = function() {
     this.p1.animations.play('sit')
 
     this.modals = new GUI(this)
+
+
+    var menu = this.modals.modals.menu
+    menu.hiScore.visible = false
+    menu.startBtn.visible = false
+    menu.howToBtn.visible = false
+    
+    this.time.events.add(2000, function() {
+        menu.hiScore.visible = true
+        menu.startBtn.visible = true
+        menu.howToBtn.visible = true
+    })
 } 
 
 
