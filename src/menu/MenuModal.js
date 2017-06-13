@@ -17,12 +17,14 @@ function MenuModal(state, gui) {
     var score = state.game.data.getHiScore()
     var hiScore = state.entities.smallFont(state, 'HI-SCORE ' + score)
     hiScore.y = logo.bottom + 32
+    this.hiScore = hiScore
 
     var startBtn = Btn(state, 'start', function() {
         state.start()
     }, state)
     startBtn.onDownSound = state.sound.add('start')
     startBtn.y = hiScore.bottom + 32
+    this.startBtn = startBtn
 
     /*
     var scoresBtn = Btn(state, 'HI-SCORES', function() {
@@ -35,6 +37,7 @@ function MenuModal(state, gui) {
         this.gui.switchModal('howTo')
     }, this)
     howToBtn.y = startBtn.bottom + 32
+    this.howToBtn = howToBtn
 
     this.addMultiple([logo, hiScore, startBtn, howToBtn])
 }
