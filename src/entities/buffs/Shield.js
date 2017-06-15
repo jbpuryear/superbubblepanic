@@ -30,14 +30,14 @@ Shield.prototype.buffProto = {
 
         this.sprite = this.state.add.sprite(0, 0, target.character.texture)
 
-        this.alpha = 0.3
-        this.scale = 1.2
+        this.alpha = 0.7
+        this.scale = 1.3
 
         this.sprite.anchor.setTo(0.5)
         this.sprite.tint = 0x62cade
         this.sprite.frame = target.character.frame
-        this.sprite.width = target.character.width * 1.2
-        this.sprite.height = target.character.height * 1.2
+        this.sprite.width = target.character.width * 1.3
+        this.sprite.height = target.character.height * 1.3
         this.state.items.addChild(this.sprite)
         this.sprite.shader = new Phaser.Filter(this.state.game, {alpha: {type: '1f', value: this.alpha}}, [
             'precision mediump float;',
