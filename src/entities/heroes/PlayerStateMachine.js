@@ -284,7 +284,7 @@ function Stunned(machine) {
 Stunned.prototype = {
     exit: function() {},
     update: function() {
-        this.player.character.frame = 'p1-stun'
+        this.player.character.frameName = 'p1-die1'
     },
 
     enter: function() {
