@@ -66,7 +66,7 @@ PlayerState.prototype = {
     },
 
     onUp: function() {
-        if (this.machine.fuel > 0) this.machine.change('flying')
+        if (this.machine.fuel > 100) this.machine.change('flying')
     },
 
     onLeft: function() {
@@ -249,6 +249,8 @@ Standing.prototype.update = function() {
     var mchn = this.machine
     var velx = plyr.body.velocity.x
 
+    if (!plyr.standing) mchn.change('falling')
+
     if (mchn.fuel < mchn.maxFuel) {
         var fuel = mchn.fuel + plyr.game.time.physicsElapsedMS / 2
         mchn.fuel = Math.min(mchn.maxFuel, fuel)
@@ -312,14 +314,6 @@ Stunned.prototype = {
 
     endStun: function() {
         this.player.state.time.events.add(1600, this.end, this)
-        if (this.ctlr.up && this.machine.fuel > 0) {
-            this.machine.change('flying')
-            return
-        }
-        if (!this.player.standing) {
-            this.machine.change('falling')
-            return
-        }
         this.machine.change('standing')
     }
 }
