@@ -87,6 +87,7 @@ Level.prototype = {
 
 
     gameOver: function() {
+        this.reticule.animations.play('die', null, false, true)
         this.input.keyboard.addKey(Phaser.Keyboard.R).onDown.addOnce(function() {
             this.state.start(this.key, true, false, this.mapName)
         }, this)
@@ -170,6 +171,13 @@ Level.prototype = {
 
 
     update: function() {
+        if (!this.retFlag) {
+            this.reticule.exists = this.input.mousePointer.withinGame
+            this.retFlag = this.input.mousePointer.withinGame
+        }
+        this.reticule.x = this.input.mousePointer.x
+        this.reticule.y = this.input.mousePointer.y
+
         this.paintFXupdate()
 
         for (var i=this.buffs.length-1; i>=0; i--) {
@@ -189,9 +197,10 @@ Level.prototype = {
 
 
     shutdown: function() {
+        this.reticule.destroy()
         this.splatter.mask.destroy()
         this.splatter.destroy()
-        this.stage.removeChild(this.gameOverScreen)
+        this.gameOverScreen.destroy()
         this.time.slowMotion = 1
     },
 

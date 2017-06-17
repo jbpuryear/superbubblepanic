@@ -8,8 +8,14 @@ var Arcade = require('./arcade/arcade.js');
 var Menu = require('./menu/menu.js');
 
 
-function Game(parent) {
+function Game() {
     require('./phaserPatch.js')();
+
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+        killCursor()
+    } else {
+        window.addEventListener('load', killCursor, false)
+    }
 
     var game = new Phaser.Game(800, 600, undefined,
         undefined, undefined, false, false)
@@ -21,9 +27,16 @@ function Game(parent) {
     game.state.add('Level', new Level);
     game.state.add('Menu', new Menu);
     game.state.add('Arcade', new Arcade);
-    
+
     game.state.start('Boot');
+
     return game;
+}
+
+function killCursor() {
+    var s = document.createElement('style')
+    s.innerHTML = 'canvas { cursor: none !important }'
+    document.body.appendChild(s)
 }
 
 

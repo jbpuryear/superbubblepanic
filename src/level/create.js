@@ -30,6 +30,12 @@ module.exports = function create() {
 
     this.input.keyboard.addKey(Phaser.Keyboard.ESC)
         .onDown.add(this.exit, this)
+
+    this.reticule = this.make.image(-30, 0, 'sprites', 'reticule')
+    this.reticule.anchor.setTo(0.5)
+    this.reticule.animations.add('die',
+        Phaser.Animation.generateFrameNames('reticule', 1, 5), 38, false)
+    this.stage.addChild(this.reticule)
 }
 
 

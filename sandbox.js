@@ -1,5 +1,4 @@
-window.onload = function() {
-
+window.addEventListener('load', function() {
 var game = SBP();
 var entities = game.state.states.Level.entities;
 
@@ -43,7 +42,7 @@ setTimeout(function(){
         select.add(option);
     });
     select.value = '';
-}, 2000);
+}, 5000);
 select.onchange = levelSelect;
 
 document.getElementById('hitToggle').onclick = function() {
@@ -62,5 +61,4 @@ document.getElementById('step').onclick = function() {
 document.getElementById('endStep').onclick = function() {
     game.disableStep();
 }
-
-}
+}, false)
