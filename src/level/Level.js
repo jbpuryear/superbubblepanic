@@ -95,7 +95,7 @@ Level.prototype = {
         this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
         this.gameOverScreen.exists = true
         this.time.slowMotion = 6
-        this.world.add(this.p1)
+        this.players.forEach(this.world.addChild, this.world)
     },
 
 
@@ -205,7 +205,7 @@ Level.prototype = {
     },
 
     loseCondition: function() {
-        return !this.p1.alive
+        return !this.players.getFirstAlive()
     },
 
     startFX: function() {

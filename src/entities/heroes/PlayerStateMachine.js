@@ -107,10 +107,10 @@ Dead.prototype = {
 
     enter: function() {
         var plyr = this.player
+        plyr.alive = false
 
         plyr.state.playSound('death')
         plyr.state.camera.flash(0xf6eeee, 500)
-        plyr.alive = false
         plyr.body.removeCollisionGroup([
             plyr.state.enemiesCG, plyr.state.itemsCG
         ])
