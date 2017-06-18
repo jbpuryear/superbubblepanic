@@ -59,7 +59,9 @@ Level.prototype = {
         });
         if (this.sound.usingWebAudio) {
             this.sound._sounds.forEach(function(snd) {
-                if (snd._snd) snd._snd.playbackRate *= factor
+                if (snd.isPlaying && snd.useBulletTime) {
+                    snd._sound.playbackRate.value *= factor
+                }
             });
         }
     },
@@ -143,6 +145,7 @@ Level.prototype = {
 
         sound.key = key
         sound.isLocked = lock
+        sound.useBulletTime = useBulletTime
         sound.play('', 0, 1, repeat, true)
 
         if (sound._sound && sound.usingWebAudio) {
