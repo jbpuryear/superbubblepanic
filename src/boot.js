@@ -82,5 +82,5 @@ function onReleasePointer(locked) {
     if (locked) return
     showCursor()
     game.paused = true
-    game.canvas.addEventListener('click', grabPointer, {once: true})
+    game.canvas.addEventListener('click', grabPointer, true)
 }
