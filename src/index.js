@@ -11,12 +11,6 @@ var Menu = require('./menu/menu.js');
 function Game() {
     require('./phaserPatch.js')();
 
-    if (document.readyState === 'interactive' || document.readyState === 'complete') {
-        killCursor()
-    } else {
-        window.addEventListener('load', killCursor, false)
-    }
-
     var game = new Phaser.Game(800, 600, undefined,
         undefined, undefined, false, false)
 
@@ -31,12 +25,6 @@ function Game() {
     game.state.start('Boot');
 
     return game;
-}
-
-function killCursor() {
-    var s = document.createElement('style')
-    s.innerHTML = 'canvas { cursor: none !important }'
-    document.body.appendChild(s)
 }
 
 

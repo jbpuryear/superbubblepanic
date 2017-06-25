@@ -93,7 +93,6 @@ Level.prototype = {
         this.input.keyboard.addKey(Phaser.Keyboard.R).onDown.addOnce(function() {
             this.state.start(this.key, true, false, this.mapName)
         }, this)
-        this.input.keyboard.addKey(Phaser.Keyboard.X).onDown.addOnce(this.exit, this)
         this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
         this.gameOverScreen.exists = true
         this.time.slowMotion = 6
@@ -174,12 +173,24 @@ Level.prototype = {
 
 
     update: function() {
-        if (!this.retFlag) {
-            this.reticule.exists = this.input.mousePointer.withinGame
-            this.retFlag = this.input.mousePointer.withinGame
+        if (this.input.mouse.locked) {
+            var x = this.reticule.x
+            var y = this.reticule.y
+            x += this.input.mousePointer.movementX * this.scale.scaleFactor.x
+            y += this.input.mousePointer.movementY * this.scale.scaleFactor.y
+            x = Phaser.Math.clamp(x, 0, this.world.width)
+            y = Phaser.Math.clamp(y, 0, this.world.height)
+            this.reticule.x = x
+            this.reticule.y = y
+            this.input.mousePointer.resetMovement()
+        } else {
+            if (!this.retFlag) {
+                this.reticule.exists = this.input.mousePointer.withinGame
+                this.retFlag = this.input.mousePointer.withinGame
+            }
+            this.reticule.x = this.input.mousePointer.x
+            this.reticule.y = this.input.mousePointer.y
         }
-        this.reticule.x = this.input.mousePointer.x
-        this.reticule.y = this.input.mousePointer.y
 
         this.paintFXupdate()
 

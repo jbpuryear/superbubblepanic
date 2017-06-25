@@ -11,7 +11,7 @@ function DefaultCtlr(state) {
     this._left = k.addKey(keys.LEFT)
     this._right = k.addKey(keys.RIGHT)
     this._up = k.addKey(keys.UP)
-    this.position = state.input.mousePointer.position
+    this.position = state.reticule.world
     this.newShot = true
 
     this._wasDown = false

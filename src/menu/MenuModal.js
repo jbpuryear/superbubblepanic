@@ -19,7 +19,7 @@ function MenuModal(state, gui) {
     hiScore.y = logo.bottom + 32
     this.hiScore = hiScore
 
-    var startBtn = Btn(state, 'start', function() {
+    var startBtn = new Btn(state, 'start', function() {
         state.start()
     }, state)
     startBtn.onDownSound = state.sound.add('start')
@@ -27,13 +27,13 @@ function MenuModal(state, gui) {
     this.startBtn = startBtn
 
     /*
-    var scoresBtn = Btn(state, 'HI-SCORES', function() {
+    var scoresBtn = new Btn(state, 'HI-SCORES', function() {
         this.gui.switchModal('hiScores')
     }, this)
     scoresBtn.y = startBtn.y + 32
     */
 
-    var howToBtn = Btn(state, 'INSTRUCTIONS', function() {
+    var howToBtn = new Btn(state, 'INSTRUCTIONS', function() {
         this.gui.switchModal('howTo')
     }, this)
     howToBtn.y = startBtn.bottom + 32

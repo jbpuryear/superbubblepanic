@@ -4,6 +4,11 @@ var Blood = require('../magic/Blood.js')
 
 
 module.exports = function create() {
+    this.reticule = this.make.image(-30, 0, 'sprites', 'reticule')
+    this.reticule.anchor.setTo(0.5)
+    this.reticule.animations.add('die',
+        Phaser.Animation.generateFrameNames('reticule', 1, 5), 38, false)
+    this.stage.addChild(this.reticule)
 
     this.soundPool = []
     for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
@@ -32,15 +37,9 @@ module.exports = function create() {
     makeExplosions(this)
     makeGameOverScreen(this)
 
-    this.reticule = this.make.image(-30, 0, 'sprites', 'reticule')
-    this.reticule.anchor.setTo(0.5)
-    this.reticule.animations.add('die',
-        Phaser.Animation.generateFrameNames('reticule', 1, 5), 38, false)
-    this.stage.addChild(this.reticule)
-
     this.startFX()
 
-    this.input.keyboard.addKey(Phaser.Keyboard.ESC)
+    this.input.keyboard.addKey(Phaser.Keyboard.X)
         .onDown.add(this.exit, this)
 }
 
