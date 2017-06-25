@@ -8,7 +8,7 @@ var Arcade = require('./arcade/arcade.js');
 var Menu = require('./menu/menu.js');
 
 
-function Game(parent) {
+function Game() {
     require('./phaserPatch.js')();
 
     var game = new Phaser.Game(800, 600, undefined,
@@ -21,8 +21,9 @@ function Game(parent) {
     game.state.add('Level', new Level);
     game.state.add('Menu', new Menu);
     game.state.add('Arcade', new Arcade);
-    
+
     game.state.start('Boot');
+
     return game;
 }
 

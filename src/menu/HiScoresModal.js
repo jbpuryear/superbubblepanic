@@ -26,7 +26,7 @@ function HiScoresModal(state, gui) {
     scoreboard.height *= 2
     scoreboard.y = scoreboard.height/2
 
-    var backBtn = Btn(state, 'BACK', function() {
+    var backBtn = new Btn(state, 'BACK', function() {
         this.gui.switchModal('menu')
     }, this)
     backBtn.y = scoreboard.bottom + 32

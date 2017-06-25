@@ -4,31 +4,42 @@ var Blood = require('../magic/Blood.js')
 
 
 module.exports = function create() {
+
     this.soundPool = []
     for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
 
     if (this.map.properties && this.map.properties.bgImage) 
         paintBackground(this)
-    makeParticles(this)
+
+    this.reticule = this.stage.reticule
+    this.reticule.exists = true
+    this.reticule.animations.stop()
+    this.reticule.frameName = 'reticule'
+
+    this.players = this.make.group()
+    this.enemies = this.make.group()
+    this.items = this.make.group()
+    this.platforms = this.make.group()
 
     this.splatter = this.make.bitmapData(this.world.width, this.world.height)
     this.splatter.mask = this.make.bitmapData(this.world.width, this.world.height)
 
+    makeParticles(this)
+
     makeMap(this)
 
     this.add.image(0, 0, this.splatter)
+    this.world.addChild(this.players)
+    this.world.addChild(this.enemies)
+    this.world.addChild(this.items)
+    this.world.addChild(this.platforms)
 
     makeExplosions(this)
-
     makeGameOverScreen(this)
-
-    // TODO Change if we ever have more than one player.
-    if (this.players.length > 0)
-        this.p1 = this.players.getChildAt(0)
 
     this.startFX()
 
-    this.input.keyboard.addKey(Phaser.Keyboard.ESC)
+    this.input.keyboard.addKey(Phaser.Keyboard.X)
         .onDown.add(this.exit, this)
 }
 
@@ -62,7 +73,7 @@ function makeGameOverScreen(state) {
 
 
 function paintBackground(state) {
-    var bg = state.add.image( state.world.width/2, state.world.height/2,
+    var bg = state.add.image(state.world.width/2, state.world.height/2,
         state.map.properties.bgImage)
     var wWidth = state.world.width
     var wHeight = state.world.height
@@ -79,8 +90,9 @@ function makeMap(state) {
     state.map.addTilesetImage('tiles', 'tiles', 8, 8)
     var plats = state.physics.p2
         .convertCollisionObjects(state.map, 'platform', true)
-    
+
     state.map.objects.object.forEach(state.addEntity, state)
+
     state.map.createLayer('background')
     plats.forEach(function(platform, i) {
         var data = state.map.objects.platform[i]
@@ -163,18 +175,11 @@ function makeMap(state) {
         ])
         bounds[i].setMaterial(state.platformMaterial)
     }
-
 }
 
 
 function makeParticles(state) {
     state.shellPool = state.add.group()
-    state.players = state.add.group()
-    state.blood = state.add.group()
-    state.enemies = state.add.group()
-    state.items = state.add.group()
-    state.platforms = state.add.group()
-
     state.shellPool.physicsBodyType = Phaser.Physics.P2JS
     state.shellPool.enableBody = true
     state.shellPool.createMultiple(50, 'sprites', 'shell')
@@ -205,6 +210,7 @@ function makeParticles(state) {
     state.puffs.setYSpeed(-100, 20)
     state.puffs.setRotation(0, 0)
 
+    state.blood = state.add.group()
     state.blood.classType = Blood
     state.blood.createMultiple(100, 'sprites', 'blood')
 }

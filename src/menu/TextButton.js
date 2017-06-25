@@ -7,29 +7,52 @@ var smallFont = require('../entities/SmallFont.js')
 
 function TextButton(state, text, callback, ctx) {
     var font = smallFont.Text(state, text)
-    var btn = state.make.button(0, 0, font, callback, ctx)
-    btn.tint = smallFont.colors.PLAIN
+    Phaser.Sprite.call(this, state.game, 0, 0, font)
 
-    btn.onInputDown.add(inputDown, btn)
-    btn.onInputOver.add(inputOver, btn)
+    this.state = state
+    this.callback = callback
+    this.callbackCtx = ctx
 
-    btn.background = state.make.image(0, 0, font)
-    btn.background.tint = btn.tint
-    btn.background.anchor = btn.anchor
-    btn.background.alpha = 0.3
-    btn.addChild(btn.background)
+    this.tint = smallFont.colors.PLAIN
 
-    btn.width *= 2
-    btn.height *= 2
-    btn.anchor.setTo(0.5)
+    this.background = state.make.image(0, 0, font)
+    this.background.tint = this.tint
+    this.background.anchor = this.anchor
+    this.background.alpha = 0.3
+    this.addChild(this.background)
 
-    btn.onOverSound = state.sound.add('rollover')
-    btn.onDownSound = state.sound.add('click')
-    return btn
+    this.width *= 2
+    this.height *= 2
+    this.anchor.setTo(0.5)
+
+    this.onOverSound = state.sound.add('rollover')
+    this.onDownSound = state.sound.add('click')
+
+    this.mouseWasOver = false
+    this.mouseIsOver = false
+
+    state.input.mousePointer.leftButton.onDown.add(inputDown, this)
 }
 
 
+TextButton.prototype = Object.create(Phaser.Sprite.prototype)
+
+
+TextButton.prototype.update = function() {
+    if (!this.exists || !this.visible || this.worldAlpha !== 1) return
+
+    var ret = this.state.reticule.world
+    this.mouseWasOver = this.mouseIsOver
+    this.mouseIsOver = this.getBounds().contains(ret.x, ret.y)
+
+    if (this.mouseIsOver && !this.mouseWasOver) inputOver.call(this)
+}
+    
+
+
 function inputDown() {
+    if (!this.exists || !this.visible
+        || this.worldAlpha !== 1 || !this.mouseIsOver) return
     var scale = 1.02
     this.width *= scale
     this.height *= scale
@@ -54,36 +77,28 @@ function inputDown() {
     }, this)
     tween.start()
 
-    // TODO: When modals fade out, their buttons don't register inputs
-    // as being out, so when that modal is loaded again it's button's
-    // onOver events won't fire on the first mouseover. At least I think
-    // that's why they weren't firing. This hack gets around that, but I'd
-    // prefer a real fix.
-    this.game.time.events.add(1000, function() {
-        this.input.reset()
-        this.input.enabled = true
-    },this)
+    this.callback.call(this.callbackCtx)
 }
 
 
 function inputOver() {
     var tint = smallFont.colors.PLAIN
     this.tint = tint
-    var r = Math.trunc(tint / 0x10000)
-    var g = ((tint % 0x10000) - r) / 0x100
-    var b = tint % 0x100 
+    var r = (tint & 0xff0000) >>  16
+    var g = (tint & 0xff00) >> 8
+    var b = tint & 0xff 
     var color = { r: r, g: g, b: b }
     var tint2 = smallFont.colors.HILIGHT
-    var r2 = Math.trunc(tint2 / 0x10000)
-    var g2 = ((tint2 % 0x10000) - r) / 0x100
-    var b2 = tint2 % 0x100 
+    var r2 = (tint2 & 0xff0000) >> 16
+    var g2 = (tint2 & 0xff00) >> 8
+    var b2 = tint2 & 0xff
     var tween = this.game.add.tween(color)
     tween.from({r: r2, g: g2, b: b2}, 200, Phaser.Easing.Quadratic.Out)
     tween.onUpdateCallback(function() {
-        var r = Math.round(color.r)
-        var g = Math.round(color.g)
-        var b = Math.round(color.b)
-        this.tint = r * 0x10000 + g * 0x100 + b
+        var r = (color.r & 0xff) << 16
+        var g = (color.g & 0xff) << 8
+        var b = color.b & 0xff
+        this.tint = r | g | b
     }, this)
     tween.start()
 }
