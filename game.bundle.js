@@ -426,6 +426,18 @@ module.exports = function() {
 module.exports = Boot
 
 
+var game
+var cursorStyle = document.createElement('style')
+
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    document.body.appendChild(cursorStyle)
+} else {
+    window.addEventListener('load', function() {
+        document.body.appendChild(cursorStyle)
+    }, true)
+}
+
+
 function Boot() {
     return this
 }
@@ -433,24 +445,35 @@ function Boot() {
 
 Boot.prototype = {
     init: function() {
-        this.stage.backgroundColor = 0x180c08
-        this.game.scale.pageAlignHorizontally = true
-        this.game.scale.pageAlignVertically = true
-        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+        game = this.game
+        game.stage.backgroundColor = 0x180c08
+        game.scale.pageAlignHorizontally = true
+        game.scale.pageAlignVertically = true
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
         Phaser.Canvas.setImageRenderingCrisp(this.game.canvas)
-        this.game.physics.startSystem(Phaser.Physics.P2JS)
-        this.game.physics.p2.setBounds(0, 0, 0, 0, false, false, false, false)
+        game.physics.startSystem(Phaser.Physics.P2JS)
+        game.physics.p2.setBounds(0, 0, 0, 0, false, false, false, false)
 
-        this.game.camera.bounds = null
+        game.camera.bounds = null
 
-        if (this.sound.usingWebAudio) {
-            this.sound.masterGain.disconnect(this.sound.context.destination)
-            var filter = this.sound.context.createBiquadFilter()
-            this.sound.masterGain.connect(filter)
-            filter.connect(this.sound.context.destination)
+        if (game.sound.usingWebAudio) {
+            game.sound.masterGain.disconnect(game.sound.context.destination)
+            var filter = game.sound.context.createBiquadFilter()
+            game.sound.masterGain.connect(filter)
+            filter.connect(game.sound.context.destination)
             filter.type = 'highpass'
             filter.frequency.value = 60;
         }
+
+        if (game.device.pointerLock) {
+            game.canvas.addEventListener('click', grabPointer, true)
+            game.input.mouse.pointerLock.add(function(locked) {
+                if (!locked) return
+                game.canvas.removeEventListener('click', grabPointer)
+            })
+            game.input.mouse.pointerLock.add(onReleasePointer)
+        }
+        hideCursor()
     },
 
     create: function() {
@@ -460,6 +483,31 @@ Boot.prototype = {
     preload: function() {
         this.load.image('font-small', 'assets/images/font-small.png')
     }
+}
+
+
+function hideCursor() {
+    cursorStyle.innerHTML = 'canvas { cursor: none !important }'
+}
+
+
+function showCursor() {
+    cursorStyle.innerHTML = ''
+}
+
+
+function grabPointer() {
+    hideCursor()    // In case pointer lock is denied.
+    game.paused = false
+    game.input.mouse.requestPointerLock()
+}
+
+
+function onReleasePointer(locked) {
+    if (locked) return
+    showCursor()
+    game.paused = true
+    game.canvas.addEventListener('click', grabPointer, {once: true})
 }
 
 },{}],6:[function(require,module,exports){
@@ -614,9 +662,24 @@ function Item(state, data) {
     this.pulse.to({alpha: 0.2}, 100, null, false, this._lifespan - 750, null, true)
 
     state.physics.p2.enable(this);
+
+    this.body.clearShapes();
+    var s = this.body.addRectangle(this.width, this.height);
+    this.playerSensor = this.body.addParticle();
+    this.playerSensor.sensor = true;
+    this.body.collideWorldBounds = false;
+
+    this.body.onBeginContact.add(this.shouldPickup, this);
+
     this.body.setCollisionGroup(state.itemsCG);
-    this.body.collides(state.platformsCG);
-    this.body.collides(state.playersCG, this.pickup, this);
+
+    this.body.collides(state.playersCG, null, null, this.playerSensor);
+    this.body.collides([state.platformsCG,
+        state.physics.p2.boundsCollisionGroup], null, null, s);
+
+    // Necessary, maybe a bug in Phaser.
+    this.body.removeCollisionGroup(state.playersCG, null, s);
+
     this.lifespan = this._lifespan;
 
     state.items.add(this);
@@ -644,6 +707,11 @@ Item.prototype.reset = function(x, y, health) {
     this.x = x;
     this.y = y;
     Phaser.Sprite.prototype.reset.call(this, this.x, this.y,health);
+}
+
+
+Item.prototype.shouldPickup = function(targetBody, __, shape) {
+    if (shape === this.playerSensor) this.pickup(shape, targetBody)
 }
 
 },{}],9:[function(require,module,exports){
@@ -845,14 +913,14 @@ Shield.prototype.buffProto = {
 
         this.sprite = this.state.add.sprite(0, 0, target.character.texture)
 
-        this.alpha = 0.3
-        this.scale = 1.2
+        this.alpha = 0.7
+        this.scale = 1.3
 
         this.sprite.anchor.setTo(0.5)
         this.sprite.tint = 0x62cade
         this.sprite.frame = target.character.frame
-        this.sprite.width = target.character.width * 1.2
-        this.sprite.height = target.character.height * 1.2
+        this.sprite.width = target.character.width * 1.3
+        this.sprite.height = target.character.height * 1.3
         this.state.items.addChild(this.sprite)
         this.sprite.shader = new Phaser.Filter(this.state.game, {alpha: {type: '1f', value: this.alpha}}, [
             'precision mediump float;',
@@ -1710,7 +1778,7 @@ function DefaultCtlr(state) {
     this._left = k.addKey(keys.LEFT)
     this._right = k.addKey(keys.RIGHT)
     this._up = k.addKey(keys.UP)
-    this.position = state.input.mousePointer.position
+    this.position = state.reticule.world
     this.newShot = true
 
     this._wasDown = false
@@ -1945,7 +2013,7 @@ PlayerState.prototype = {
     },
 
     onUp: function() {
-        if (this.machine.fuel > 0) this.machine.change('flying')
+        if (this.machine.fuel > 100) this.machine.change('flying')
     },
 
     onLeft: function() {
@@ -1986,10 +2054,10 @@ Dead.prototype = {
 
     enter: function() {
         var plyr = this.player
+        plyr.alive = false
 
         plyr.state.playSound('death')
         plyr.state.camera.flash(0xf6eeee, 500)
-        plyr.alive = false
         plyr.body.removeCollisionGroup([
             plyr.state.enemiesCG, plyr.state.itemsCG
         ])
@@ -2128,6 +2196,8 @@ Standing.prototype.update = function() {
     var mchn = this.machine
     var velx = plyr.body.velocity.x
 
+    if (!plyr.standing) mchn.change('falling')
+
     if (mchn.fuel < mchn.maxFuel) {
         var fuel = mchn.fuel + plyr.game.time.physicsElapsedMS / 2
         mchn.fuel = Math.min(mchn.maxFuel, fuel)
@@ -2163,7 +2233,7 @@ function Stunned(machine) {
 Stunned.prototype = {
     exit: function() {},
     update: function() {
-        this.player.character.frame = 'p1-stun'
+        this.player.character.frameName = 'p1-die1'
     },
 
     enter: function() {
@@ -2191,14 +2261,6 @@ Stunned.prototype = {
 
     endStun: function() {
         this.player.state.time.events.add(1600, this.end, this)
-        if (this.ctlr.up && this.machine.fuel > 0) {
-            this.machine.change('flying')
-            return
-        }
-        if (!this.player.standing) {
-            this.machine.change('falling')
-            return
-        }
         this.machine.change('standing')
     }
 }
@@ -2243,7 +2305,7 @@ var Arcade = require('./arcade/arcade.js');
 var Menu = require('./menu/menu.js');
 
 
-function Game(parent) {
+function Game() {
     require('./phaserPatch.js')();
 
     var game = new Phaser.Game(800, 600, undefined,
@@ -2256,8 +2318,9 @@ function Game(parent) {
     game.state.add('Level', new Level);
     game.state.add('Menu', new Menu);
     game.state.add('Arcade', new Arcade);
-    
+
     game.state.start('Boot');
+
     return game;
 }
 
@@ -2411,7 +2474,9 @@ Level.prototype = {
         });
         if (this.sound.usingWebAudio) {
             this.sound._sounds.forEach(function(snd) {
-                if (snd._snd) snd._snd.playbackRate *= factor
+                if (snd.isPlaying && snd.useBulletTime) {
+                    snd._sound.playbackRate.value *= factor
+                }
             });
         }
     },
@@ -2439,14 +2504,14 @@ Level.prototype = {
 
 
     gameOver: function() {
+        this.reticule.animations.play('die', null, false, true)
         this.input.keyboard.addKey(Phaser.Keyboard.R).onDown.addOnce(function() {
             this.state.start(this.key, true, false, this.mapName)
         }, this)
-        this.input.keyboard.addKey(Phaser.Keyboard.X).onDown.addOnce(this.exit, this)
         this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
         this.gameOverScreen.exists = true
         this.time.slowMotion = 6
-        this.world.add(this.p1)
+        this.players.forEach(this.world.addChild, this.world)
     },
 
 
@@ -2494,6 +2559,7 @@ Level.prototype = {
 
         sound.key = key
         sound.isLocked = lock
+        sound.useBulletTime = useBulletTime
         sound.play('', 0, 1, repeat, true)
 
         if (sound._sound && sound.usingWebAudio) {
@@ -2522,6 +2588,25 @@ Level.prototype = {
 
 
     update: function() {
+        if (this.input.mouse.locked) {
+            var x = this.reticule.x
+            var y = this.reticule.y
+            x += this.input.mousePointer.movementX * this.scale.scaleFactor.x
+            y += this.input.mousePointer.movementY * this.scale.scaleFactor.y
+            x = Phaser.Math.clamp(x, 0, this.world.width)
+            y = Phaser.Math.clamp(y, 0, this.world.height)
+            this.reticule.x = x
+            this.reticule.y = y
+            this.input.mousePointer.resetMovement()
+        } else {
+            if (!this.retFlag) {
+                this.reticule.exists = this.input.mousePointer.withinGame
+                this.retFlag = this.input.mousePointer.withinGame
+            }
+            this.reticule.x = this.input.mousePointer.x
+            this.reticule.y = this.input.mousePointer.y
+        }
+
         this.paintFXupdate()
 
         for (var i=this.buffs.length-1; i>=0; i--) {
@@ -2543,12 +2628,12 @@ Level.prototype = {
     shutdown: function() {
         this.splatter.mask.destroy()
         this.splatter.destroy()
-        this.stage.removeChild(this.gameOverScreen)
+        this.gameOverScreen.destroy()
         this.time.slowMotion = 1
     },
 
     loseCondition: function() {
-        return !this.p1.alive
+        return !this.players.getFirstAlive()
     },
 
     startFX: function() {
@@ -2572,31 +2657,42 @@ var Blood = require('../magic/Blood.js')
 
 
 module.exports = function create() {
+
     this.soundPool = []
     for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
 
     if (this.map.properties && this.map.properties.bgImage) 
         paintBackground(this)
-    makeParticles(this)
+
+    this.reticule = this.stage.reticule
+    this.reticule.exists = true
+    this.reticule.animations.stop()
+    this.reticule.frameName = 'reticule'
+
+    this.players = this.make.group()
+    this.enemies = this.make.group()
+    this.items = this.make.group()
+    this.platforms = this.make.group()
 
     this.splatter = this.make.bitmapData(this.world.width, this.world.height)
     this.splatter.mask = this.make.bitmapData(this.world.width, this.world.height)
 
+    makeParticles(this)
+
     makeMap(this)
 
     this.add.image(0, 0, this.splatter)
+    this.world.addChild(this.players)
+    this.world.addChild(this.enemies)
+    this.world.addChild(this.items)
+    this.world.addChild(this.platforms)
 
     makeExplosions(this)
-
     makeGameOverScreen(this)
-
-    // TODO Change if we ever have more than one player.
-    if (this.players.length > 0)
-        this.p1 = this.players.getChildAt(0)
 
     this.startFX()
 
-    this.input.keyboard.addKey(Phaser.Keyboard.ESC)
+    this.input.keyboard.addKey(Phaser.Keyboard.X)
         .onDown.add(this.exit, this)
 }
 
@@ -2630,7 +2726,7 @@ function makeGameOverScreen(state) {
 
 
 function paintBackground(state) {
-    var bg = state.add.image( state.world.width/2, state.world.height/2,
+    var bg = state.add.image(state.world.width/2, state.world.height/2,
         state.map.properties.bgImage)
     var wWidth = state.world.width
     var wHeight = state.world.height
@@ -2647,8 +2743,9 @@ function makeMap(state) {
     state.map.addTilesetImage('tiles', 'tiles', 8, 8)
     var plats = state.physics.p2
         .convertCollisionObjects(state.map, 'platform', true)
-    
+
     state.map.objects.object.forEach(state.addEntity, state)
+
     state.map.createLayer('background')
     plats.forEach(function(platform, i) {
         var data = state.map.objects.platform[i]
@@ -2731,18 +2828,11 @@ function makeMap(state) {
         ])
         bounds[i].setMaterial(state.platformMaterial)
     }
-
 }
 
 
 function makeParticles(state) {
     state.shellPool = state.add.group()
-    state.players = state.add.group()
-    state.blood = state.add.group()
-    state.enemies = state.add.group()
-    state.items = state.add.group()
-    state.platforms = state.add.group()
-
     state.shellPool.physicsBodyType = Phaser.Physics.P2JS
     state.shellPool.enableBody = true
     state.shellPool.createMultiple(50, 'sprites', 'shell')
@@ -2773,6 +2863,7 @@ function makeParticles(state) {
     state.puffs.setYSpeed(-100, 20)
     state.puffs.setRotation(0, 0)
 
+    state.blood = state.add.group()
     state.blood.classType = Blood
     state.blood.createMultiple(100, 'sprites', 'blood')
 }
@@ -2900,6 +2991,13 @@ Load.prototype = {
     },
 
     create: function() {
+        var reticule = this.make.image(this.world.width/2,
+            this.world.height/2, 'sprites', 'reticule')
+        reticule.anchor.setTo(0.5)
+        reticule.animations.add('die',
+            Phaser.Animation.generateFrameNames('reticule', 1, 5), 38, false)
+        this.stage.addChild(reticule)
+        this.stage.reticule = reticule
         this.state.start('Menu')
     }
 }
@@ -3130,7 +3228,7 @@ function HowToModal(state, gui) {
     info.font.multiLine = true
     info.font.align = Phaser.RetroFont.ALIGN_CENTER
     info.font.text = 'CONTROLS\n\n'
-        + 'ESC - MAIN MENU\n\n'
+        + 'X - MAIN MENU\n\n'
         + 'W - FLY\n'
         + 'A - LEFT\n'
         + 'D - RIGHT\n'
@@ -3141,7 +3239,7 @@ function HowToModal(state, gui) {
     info.width *= 2
     info.y = info.height/2
 
-    var backBtn = Btn(state, 'back', function() {
+    var backBtn = new Btn(state, 'back', function() {
         this.gui.switchModal('menu')
     }, this)
     backBtn.y = info.bottom + 32
@@ -3174,7 +3272,7 @@ function MenuModal(state, gui) {
     hiScore.y = logo.bottom + 32
     this.hiScore = hiScore
 
-    var startBtn = Btn(state, 'start', function() {
+    var startBtn = new Btn(state, 'start', function() {
         state.start()
     }, state)
     startBtn.onDownSound = state.sound.add('start')
@@ -3182,13 +3280,13 @@ function MenuModal(state, gui) {
     this.startBtn = startBtn
 
     /*
-    var scoresBtn = Btn(state, 'HI-SCORES', function() {
+    var scoresBtn = new Btn(state, 'HI-SCORES', function() {
         this.gui.switchModal('hiScores')
     }, this)
     scoresBtn.y = startBtn.y + 32
     */
 
-    var howToBtn = Btn(state, 'INSTRUCTIONS', function() {
+    var howToBtn = new Btn(state, 'INSTRUCTIONS', function() {
         this.gui.switchModal('howTo')
     }, this)
     howToBtn.y = startBtn.bottom + 32
@@ -3259,29 +3357,52 @@ var smallFont = require('../entities/SmallFont.js')
 
 function TextButton(state, text, callback, ctx) {
     var font = smallFont.Text(state, text)
-    var btn = state.make.button(0, 0, font, callback, ctx)
-    btn.tint = smallFont.colors.PLAIN
+    Phaser.Sprite.call(this, state.game, 0, 0, font)
 
-    btn.onInputDown.add(inputDown, btn)
-    btn.onInputOver.add(inputOver, btn)
+    this.state = state
+    this.callback = callback
+    this.callbackCtx = ctx
 
-    btn.background = state.make.image(0, 0, font)
-    btn.background.tint = btn.tint
-    btn.background.anchor = btn.anchor
-    btn.background.alpha = 0.3
-    btn.addChild(btn.background)
+    this.tint = smallFont.colors.PLAIN
 
-    btn.width *= 2
-    btn.height *= 2
-    btn.anchor.setTo(0.5)
+    this.background = state.make.image(0, 0, font)
+    this.background.tint = this.tint
+    this.background.anchor = this.anchor
+    this.background.alpha = 0.3
+    this.addChild(this.background)
 
-    btn.onOverSound = state.sound.add('rollover')
-    btn.onDownSound = state.sound.add('click')
-    return btn
+    this.width *= 2
+    this.height *= 2
+    this.anchor.setTo(0.5)
+
+    this.onOverSound = state.sound.add('rollover')
+    this.onDownSound = state.sound.add('click')
+
+    this.mouseWasOver = false
+    this.mouseIsOver = false
+
+    state.input.mousePointer.leftButton.onDown.add(inputDown, this)
 }
 
 
+TextButton.prototype = Object.create(Phaser.Sprite.prototype)
+
+
+TextButton.prototype.update = function() {
+    if (!this.exists || !this.visible || this.worldAlpha !== 1) return
+
+    var ret = this.state.reticule.world
+    this.mouseWasOver = this.mouseIsOver
+    this.mouseIsOver = this.getBounds().contains(ret.x, ret.y)
+
+    if (this.mouseIsOver && !this.mouseWasOver) inputOver.call(this)
+}
+    
+
+
 function inputDown() {
+    if (!this.exists || !this.visible
+        || this.worldAlpha !== 1 || !this.mouseIsOver) return
     var scale = 1.02
     this.width *= scale
     this.height *= scale
@@ -3306,36 +3427,28 @@ function inputDown() {
     }, this)
     tween.start()
 
-    // TODO: When modals fade out, their buttons don't register inputs
-    // as being out, so when that modal is loaded again it's button's
-    // onOver events won't fire on the first mouseover. At least I think
-    // that's why they weren't firing. This hack gets around that, but I'd
-    // prefer a real fix.
-    this.game.time.events.add(1000, function() {
-        this.input.reset()
-        this.input.enabled = true
-    },this)
+    this.callback.call(this.callbackCtx)
 }
 
 
 function inputOver() {
     var tint = smallFont.colors.PLAIN
     this.tint = tint
-    var r = Math.trunc(tint / 0x10000)
-    var g = ((tint % 0x10000) - r) / 0x100
-    var b = tint % 0x100 
+    var r = (tint & 0xff0000) >>  16
+    var g = (tint & 0xff00) >> 8
+    var b = tint & 0xff 
     var color = { r: r, g: g, b: b }
     var tint2 = smallFont.colors.HILIGHT
-    var r2 = Math.trunc(tint2 / 0x10000)
-    var g2 = ((tint2 % 0x10000) - r) / 0x100
-    var b2 = tint2 % 0x100 
+    var r2 = (tint2 & 0xff0000) >> 16
+    var g2 = (tint2 & 0xff00) >> 8
+    var b2 = tint2 & 0xff
     var tween = this.game.add.tween(color)
     tween.from({r: r2, g: g2, b: b2}, 200, Phaser.Easing.Quadratic.Out)
     tween.onUpdateCallback(function() {
-        var r = Math.round(color.r)
-        var g = Math.round(color.g)
-        var b = Math.round(color.b)
-        this.tint = r * 0x10000 + g * 0x100 + b
+        var r = (color.r & 0xff) << 16
+        var g = (color.g & 0xff) << 8
+        var b = color.b & 0xff
+        this.tint = r | g | b
     }, this)
     tween.start()
 }
