@@ -211,7 +211,6 @@ Level.prototype = {
 
 
     shutdown: function() {
-        this.reticule.destroy()
         this.splatter.mask.destroy()
         this.splatter.destroy()
         this.gameOverScreen.destroy()
