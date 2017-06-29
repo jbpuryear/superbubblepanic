@@ -53,6 +53,7 @@ TextButton.prototype.update = function() {
 function inputDown() {
     if (!this.exists || !this.visible
         || this.worldAlpha !== 1 || !this.mouseIsOver) return
+    this.onDownSound.play()
     var scale = 1.02
     this.width *= scale
     this.height *= scale
@@ -82,6 +83,7 @@ function inputDown() {
 
 
 function inputOver() {
+    this.onOverSound.play()
     var tint = smallFont.colors.PLAIN
     this.tint = tint
     var r = (tint & 0xff0000) >>  16
