@@ -172,6 +172,41 @@
                     }
                 }
             }
+        },
+        {
+            "type": "audiosprite",
+            "key": "everything-is-changing",
+            "urls": ["assets/songs/Noi-Everything_Is_Changing.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "loop": {
+                        "start": 0.026,
+                        "end": 168.305,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "spring-summer",
+            "urls": ["assets/songs/Dustin_Wong-Spring_Summer.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "intro" : {
+                        "start": 0,
+                        "end": 13.455,
+                        "loop": false
+                    },
+                    "loop": {
+                        "start": 13.455,
+                        "end": 166.127,
+                        "loop": true
+                    }
+                }
+            }
         }
     ],
 

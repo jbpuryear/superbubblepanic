@@ -41,7 +41,7 @@ module.exports = function create() {
     this.input.keyboard.addKey(Phaser.Keyboard.X)
         .onDown.add(this.exit, this)
 
-    this.startMusic()
+    this.time.events.add(500, this.startMusic, this)
     this.startFX()
 }
 
