@@ -198,8 +198,12 @@ Level.prototype = {
         var track = Phaser.ArrayUtils.getRandomItem(
             mapsConfig[this.map.properties.setting].songs)
         this.soundtrack = this.sound.addSprite(track)
-        var intro = this.soundtrack.play('intro')
-        intro.onMarkerComplete.addOnce(function () { this.soundtrack.play('loop') }, this)
+        if (this.soundtrack.get('intro')) {
+            var intro = this.soundtrack.play('intro')
+            intro.onMarkerComplete.addOnce(function () { this.soundtrack.play('loop') }, this)
+        } else {
+            this.soundtrack.play('loop')
+        }
     },
 
 
