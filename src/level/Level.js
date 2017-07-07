@@ -1,3 +1,5 @@
+var mapsConfig = require('../../assets/mapsConfig.json')
+
 module.exports = Level
 
 
@@ -96,6 +98,7 @@ Level.prototype = {
         this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
         this.gameOverScreen.exists = true
         this.time.slowMotion = 6
+        this.soundtrack.stop()
         this.players.forEach(this.world.addChild, this.world)
     },
 
@@ -163,6 +166,43 @@ Level.prototype = {
     },
 
 
+    shutdown: function() {
+        this.splatter.mask.destroy()
+        this.splatter.destroy()
+        this.gameOverScreen.destroy()
+        this.time.slowMotion = 1
+        this.soundtrack.stop()
+    },
+
+
+    loseCondition: function() {
+        return !this.players.getFirstAlive()
+    },
+
+
+    startFX: function() {
+        var go = this.add.image(this.world.width/2, this.world.height/2,
+            'sprites', 'go')
+        go.anchor.setTo(0.5)
+        var goTween = this.add.tween(go)
+        goTween.to({width: go.width * 4, height: go.height * 4, alpha: 0},
+            800, Phaser.Easing.Quartic.In)
+        goTween.onComplete.addOnce(go.kill, go)
+        goTween.start()
+
+        this.camera.flash(0x180c08, 1000)
+    },
+
+
+    startMusic: function() {
+        var track = Phaser.ArrayUtils.getRandomItem(
+            mapsConfig[this.map.properties.setting].songs)
+        this.soundtrack = this.sound.addSprite(track)
+        var intro = this.soundtrack.play('intro')
+        intro.onMarkerComplete.addOnce(function () { this.soundtrack.play('loop') }, this)
+    },
+
+
     throwShell: function(x, y, dir) {
         var shell = this.shellPool.getFirstDead() || this.shellPool.getRandom()
         shell.reset(x, y)
@@ -207,30 +247,5 @@ Level.prototype = {
         }
 
         if (this.loseCondition()) this.gameOver()
-    },
-
-
-    shutdown: function() {
-        this.splatter.mask.destroy()
-        this.splatter.destroy()
-        this.gameOverScreen.destroy()
-        this.time.slowMotion = 1
-    },
-
-    loseCondition: function() {
-        return !this.players.getFirstAlive()
-    },
-
-    startFX: function() {
-        var go = this.add.image(this.world.width/2, this.world.height/2,
-            'sprites', 'go')
-        go.anchor.setTo(0.5)
-        var goTween = this.add.tween(go)
-        goTween.to({width: go.width * 4, height: go.height * 4, alpha: 0},
-            800, Phaser.Easing.Quartic.In)
-        goTween.onComplete.addOnce(go.kill, go)
-        goTween.start()
-
-        this.camera.flash(0x180c08, 1000)
     }
 }
