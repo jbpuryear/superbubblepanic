@@ -1,6 +1,7 @@
 var BrkPlat = require('../entities/BrkPlat.js')
 var Explosion = require('../magic/Explosion.js')
 var Blood = require('../magic/Blood.js')
+var mapsConfig = require('../../assets/mapsConfig.json')
 
 
 module.exports = function create() {
@@ -8,7 +9,7 @@ module.exports = function create() {
     this.soundPool = []
     for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
 
-    if (this.map.properties && this.map.properties.bgImage) 
+    if (this.map.properties && this.map.properties.setting) 
         paintBackground(this)
 
     this.reticule = this.stage.reticule
@@ -37,10 +38,11 @@ module.exports = function create() {
     makeExplosions(this)
     makeGameOverScreen(this)
 
-    this.startFX()
-
     this.input.keyboard.addKey(Phaser.Keyboard.X)
         .onDown.add(this.exit, this)
+
+    this.startMusic()
+    this.startFX()
 }
 
 
@@ -73,8 +75,9 @@ function makeGameOverScreen(state) {
 
 
 function paintBackground(state) {
+    var bgKey = mapsConfig[state.map.properties.setting].bgImage
     var bg = state.add.image(state.world.width/2, state.world.height/2,
-        state.map.properties.bgImage)
+        bgKey)
     var wWidth = state.world.width
     var wHeight = state.world.height
     bg.anchor.setTo(0.5)

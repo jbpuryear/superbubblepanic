@@ -26,13 +26,13 @@ Load.prototype = {
     },
 
     create: function() {
-        var reticule = this.make.image(this.world.width/2,
-            this.world.height/2, 'sprites', 'reticule')
-        reticule.anchor.setTo(0.5)
-        reticule.animations.add('die',
-            Phaser.Animation.generateFrameNames('reticule', 1, 5), 38, false)
-        this.stage.addChild(reticule)
-        this.stage.reticule = reticule
-        this.state.start('Menu')
-    }
+          var reticule = this.make.image(this.world.width/2,
+              this.world.height/2, 'sprites', 'reticule')
+          reticule.anchor.setTo(0.5)
+          reticule.animations.add('die',
+              Phaser.Animation.generateFrameNames('reticule', 1, 5), 38, false)
+          this.stage.addChild(reticule)
+          this.stage.reticule = reticule
+          this.state.start('Menu')
+      }
 }

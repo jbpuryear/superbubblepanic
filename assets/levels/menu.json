@@ -337,11 +337,11 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "bgImage":"desert"
+     "setting":"menu"
     },
  "propertytypes":
     {
-     "bgImage":"string"
+     "setting":"string"
     },
  "renderorder":"right-down",
  "tileheight":8,

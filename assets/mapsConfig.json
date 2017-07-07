@@ -1,0 +1,20 @@
+{
+    "city": {
+        "bgImage": "city",
+        "songs": [
+            "put-yr-boots-on"
+        ]
+    },
+
+    "desert": {
+        "bgImage": "desert",
+        "songs": [
+            "N35-40-19-800"
+        ]
+    },
+
+    "menu": {
+        "bgImage": "desert",
+        "songs": ["menu-theme"]
+    }
+}
