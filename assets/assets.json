@@ -190,6 +190,26 @@
         },
         {
             "type": "audiosprite",
+            "key": "memory",
+            "urls": ["assets/songs/Creo-Memory.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "intro" : {
+                        "start": 0,
+                        "end": 34.958,
+                        "loop": false
+                    },
+                    "loop": {
+                        "start": 34.958,
+                        "end": 226.927,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
             "key": "spring-summer",
             "urls": ["assets/songs/Dustin_Wong-Spring_Summer.ogg"],
             "autoDecode": false,
@@ -227,6 +247,11 @@
             "type": "image",
             "key": "desert",
             "url": "assets/images/backgrounds/desert.png"
+        },
+        {
+            "type": "image",
+            "key": "forest",
+            "url": "assets/images/backgrounds/forest.png"
         },
         {
             "type": "atlasJSONHash",
