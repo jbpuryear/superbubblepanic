@@ -3,7 +3,7 @@ module.exports = Arcade;
 
 var Level = require('../level/Level.js');
 var Hydroid = require('../entities/enemies/Hydroid.js');
-var SETTINGS = ['desert']
+var SETTINGS = ['desert', 'city']
 
 function Arcade() {
     return Level.call(this);

@@ -2,7 +2,7 @@
     "city": {
         "bgImage": "city",
         "songs": [
-            "put-yr-boots-on"
+            "memory"
         ]
     },
 
@@ -12,6 +12,13 @@
             "everything-is-changing",
             "N35-40-19-800",
             "spring-summer"
+        ]
+    },
+
+    "forest": {
+        "bgImage": "forest",
+        "songs": [
+            "memory"
         ]
     },
 
