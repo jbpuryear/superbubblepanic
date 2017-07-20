@@ -5,147 +5,231 @@
             "key": "block",
             "urls": ["assets/audio/block.ogg"],
             "autoDecode": true
-	},
+        },
         {
             "type": "audio",
             "key": "bounce",
             "urls": ["assets/audio/bounce.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "click",
             "urls": ["assets/audio/click.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "clock",
             "urls": ["assets/audio/clock.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "death",
             "urls": ["assets/audio/death.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "explode",
             "urls": ["assets/audio/explode.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "gunshot",
             "urls": ["assets/audio/pistol.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "hit",
             "urls": ["assets/audio/hit.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "jetpack",
             "urls": ["assets/audio/jetpack.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "land",
             "urls": ["assets/audio/land.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "launch",
             "urls": ["assets/audio/launch.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "pop",
             "urls": ["assets/audio/pop.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "reload",
             "urls": ["assets/audio/reload.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "repel-pickup",
             "urls": ["assets/audio/repel-pickup.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "repel-stop",
             "urls": ["assets/audio/repel-stop.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "rollover",
             "urls": ["assets/audio/rollover.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "shield-pickup",
             "urls": ["assets/audio/shield-pickup.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "shoe-pickup",
             "urls": ["assets/audio/shoe-pickup.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "shotgun",
             "urls": ["assets/audio/shotgun.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "speedup",
             "urls": ["assets/audio/speedup.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "splat",
             "urls": ["assets/audio/splat.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "slowdown",
             "urls": ["assets/audio/slowdown.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "start",
             "urls": ["assets/audio/start.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "step",
             "urls": ["assets/audio/step.ogg"],
             "autoDecode": true
-	},
+	      }
     ],
-    
+
+    "songs": [
+        {
+            "type": "audio",
+            "key": "menu-theme",
+            "urls": ["assets/songs/C_C_-_05_-_NRIN_HUS.ogg"],
+            "autoDecode": true
+        },
+        {
+            "type": "audiosprite",
+            "key": "N35-40-19-800",
+            "urls": ["assets/songs/springtide-N35-40-19-800.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "intro" : {
+                        "start": 0,
+                        "end": 3.356,
+                        "loop": false
+                    },
+                    "loop": {
+                        "start": 3.356,
+                        "end": 210.378,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "everything-is-changing",
+            "urls": ["assets/songs/Noi-Everything_Is_Changing.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "loop": {
+                        "start": 0.026,
+                        "end": 168.305,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "memory",
+            "urls": ["assets/songs/Creo-Memory.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "intro" : {
+                        "start": 0,
+                        "end": 34.958,
+                        "loop": false
+                    },
+                    "loop": {
+                        "start": 34.958,
+                        "end": 226.927,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "spring-summer",
+            "urls": ["assets/songs/Dustin_Wong-Spring_Summer.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "intro" : {
+                        "start": 0,
+                        "end": 13.455,
+                        "loop": false
+                    },
+                    "loop": {
+                        "start": 13.455,
+                        "end": 166.127,
+                        "loop": true
+                    }
+                }
+            }
+        }
+    ],
+
     "images": [
         {
             "type": "spritesheet",
@@ -165,13 +249,18 @@
             "url": "assets/images/backgrounds/desert.png"
         },
         {
+            "type": "image",
+            "key": "forest",
+            "url": "assets/images/backgrounds/forest.png"
+        },
+        {
             "type": "atlasJSONHash",
             "key": "sprites",
             "textureURL": "assets/images/spritesheet.png",
-            "atlasURL": "assets/images/sprites.json",
+            "atlasURL": "assets/images/sprites.json"
         }
     ],
-    
+
     "levels": [
         {
             "type": "tilemap",
@@ -179,28 +268,24 @@
             "url": "assets/levels/level1.json",
             "format": "TILED_JSON"
         },
-        
         {
             "type": "tilemap",
             "key": "seeker",
             "url": "assets/levels/seeker.json",
             "format": "TILED_JSON"
         },
-        
         {
             "type": "tilemap",
             "key": "grid",
             "url": "assets/levels/grid.json",
             "format": "TILED_JSON"
         },
-        
         {
             "type": "tilemap",
             "key": "_arcade",
             "url": "assets/levels/blank.json",
             "format": "TILED_JSON"
         },
-        
         {
             "type": "tilemap",
             "key": "_menu",

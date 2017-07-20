@@ -3,6 +3,7 @@ module.exports = Arcade;
 
 var Level = require('../level/Level.js');
 var Hydroid = require('../entities/enemies/Hydroid.js');
+var SETTINGS = ['desert', 'city']
 
 function Arcade() {
     return Level.call(this);
@@ -16,6 +17,10 @@ Arcade.prototype.init = function() {
 }
 
 Arcade.prototype.create = function() {
+    var setting = Phaser.ArrayUtils.getRandomItem(SETTINGS)
+    this.map.properties = this.map.properties || {}
+    this.map.properties.setting = setting
+
     Level.prototype.create.call(this);
 
     this.maxTime = 20000;

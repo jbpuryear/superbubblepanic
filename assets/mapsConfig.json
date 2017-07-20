@@ -1,0 +1,29 @@
+{
+    "city": {
+        "bgImage": "city",
+        "songs": [
+            "memory"
+        ]
+    },
+
+    "desert": {
+        "bgImage": "desert",
+        "songs": [
+            "everything-is-changing",
+            "N35-40-19-800",
+            "spring-summer"
+        ]
+    },
+
+    "forest": {
+        "bgImage": "forest",
+        "songs": [
+            "memory"
+        ]
+    },
+
+    "menu": {
+        "bgImage": "desert",
+        "songs": ["menu-theme"]
+    }
+}
