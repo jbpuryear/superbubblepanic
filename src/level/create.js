@@ -169,7 +169,6 @@ function makeMap(state) {
     ]
     for (var i = 0; i < bounds.length; i++) {
         bounds[i].rotation = i * Math.PI/2
-        bounds[i].addCircle(8)
         bounds[i].addPlane()
         bounds[i].setCollisionGroup(p2.boundsCollisionGroup)
         bounds[i].collides([
