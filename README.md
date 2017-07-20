@@ -13,7 +13,7 @@ All images licenced under [CC0](https://creativecommons.org/publicdomain/zero/1.
 
 ###Music
 
-This game uses the following tracks provided by [Free Music Archive](http://freemuxicarchive.org):
+This game uses the following tracks provided by [Free Music Archive](http://freemusicarchive.org):
 
 * [NRIN HUS](http://freemusicarchive.org/music/C_C/Impendulo/05_-_NRIN_HUS) by [C\_C](http://freemusicarchive.org/music/C_C/)
 [![License](http://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
