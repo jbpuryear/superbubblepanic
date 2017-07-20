@@ -6,147 +6,231 @@ module.exports={
             "key": "block",
             "urls": ["assets/audio/block.ogg"],
             "autoDecode": true
-	},
+        },
         {
             "type": "audio",
             "key": "bounce",
             "urls": ["assets/audio/bounce.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "click",
             "urls": ["assets/audio/click.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "clock",
             "urls": ["assets/audio/clock.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "death",
             "urls": ["assets/audio/death.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "explode",
             "urls": ["assets/audio/explode.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "gunshot",
             "urls": ["assets/audio/pistol.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "hit",
             "urls": ["assets/audio/hit.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "jetpack",
             "urls": ["assets/audio/jetpack.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "land",
             "urls": ["assets/audio/land.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "launch",
             "urls": ["assets/audio/launch.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "pop",
             "urls": ["assets/audio/pop.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "reload",
             "urls": ["assets/audio/reload.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "repel-pickup",
             "urls": ["assets/audio/repel-pickup.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "repel-stop",
             "urls": ["assets/audio/repel-stop.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "rollover",
             "urls": ["assets/audio/rollover.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "shield-pickup",
             "urls": ["assets/audio/shield-pickup.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "shoe-pickup",
             "urls": ["assets/audio/shoe-pickup.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "shotgun",
             "urls": ["assets/audio/shotgun.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "speedup",
             "urls": ["assets/audio/speedup.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "splat",
             "urls": ["assets/audio/splat.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "slowdown",
             "urls": ["assets/audio/slowdown.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "start",
             "urls": ["assets/audio/start.ogg"],
             "autoDecode": true
-	},
+	      },
         {
             "type": "audio",
             "key": "step",
             "urls": ["assets/audio/step.ogg"],
             "autoDecode": true
-	},
+	      }
     ],
-    
+
+    "songs": [
+        {
+            "type": "audio",
+            "key": "menu-theme",
+            "urls": ["assets/songs/C_C_-_05_-_NRIN_HUS.ogg"],
+            "autoDecode": true
+        },
+        {
+            "type": "audiosprite",
+            "key": "N35-40-19-800",
+            "urls": ["assets/songs/springtide-N35-40-19-800.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "intro" : {
+                        "start": 0,
+                        "end": 3.356,
+                        "loop": false
+                    },
+                    "loop": {
+                        "start": 3.356,
+                        "end": 210.378,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "everything-is-changing",
+            "urls": ["assets/songs/Noi-Everything_Is_Changing.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "loop": {
+                        "start": 0.026,
+                        "end": 168.305,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "memory",
+            "urls": ["assets/songs/Creo-Memory.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "intro" : {
+                        "start": 0,
+                        "end": 34.958,
+                        "loop": false
+                    },
+                    "loop": {
+                        "start": 34.958,
+                        "end": 226.927,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "spring-summer",
+            "urls": ["assets/songs/Dustin_Wong-Spring_Summer.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "intro" : {
+                        "start": 0,
+                        "end": 13.455,
+                        "loop": false
+                    },
+                    "loop": {
+                        "start": 13.455,
+                        "end": 166.127,
+                        "loop": true
+                    }
+                }
+            }
+        }
+    ],
+
     "images": [
         {
             "type": "spritesheet",
@@ -166,13 +250,18 @@ module.exports={
             "url": "assets/images/backgrounds/desert.png"
         },
         {
+            "type": "image",
+            "key": "forest",
+            "url": "assets/images/backgrounds/forest.png"
+        },
+        {
             "type": "atlasJSONHash",
             "key": "sprites",
             "textureURL": "assets/images/spritesheet.png",
-            "atlasURL": "assets/images/sprites.json",
+            "atlasURL": "assets/images/sprites.json"
         }
     ],
-    
+
     "levels": [
         {
             "type": "tilemap",
@@ -180,28 +269,24 @@ module.exports={
             "url": "assets/levels/level1.json",
             "format": "TILED_JSON"
         },
-        
         {
             "type": "tilemap",
             "key": "seeker",
             "url": "assets/levels/seeker.json",
             "format": "TILED_JSON"
         },
-        
         {
             "type": "tilemap",
             "key": "grid",
             "url": "assets/levels/grid.json",
             "format": "TILED_JSON"
         },
-        
         {
             "type": "tilemap",
             "key": "_arcade",
             "url": "assets/levels/blank.json",
             "format": "TILED_JSON"
         },
-        
         {
             "type": "tilemap",
             "key": "_menu",
@@ -220,11 +305,43 @@ module.exports={
 }
 
 },{}],2:[function(require,module,exports){
+module.exports={
+    "city": {
+        "bgImage": "city",
+        "songs": [
+            "memory"
+        ]
+    },
+
+    "desert": {
+        "bgImage": "desert",
+        "songs": [
+            "everything-is-changing",
+            "N35-40-19-800",
+            "spring-summer"
+        ]
+    },
+
+    "forest": {
+        "bgImage": "forest",
+        "songs": [
+            "memory"
+        ]
+    },
+
+    "menu": {
+        "bgImage": "desert",
+        "songs": ["menu-theme"]
+    }
+}
+
+},{}],3:[function(require,module,exports){
 module.exports = Arcade;
 
 
 var Level = require('../level/Level.js');
 var Hydroid = require('../entities/enemies/Hydroid.js');
+var SETTINGS = ['desert', 'city']
 
 function Arcade() {
     return Level.call(this);
@@ -238,6 +355,10 @@ Arcade.prototype.init = function() {
 }
 
 Arcade.prototype.create = function() {
+    var setting = Phaser.ArrayUtils.getRandomItem(SETTINGS)
+    this.map.properties = this.map.properties || {}
+    this.map.properties.setting = setting
+
     Level.prototype.create.call(this);
 
     this.maxTime = 20000;
@@ -368,7 +489,7 @@ Arcade.prototype.getDrop = function(enemy) {
     }
 }
 
-},{"../entities/enemies/Hydroid.js":21,"../level/Level.js":32,"./enemyConfig.js":3,"./itemConfig.js":4}],3:[function(require,module,exports){
+},{"../entities/enemies/Hydroid.js":22,"../level/Level.js":33,"./enemyConfig.js":4,"./itemConfig.js":5}],4:[function(require,module,exports){
 module.exports = function() {
     return [
         {
@@ -392,7 +513,7 @@ module.exports = function() {
     ]
 }
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 module.exports = function() {
     return [
         {
@@ -422,7 +543,7 @@ module.exports = function() {
     ]
 }
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 module.exports = Boot
 
 
@@ -510,7 +631,7 @@ function onReleasePointer(locked) {
     game.canvas.addEventListener('click', grabPointer, true)
 }
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 module.exports = BrkPlat;
 
 // TODO: This is a hack to let us draw a Tiled polyline to the
@@ -556,7 +677,7 @@ BrkPlat.prototype.break = function() {
     this._body.destroy();
 }
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports = Gun
 
 
@@ -640,7 +761,7 @@ Gun.prototype.fire = function(newShot) {
     return false
 }
 
-},{"./Item.js":8,"./bullets/Bullet.js":16}],8:[function(require,module,exports){
+},{"./Item.js":9,"./bullets/Bullet.js":17}],9:[function(require,module,exports){
 // Time in ms before item disappears.
 var LIFESPAN = 5000;
 
@@ -665,7 +786,7 @@ function Item(state, data) {
 
     this.body.clearShapes();
     var s = this.body.addRectangle(this.width, this.height);
-    this.playerSensor = this.body.addParticle();
+    this.playerSensor = this.body.addRectangle(this.width/3, this.height/3);
     this.playerSensor.sensor = true;
     this.body.collideWorldBounds = false;
 
@@ -714,7 +835,7 @@ Item.prototype.shouldPickup = function(targetBody, __, shape) {
     if (shape === this.playerSensor) this.pickup(shape, targetBody)
 }
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 module.exports = SmallFont
 
 
@@ -744,7 +865,7 @@ SmallFont.colors = {
     PLAIN: 0xf6eeee
 }
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var Item = require('../Item.js');
 
 module.exports = Buff;
@@ -786,7 +907,7 @@ Buff.prototype.pickup = function(_, playerBody) {
     return buff;
 }
 
-},{"../Item.js":8}],11:[function(require,module,exports){
+},{"../Item.js":9}],12:[function(require,module,exports){
 module.exports = Repel
 
 
@@ -860,6 +981,7 @@ Repel.prototype.buffProto = {
             normDist = Math.max(normDist, 0.0001)
             var mag = 1 / (normDist)
             mag  = this.state.physics.p2.pxm(-mag)
+            mag *= trgt.body.mass
             trgt.body.applyForce(
                 [mag * Math.cos(angle), mag * Math.sin(angle)],
                 trgt.world.x, trgt.world.y)
@@ -880,7 +1002,7 @@ Repel.prototype.buffProto = {
     }
 }
 
-},{"../../magic/dotGravity.js":39,"./Buff.js":10}],12:[function(require,module,exports){
+},{"../../magic/dotGravity.js":40,"./Buff.js":11}],13:[function(require,module,exports){
 module.exports = Shield
 
 
@@ -951,7 +1073,7 @@ Shield.prototype.buffProto = {
     }
 }
 
-},{"./Buff.js":10}],13:[function(require,module,exports){
+},{"./Buff.js":11}],14:[function(require,module,exports){
 module.exports = Shoes;
 
 
@@ -975,7 +1097,7 @@ Shoes.prototype.buffProto = {
     }
 }
 
-},{"./Buff.js":10}],14:[function(require,module,exports){
+},{"./Buff.js":11}],15:[function(require,module,exports){
 module.exports = Slomo;
 
 
@@ -1010,7 +1132,7 @@ Slomo.prototype.buffProto = {
     }
 }
 
-},{"./Buff.js":10}],15:[function(require,module,exports){
+},{"./Buff.js":11}],16:[function(require,module,exports){
 module.exports = Bouncy;
 
 
@@ -1043,7 +1165,7 @@ Bouncy.prototype.fire = function(x, y, theta, speedBonus) {
     this.lifespan = this._lifespan;
 }
 
-},{"./Bullet.js":16}],16:[function(require,module,exports){
+},{"./Bullet.js":17}],17:[function(require,module,exports){
 module.exports = Bullet;
 
 
@@ -1100,7 +1222,7 @@ Bullet.prototype.fire = function(x, y, theta, speedBonus) {
     this.body.velocity.y = Math.sin(theta) * speed;
 } 
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports = Gravity;
 
 
@@ -1162,7 +1284,7 @@ Gravity.prototype.reset = function(x, y, health) {
     this.lifespan = LIFESPAN;
 }
 
-},{"../../magic/dotGravity.js":39,"../../magic/explode.js":40,"./Bullet.js":16}],18:[function(require,module,exports){
+},{"../../magic/dotGravity.js":40,"../../magic/explode.js":41,"./Bullet.js":17}],19:[function(require,module,exports){
 module.exports = Grenade;
 
 
@@ -1246,7 +1368,7 @@ Round.prototype.hit = function(_, target) {
     this.kill();
 }
 
-},{"./Bullet.js":16}],19:[function(require,module,exports){
+},{"./Bullet.js":17}],20:[function(require,module,exports){
 module.exports = Enemy
 
 
@@ -1367,7 +1489,7 @@ Enemy.prototype.update = function() {
     this.body.velocity.y = this.maxSpeed * vy/speed
 }
 
-},{"../bullets/Bullet.js":16}],20:[function(require,module,exports){
+},{"../bullets/Bullet.js":17}],21:[function(require,module,exports){
 module.exports = Hex;
 
 var Enemy = require('./Enemy.js');
@@ -1383,7 +1505,7 @@ Hex.prototype = Object.create(Enemy.prototype);
 
 Hex.prototype.defaultFrame = 'hex'
 
-},{"./Enemy.js":19}],21:[function(require,module,exports){
+},{"./Enemy.js":20}],22:[function(require,module,exports){
 module.exports = Hydroid
 
 
@@ -1451,7 +1573,7 @@ Hydroid.prototype.spawn = function(x, y, width, velx, vely, drop) {
     return enemy.spawn(x, y, width, velx, vely, drop)
 }
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 module.exports = SeekBoss;
 
 
@@ -1514,25 +1636,24 @@ SeekBoss.prototype.damage = function(_, bullet) {
     this.childPool.getFirstDead().getFirstDead().spawn(this.x, this.y, CHILD_WIDTH, v.x - CHILD_VEL, v.y + -CHILD_VEL);
 }
 
-},{"./Seeker.js":23}],23:[function(require,module,exports){
+},{"./Seeker.js":24}],24:[function(require,module,exports){
 module.exports = Seeker;
 
 
 var Enemy = require('./Enemy.js');
 
-var ACCEL = 2;
+var ACCEL = 140;
+var ACCEL_SQR = ACCEL*ACCEL
 var PREFER_SPEED = 80;
 
 
 function Seeker(state, data, drop) {
     Enemy.call(this, state, data, drop);
     this.targets = state.players;
-    this.accel = ACCEL;
     this.body.data.gravityScale = 0;
     this.body.mass = 0.5;
     // Tying speed to mass makes slowmo work.
     this._preferSpeed = this.body.mass*PREFER_SPEED;
-    this.body.removeCollisionGroup(state.platformsCG);
 }
 
 
@@ -1545,43 +1666,34 @@ Seeker.prototype.defaultFrame = 'seeker';
 
 Seeker.prototype.update = function() {
     Enemy.prototype.update.apply(this, arguments);
+
     var target = this.targets.getClosestTo(this);
     if (!target) return;
-    var goRight = target.world.x >= this.world.x ? true : false;
-    var goDown = target.world.y >= this.world.y ? true : false;
+
+    var theta = this.world.angle(target.world)
     var vel = this.body.velocity;
     var max = this.preferSpeed;
-    var accel = this.accel;
-    // TODO: SRSLY!!! Do we need all this?
-    if (goRight === true) {
-        if (vel.x > max) {
-            vel.x -= accel;
-        } else {
-            vel.x = Math.min(vel.x + accel, max);
-        }
-    } else {
-        if (vel.x < -max) {
-            vel.x += accel;
-        } else {
-            vel.x = Math.max(vel.x - accel, -max);
-        }
+    var desired = {
+        x: max * Math.cos(theta),
+        y: max * Math.sin(theta)
+    };
+    var steer = {
+        x: desired.x - vel.x,
+        y: desired.y - vel.y
+    };
+    var steerSqr = steer.x*steer.x + steer.y*steer.y;
+    if (steerSqr > ACCEL_SQR) {
+        var scale = ACCEL/Math.sqrt(steerSqr)
+        steer.x *= scale;
+        steer.y *= scale;
     }
-    if (goDown === true) {
-        if (vel.y > max) {
-            vel.y -= accel;
-        } else {
-            vel.y = Math.min(vel.y + accel, max);
-        }
-    } else {
-        if (vel.y < -max) {
-            vel.y += accel;
-        } else {
-            vel.y = Math.max(vel.y - accel, -max);
-        }
-    }
+    this.body.data.applyForce([
+        this.body.world.pxm(-steer.x * this.body.mass),
+        this.body.world.pxm(-steer.y * this.body.mass)
+    ]);
 }
 
-},{"./Enemy.js":19}],24:[function(require,module,exports){
+},{"./Enemy.js":20}],25:[function(require,module,exports){
 var Player = require('./heroes/Player.js');
 var DefaultCtlr = require('./heroes/DefaultCtlr');
 
@@ -1737,7 +1849,7 @@ module.exports = {
     },
 }
 
-},{"./Gun.js":7,"./SmallFont.js":9,"./buffs/Repel.js":11,"./buffs/Shield.js":12,"./buffs/Shoes.js":13,"./buffs/Slomo.js":14,"./bullets/Bouncy":15,"./bullets/Bullet.js":16,"./bullets/Gravity.js":17,"./bullets/Grenade.js":18,"./enemies/Enemy.js":19,"./enemies/Hex.js":20,"./enemies/Hydroid.js":21,"./enemies/SeekBoss.js":22,"./enemies/Seeker.js":23,"./heroes/DefaultCtlr":26,"./heroes/Player.js":27}],25:[function(require,module,exports){
+},{"./Gun.js":8,"./SmallFont.js":10,"./buffs/Repel.js":12,"./buffs/Shield.js":13,"./buffs/Shoes.js":14,"./buffs/Slomo.js":15,"./bullets/Bouncy":16,"./bullets/Bullet.js":17,"./bullets/Gravity.js":18,"./bullets/Grenade.js":19,"./enemies/Enemy.js":20,"./enemies/Hex.js":21,"./enemies/Hydroid.js":22,"./enemies/SeekBoss.js":23,"./enemies/Seeker.js":24,"./heroes/DefaultCtlr":27,"./heroes/Player.js":28}],26:[function(require,module,exports){
 module.exports = Character
 
 
@@ -1764,7 +1876,7 @@ function Character(state) {
     return character
 }
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 module.exports = DefaultCtlr
 
 
@@ -1815,7 +1927,7 @@ DefaultCtlr.prototype = {
     }
 }
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 module.exports = Player
 
 
@@ -1917,7 +2029,7 @@ Player.prototype.update = function() {
     this.playerState.update()
 }
 
-},{"./Character.js":25,"./PlayerFX.js":28,"./PlayerStateMachine.js":29,"./setPhysics.js":30}],28:[function(require,module,exports){
+},{"./Character.js":26,"./PlayerFX.js":29,"./PlayerStateMachine.js":30,"./setPhysics.js":31}],29:[function(require,module,exports){
 module.exports = PlayerFX
 
 
@@ -1944,7 +2056,7 @@ function PlayerFX(state) {
     this.flame.lifespan = 400
 }
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 module.exports = PlayerStateMachine
 
 
@@ -2265,7 +2377,7 @@ Stunned.prototype = {
     }
 }
 
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 module.exports = function setPhysics(player) {
     var state = player.state
 
@@ -2294,7 +2406,7 @@ module.exports = function setPhysics(player) {
     player.body.fixedRotation = true
 }
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 module.exports = Game;
 
 
@@ -2412,7 +2524,9 @@ GameData.prototype = {
 }
 */
 
-},{"./arcade/arcade.js":2,"./boot.js":5,"./level/Level.js":32,"./load.js":36,"./menu/menu.js":46,"./phaserPatch.js":47}],32:[function(require,module,exports){
+},{"./arcade/arcade.js":3,"./boot.js":6,"./level/Level.js":33,"./load.js":37,"./menu/menu.js":47,"./phaserPatch.js":48}],33:[function(require,module,exports){
+var mapsConfig = require('../../assets/mapsConfig.json')
+
 module.exports = Level
 
 
@@ -2511,6 +2625,7 @@ Level.prototype = {
         this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
         this.gameOverScreen.exists = true
         this.time.slowMotion = 6
+        this.soundtrack.stop()
         this.players.forEach(this.world.addChild, this.world)
     },
 
@@ -2578,6 +2693,47 @@ Level.prototype = {
     },
 
 
+    shutdown: function() {
+        this.splatter.mask.destroy()
+        this.splatter.destroy()
+        this.gameOverScreen.destroy()
+        this.time.slowMotion = 1
+        this.soundtrack.stop()
+    },
+
+
+    loseCondition: function() {
+        return !this.players.getFirstAlive()
+    },
+
+
+    startFX: function() {
+        var go = this.add.image(this.world.width/2, this.world.height/2,
+            'sprites', 'go')
+        go.anchor.setTo(0.5)
+        var goTween = this.add.tween(go)
+        goTween.to({width: go.width * 4, height: go.height * 4, alpha: 0},
+            800, Phaser.Easing.Quartic.In)
+        goTween.onComplete.addOnce(go.kill, go)
+        goTween.start()
+
+        this.camera.flash(0x180c08, 1000)
+    },
+
+
+    startMusic: function() {
+        var track = Phaser.ArrayUtils.getRandomItem(
+            mapsConfig[this.map.properties.setting].songs)
+        this.soundtrack = this.sound.addSprite(track)
+        if (this.soundtrack.get('intro')) {
+            var intro = this.soundtrack.play('intro')
+            intro.onMarkerComplete.addOnce(function () { this.soundtrack.play('loop') }, this)
+        } else {
+            this.soundtrack.play('loop')
+        }
+    },
+
+
     throwShell: function(x, y, dir) {
         var shell = this.shellPool.getFirstDead() || this.shellPool.getRandom()
         shell.reset(x, y)
@@ -2622,38 +2778,14 @@ Level.prototype = {
         }
 
         if (this.loseCondition()) this.gameOver()
-    },
-
-
-    shutdown: function() {
-        this.splatter.mask.destroy()
-        this.splatter.destroy()
-        this.gameOverScreen.destroy()
-        this.time.slowMotion = 1
-    },
-
-    loseCondition: function() {
-        return !this.players.getFirstAlive()
-    },
-
-    startFX: function() {
-        var go = this.add.image(this.world.width/2, this.world.height/2,
-            'sprites', 'go')
-        go.anchor.setTo(0.5)
-        var goTween = this.add.tween(go)
-        goTween.to({width: go.width * 4, height: go.height * 4, alpha: 0},
-            800, Phaser.Easing.Quartic.In)
-        goTween.onComplete.addOnce(go.kill, go)
-        goTween.start()
-
-        this.camera.flash(0x180c08, 1000)
     }
 }
 
-},{"../entities/entities.js":24,"./create.js":33,"./init.js":34,"./parseDrop.js":35}],33:[function(require,module,exports){
+},{"../../assets/mapsConfig.json":2,"../entities/entities.js":25,"./create.js":34,"./init.js":35,"./parseDrop.js":36}],34:[function(require,module,exports){
 var BrkPlat = require('../entities/BrkPlat.js')
 var Explosion = require('../magic/Explosion.js')
 var Blood = require('../magic/Blood.js')
+var mapsConfig = require('../../assets/mapsConfig.json')
 
 
 module.exports = function create() {
@@ -2661,7 +2793,7 @@ module.exports = function create() {
     this.soundPool = []
     for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
 
-    if (this.map.properties && this.map.properties.bgImage) 
+    if (this.map.properties && this.map.properties.setting) 
         paintBackground(this)
 
     this.reticule = this.stage.reticule
@@ -2690,10 +2822,11 @@ module.exports = function create() {
     makeExplosions(this)
     makeGameOverScreen(this)
 
-    this.startFX()
-
     this.input.keyboard.addKey(Phaser.Keyboard.X)
         .onDown.add(this.exit, this)
+
+    this.time.events.add(500, this.startMusic, this)
+    this.startFX()
 }
 
 
@@ -2726,8 +2859,9 @@ function makeGameOverScreen(state) {
 
 
 function paintBackground(state) {
+    var bgKey = mapsConfig[state.map.properties.setting].bgImage
     var bg = state.add.image(state.world.width/2, state.world.height/2,
-        state.map.properties.bgImage)
+        bgKey)
     var wWidth = state.world.width
     var wHeight = state.world.height
     bg.anchor.setTo(0.5)
@@ -2868,7 +3002,7 @@ function makeParticles(state) {
     state.blood.createMultiple(100, 'sprites', 'blood')
 }
 
-},{"../entities/BrkPlat.js":6,"../magic/Blood.js":37,"../magic/Explosion.js":38}],34:[function(require,module,exports){
+},{"../../assets/mapsConfig.json":2,"../entities/BrkPlat.js":7,"../magic/Blood.js":38,"../magic/Explosion.js":39}],35:[function(require,module,exports){
 module.exports = function init(map) {
     this.buffs = []
     this.bulletTime = 1
@@ -2924,7 +3058,7 @@ function setPhysics(state) {
     });
 }
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /*
 * The tiled representation of enemies have a recursive JSON list
 * of what they drop. It looks like:
@@ -2962,7 +3096,7 @@ module.exports = function parseDrop(drop) {
     return null
 }
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 module.exports = Load
 
 
@@ -2991,18 +3125,18 @@ Load.prototype = {
     },
 
     create: function() {
-        var reticule = this.make.image(this.world.width/2,
-            this.world.height/2, 'sprites', 'reticule')
-        reticule.anchor.setTo(0.5)
-        reticule.animations.add('die',
-            Phaser.Animation.generateFrameNames('reticule', 1, 5), 38, false)
-        this.stage.addChild(reticule)
-        this.stage.reticule = reticule
-        this.state.start('Menu')
-    }
+          var reticule = this.make.image(this.world.width/2,
+              this.world.height/2, 'sprites', 'reticule')
+          reticule.anchor.setTo(0.5)
+          reticule.animations.add('die',
+              Phaser.Animation.generateFrameNames('reticule', 1, 5), 38, false)
+          this.stage.addChild(reticule)
+          this.stage.reticule = reticule
+          this.state.start('Menu')
+      }
 }
 
-},{"../assets/assets.json":1,"./entities/entities.js":24}],37:[function(require,module,exports){
+},{"../assets/assets.json":1,"./entities/entities.js":25}],38:[function(require,module,exports){
 module.exports = Blood
 
 
@@ -3057,7 +3191,7 @@ Blood.prototype.kill = function() {
     Phaser.Sprite.prototype.kill.call(this)
 }
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 var dotGravity = require('./dotGravity.js')
 
 
@@ -3133,7 +3267,7 @@ Explosion.prototype.reset = function(x, y, radius) {
     this.state.camera.shake(0.015, 400);
 }
 
-},{"./dotGravity.js":39}],39:[function(require,module,exports){
+},{"./dotGravity.js":40}],40:[function(require,module,exports){
 module.exports = function(subjects, source, magnitude, range, invert) {
     range = range || 0;
 
@@ -3163,7 +3297,7 @@ module.exports = function(subjects, source, magnitude, range, invert) {
     }
 }
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 module.exports = explode;
 
 
@@ -3182,7 +3316,7 @@ function explode(target, source, radius, damage, blast, blastRadius, invert) {
     target.game.camera.shake(0.01, 400);
 }
 
-},{"./dotGravity.js":39}],41:[function(require,module,exports){
+},{"./dotGravity.js":40}],42:[function(require,module,exports){
 module.exports = GUI
 
 
@@ -3214,7 +3348,7 @@ GUI.prototype.switchModal = function(key) {
     this.modals[key].enter()
 }
 
-},{"./HowToModal.js":42,"./MenuModal.js":43}],42:[function(require,module,exports){
+},{"./HowToModal.js":43,"./MenuModal.js":44}],43:[function(require,module,exports){
 module.exports = HowToModal
 
 
@@ -3250,7 +3384,7 @@ function HowToModal(state, gui) {
 
 HowToModal.prototype = Object.create(Modal.prototype)
 
-},{"./Modal.js":44,"./TextButton.js":45}],43:[function(require,module,exports){
+},{"./Modal.js":45,"./TextButton.js":46}],44:[function(require,module,exports){
 module.exports = MenuModal
 
 
@@ -3298,7 +3432,7 @@ function MenuModal(state, gui) {
 
 MenuModal.prototype = Object.create(Modal.prototype)
 
-},{"./Modal.js":44,"./TextButton.js":45}],44:[function(require,module,exports){
+},{"./Modal.js":45,"./TextButton.js":46}],45:[function(require,module,exports){
 module.exports = Modal
 
 
@@ -3347,7 +3481,7 @@ Modal.prototype.exit = function() {
     tween.start()
 }
 
-},{}],45:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 module.exports = TextButton
 
 
@@ -3403,6 +3537,7 @@ TextButton.prototype.update = function() {
 function inputDown() {
     if (!this.exists || !this.visible
         || this.worldAlpha !== 1 || !this.mouseIsOver) return
+    this.onDownSound.play()
     var scale = 1.02
     this.width *= scale
     this.height *= scale
@@ -3432,6 +3567,7 @@ function inputDown() {
 
 
 function inputOver() {
+    this.onOverSound.play()
     var tint = smallFont.colors.PLAIN
     this.tint = tint
     var r = (tint & 0xff0000) >>  16
@@ -3453,12 +3589,13 @@ function inputOver() {
     tween.start()
 }
 
-},{"../entities/SmallFont.js":9}],46:[function(require,module,exports){
+},{"../entities/SmallFont.js":10}],47:[function(require,module,exports){
 module.exports = Menu
 
 
 var Level = require('../level/Level.js')
 var GUI = require('./GUI.js')
+var mapConf = require('../../assets/mapsConfig.json')
 
 
 function Menu() {
@@ -3540,7 +3677,23 @@ Menu.prototype.startFX = function() {
     this.camera.flash(0x180c08, 1000)
 }
 
-},{"../level/Level.js":32,"./GUI.js":41}],47:[function(require,module,exports){
+
+Menu.prototype.startMusic = function() {
+    var track = mapConf.menu.songs[0]
+    this.soundtrack = this.sound.add(track)
+    var cb = function() { this.soundtrack.fadeIn(30000) }
+
+    if (this.soundtrack.isDecoded) {
+        cb.call(this)
+        return
+    }
+
+    this.soundtrack.onDecoded.addOnce(cb, this)
+
+    if (!this.soundtrack.isDecoding) this.sound.decode(track)
+}
+
+},{"../../assets/mapsConfig.json":2,"../level/Level.js":33,"./GUI.js":42}],48:[function(require,module,exports){
 module.exports = function() {
 
     Phaser.SoundManager.prototype.reset = function() {
@@ -3654,5 +3807,5 @@ module.exports = function() {
     }
 }
 
-},{}]},{},[31])(31)
+},{}]},{},[32])(32)
 });
