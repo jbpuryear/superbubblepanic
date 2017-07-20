@@ -16,7 +16,9 @@ function HowToModal(state, gui) {
         + 'A - LEFT\n'
         + 'D - RIGHT\n'
         + '\n'
-        + 'MOUSE - SHOOT'
+        + 'MOUSE - SHOOT\n'
+        + '\n'
+        + 'SHIFT F -\nFULLSCREEN'
     info.anchor.setTo(0.5)
     info.height *= 2
     info.width *= 2
