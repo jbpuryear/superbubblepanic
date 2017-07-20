@@ -71,6 +71,7 @@ Repel.prototype.buffProto = {
             normDist = Math.max(normDist, 0.0001)
             var mag = 1 / (normDist)
             mag  = this.state.physics.p2.pxm(-mag)
+            mag *= trgt.body.mass
             trgt.body.applyForce(
                 [mag * Math.cos(angle), mag * Math.sin(angle)],
                 trgt.world.x, trgt.world.y)
