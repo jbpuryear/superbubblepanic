@@ -341,7 +341,7 @@ module.exports = Arcade;
 
 var Level = require('../level/Level.js');
 var Hydroid = require('../entities/enemies/Hydroid.js');
-var SETTINGS = ['desert', 'city']
+var SETTINGS = ['desert']
 
 function Arcade() {
     return Level.call(this);
@@ -531,7 +531,8 @@ module.exports = function() {
         {
             type: 'shoes',
             chance: 2
-        },
+        }
+        /*
         {
             type: 'shotgun',
             chance: 1
@@ -540,6 +541,7 @@ module.exports = function() {
             type: 'grenade',
             chance: 1
         },
+        */
     ]
 }
 

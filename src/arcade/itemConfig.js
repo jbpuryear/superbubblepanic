@@ -15,7 +15,8 @@ module.exports = function() {
         {
             type: 'shoes',
             chance: 2
-        },
+        }
+        /*
         {
             type: 'shotgun',
             chance: 1
@@ -24,5 +25,6 @@ module.exports = function() {
             type: 'grenade',
             chance: 1
         },
+        */
     ]
 }
