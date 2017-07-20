@@ -22,9 +22,17 @@ Boot.prototype = {
     init: function() {
         game = this.game
         game.stage.backgroundColor = 0x180c08
+
         game.scale.pageAlignHorizontally = true
         game.scale.pageAlignVertically = true
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+        game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
+
+        window.addEventListener('keydown', function(e) {
+            if ( e.keyCode !== Phaser.Keyboard.F || !e.shiftKey) return
+            game.scale.isFullScreen ? game.scale.stopFullScreen() : game.scale.startFullScreen()
+        })
+
         Phaser.Canvas.setImageRenderingCrisp(this.game.canvas)
         game.physics.startSystem(Phaser.Physics.P2JS)
         game.physics.p2.setBounds(0, 0, 0, 0, false, false, false, false)
