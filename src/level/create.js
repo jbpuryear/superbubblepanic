@@ -123,6 +123,8 @@ function makeMap(state) {
         }
         points.cx = width/2 + data.x  + xMin;
         points.cy = height/2 + data.y + yMin;
+        points.width = width
+        points.height = height
         data.points = points;
 
         var texture = new Phaser.Graphics(state.game);
@@ -159,6 +161,11 @@ function makeMap(state) {
 
         platform.setMaterial(state.platformMaterial)
     }, state)
+
+    // This gets rid of aliasing artifacts
+    state.splatter.mask.blendSourceAtop()
+    state.splatter.mask.fill(255, 255, 255, 1)
+    state.splatter.mask.blendSourceOver()
 
     var p2 = state.physics.p2
     var bounds = [
