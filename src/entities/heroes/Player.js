@@ -2,6 +2,7 @@ module.exports = Player
 
 
 var PlayerStateMachine = require('./PlayerStateMachine.js')
+var PlayerCollider = require('./PlayerCollider.js')
 var PlayerFX = require('./PlayerFX.js')
 var Character = require('./Character.js')
 var setPhysics = require('./setPhysics.js')
@@ -21,13 +22,14 @@ function Player(state, data, ctlr) {
     this.state = state
 
     this.speedBonus = 1
-    this.standing = 0
+    this.standing = true
 
     this.character = new Character(state)
-    this.playerState = new PlayerStateMachine(this, ctlr)
     this.fx = new PlayerFX(state)
 
     setPhysics(this)
+    this.playerState = new PlayerStateMachine(this, ctlr)
+    this.collider = new PlayerCollider(this)
 
     this.addChild(this.character)
 
@@ -45,6 +47,14 @@ Player.prototype.maxFuel = 2000
 Object.defineProperty(Player.prototype, 'speed', {
     get: function() {
         return this.speedBonus * SPEED
+    }
+})
+
+
+Object.defineProperty(Player.prototype, 'accel', {
+    get: function() {
+        var rate = this.standing ? 0.05 : 0.5
+        return this.speed / rate
     }
 })
 
@@ -97,4 +107,5 @@ Player.prototype.kill = function(_, enemy) {
 
 Player.prototype.update = function() {
     this.playerState.update()
+    this.collider.update()
 }
