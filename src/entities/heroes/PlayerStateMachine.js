@@ -199,10 +199,16 @@ Flying.prototype = Object.create(PlayerState.prototype)
 
 Flying.prototype.enter = function() {
     this.jet = this.player.state.playSound('jetpack', undefined, true, true)
+    this.player.fx.dust.x = this.player.x
+    this.player.fx.dust.y = this.player.y + this.player.character.height/2
+    this.player.fx.dust.explode(200, 10)
 }
 
 Flying.prototype.exit = function() {
     if (this.jet && this.jet.isPlaying) this.jet.stop()
+    this.player.fx.exhaust.x = this.player.x
+    this.player.fx.exhaust.y = this.player.y
+    this.player.fx.exhaust.explode(200, 6)
     this.player.weapon.y = 0
 }
 
