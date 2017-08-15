@@ -4,34 +4,28 @@ module.exports = PlayerCollider
 function PlayerCollider(player) {
     this.game = player.game
     this.body = player.body
-    this.ray = new p2.Ray({mode: p2.Ray.CLOSEST})
+    this.ray = new p2.Ray({mode: p2.Ray.CLOSEST, skipBackfaces: true})
     this.res = new p2.RaycastResult()
-    this.padding = Phaser.Physics.P2.prototype.pxm(2)
     this.rayCountH = 3
     this.rayCountV = 2
+    this.padding = Phaser.Physics.P2.prototype.pxm(1)
+    this.rayBounds = { left: 0, right: 0, top: 0, bottom: 0 }
     this.dx = 0
     this.dy = 0
 
-    this.rayBounds = { left: 0, right: 0, top: 0, bottom: 0 }
     this.updateRayBounds()
-
-    this.spacingH = (this.rayBounds.top - this.rayBounds.bottom) / (this.rayCountH - 1)
-    this.spacingV = (this.rayBounds.right - this.rayBounds.left) / (this.rayCountV - 1)
 }
 
 PlayerCollider.prototype = {
     update: function() {
         var dt = this.game.time.physicsElapsed
-        this.dx = this.body.vel.mx * dt
-        this.dy = this.body.vel.my * dt
+        var dx = this.body.vel.mx * dt
+        var dy = this.body.vel.my * dt
 
         this.updateRayBounds()
         this.ray.collisionMask = this.body.getCollisionMask()
 
-        this.collide()
-
-        this.body.data.position[0] += this.dx
-        this.body.data.position[1] += this.dy
+        this.collide(dx, dy)
     },
 
 
@@ -41,61 +35,68 @@ PlayerCollider.prototype = {
         var bounds = this.rayBounds
         var ray = this.ray
         var res = this.res
+        var dLength = Math.sqrt(dx*dx + dy*dy)
+        var sin = dy/dLength
+        var cos = dx/dLength
         var pad = this.padding
+        var padX = pad * cos
+        var padY = pad * sin
+        var rayLength = Math.sqrt( (dx+padX)*(dx+padX) + (dy+padY)*(dy+padY) )
+        var dirX = dx >= 0 ? 1 : -1
+        var dirY = dy > 0 ? 1 : -1
 
-        var spacing = this.spacingV
-        var dir = this.dy >= 0 ? 1 : -1
-        var x = bounds.left
-        var y = dir === 1 ? bounds.top : bounds.bottom
-        var rayLength = Math.abs(this.dy) + pad
+        var x = Math.max(bounds.left - padX, bounds.left + pad)
+        var xMax = Math.min(bounds.right - padX, bounds.right - pad)
+        var spacing = (xMax - x) / (this.rayCountV - 1)
+        var y = (dirY === 1 ? bounds.top : bounds.bottom) - padY
 
-        for (var i = 0; i < this.rayCountV; i++) {
-            vec2.set(ray.from, x, y)
-            vec2.set(ray.to, x, y + dir*rayLength)
-            ray.update()
-            res.reset()
-
-            if (world.raycast(res, ray)) {
-                this.body.vel.y = 0
-                rayLength = res.getHitDistance(ray)
+        if (dy !== 0) {
+            for (var i = 0; i < this.rayCountV; i++) {
+                vec2.set(ray.from, x, y)
+                vec2.set(ray.to, x + rayLength*cos, y + rayLength*sin)
+                ray.update()
+                res.reset()
+                if (world.raycast(res, ray)) {
+                    this.body.vel.x = 0
+                    this.body.vel.y = 0
+                    rayLength = res.getHitDistance(ray)
+                }
+                x += spacing
             }
-            x += spacing
         }
-        this.dy = dir * (rayLength - pad)
 
-        if (this.body.vel.x === 0) return
+        if (dx !== 0) {
+            y = Math.max(bounds.bottom - padY, bounds.bottom + pad)
+            var yMax = Math.min(bounds.top - padX, bounds.top - pad)
+            spacing = (yMax - y) / (this.rayCountH - 1)
+            x = (dirX === 1 ? bounds.right : bounds.left) - padX
 
-        dir = this.dx >= 0 ? 1 : -1
-        x = dir === 1 ? bounds.right : bounds.left
-        y = bounds.bottom
-        spacing = this.spacingH
-        rayLength = Math.abs(this.dx) + pad
-
-        for (var i = 0; i < this.rayCountH; i++) {
-            vec2.set(ray.from, x, y)
-            vec2.set(ray.to, x + dir*rayLength, y)
-            ray.update()
-            
-            res.reset()
-            if (world.raycast(res, ray)) {
-                this.body.vel.x = 0
-                rayLength = res.getHitDistance(ray)
+            for (var i = 0; i < this.rayCountH; i++) {
+                vec2.set(ray.from, x, y)
+                vec2.set(ray.to, x + rayLength*cos, y + rayLength*sin)
+                ray.update()
+                res.reset()
+                if (world.raycast(res, ray)) {
+                    this.body.vel.x = 0
+                    this.body.vel.y = 0
+                    rayLength = res.getHitDistance(ray)
+                }
+                y += spacing
             }
-            y += spacing
         }
-        this.dx = dir * (rayLength - pad)
+
+        this.body.data.position[0] += rayLength*cos - padX
+        this.body.data.position[1] += rayLength*cos - padY
     },
 
 
     updateRayBounds: function() {
         var aabb = this.body.data.getAABB()
         var b = this.rayBounds
-        var pad = this.padding
-
-        b.left = aabb.lowerBound[0] + pad
-        b.right = aabb.upperBound[0] - pad
-        b.top = aabb.upperBound[1] - pad
-        b.bottom = aabb.lowerBound[1] + pad
+        b.left = aabb.lowerBound[0]
+        b.right = aabb.upperBound[0]
+        b.top = aabb.upperBound[1]
+        b.bottom = aabb.lowerBound[1]
     }
 }
 
@@ -111,3 +112,4 @@ PlayerCollider.prototype.debugRay = (function() {
         this.game.debug.geom(line)
     }
 })()
+
