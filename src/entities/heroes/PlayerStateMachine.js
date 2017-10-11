@@ -15,6 +15,8 @@ function PlayerStateMachine(player, ctlr) {
     }
 
     this.current = this.states.standing
+
+    this.player.body.vel = new Phaser.Physics.P2.InversePointProxy(player.game.physics.p2, [0, 0])
 }
 
 
@@ -28,6 +30,8 @@ PlayerStateMachine.prototype = {
     },
 
     update: function() {
+        var game = this.player.game
+        this.player.body.vel.y += game.physics.p2.gravity.y * game.time.physicsElapsed
         this.ctlr.update()
         this.current.update()
     }
@@ -63,6 +67,10 @@ PlayerState.prototype = {
         if (ctlr.right) this.onRight()
         if (ctlr.up) this.onUp()
         if (ctlr.shoot) this.onShoot()
+        var vx = Math.abs(this.player.body.vel.x)
+        vx = Math.min(vx, this.player.speed)
+        vx *= (this.player.body.vel.x >= 0 ? 1 : -1)
+        this.player.body.vel.x = vx
     },
 
     onUp: function() {
@@ -70,11 +78,11 @@ PlayerState.prototype = {
     },
 
     onLeft: function() {
-        if (!this.ctlr.right) this.player.body.velocity.x = -this.player.speed
+        this.player.body.vel.x -= this.player.accel * this.player.game.time.physicsElapsed
     },
 
     onRight: function() {
-        if (!this.ctlr.left) this.player.body.velocity.x = this.player.speed
+        this.player.body.vel.x += this.player.accel * this.player.game.time.physicsElapsed
     },
 
     onShoot: function() {
@@ -84,7 +92,7 @@ PlayerState.prototype = {
             plyr.character.animations.stop()
             plyr.character.frameName = 'p1-shoot'
             var direction = plyr.facing
-            plyr.body.x -= 3 * direction
+            plyr.body.vel.x -= 4 * direction
             plyr.weapon.x = -2
             this.machine.shooting = true
             plyr.game.time.events.add(60, function() {
@@ -116,8 +124,8 @@ Dead.prototype = {
         ])
         plyr.character.animations.stop()
         plyr.character.frameName = 'p1-die2'
-        plyr.body.velocity.x = -100 * plyr.facing
-        plyr.body.velocity.y = -150
+        plyr.body.vel.x = -100 * plyr.facing
+        plyr.body.vel.y = -150
         if (plyr.weapon) {
             var x = plyr.weapon.world.x
             var y = plyr.weapon.world.y
@@ -139,11 +147,11 @@ Dead.prototype = {
             this.wasStanding = false
             return
         }
-        velx = this.player.body.velocity.x
+        velx = this.player.body.vel.x
         if (velx > 0)
-            this.player.body.velocity.x = Math.max(velx - 2, 0)
+            this.player.body.vel.x = Math.max(velx - 2, 0)
         else if (velx < 0)
-            this.player.body.velocity.x = Math.min(velx + 2, 0)
+            this.player.body.vel.x = Math.min(velx + 2, 0)
         if (!this.wasStanding) {
             this.player.character.animations.play('die', null, false)
             this.wasStanding = true
@@ -178,7 +186,7 @@ Falling.prototype.update = function() {
         return
     }
 
-    if (plyr.body.velocity.y > 30) {
+    if (plyr.body.vel.y > 30) {
         plyr.character.animations.play('fall')
         plyr.weapon.y = -2
     } else {
@@ -223,9 +231,9 @@ Flying.prototype.update = function() {
 
     plyr.character.animations.play('fly')
 
-    plyr.weapon.y = plyr.body.velocity.y < -30 ? 2 : 0
+    plyr.weapon.y = plyr.body.vel.y < -30 ? 2 : 0
 
-    plyr.body.thrust(plyr.game.physics.p2.gravity.y * 2.5)
+    plyr.body.vel.y -= plyr.game.physics.p2.gravity.y * 2.5 * plyr.game.time.physicsElapsed
     mchn.fuel = Math.max(mchn.fuel - plyr.game.time.physicsElapsedMS, 0)
 
     plyr.fx.flame.x = plyr.x
@@ -253,7 +261,7 @@ Standing.prototype = Object.create(PlayerState.prototype)
 Standing.prototype.update = function() {
     var plyr = this.player
     var mchn = this.machine
-    var velx = plyr.body.velocity.x
+    var velx = plyr.body.vel.x
 
     if (!plyr.standing) mchn.change('falling')
 
@@ -264,7 +272,7 @@ Standing.prototype.update = function() {
 
     if (velx !== 0) {
         var friction = velx/20 * plyr.speedBonus
-        plyr.body.velocity.x = velx < 0 ?
+        plyr.body.vel.x = velx < 0 ?
             Math.min(velx - friction, 0) :
             Math.max(velx - friction, 0)
     }
@@ -303,7 +311,7 @@ Stunned.prototype = {
 
         if (plyr.weapon)
             plyr.weapon.rotation = plyr.facing === 1 ? 0 : Math.PI
-        plyr.body.velocity.x = 40 * -plyr.facing
+        plyr.body.vel.x = 40 * -plyr.facing
 
         this.tween = this.player.state.add.tween(this.player.character)
         this.tween.to({alpha: 0.2}, 75, null, false, 0, -1, true)
