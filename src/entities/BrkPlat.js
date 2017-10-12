@@ -18,19 +18,16 @@ function BrkPlat(state, data, body, drop) {
     var points = data.points;
     this.x = points.cx
     this.y = points.cy
-    var texture = new Phaser.BitmapData(state.game, null, data.mask.width, data.mask.height)
-
     var w = data.mask.width
     var h = data.mask.height
+    var texture = new Phaser.BitmapData(state.game, null, w, h)
+
     var ctx = texture.ctx
 
-    texture.copy(data.mask, null, null, null, null, w/2, h/2)
-    texture.blendSourceIn()
     texture.fill(98, 202, 222, 0.2)
-    texture.blendSourceOver()
-
     ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
     ctx.fillRect(0, h/2, w, h*3/4)
+
     ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
     ctx.beginPath()
     ctx.moveTo(w/2 + h - 15, 0)
@@ -57,6 +54,8 @@ function BrkPlat(state, data, body, drop) {
         }
         texture.line(p1[0], p1[1], p2[0], p2[1], null, 2)
     }
+    texture.blendDestinationIn()
+    texture.copy(data.mask, null, null, null, null, w/2, h/2)
     
     var img = new Phaser.Image(state.game, points.cx, points.cy, texture);
     img.anchor.setTo(0.5);
