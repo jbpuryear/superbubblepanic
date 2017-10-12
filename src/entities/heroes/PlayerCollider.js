@@ -23,7 +23,6 @@ function PlayerCollider(player) {
     this.slopeVector = p2.vec2.create()
 
     this.ray.collisionMask = this.game.state.getCurrentState().platformsCG.mask | this.game.physics.p2.boundsCollisionGroup.mask
-  console.log(this.ray.collisionMask)
     this.player.standing = false
 }
 

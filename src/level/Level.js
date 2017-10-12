@@ -84,6 +84,10 @@ Level.prototype = {
 
     FXMaskErase: function(sprite) {
         this.splatter.mask.blendDestinationOut()
+        // TODO: Hack to fix antialiasing causing masks not to erase fully.
+        this.splatter.mask.draw(sprite)
+        this.splatter.mask.draw(sprite)
+        this.splatter.mask.draw(sprite)
         this.splatter.mask.draw(sprite)
         this.splatter.mask.blendSourceOver()
         this.splatter.unclean = true
