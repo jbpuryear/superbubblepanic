@@ -115,6 +115,7 @@ Dead.prototype = {
 
     enter: function() {
         var plyr = this.player
+        plyr.standing = false
         plyr.alive = false
 
         plyr.state.playSound('death')
