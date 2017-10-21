@@ -1,8 +1,8 @@
 module.exports = NewScoreModal
 
 
-var Modal = require('./Modal.js')
-var Btn = require('./TextButton.js')
+var Modal = require('../gui/Modal.js')
+var Btn = require('../gui/TextButton.js')
 
 
 function NewScoreModal(state, gui) {

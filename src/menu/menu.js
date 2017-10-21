@@ -74,7 +74,7 @@ Menu.prototype.start = function() {
             .to({x: this.world.width + 16}, 800)
             .start()
         this.camera.onFadeComplete.addOnce(function() {
-            this.state.start('Arcade')
+            this.state.start('LevelSelect')
         }, this)
         this.camera.fade(0x180c08, 800)
     }, this)

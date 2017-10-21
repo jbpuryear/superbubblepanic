@@ -1,5 +1,5 @@
 window.addEventListener('load', function() {
-var game = SBP();
+window.game = SBP();
 var entities = game.state.states.Level.entities;
 
 function state() {

@@ -1,8 +1,8 @@
 module.exports = MenuModal
 
 
-var Modal = require('./Modal.js')
-var Btn = require('./TextButton.js')
+var Modal = require('../gui/Modal.js')
+var Btn = require('../gui/TextButton.js')
 
 
 function MenuModal(state, gui) {
@@ -14,7 +14,7 @@ function MenuModal(state, gui) {
     logo.anchor.setTo(0.5)
     logo.y = logo.height/2
 
-    var score = state.game.data.getHiScore()
+    var score = state.game.data.hiScore
     var hiScore = state.entities.smallFont(state, 'HI-SCORE ' + score)
     hiScore.y = logo.bottom + 32
     this.hiScore = hiScore

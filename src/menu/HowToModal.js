@@ -1,8 +1,8 @@
 module.exports = HowToModal
 
 
-var Modal = require('./Modal.js')
-var Btn = require('./TextButton.js')
+var Modal = require('../gui/Modal.js')
+var Btn = require('../gui/TextButton.js')
 
 
 function HowToModal(state, gui) {

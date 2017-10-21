@@ -70,7 +70,10 @@ Level.prototype = {
 
 
     exit: function() {
-        this.state.start('Menu')
+        this.stage.reticule.exists = true
+        this.stage.reticule.animations.stop()
+        this.stage.reticule.frameName = 'reticule'
+        this.state.start('LevelSelect')
     },
 
 
@@ -221,25 +224,6 @@ Level.prototype = {
 
 
     update: function() {
-        if (this.input.mouse.locked) {
-            var x = this.reticule.x
-            var y = this.reticule.y
-            x += this.input.mousePointer.movementX * this.scale.scaleFactor.x
-            y += this.input.mousePointer.movementY * this.scale.scaleFactor.y
-            x = Phaser.Math.clamp(x, 0, this.world.width)
-            y = Phaser.Math.clamp(y, 0, this.world.height)
-            this.reticule.x = x
-            this.reticule.y = y
-            this.input.mousePointer.resetMovement()
-        } else {
-            if (!this.retFlag) {
-                this.reticule.exists = this.input.mousePointer.withinGame
-                this.retFlag = this.input.mousePointer.withinGame
-            }
-            this.reticule.x = this.input.mousePointer.x
-            this.reticule.y = this.input.mousePointer.y
-        }
-
         this.paintFXupdate()
 
         for (var i=this.buffs.length-1; i>=0; i--) {
@@ -255,5 +239,17 @@ Level.prototype = {
         }
 
         if (this.loseCondition()) this.gameOver()
+        if (this.winCondition()) this.win()
+    },
+
+
+    win: function() {
+        this.game.data.checkWin(this.mapName)
+        this.state.start('LevelSelect')
+    },
+
+
+    winCondition: function() {
+        return this.enemies.getFirstAlive() ? false : true
     }
 }

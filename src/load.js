@@ -2,6 +2,7 @@ module.exports = Load
 
 
 var entities = require('./entities/entities.js')
+var Reticule = require('./Reticule.js')
     
     
 function Load() {
@@ -15,6 +16,9 @@ Load.prototype = {
         for (var section in assets) {
             this.load.pack(section, null, assets)
         }
+        var levels = require('../assets/levels.json')
+        this.load.pack('levels', null, levels)
+
         this.progress = entities.smallFont(this, 'LOADING 0%')
         this.progress.x = this.world.width/2
         this.progress.y = this.world.height/2
@@ -26,13 +30,17 @@ Load.prototype = {
     },
 
     create: function() {
-          var reticule = this.make.image(this.world.width/2,
-              this.world.height/2, 'sprites', 'reticule')
-          reticule.anchor.setTo(0.5)
-          reticule.animations.add('die',
-              Phaser.Animation.generateFrameNames('reticule', 1, 5), 38, false)
-          this.stage.addChild(reticule)
-          this.stage.reticule = reticule
-          this.state.start('Menu')
-      }
+        var reticule = new Reticule(this.game)
+        this.stage.addChild(reticule)
+        this.stage.reticule = reticule
+        //this.state.start('Menu')
+        this.state.start('LevelSelect')
+    }
+}
+
+
+function levelSort(a, b) {
+    if (a.key < b.key) return -1
+    if (a.key > b.key) return 1
+    return 0
 }
