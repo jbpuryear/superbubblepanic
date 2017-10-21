@@ -4,3 +4,4 @@ game.bundle.js
 *.swp
 *.swo
 watch.sh
+node_modules

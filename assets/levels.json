@@ -1,0 +1,29 @@
+{
+  "start": {
+    "key": "_menu",
+    "mapX": 40,
+    "mapY": 40,
+    "state": "Menu"
+  },
+
+  "levels": [
+    {
+      "type": "tilemap",
+      "key": "level1",
+      "url": "assets/levels/level1.json",
+      "format": "TILED_JSON",
+      "mapX": 10,
+      "mapY": 40,
+      "state": "Level"
+    },
+    {
+      "type": "tilemap",
+      "key": "seeker",
+      "url": "assets/levels/seeker.json",
+      "format": "TILED_JSON",
+      "mapX": 50,
+      "mapY": 10,
+      "state": "Level"
+    }
+  ]
+}

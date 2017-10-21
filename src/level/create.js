@@ -153,6 +153,7 @@ function makeMap(state) {
             var brkplat = new BrkPlat(state, data, platform, drop)
             platform.collides(state.bulletsCG, brkplat.break, brkplat)
         } else if (data.properties && data.properties.passable) {
+            platform.removeCollisionGroup(state.enemiesCG)
             // TODO: Passables should be their own thing.
             // new BrkPlat(state, data, platform)
         } else {

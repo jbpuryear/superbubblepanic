@@ -254,6 +254,11 @@
             "url": "assets/images/backgrounds/forest.png"
         },
         {
+            "type": "image",
+            "key": "space",
+            "url": "assets/images/backgrounds/space.png"
+        },
+        {
             "type": "atlasJSONHash",
             "key": "sprites",
             "textureURL": "assets/images/spritesheet.png",
@@ -261,25 +266,7 @@
         }
     ],
 
-    "levels": [
-        {
-            "type": "tilemap",
-            "key": "level1",
-            "url": "assets/levels/level1.json",
-            "format": "TILED_JSON"
-        },
-        {
-            "type": "tilemap",
-            "key": "seeker",
-            "url": "assets/levels/seeker.json",
-            "format": "TILED_JSON"
-        },
-        {
-            "type": "tilemap",
-            "key": "grid",
-            "url": "assets/levels/grid.json",
-            "format": "TILED_JSON"
-        },
+    "screens": [
         {
             "type": "tilemap",
             "key": "_arcade",
@@ -291,14 +278,6 @@
             "key": "_menu",
             "url": "assets/levels/menu.json",
             "format": "TILED_JSON"
-        },
-
-        {
-            "type": "tilemap",
-            "key": "placement test",
-            "url": "assets/levels/placement-test.json",
-            "format": "TILED_JSON"
         }
-
     ]
 }

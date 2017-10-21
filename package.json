@@ -1,0 +1,29 @@
+{
+  "name": "superbubblepanic",
+  "version": "1.0.0",
+  "description": "![Screenshot](screen.png \"Super Bubble Panic\")",
+  "main": ".spritesmith.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "pixelsmith": "^2.1.2",
+    "spritesmith-cli": "^1.1.2",
+    "spritesmith-texturepacker": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "pack": "spritesmith",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbpuryear/superbubblepanic.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/jbpuryear/superbubblepanic/issues"
+  },
+  "homepage": "https://github.com/jbpuryear/superbubblepanic#readme"
+}
