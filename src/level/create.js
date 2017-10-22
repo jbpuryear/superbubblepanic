@@ -223,4 +223,13 @@ function makeParticles(state) {
     state.blood = state.add.group()
     state.blood.classType = Blood
     state.blood.createMultiple(100, 'sprites', 'blood')
+
+    state.glass = state.add.emitter(0, 0, 100)
+    state.glass.makeParticles('sprites', 'glass')
+    state.glass.setXSpeed(-500, 500)
+    state.glass.setYSpeed(-200, 30)
+    state.glass.setScale(0.25, 1.75, 0.25, 1.75)
+    state.glass.setAlpha(0.1, 0.8)
+    state.glass.particleDrag.setTo(100, 0)
+    state.glass.gravity = 400
 }

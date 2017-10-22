@@ -14,6 +14,12 @@
 	      },
         {
             "type": "audio",
+            "key": "breaking-glass",
+            "urls": ["assets/audio/breaking-glass.ogg"],
+            "autoDecode": true
+	      },
+        {
+            "type": "audio",
             "key": "click",
             "urls": ["assets/audio/click.ogg"],
             "autoDecode": true

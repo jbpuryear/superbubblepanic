@@ -67,9 +67,24 @@ function BrkPlat(state, data, body, drop) {
 
 
 BrkPlat.prototype.break = function() {
+    this.state.paintFX(this.fxmask)
+    this.state.time.events.add(20, shatter, this)
+}
+
+
+function shatter() {
     if (this.drop instanceof Phaser.Sprite) {
         this.drop.reset(this.x, this.y);
     }
     this.state.FXMaskErase(this.fxmask);
     this.body.destroy();
+    this.state.glass.x = this.x
+    this.state.glass.y = this.y
+    this.state.time.events.add(40, sprinkle , this)
+    this.state.playSound('breaking-glass', 100)
+}
+
+
+function sprinkle() {
+    this.state.glass.explode(2000, 25)
 }

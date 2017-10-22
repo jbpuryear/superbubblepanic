@@ -90,7 +90,6 @@ LevelSelect.prototype = {
       var dx = p.mapX - plyr.x
       var dy = p.mapY - plyr.y
       var d = Math.sqrt(dx*dx + dy*dy)
-      console.log(p, dx, dy, d)
       if (d <= dt*vel) {
         plyr.x = p.mapX
         plyr.y = p.mapY
