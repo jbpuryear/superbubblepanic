@@ -21,6 +21,7 @@ module.exports = function create() {
     this.enemies = this.make.group()
     this.items = this.make.group()
     this.platforms = this.make.group()
+    this.hud = this.make.group()
 
     this.splatter = this.make.bitmapData(this.world.width, this.world.height)
     this.splatter.mask = this.make.bitmapData(this.world.width, this.world.height)
@@ -34,6 +35,7 @@ module.exports = function create() {
     this.world.addChild(this.enemies)
     this.world.addChild(this.items)
     this.world.addChild(this.platforms)
+    this.world.addChild(this.hud)
 
     makeExplosions(this)
     makeGameOverScreen(this)
