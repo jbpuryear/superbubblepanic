@@ -17,6 +17,19 @@ function PlayerStateMachine(player, ctlr) {
     this.current = this.states.standing
 
     this.player.body.vel = new Phaser.Physics.P2.InversePointProxy(player.game.physics.p2, [0, 0])
+
+    var g = player.game
+    var tankMargin = 20
+    var tank = g.make.sprite(tankMargin, tankMargin, 'sprites', 'fuel-tank')
+    this.fuelHeight = tank.height - 4
+    var fuel = this.fuelGauge =  g.make.sprite(
+      tankMargin + 2, tankMargin + tank.height - 2, 'sprites', 'fuel')
+    fuel.anchor.setTo(0, 1)
+    fuel.width = tank.width - 4
+    fuel.height = this.fuelHeight
+    fuel.alpha = 0.8
+    g.state.getCurrentState().hud.add(fuel)
+    g.state.getCurrentState().hud.add(tank)
 }
 
 
@@ -30,6 +43,29 @@ PlayerStateMachine.prototype = {
     },
 
     update: function() {
+        var rFull = 0x4a0000
+        var gFull = 0xb600
+        var bFull = 0x7b
+        var rHalf = 0xf60000
+        var gHalf = 0xd600
+        var bHalf = 0x39
+        var rEmpty = 0xff0000
+        var gEmpty = 0x5500
+        var bEmpty = 0x5a
+        var interp = this.fuel/this.maxFuel
+        this.fuelGauge.height = this.fuelHeight * interp
+        if (interp > 0.5) {
+          interp = (interp - 0.5) / 0.5
+          this.fuelGauge.tint = ((rFull - rHalf) * interp + rHalf) & 0xff0000
+          this.fuelGauge.tint = this.fuelGauge.tint | (((gFull - gHalf) * interp + gHalf) & 0xff00)
+          this.fuelGauge.tint = this.fuelGauge.tint | (((bFull - bHalf) * interp + bHalf) & 0xff)
+        } else {
+          interp /= 0.5
+          this.fuelGauge.tint = ((rHalf - rEmpty) * interp + rEmpty) & 0xff0000
+          this.fuelGauge.tint = this.fuelGauge.tint | (((gHalf - gEmpty) * interp + gEmpty) & 0xff00)
+          this.fuelGauge.tint = this.fuelGauge.tint | (((bHalf - bEmpty) * interp + bEmpty) & 0xff)
+        }
+
         var game = this.player.game
         this.player.body.vel.y += game.physics.p2.gravity.y * game.time.physicsElapsed
         this.ctlr.update()
