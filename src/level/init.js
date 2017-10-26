@@ -13,8 +13,9 @@ module.exports = function init(map) {
 function setPhysics(state) {
     var p2 = state.physics.p2
     p2.setImpactEvents(true)
-    p2.gravity.y = 400
-    p2.applyGravity = true
+  console.log(state.gravity)
+    p2.gravity.y = state.gravity
+    p2.applyGravity = state.gravity === 0 ? false : true
     p2.applyDamping = false
 
     state.itemsCG = p2.createCollisionGroup()
