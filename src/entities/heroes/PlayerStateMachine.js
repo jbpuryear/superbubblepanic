@@ -9,6 +9,7 @@ function PlayerStateMachine(player, ctlr) {
     this.states = {
         dead: new Dead(this),
         falling: new Falling(this),
+        floating: new Floating(this),
         flying: new Flying(this),
         standing: new Standing(this),
         stunned: new Stunned(this)
@@ -97,6 +98,10 @@ PlayerState.prototype = {
         if (plyr.weapon) {
             plyr.weapon.rotation = theta
         }
+        theta -= plyr.character.rotation
+        theta %= 2 * Math.PI
+        if (theta > Math.PI) theta -= 2 * Math.PI
+        else if (theta <= -Math.PI) theta += 2 * Math.PI
         plyr.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? -1 : 1
 
         if (ctlr.left) this.onLeft()
@@ -215,9 +220,7 @@ Falling.prototype.update = function() {
 
     if (plyr.standing) {
         plyr.state.playSound('land')
-        plyr.fx.dust.x = plyr.x
-        plyr.fx.dust.y = plyr.y + plyr.character.height/2
-        plyr.fx.dust.explode(100, 6)
+        plyr.fx.land()
 
         this.machine.change('standing')
         return
@@ -234,6 +237,72 @@ Falling.prototype.update = function() {
 }
 
 
+function Floating(machine) {
+    PlayerState.call(this, machine)
+    this.rotation = -Math.PI/2
+    this.wasThrusting = false
+}
+
+
+Floating.prototype = Object.create(PlayerState.prototype)
+
+
+Floating.prototype.angularSpeed = Math.PI
+Floating.prototype.thrust = 200
+
+
+Floating.prototype.exit = function() {
+    var player = this.player
+    var state = player.game.state.getCurrentState()
+    state.glass.x = player.x
+    state.glass.y = player.y
+    state.glass.explode(-1, 20)
+}
+
+
+Floating.prototype.update = function() {
+    var plyr = this.player
+    if (!this.ctlr.up && this.wasThrusting) {
+      plyr.fx.backfire()
+      this.wasThrusting = false
+    }
+    PlayerState.prototype.update.call(this)
+    plyr.character.frameName = 'p1-space'
+    plyr.standing = false
+    if (plyr.body.vel.y < -plyr.speed) plyr.body.vel.y = -plyr.speed
+    else if (plyr.body.vel.y > plyr.speed) plyr.body.vel.y = plyr.speed
+}
+
+
+Floating.prototype.onLeft = function() {
+    var plyr = this.player
+    var dt = plyr.game.time.physicsElapsed
+    this.rotation -= this.angularSpeed * dt
+    this.player.character.rotation = this.rotation + Math.PI/2
+}
+
+
+Floating.prototype.onRight = function() {
+    var plyr = this.player
+    var dt = plyr.game.time.physicsElapsed
+    this.rotation += this.angularSpeed * dt
+    this.player.character.rotation = this.rotation + Math.PI/2
+}
+
+
+Floating.prototype.onUp = function() {
+    var plyr = this.player
+    var dt = plyr.game.time.physicsElapsed
+    plyr.body.vel.x += dt * this.thrust * Math.cos(this.rotation)
+    plyr.body.vel.y += dt * this.thrust * Math.sin(this.rotation)
+    if (!this.wasThrusting) {
+      plyr.fx.puff()
+    }
+    this.wasThrusting = true
+    plyr.fx.jet()
+}
+
+
 function Flying(machine) {
     PlayerState.call(this, machine)
 }
@@ -244,16 +313,12 @@ Flying.prototype = Object.create(PlayerState.prototype)
 
 Flying.prototype.enter = function() {
     this.jet = this.player.state.playSound('jetpack', undefined, true, true)
-    this.player.fx.dust.x = this.player.x
-    this.player.fx.dust.y = this.player.y + this.player.character.height/2
-    this.player.fx.dust.explode(200, 10)
+    this.player.fx.puff()
 }
 
 Flying.prototype.exit = function() {
     if (this.jet && this.jet.isPlaying) this.jet.stop()
-    this.player.fx.exhaust.x = this.player.x
-    this.player.fx.exhaust.y = this.player.y
-    this.player.fx.exhaust.explode(200, 6)
+    this.player.fx.backfire()
     this.player.weapon.y = 0
 }
 
@@ -273,9 +338,7 @@ Flying.prototype.update = function() {
     plyr.body.vel.y -= plyr.game.physics.p2.gravity.y * 2.5 * plyr.game.time.physicsElapsed
     mchn.fuel = Math.max(mchn.fuel - plyr.game.time.physicsElapsedMS, 0)
 
-    plyr.fx.flame.x = plyr.x
-    plyr.fx.flame.y = plyr.y
-    plyr.fx.flame.emitParticle()
+    plyr.fx.jet()
 
     PlayerState.prototype.update.call(this)
 }

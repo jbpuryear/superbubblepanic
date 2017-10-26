@@ -25,7 +25,7 @@ function Player(state, data, ctlr) {
     this.standing = true
 
     this.character = new Character(state)
-    this.fx = new PlayerFX(state)
+    this.fx = new PlayerFX(this)
 
     setPhysics(this)
     this.playerState = new PlayerStateMachine(this, ctlr)

@@ -212,16 +212,6 @@ function makeParticles(state) {
     state.frag.setAlpha(1, 0.2, 400)
     state.frag.lifespan = 200
 
-    state.puffs = state.add.emitter(0, 0, 100)
-    state.puffs.makeParticles('sprites', 
-        Phaser.Animation.generateFrameNames('dust', 1, 4))
-    state.puffs.gravity = -40
-    state.puffs.setAlpha(0.8, 0, 800, Phaser.Easing.Quadratic.Out)
-    state.puffs.setScale(3, 10, 3, 10, 800)
-    state.puffs.setXSpeed(-100, 100)
-    state.puffs.setYSpeed(-100, 20)
-    state.puffs.setRotation(0, 0)
-
     state.blood = state.add.group()
     state.blood.classType = Blood
     state.blood.createMultiple(100, 'sprites', 'blood')
@@ -229,9 +219,8 @@ function makeParticles(state) {
     state.glass = state.add.emitter(0, 0, 100)
     state.glass.makeParticles('sprites', 'glass')
     state.glass.setXSpeed(-500, 500)
-    state.glass.setYSpeed(-200, 30)
+    state.glass.setYSpeed(-200, 200)
     state.glass.setScale(0.25, 1.75, 0.25, 1.75)
     state.glass.setAlpha(0.1, 0.8)
-    state.glass.particleDrag.setTo(100, 0)
-    state.glass.gravity = 400
+    state.glass.gravity = state.physics.p2.gravity.y
 }
