@@ -109,10 +109,6 @@ PlayerState.prototype = {
         if (ctlr.right) this.onRight()
         if (ctlr.up) this.onUp()
         if (ctlr.shoot) this.onShoot()
-        var vx = Math.abs(this.player.body.vel.x)
-        vx = Math.min(vx, this.player.speed)
-        vx *= (this.player.body.vel.x >= 0 ? 1 : -1)
-        this.player.body.vel.x = vx
     },
 
     onUp: function() {
@@ -120,10 +116,12 @@ PlayerState.prototype = {
     },
 
     onLeft: function() {
+        if (this.player.body.vel.x < -this.player.speed) return
         this.player.body.vel.x -= this.player.accel * this.player.game.time.physicsElapsed
     },
 
     onRight: function() {
+        if (this.player.body.vel.x > this.player.speed) return
         this.player.body.vel.x += this.player.accel * this.player.game.time.physicsElapsed
     },
 
@@ -133,8 +131,9 @@ PlayerState.prototype = {
         if (plyr.weapon.fire(this.ctlr.newShot)) {
             plyr.character.animations.stop()
             plyr.character.frameName = 'p1-shoot'
-            var direction = plyr.facing
-            plyr.body.vel.x -= 4 * direction
+            var angle = plyr.weapon.rotation
+            plyr.body.vel.x -= 8 * Math.cos(angle)
+            plyr.body.vel.y -= 8 * Math.sin(angle)
             plyr.weapon.x = -2
             this.machine.shooting = true
             plyr.game.time.events.add(60, function() {
