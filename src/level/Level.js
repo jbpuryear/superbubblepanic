@@ -5,6 +5,7 @@ module.exports = Level
 
 function Level() {
     Phaser.State.call(this)
+    this.won = false
 }
 
 
@@ -241,13 +242,32 @@ Level.prototype.update = function() {
     }
 
     if (this.loseCondition()) this.gameOver()
-    else if (this.winCondition()) this.win()
+    else if (!this.won && this.winCondition()) {
+      this.time.events.add(200, this.win, this)
+      this.won = true
+    }
 }
 
 
 Level.prototype.win = function() {
     this.game.data.checkWin(this.mapName)
-    this.state.start('LevelSelect')
+    this.soundtrack.stop()
+    this.sound.play('victory-jingle')
+    this.players.children[0].playerState.change('victory')
+
+    var clear = this.add.image(this.world.width/2, this.world.height/2,
+        'sprites', 'stage-clear')
+    clear.anchor.setTo(0.5)
+    var clearTween = this.add.tween(clear)
+    clearTween.from({width: clear.width * 4, height: clear.height * 4, alpha: 0},
+        800, Phaser.Easing.Quartic.Out, null, 200)
+    clearTween.onComplete.addOnce(function() {
+      this.camera.onFadeComplete.addOnce(function() {
+        this.exit()
+      }, this)
+      this.camera.fade(0xf6eeee, 1000)
+    }, this)
+    clearTween.start()
 }
 
 

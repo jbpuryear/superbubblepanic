@@ -12,7 +12,8 @@ function PlayerStateMachine(player, ctlr) {
         floating: new Floating(this),
         flying: new Flying(this),
         standing: new Standing(this),
-        stunned: new Stunned(this)
+        stunned: new Stunned(this),
+        victory: new Victory(this)
     }
 
     this.current = this.states.standing
@@ -431,3 +432,38 @@ Stunned.prototype = {
         this.machine.change('standing')
     }
 }
+
+
+function Victory(machine) {
+  PlayerState.call(this, machine)
+  this.started = false
+}
+
+Victory.prototype = {
+  enter: function() {
+    if (this.player.game.state.getCurrentState().gravity === 0) {
+      this.machine.change('floating')
+    }
+    this.started = false
+  },
+
+  update: function() {
+    if (this.player.standing && !this.started) {
+      this.player.facing = 1
+      this.player.character.animations.stop()
+      this.player.character.frameName = 'p1-victory'
+      this.player.weapon.x = this.player.character.width/4
+      this.player.weapon.y = -this.player.character.height/3
+      this.player.weapon.rotation = -Math.PI/4
+      this.player.weapon.pivot.setTo(0.5, 0.5)
+      this.player.game.add.tween(this.player.weapon)
+        .to({rotation: -Math.PI * 4.25}, 500, null, true, 200)
+      this.started = true
+      this.player.body.vel.x = 0
+      this.player.body.vel.y = 0
+    }
+  },
+
+  exit: function() {}
+}
+
