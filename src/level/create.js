@@ -5,6 +5,7 @@ var mapsConfig = require('../../assets/mapsConfig.json')
 
 
 module.exports = function create() {
+    this.won = false
 
     this.soundPool = []
     for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))

@@ -149,6 +149,12 @@
             "key": "step",
             "urls": ["assets/audio/step.ogg"],
             "autoDecode": true
+	      },
+        {
+            "type": "audio",
+            "key": "victory-jingle",
+            "urls": ["assets/audio/victory-jingle.ogg"],
+            "autoDecode": true
 	      }
     ],
 
