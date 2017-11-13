@@ -18,6 +18,7 @@ function Enemy(state, data, drop) {
         pop: 'pop',
         bounce: 'bounce'
     }
+    this.lastBounce = 0
 
     this.frameName = this.defaultFrame
 
@@ -31,6 +32,9 @@ function Enemy(state, data, drop) {
     this.body.setCollisionGroup(state.enemiesCG)
     this.body.collideWorldBounds = false;
     this.body.collides([state.platformsCG, state.physics.p2.boundsCollisionGroup], function() {
+        var oldBounce = this.lastBounce
+        this.lastBounce = state.time.now
+        if (state.time.now - oldBounce < 250) return
         var snd = state.playSound(this.sounds.bounce)
         if (snd && snd.isPlaying && snd.usingWebAudio) {
             var scale = 128/this.width
