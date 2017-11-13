@@ -129,6 +129,7 @@ Level.prototype.paintFXupdate = function() {
 
 
 Level.prototype.playSound = function(key, randomize, useBulletTime, lock, repeat) {
+    if (!this.cache.isSoundDecoded(key)) return
     lock = lock || false
     repeat = repeat || false
     if (useBulletTime === undefined) useBulletTime = true
@@ -181,7 +182,7 @@ Level.prototype.shutdown = function() {
     this.splatter.destroy()
     this.gameOverScreen.destroy()
     this.time.slowMotion = 1
-    this.soundtrack.stop()
+    if (this.soundtrack) this.soundtrack.stop()
 }
 
 
@@ -208,6 +209,7 @@ Level.prototype.startMusic = function() {
     var track = Phaser.ArrayUtils.getRandomItem(
         mapsConfig[this.map.properties.setting].songs)
     this.soundtrack = this.sound.addSprite(track)
+    if (!this.soundtrack) return
     if (this.soundtrack.get('intro')) {
         var intro = this.soundtrack.play('intro')
         intro.onMarkerComplete.addOnce(function () { this.soundtrack.play('loop') }, this)
