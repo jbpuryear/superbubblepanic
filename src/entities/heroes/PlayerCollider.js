@@ -68,6 +68,9 @@ PlayerCollider.prototype = {
           dy = p*v[1]
         }
 
+        this.collide(this.body.kick.mx, this.body.kick.my, dt)
+        this.body.kick.x = 0
+        this.body.kick.y = 0
         this.collide(dx, dy, dt)
     },
 
