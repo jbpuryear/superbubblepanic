@@ -258,6 +258,7 @@ Floating.prototype.thrust = 200
 
 Floating.prototype.exit = function() {
     var player = this.player
+    if (player.health > 0) return
     var state = player.game.state.getCurrentState()
     state.glass.x = player.x
     state.glass.y = player.y
