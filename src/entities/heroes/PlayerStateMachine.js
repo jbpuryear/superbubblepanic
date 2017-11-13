@@ -19,6 +19,7 @@ function PlayerStateMachine(player, ctlr) {
     this.current = this.states.standing
 
     this.player.body.vel = new Phaser.Physics.P2.InversePointProxy(player.game.physics.p2, [0, 0])
+    this.player.body.kick = new Phaser.Physics.P2.InversePointProxy(player.game.physics.p2, [0, 0])
 
     var g = player.game
     var tankMargin = 20
@@ -132,8 +133,12 @@ PlayerState.prototype = {
             plyr.character.animations.stop()
             plyr.character.frameName = 'p1-shoot'
             var angle = plyr.weapon.rotation
-            plyr.body.vel.x -= 8 * Math.cos(angle)
-            plyr.body.vel.y -= 8 * Math.sin(angle)
+            if (plyr.standing) {
+              plyr.body.kick.x += -3 * plyr.facing
+            } else {
+              plyr.body.vel.x -= 8 * Math.cos(angle)
+              plyr.body.vel.y -= 8 * Math.sin(angle)
+            }
             plyr.weapon.x = -2
             this.machine.shooting = true
             plyr.game.time.events.add(60, function() {
