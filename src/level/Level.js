@@ -189,6 +189,10 @@ Level.prototype.loseCondition = function() {
 }
 
 
+Level.prototype.setSize = function() {
+  this.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels)
+}
+
 Level.prototype.startFX = function() {
     var go = this.add.image(this.world.width/2, this.world.height/2,
         'sprites', 'go')

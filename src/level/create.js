@@ -62,7 +62,7 @@ function makeGameOverScreen(state) {
     var gameOverScreen = state.make.graphics()
     gameOverScreen.beginFill(0x000000)
     gameOverScreen.drawRect(
-        0, 0, state.world.width, state.world.height)
+        0, 0, state.game.width, state.game.height)
     gameOverScreen.endFill()
     state.gameOverScreen = state.make.image(
         0, 0, gameOverScreen.generateTexture())
@@ -70,12 +70,12 @@ function makeGameOverScreen(state) {
     var GOtext = state.entities.smallFont(state, 'x: menu r: retry')
     GOtext.anchor.setTo(0, 1)
     GOtext.x = 16
-    GOtext.y = state.world.height-16
+    GOtext.y = state.game.height-16
 
     state.gameOverScreen.addChild(GOtext)
     state.gameOverScreen.alpha = 0
     state.gameOverScreen.exists = false
-    state.world.addChild(state.gameOverScreen)
+    state.stage.addChild(state.gameOverScreen)
 }
 
 
@@ -96,7 +96,6 @@ function paintBackground(state) {
 
 
 function makeMap(state) {
-  console.log(state.map)
     state.map.addTilesetImage(state.tileset, state.tileset, 8, 8)
     var plats = state.physics.p2
         .convertCollisionObjects(state.map, 'platform', true)

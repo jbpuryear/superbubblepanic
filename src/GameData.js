@@ -53,7 +53,6 @@ GameData.prototype = {
   checkWin(key) {
     var id = this.getLevelIndex(key)
     this.lastCompleted = Math.max(id, this.lastCompleted)
-    console.log(this.lastCompleted, id, key)
   },
 
   getLevelIndex(key) {

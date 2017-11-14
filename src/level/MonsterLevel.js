@@ -32,10 +32,8 @@ MonsterLevel.prototype.create = function() {
   this.background.destroy()
   this.background = bg
 
-  this.scale.setGameSize(WIDTH, HEIGHT)
   var p1 = this.p1 = this.players.children[0]
 
-  this.world.setBounds(0, 0, worldWidth, worldHeight)
   this.camera.lerp.setTo(0.1)
   this.camera.bounds = this.world.bounds
   this.reticule.follow(p1, X_CLAMP, Y_CLAMP)
@@ -52,5 +50,10 @@ MonsterLevel.prototype.update = function() {
   var dx = (xMid - (this.camera.x+this.camera.width/2)) * 0.1 + this.camera.x+this.camera.width/2
   var dy = (yMid - (this.camera.y+this.camera.height/2)) * 0.1 + this.camera.y+this.camera.height/2
   this.camera.focusOnXY(dx, dy)
+}
+
+
+MonsterLevel.prototype.setSize = function() {
+  this.scale.setGameSize(WIDTH, HEIGHT)
 }
 
