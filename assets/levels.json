@@ -18,6 +18,15 @@
     },
     {
       "type": "tilemap",
+      "key": "monster",
+      "url": "assets/levels/monster.json",
+      "format": "TILED_JSON",
+      "mapX": 100,
+      "mapY": 100,
+      "state": "MonsterLevel"
+    },
+    {
+      "type": "tilemap",
       "key": "seeker",
       "url": "assets/levels/seeker.json",
       "format": "TILED_JSON",

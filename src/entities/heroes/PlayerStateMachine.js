@@ -31,6 +31,8 @@ function PlayerStateMachine(player, ctlr) {
     fuel.width = tank.width - 4
     fuel.height = this.fuelHeight
     fuel.alpha = 0.8
+    fuel.fixedToCamera = true
+    tank.fixedToCamera = true
     g.state.getCurrentState().hud.add(fuel)
     g.state.getCurrentState().hud.add(tank)
 }

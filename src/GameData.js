@@ -11,6 +11,8 @@ function GameData(game) {
   this.lastCompleted = -1
 
   this.load()
+  // TODO remove me
+  this.lastCompleted = 2
 }
 
 

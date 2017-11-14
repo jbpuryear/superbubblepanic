@@ -251,6 +251,13 @@
             "frameHeight": 8
         },
         {
+            "type": "spritesheet",
+            "key": "living-tissue-tileset",
+            "url": "assets/images/living-tissue-tileset.png",
+            "frameWidth": 16,
+            "frameHeight": 16
+        },
+        {
             "type": "image",
             "key": "city",
             "url": "assets/images/backgrounds/city.png"
@@ -269,6 +276,11 @@
             "type": "image",
             "key": "space",
             "url": "assets/images/backgrounds/space.png"
+        },
+        {
+            "type": "image",
+            "key": "living-tissue",
+            "url": "assets/images/backgrounds/living-tissue.png"
         },
         {
             "type": "atlasJSONHash",

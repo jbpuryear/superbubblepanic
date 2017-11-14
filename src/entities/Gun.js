@@ -62,8 +62,8 @@ Gun.prototype.fire = function(newShot) {
         this.lastShot = now
 
         var theta = this.rotation
-        var x = this.worldPosition.x + (this.width/2 * Math.cos(theta))
-        var y = this.worldPosition.y + (this.width/2 * Math.sin(theta))
+        var x = this.world.x + (this.width/2 * Math.cos(theta))
+        var y = this.world.y + (this.width/2 * Math.sin(theta))
 
         bullets.forEach(function(bullet, i) {
             var speedBonus = this.speedMul * (1 + (Math.random()*2 - 1)*this.speedVar)

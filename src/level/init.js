@@ -5,6 +5,7 @@ module.exports = function init(map) {
     this.mapName = map
 
     this.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels)
+    this.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
 
     setPhysics(this)
 }

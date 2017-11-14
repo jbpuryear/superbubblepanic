@@ -18,9 +18,9 @@ function Bullet(state, x, y, texture) {
     this.body.setCircle(BODY_RADIUS);
     this.body.data.gravityScale = 0;
     this.body.collideWorldBounds = false;
+    this.autoCull = true;
+    this.outOfCameraBoundsKill = true;
     this.body.mass = 0.6;
-    this.checkWorldBounds = true;
-    this.outOfBoundsKill = true;
     this.body.setCollisionGroup(state.bulletsCG);
     this.body.collides([state.enemiesCG, state.platformsCG], this.hit, this);
 }
@@ -53,3 +53,4 @@ Bullet.prototype.fire = function(x, y, theta, speedBonus) {
     this.body.velocity.x = Math.cos(theta) * speed;
     this.body.velocity.y = Math.sin(theta) * speed;
 } 
+
