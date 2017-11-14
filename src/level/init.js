@@ -4,7 +4,7 @@ module.exports = function init(map) {
     this.map = this.add.tilemap(map)
     this.mapName = map
 
-    this.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels)
+    this.setSize()
     this.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
 
     setPhysics(this)
@@ -14,7 +14,6 @@ module.exports = function init(map) {
 function setPhysics(state) {
     var p2 = state.physics.p2
     p2.setImpactEvents(true)
-  console.log(state.gravity)
     p2.gravity.y = state.gravity
     p2.applyGravity = state.gravity === 0 ? false : true
     p2.applyDamping = false
