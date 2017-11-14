@@ -18,6 +18,7 @@ Level.prototype.entities = require('../entities/entities.js')
 Level.prototype.init = require('./init.js')
 Level.prototype.parseDrop = require('./parseDrop.js')
 
+Level.prototype.tileset = 'tiles'
 
 Level.prototype.addEntity = function(data) {
     data.properties = data.properties || {}
@@ -73,9 +74,6 @@ Level.prototype.changeTime = function(factor) {
 
 
 Level.prototype.exit = function() {
-    this.stage.reticule.exists = true
-    this.stage.reticule.animations.stop()
-    this.stage.reticule.frameName = 'reticule'
     this.state.start('LevelSelect')
 }
 

@@ -3,6 +3,7 @@ module.exports = LevelSelect
 
 var Button = require('./gui/Button.js')
 var Character = require('./entities/heroes/Character.js')
+var Reticule = require('./Reticule.js')
 
 
 function LevelSelect() {
@@ -19,7 +20,7 @@ LevelSelect.prototype = {
     this.walkPoints = []
     this.walkDirection = 1
     this.characterAt = null
-    this.reticule = this.stage.reticule
+    this.reticule = new Reticule(this.game)
     this.trail = this.add.graphics()
 
     this.inputEnabled = true
@@ -76,6 +77,7 @@ LevelSelect.prototype = {
     this.playerIcon.x = lvl.mapX
     this.playerIcon.y = lvl.mapY
     if (lastPlayed > lastCompleted) this.walkTo(lastCompleted)
+    this.world.add(this.reticule)
   },
 
 

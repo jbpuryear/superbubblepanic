@@ -2,7 +2,6 @@ module.exports = Load
 
 
 var entities = require('./entities/entities.js')
-var Reticule = require('./Reticule.js')
     
     
 function Load() {
@@ -30,9 +29,6 @@ Load.prototype = {
     },
 
     create: function() {
-        var reticule = new Reticule(this.game)
-        this.stage.addChild(reticule)
-        this.stage.reticule = reticule
         //this.state.start('Menu')
         this.state.start('LevelSelect')
     }

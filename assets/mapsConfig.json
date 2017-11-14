@@ -29,6 +29,13 @@
         ]
     },
 
+    "monster": {
+        "bgImage": "living-tissue",
+        "songs": [
+            "memory"
+        ]
+    },
+
     "menu": {
         "bgImage": "desert",
         "songs": ["menu-theme"]

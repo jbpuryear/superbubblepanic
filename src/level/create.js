@@ -2,6 +2,7 @@ var BrkPlat = require('../entities/BrkPlat.js')
 var Explosion = require('../magic/Explosion.js')
 var Blood = require('../magic/Blood.js')
 var mapsConfig = require('../../assets/mapsConfig.json')
+var Reticule = require('../Reticule.js')
 
 
 module.exports = function create() {
@@ -13,7 +14,7 @@ module.exports = function create() {
     if (this.map.properties && this.map.properties.setting) 
         paintBackground(this)
 
-    this.reticule = this.stage.reticule
+    this.reticule = new Reticule(this.game)
     this.reticule.exists = true
     this.reticule.animations.stop()
     this.reticule.frameName = 'reticule'
@@ -46,6 +47,7 @@ module.exports = function create() {
 
     this.time.events.add(500, this.startMusic, this)
     this.startFX()
+    this.world.add(this.reticule)
 }
 
 
@@ -89,11 +91,13 @@ function paintBackground(state) {
     var scale = Math.max(wWidth/bg.width, wHeight/bg.height)
     bg.width *= scale
     bg.height *= scale
+    state.background = bg
 }
 
 
 function makeMap(state) {
-    state.map.addTilesetImage('tiles', 'tiles', 8, 8)
+  console.log(state.map)
+    state.map.addTilesetImage(state.tileset, state.tileset, 8, 8)
     var plats = state.physics.p2
         .convertCollisionObjects(state.map, 'platform', true)
 
