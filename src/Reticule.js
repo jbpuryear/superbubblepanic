@@ -10,7 +10,7 @@ function Reticule(game, x, y) {
   this._follow = null
   this._xClamp = 0
   this._yClamp = 0
-  this._xRel = 0
+  this._xRel = 40
   this._yRel = 0
 }
 

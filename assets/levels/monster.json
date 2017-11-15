@@ -24,8 +24,8 @@
                  "type":"player1",
                  "visible":true,
                  "width":16,
-                 "x":16,
-                 "y":96
+                 "x":944,
+                 "y":960
                 }, 
                 {
                  "ellipse":true,
@@ -38,6 +38,17 @@
                  "width":96,
                  "x":576,
                  "y":176
+                }, 
+                {
+                 "height":192,
+                 "id":298,
+                 "name":"",
+                 "rotation":0,
+                 "type":"trigger",
+                 "visible":true,
+                 "width":16,
+                 "x":1008,
+                 "y":784
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -378,7 +389,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":297,
+ "nextobjectid":299,
  "orientation":"orthogonal",
  "properties":
     {
