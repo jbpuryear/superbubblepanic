@@ -82,7 +82,6 @@ PlayerStateMachine.prototype = {
 function PlayerState(machine) {
     this.machine = machine
     this.player = machine.player
-    this.ctlr = machine.ctlr
 }
 
 PlayerState.prototype = {
@@ -91,7 +90,7 @@ PlayerState.prototype = {
 
     update: function() {
         var plyr = this.player
-        var ctlr = this.ctlr
+        var ctlr = this.machine.ctlr
 
         if (this.machine.shooting) {
             plyr.character.animations.stop()
@@ -131,7 +130,7 @@ PlayerState.prototype = {
     onShoot: function() {
         var plyr = this.player
         if (!plyr.weapon) return
-        if (plyr.weapon.fire(this.ctlr.newShot)) {
+        if (plyr.weapon.fire(this.machine.ctlr.newShot)) {
             plyr.character.animations.stop()
             plyr.character.frameName = 'p1-shoot'
             var angle = plyr.weapon.rotation
@@ -270,7 +269,7 @@ Floating.prototype.exit = function() {
 
 Floating.prototype.update = function() {
     var plyr = this.player
-    if (!this.ctlr.up && this.wasThrusting) {
+    if (!this.machine.ctlr.up && this.wasThrusting) {
       plyr.fx.backfire()
       this.wasThrusting = false
     }
@@ -334,7 +333,7 @@ Flying.prototype.update = function() {
     var plyr = this.player
     var mchn = this.machine
 
-    if (mchn.fuel <= 0 || !this.ctlr.up) {
+    if (mchn.fuel <= 0 || !this.machine.ctlr.up) {
         mchn.change('falling')
         return
     }
