@@ -194,9 +194,10 @@ Level.prototype.setSize = function() {
 }
 
 Level.prototype.startFX = function() {
-    var go = this.add.image(this.world.width/2, this.world.height/2,
+    var go = this.add.image(this.game.width/2, this.game.height/2,
         'sprites', 'go')
     go.anchor.setTo(0.5)
+    go.fixedToCamera = true
     var goTween = this.add.tween(go)
     goTween.to({width: go.width * 4, height: go.height * 4, alpha: 0},
         800, Phaser.Easing.Quartic.In)
@@ -247,21 +248,23 @@ Level.prototype.update = function() {
 
     if (this.loseCondition()) this.gameOver()
     else if (!this.won && this.winCondition()) {
-      this.time.events.add(200, this.win, this)
+      this.win()
       this.won = true
     }
 }
 
 
 Level.prototype.win = function() {
+  this.time.events.add(200, function() {
     this.game.data.checkWin(this.mapName)
     this.soundtrack.stop()
     this.sound.play('victory-jingle')
     this.players.children[0].playerState.change('victory')
 
-    var clear = this.add.image(this.world.width/2, this.world.height/2,
+    var clear = this.add.image(this.game.width/2, this.game.height/2,
         'sprites', 'stage-clear')
     clear.anchor.setTo(0.5)
+    clear.fixedToCamera = true
     var clearTween = this.add.tween(clear)
     clearTween.from({width: clear.width * 4, height: clear.height * 4, alpha: 0},
         800, Phaser.Easing.Quartic.Out, null, 200)
@@ -272,6 +275,7 @@ Level.prototype.win = function() {
       this.camera.fade(0xf6eeee, 1000)
     }, this)
     clearTween.start()
+  }, this)
 }
 
 

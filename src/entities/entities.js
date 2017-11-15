@@ -13,6 +13,8 @@ var Gravity = require('./bullets/Gravity.js');
 var Grenade = require('./bullets/Grenade.js');
 var Bouncy = require('./bullets/Bouncy');
 
+var Trigger = require('./Trigger.js');
+
 var SmallFont = require('./SmallFont.js')
 
 
@@ -151,4 +153,10 @@ module.exports = {
             clipSize: 3,
         }, Bouncy);
     },
+
+
+    // Misc
+    trigger: function(state, data) {
+      return new Trigger(state, data)
+    }
 }
