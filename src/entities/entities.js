@@ -158,5 +158,13 @@ module.exports = {
     // Misc
     trigger: function(state, data) {
       return new Trigger(state, data)
+    },
+
+
+    rocket: function(state, data) {
+      var sprite = state.make.sprite(data.x, data.y, 'sprites', 'rocket')
+      sprite.anchor.setTo(0.5)
+      state.bgItems.add(sprite)
+      state.rocket = sprite
     }
 }

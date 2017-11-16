@@ -19,6 +19,7 @@ module.exports = function create() {
     this.reticule.animations.stop()
     this.reticule.frameName = 'reticule'
 
+    this.bgItems = this.make.group()
     this.players = this.make.group()
     this.enemies = this.make.group()
     this.items = this.make.group()
@@ -33,6 +34,7 @@ module.exports = function create() {
     makeMap(this)
 
     this.add.image(0, 0, this.splatter)
+    this.world.addChild(this.bgItems)
     this.world.addChild(this.players)
     this.world.addChild(this.enemies)
     this.world.addChild(this.items)
@@ -48,6 +50,7 @@ module.exports = function create() {
     this.time.events.add(500, this.startMusic, this)
     this.startFX()
     this.world.add(this.reticule)
+    this.p1 = this.players.children[0]
 }
 
 

@@ -6,6 +6,7 @@ var Boot = require('./boot.js');
 var Load = require('./load.js');
 var Level = require('./level/Level.js');
 var ZeroGLevel = require('./level/ZeroGLevel.js');
+var RocketLevel = require('./level/RocketLevel.js');
 var MonsterLevel = require('./level/MonsterLevel.js');
 var Arcade = require('./arcade/arcade.js');
 var Menu = require('./menu/menu.js');
@@ -23,6 +24,7 @@ function Game() {
     game.state.add('Boot', new Boot);
     game.state.add('Load', new Load);
     game.state.add('Level', new Level);
+    game.state.add('RocketLevel', new RocketLevel);
     game.state.add('ZeroGLevel', new ZeroGLevel);
     game.state.add('MonsterLevel', new MonsterLevel);
     game.state.add('Menu', new Menu);
