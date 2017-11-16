@@ -27,6 +27,15 @@
     },
     {
       "type": "tilemap",
+      "key": "rocket",
+      "url": "assets/levels/rocket.json",
+      "format": "TILED_JSON",
+      "mapX": 300,
+      "mapY": 300,
+      "state": "RocketLevel"
+    },
+    {
+      "type": "tilemap",
       "key": "seeker",
       "url": "assets/levels/seeker.json",
       "format": "TILED_JSON",
