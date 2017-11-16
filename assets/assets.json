@@ -264,6 +264,11 @@
         },
         {
             "type": "image",
+            "key": "world-map",
+            "url": "assets/images/backgrounds/world-map.png"
+        },
+        {
+            "type": "image",
             "key": "desert",
             "url": "assets/images/backgrounds/desert.png"
         },
