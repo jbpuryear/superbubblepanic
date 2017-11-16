@@ -20,6 +20,9 @@ LevelSelect.prototype = {
     this.walkPoints = []
     this.walkDirection = 1
     this.characterAt = null
+    this.bg = this.add.image(0, 0, 'world-map')
+    this.scale.setGameSize(this.bg.width, this.bg.height)
+    this.world.setBounds(0, 0, this.game.width, this.game.height)
     this.reticule = new Reticule(this.game)
     this.trail = this.add.graphics()
 
@@ -36,7 +39,7 @@ LevelSelect.prototype = {
     var lastCompleted = this.game.data.lastCompleted
     var lvl = levels[0]
 
-    this.trail.lineStyle(4, 0xffffff, 0.6)
+    this.trail.lineStyle(2, 0xcccccc, 0.4)
     this.trail.moveTo(start.mapX, start.mapY)
     for (var i = 0; i < levels.length; i++) {
       lvl = levels[i]
@@ -60,6 +63,8 @@ LevelSelect.prototype = {
     this.selectIcon = this.add.sprite(0, 0, 'sprites', 'select-icon')
     this.selectIcon.anchor.setTo(0.5)
     this.selectIcon.exists = false
+    this.selectIcon.width = 12
+    this.selectIcon.height = 12
 
     var lastPlayed = this.lastPlayed
     if (lastPlayed !== null) {
@@ -78,6 +83,8 @@ LevelSelect.prototype = {
     this.playerIcon.y = lvl.mapY
     if (lastPlayed > lastCompleted) this.walkTo(lastCompleted)
     this.world.add(this.reticule)
+
+    this.camera.flash(0x180c08, 1000)
   },
 
 
@@ -142,6 +149,8 @@ function LevelButton(state, level, frame) {
   Button.call(this, state, 'sprites', frame, this.callback, this)
   this.state = state
   this.level = level
+  this.width = 8
+  this.height = 8
 }
 
 
