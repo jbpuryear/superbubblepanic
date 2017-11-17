@@ -23,8 +23,8 @@ LevelSelect.prototype = {
     this.bg = this.add.image(0, 0, 'world-map')
     this.scale.setGameSize(this.bg.width, this.bg.height)
     this.world.setBounds(0, 0, this.game.width, this.game.height)
-    this.reticule = new Reticule(this.game)
     this.trail = this.add.graphics()
+    this.reticule = new Reticule(this.game)
 
     this.inputEnabled = true
 
@@ -46,6 +46,12 @@ LevelSelect.prototype = {
       this.trail.lineTo(lvl.mapX, lvl.mapY)
     }
 
+    this.selectIcon = this.add.sprite(0, 0, 'sprites', 'select-icon')
+    this.selectIcon.anchor.setTo(0.5)
+    this.selectIcon.exists = false
+    this.selectIcon.width = 20
+    this.selectIcon.height = 20
+
     for (i = 0; i < levels.length; i++) {
       lvl = levels[i]
       if (i <= lastCompleted + 1) {
@@ -61,12 +67,6 @@ LevelSelect.prototype = {
           .anchor.setTo(0.5)
       }
     }
-
-    this.selectIcon = this.add.sprite(0, 0, 'sprites', 'select-icon')
-    this.selectIcon.anchor.setTo(0.5)
-    this.selectIcon.exists = false
-    this.selectIcon.width = 20
-    this.selectIcon.height = 20
 
     var lastPlayed = this.lastPlayed
     if (lastPlayed !== null) {

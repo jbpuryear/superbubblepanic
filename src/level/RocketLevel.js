@@ -62,8 +62,12 @@ RocketLevel.prototype.winLoop = function() {
     this.time.events.add(1000, function() {
       this.takeoff = true
       this.playSound('jetpack', false, false, true)
+      this.add.tween(this.rocket).to({x: this.rocket.x-3}, 400,
+        Phaser.Easing.Bounce.In).yoyo(true)
+        .chain(this.add.tween(this.rocket).to({x: this.rocket.x+3}, 400,
+          Phaser.Easing.Bounce.Out).yoyo(true)).start()
       this.add.tween(this.rocket).to({y: -100}, 1500,
-        Phaser.Easing.Cubic.In, true, 200)
+        Phaser.Easing.Cubic.In, true, 350)
         .onComplete.add(Level.prototype.win, this)
     }, this)
   }
