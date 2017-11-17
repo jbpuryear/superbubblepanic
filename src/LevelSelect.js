@@ -50,10 +50,12 @@ LevelSelect.prototype = {
       lvl = levels[i]
       if (i <= lastCompleted + 1) {
         var frame = i === lastCompleted + 1 ? 'lvlButtonCurrent' : 'lvlButtonComplete'
+        if (lvl.state === 'RocketLevel') frame = 'rocket'
         var butt = new LevelButton(this, lvl, frame)
         butt.x = lvl.mapX
         butt.y = lvl.mapY
         this.world.add(butt)
+        if (lvl.state === 'RocketLevel') butt.anchor.setTo(0.5, 1)
       } else {
         this.add.image(lvl.mapX, lvl.mapY, 'sprites', 'lvlLocked')
           .anchor.setTo(0.5)
@@ -63,8 +65,8 @@ LevelSelect.prototype = {
     this.selectIcon = this.add.sprite(0, 0, 'sprites', 'select-icon')
     this.selectIcon.anchor.setTo(0.5)
     this.selectIcon.exists = false
-    this.selectIcon.width = 12
-    this.selectIcon.height = 12
+    this.selectIcon.width = 20
+    this.selectIcon.height = 20
 
     var lastPlayed = this.lastPlayed
     if (lastPlayed !== null) {
@@ -149,8 +151,8 @@ function LevelButton(state, level, frame) {
   Button.call(this, state, 'sprites', frame, this.callback, this)
   this.state = state
   this.level = level
-  this.width = 8
-  this.height = 8
+  this.width = 16
+  this.height = 16
 }
 
 
