@@ -30,8 +30,8 @@
       "key": "rocket",
       "url": "assets/levels/rocket.json",
       "format": "TILED_JSON",
-      "mapX": 300,
-      "mapY": 300,
+      "mapX": 25,
+      "mapY": 305,
       "state": "RocketLevel"
     },
     {
