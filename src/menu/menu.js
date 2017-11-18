@@ -38,19 +38,23 @@ Menu.prototype.create = function() {
         Phaser.Animation.generateFrameNames('p1-walk', 1, 4), 15, true)
     this.p1.animations.play('sit')
 
-    this.modals = new GUI(this)
+    this.gui = new GUI(this)
 
 
-    var menu = this.modals.modals.menu
-    menu.hiScore.visible = false
-    menu.startBtn.visible = false
-    menu.howToBtn.visible = false
-    
-    this.time.events.add(2000, function() {
-        menu.hiScore.visible = true
-        menu.startBtn.visible = true
-        menu.howToBtn.visible = true
-    })
+    if (this.firstTime) {
+      var menu = this.gui.modals.menu
+      menu.hiScore.visible = false
+      menu.startBtn.visible = false
+      menu.howToBtn.visible = false
+      
+      this.time.events.add(2000, function() {
+          menu.hiScore.visible = true
+          menu.startBtn.visible = true
+          menu.howToBtn.visible = true
+      })
+      this.firstTime = false
+    }
+    this.world.bringToTop(this.reticule)
 } 
 
 
