@@ -85,7 +85,7 @@ LevelSelect.prototype = {
     }
     this.playerIcon = this.world.add(new Character(this))
     this.playerIcon.anchor.setTo(0.5, 1)
-    this.playerIcon.x = lvl.mapbg
+    this.playerIcon.x = lvl.mapX
     this.playerIcon.y = lvl.mapY
     if (lastPlayed > lastCompleted) this.walkTo(lastCompleted)
     this.world.add(this.reticule)
