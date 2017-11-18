@@ -20,8 +20,12 @@ LevelSelect.prototype = {
     this.walkPoints = []
     this.walkDirection = 1
     this.characterAt = null
-    this.bg = this.add.image(0, 0, 'world-map')
-    this.scale.setGameSize(this.bg.width, this.bg.height)
+    var bg = this.bg = this.add.image(0, 0, 'space')
+    var map = this.add.image(0, 0, 'world-map')
+    this.scale.setGameSize(map.width, map.height)
+    this.bg.scale.setTo( Math.max(map.width/bg.width, map.height/bg.height) )
+    this.add.image(410, 10, 'sprites', 'floating-eye')
+      .scale.setTo(2)
     this.world.setBounds(0, 0, this.game.width, this.game.height)
     this.trail = this.add.graphics()
     this.reticule = new Reticule(this.game)
@@ -81,7 +85,7 @@ LevelSelect.prototype = {
     }
     this.playerIcon = this.world.add(new Character(this))
     this.playerIcon.anchor.setTo(0.5, 1)
-    this.playerIcon.x = lvl.mapX
+    this.playerIcon.x = lvl.mapbg
     this.playerIcon.y = lvl.mapY
     if (lastPlayed > lastCompleted) this.walkTo(lastCompleted)
     this.world.add(this.reticule)
