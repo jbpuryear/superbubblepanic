@@ -4,7 +4,6 @@ module.exports = Credits
 var fs = require('fs')
 var SmallFont = require('./entities/SmallFont.js')
 var text = fs.readFileSync(__dirname + '/../credits.txt', 'utf8')
-console.log(text)
 
 
 function Credits() {
