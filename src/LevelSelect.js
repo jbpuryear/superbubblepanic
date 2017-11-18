@@ -38,6 +38,7 @@ LevelSelect.prototype = {
     var startBtn = this.world.add(new LevelButton(this, start, 'map-start'))
     startBtn.x = start.mapX
     startBtn.y = start.mapY
+    startBtn.anchor.setTo(0.5, 1)
 
     if (levels.length === 0) return
     var lastCompleted = this.game.data.lastCompleted
