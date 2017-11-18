@@ -8,7 +8,6 @@ var Btn = require('../gui/TextButton.js')
 function HowToModal(state, gui) {
     Modal.call(this, state, gui)
     var info = state.entities.smallFont(state)
-    info.font.multiLine = true
     info.font.align = Phaser.RetroFont.ALIGN_CENTER
     info.font.text = 'CONTROLS\n\n'
         + 'X - MAIN MENU\n\n'

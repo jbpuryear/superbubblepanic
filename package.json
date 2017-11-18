@@ -11,7 +11,9 @@
     "spritesmith-cli": "^1.1.2",
     "spritesmith-texturepacker": "^1.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "brfs": "^1.4.3"
+  },
   "scripts": {
     "pack": "spritesmith",
     "test": "echo \"Error: no test specified\" && exit 1"

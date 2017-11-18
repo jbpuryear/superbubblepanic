@@ -30,7 +30,7 @@ Load.prototype = {
 
     create: function() {
         //this.state.start('Menu')
-        this.state.start('LevelSelect')
+        this.state.start('Credits')
     }
 }
 

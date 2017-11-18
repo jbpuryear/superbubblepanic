@@ -4,13 +4,14 @@ module.exports = Game;
 var GameData = require('./GameData.js')
 var Boot = require('./boot.js');
 var Load = require('./load.js');
+var Menu = require('./menu/menu.js');
+var LevelSelect = require('./LevelSelect.js');
 var Level = require('./level/Level.js');
 var ZeroGLevel = require('./level/ZeroGLevel.js');
 var RocketLevel = require('./level/RocketLevel.js');
 var MonsterLevel = require('./level/MonsterLevel.js');
 var Arcade = require('./arcade/arcade.js');
-var Menu = require('./menu/menu.js');
-var LevelSelect = require('./LevelSelect.js');
+var Credits = require('./Credits.js');
 
 
 function Game() {
@@ -30,6 +31,7 @@ function Game() {
     game.state.add('Menu', new Menu);
     game.state.add('Arcade', new Arcade);
     game.state.add('LevelSelect', new LevelSelect);
+    game.state.add('Credits', new Credits);
 
     game.state.start('Boot');
 
