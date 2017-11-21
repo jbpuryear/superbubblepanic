@@ -264,6 +264,11 @@
         },
         {
             "type": "image",
+            "key": "ocean",
+            "url": "assets/images/backgrounds/ocean.png"
+        },
+        {
+            "type": "image",
             "key": "world-map",
             "url": "assets/images/backgrounds/world-map.png"
         },

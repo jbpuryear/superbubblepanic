@@ -7,9 +7,16 @@ Code written by me and licensed under [CC BY-SA 4.0](https://creativecommons.org
 
 ###Images
 
-All images created by me except for the backgrounds and Living Tissue Tileset which are based on work by [Ansimuz](http://ansimuz.com), logo.png and go.png which use a pallette swapped version of [Pixel Block Font ](https://opengameart.org/content/pixel-block-font) by [J-Robot](https://j-robotson.tumblr.com/), and small-font.png which is some random font I can't find the source for.
+All images created by me except for:
+* The city, desert, space, and living tissue background, and the Living Tissue Tileset which are based on (better) works by [Ansimuz](http://ansimuz.com)
+* The ocean background by KnoblePersona (palette swapped)
+* logo.png and go.png which use a pallette swapped version of [Pixel Block Font ](https://opengameart.org/content/pixel-block-font) by [J-Robot](https://j-robotson.tumblr.com/)
+* Small-font.png
 
-All images licenced under [CC0](https://creativecommons.org/publicdomain/zero/1.0/) except for the Living Tissue tileset and background and works using Pixel Block Font which are under under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+All images licenced under [CC0](https://creativecommons.org/publicdomain/zero/1.0/) except for:
+* The Living Tissue tileset and background [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+* Images which use Pixel Block Font [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+* The ocean background [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 
 ###Music
 

@@ -1,12 +1,10 @@
 Super Bubble Panic
-by Jeemz
+by jeemz
 
 
-
-
-Background Art by Ansimuz
-
-
+Featuring Art by
+Ansimuz
+KnoblePersona
 
 
 Music
@@ -18,12 +16,12 @@ Everything is Changing by Noi
 N35-40-19-800 by Springtide
 
 
-
-
 With Sound FX By
 dklon & Michel Baradari
 
 
+for full credits and licenses
+please consult the readme
 
 
 Thanks To

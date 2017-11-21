@@ -3,7 +3,8 @@
         "bgImage": "city",
         "songs": [
             "memory"
-        ]
+        ],
+        "tiles": "tiles"
     },
 
     "desert": {
@@ -12,32 +13,45 @@
             "everything-is-changing",
             "N35-40-19-800",
             "spring-summer"
-        ]
+        ],
+        "tiles": "tiles"
     },
 
     "forest": {
         "bgImage": "forest",
         "songs": [
             "memory"
-        ]
+        ],
+        "tiles": "tiles"
+    },
+
+    "launch-pad": {
+        "bgImage": "ocean",
+        "songs": [
+            "memory"
+        ],
+        "tiles": "tiles"
     },
 
     "space": {
         "bgImage": "space",
         "songs": [
             "memory"
-        ]
+        ],
+        "tiles": "tiles"
     },
 
     "monster": {
         "bgImage": "living-tissue",
         "songs": [
             "memory"
-        ]
+        ],
+        "tiles": "living-tissue-tileset"
     },
 
     "menu": {
         "bgImage": "desert",
-        "songs": ["menu-theme"]
+        "songs": ["menu-theme"],
+        "tiles": "tiles"
     }
 }

@@ -14,7 +14,7 @@
       "format": "TILED_JSON",
       "mapX": 10,
       "mapY": 40,
-      "state": "ZeroGLevel"
+      "state": "Level"
     },
     {
       "type": "tilemap",
