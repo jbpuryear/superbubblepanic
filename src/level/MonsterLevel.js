@@ -81,7 +81,6 @@ MonsterLevel.prototype.winCondition = function() {
 
 MonsterLevel.prototype.winLoop = function() {
   var p1 = this.p1
-  console.log(p1)
   if (p1.standing) {
     var d = this.world.width + p1.width
     var dx = d - p1.world.x

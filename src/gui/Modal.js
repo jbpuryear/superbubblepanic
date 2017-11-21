@@ -6,6 +6,7 @@ function Modal(state, gui) {
     this.gui = gui
     this.x = 144
     this.y = 16
+    this.exists = false
     this.visible = false
 }
 
@@ -21,6 +22,7 @@ Modal.prototype.enter = function() {
     }, 500, Phaser.Easing.Cubic.In)
     this.game.time.events.add(500, function() {
         this.visible = true
+        this.exists = true
         tween.start()
     }, this)
 }
@@ -37,6 +39,7 @@ Modal.prototype.exit = function() {
     }, 500, Phaser.Easing.Cubic.In)
     tween.onComplete.add(function() {
         this.visible = false
+        this.exists = false
         this.y = y
         this.height = height
         this.width = width

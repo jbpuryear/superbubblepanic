@@ -43,12 +43,12 @@ Menu.prototype.create = function() {
 
     if (this.firstTime) {
       var menu = this.gui.modals.menu
-      menu.hiScore.visible = false
+      // menu.hiScore.visible = false
       menu.startBtn.visible = false
       menu.howToBtn.visible = false
       
       this.time.events.add(2000, function() {
-          menu.hiScore.visible = true
+          // menu.hiScore.visible = true
           menu.startBtn.visible = true
           menu.howToBtn.visible = true
       })
