@@ -18,8 +18,6 @@ Level.prototype.entities = require('../entities/entities.js')
 Level.prototype.init = require('./init.js')
 Level.prototype.parseDrop = require('./parseDrop.js')
 
-Level.prototype.tileset = 'tiles'
-
 Level.prototype.addEntity = function(data) {
     data.properties = data.properties || {}
     var type = data.type
