@@ -25,7 +25,7 @@ LevelSelect.prototype = {
     var map = this.world.add(new WorldMap(this.game))
     this.scale.setGameSize(map.map.width, map.map.height)
     this.bg.scale.setTo( Math.max(this.game.width/bg.width, this.game.height/bg.height) )
-    this.bg.scale.setTo( bg.scale.x * 1.25 )
+    bg.scale.setTo( bg.scale.x * 1.25 )
     this.add.image(410, 10, 'sprites', 'floating-eye')
       .scale.setTo(2)
     this.world.setBounds(0, 0, this.game.width, this.game.height)
@@ -57,9 +57,14 @@ LevelSelect.prototype = {
     for (i = 0; i < levels.length; i++) {
       lvl = levels[i]
       if (i <= lastCompleted + 1) {
-        var frame = i === lastCompleted + 1 ? 'lvlButtonCurrent' : 'lvlButtonComplete'
-        if (lvl.state === 'RocketLevel') frame = 'rocket'
-        var butt = new LevelButton(this, lvl, frame)
+        if (lvl.state === 'RocketLevel') {
+          var butt = new LevelButton(this, lvl, 'rocket')
+        } else {
+          var frame = i === lastCompleted + 1 ? 'lvlButtonCurrent' : 'lvlButtonComplete'
+          var butt = new LevelButton(this, lvl, frame + '1')
+          butt.animations.add('blink', [frame + '1', frame + '1', frame + '2'])
+          butt.animations.play('blink', 1.5, true)
+        }
         butt.x = lvl.mapX
         butt.y = lvl.mapY
         symbols.addChild(butt)
