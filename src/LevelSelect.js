@@ -4,6 +4,7 @@ module.exports = LevelSelect
 var Button = require('./gui/Button.js')
 var Character = require('./entities/heroes/Character.js')
 var Reticule = require('./Reticule.js')
+var WorldMap = require('./WorldMap.js')
 
 
 function LevelSelect() {
@@ -21,21 +22,23 @@ LevelSelect.prototype = {
     this.walkDirection = 1
     this.characterAt = null
     var bg = this.bg = this.add.image(0, 0, 'space')
-    var map = this.add.image(0, 0, 'world-map')
-    this.scale.setGameSize(map.width, map.height)
-    this.bg.scale.setTo( Math.max(map.width/bg.width, map.height/bg.height) )
+    var map = this.world.add(new WorldMap(this.game))
+    this.scale.setGameSize(map.map.width, map.map.height)
+    this.bg.scale.setTo( Math.max(this.game.width/bg.width, this.game.height/bg.height) )
+    this.bg.scale.setTo( bg.scale.x * 1.25 )
     this.add.image(410, 10, 'sprites', 'floating-eye')
       .scale.setTo(2)
     this.world.setBounds(0, 0, this.game.width, this.game.height)
-    this.trail = this.add.graphics()
     this.reticule = new Reticule(this.game)
 
     this.inputEnabled = true
 
     var levels = this.game.data.levels
     var start = this.game.data.mapStart
+    var symbols = this.make.group()
+    this.trail = symbols.addChild(this.make.graphics())
 
-    var startBtn = this.world.add(new LevelButton(this, start, 'map-start'))
+    var startBtn = symbols.addChild(new LevelButton(this, start, 'map-start'))
     startBtn.x = start.mapX
     startBtn.y = start.mapY
     startBtn.anchor.setTo(0.5, 1)
@@ -51,12 +54,6 @@ LevelSelect.prototype = {
       this.trail.lineTo(lvl.mapX, lvl.mapY)
     }
 
-    this.selectIcon = this.add.sprite(0, 0, 'sprites', 'select-icon')
-    this.selectIcon.anchor.setTo(0.5)
-    this.selectIcon.exists = false
-    this.selectIcon.width = 20
-    this.selectIcon.height = 20
-
     for (i = 0; i < levels.length; i++) {
       lvl = levels[i]
       if (i <= lastCompleted + 1) {
@@ -65,10 +62,10 @@ LevelSelect.prototype = {
         var butt = new LevelButton(this, lvl, frame)
         butt.x = lvl.mapX
         butt.y = lvl.mapY
-        this.world.add(butt)
+        symbols.addChild(butt)
         if (lvl.state === 'RocketLevel') butt.anchor.setTo(0.5, 1)
       } else {
-        this.add.image(lvl.mapX, lvl.mapY, 'sprites', 'lvlLocked')
+        symbols.addChild(this.make.image(lvl.mapX, lvl.mapY, 'sprites', 'lvlLocked'))
           .anchor.setTo(0.5)
       }
     }
@@ -84,11 +81,20 @@ LevelSelect.prototype = {
       this.characterAt = -1
       lvl = start
     }
-    this.playerIcon = this.world.add(new Character(this))
+    this.playerIcon = symbols.addChild(new Character(this))
     this.playerIcon.anchor.setTo(0.5, 1)
     this.playerIcon.x = lvl.mapX
     this.playerIcon.y = lvl.mapY
     if (lastPlayed > lastCompleted) this.walkTo(lastCompleted)
+
+    map.addAt(symbols, map.getChildIndex(map.clouds))
+
+    this.selectIcon = this.add.sprite(0, 0, 'sprites', 'select-icon')
+    this.selectIcon.anchor.setTo(0.5)
+    this.selectIcon.exists = false
+    this.selectIcon.width = 20
+    this.selectIcon.height = 20
+
     this.world.add(this.reticule)
 
     this.camera.flash(0x180c08, 1000)

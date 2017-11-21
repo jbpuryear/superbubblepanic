@@ -5,6 +5,8 @@ var fs = require('fs')
 var SmallFont = require('./entities/SmallFont.js')
 var text = fs.readFileSync(__dirname + '/../credits.txt', 'utf8')
 
+var WorldMap = require('./WorldMap.js')
+
 
 function Credits() {
 }
@@ -16,29 +18,31 @@ Credits.prototype = {
         .onDown.add(function() { this.state.start('Menu') }, this)
 
     var bg = this.bg = this.add.image(0, 0, 'space')
-    var map = this.map = this.add.image(0, 0, 'world-map')
-    bg.scale.setTo( Math.max(map.width/bg.width, map.height/bg.height) )
-    bg.scale.setTo( bg.scale.x * 1.25 )
+    var map = this.map = this.world.addChild(new WorldMap(this.game))
+    map.eye.exists = false
     
-    this.scale.setGameSize(map.width, map.height)
+    this.scale.setGameSize(map.map.width, map.map.height)
+    bg.scale.setTo( Math.max(this.game.width/bg.width, this.game.height/bg.height) )
+    bg.scale.setTo( bg.scale.x * 1.25 )
 
-    var dust = this.dust = this.add.emitter(map.width/2, map.height, 100)
-    var character = this.character = this.add.sprite(map.width * 0.75, -20, 'sprites', 'p1-space')
+    var dust = this.dust = this.add.emitter(this.game.width/2, this.game.height, 100)
+    var character = this.character = this.add.sprite(
+      this.game.width * 0.75, -20, 'sprites', 'p1-space')
     var scroll = this.add.existing(SmallFont(this, text))
     var thanks = this.add.existing(SmallFont(this, 'Thanks for playing!'))
     thanks.alpha = 0
-    thanks.x = map.width/2
-    thanks.y = map.height/2
+    thanks.x = this.game.width/2
+    thanks.y = this.game.height/2
 
     scroll.anchor.setTo(0, 1)
     scroll.x = 40
-    scroll.y = scroll.height + map.height + 10
+    scroll.y = scroll.height + this.game.height + 10
 
     character.scale.x = -1
 
     dust.makeParticles('sprites', 
         Phaser.Animation.generateFrameNames('dust', 1, 4), 4)
-    dust.setSize(map.width, 1)
+    dust.setSize(this.game.width, 1)
     dust.minParticleSpeed.setTo(0, -2000)
     dust.maxParticleSpeed.setTo(0, -20)
     dust.setRotation(0, 0)
@@ -47,11 +51,11 @@ Credits.prototype = {
     dust.setAll('outOfBoundsKill', true)
     dust.start(false, 0, 250)
 
-    map.y = map.height + 5
-    var scrollTime = 60000
-    var mapTime = 20000
+    map.y = this.game.height + 5
+    var scrollTime = 3000
+    var mapTime = 2000
 
-    this.add.tween(bg).to({y: -(bg.height - map.height)}, scrollTime+mapTime).start()
+    this.add.tween(bg).to({y: -(bg.height - this.game.height)}, scrollTime+mapTime).start()
     this.add.tween(character).to({x: 500, y: 180}, scrollTime+mapTime).start()
     this.add.tween(character.scale).to({x: -0.01, y: 0.01},
       scrollTime+mapTime, Phaser.Easing.Cubic.In)
