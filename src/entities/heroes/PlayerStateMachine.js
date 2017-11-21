@@ -378,9 +378,9 @@ Standing.prototype.update = function() {
     }
 
     if (velx !== 0) {
-        var friction = velx/20 * plyr.speedBonus
+        var friction = plyr.speed/12
         plyr.body.vel.x = velx < 0 ?
-            Math.min(velx - friction, 0) :
+            Math.min(velx + friction, 0) :
             Math.max(velx - friction, 0)
     }
 
