@@ -29,12 +29,13 @@ module.exports = function create() {
     this.splatter = this.make.bitmapData(this.world.width, this.world.height)
     this.splatter.mask = this.make.bitmapData(this.world.width, this.world.height)
 
+    this.world.addChild(this.bgItems)
+
     makeParticles(this)
 
     makeMap(this)
 
     this.add.image(0, 0, this.splatter)
-    this.world.addChild(this.bgItems)
     this.world.addChild(this.players)
     this.world.addChild(this.enemies)
     this.world.addChild(this.items)
@@ -100,6 +101,7 @@ function paintBackground(state) {
 
 function makeMap(state) {
     var conf = mapsConfig[state.map.properties.setting]
+  console.log('foo', conf, state.map)
     state.map.addTilesetImage(conf.tiles)
     var plats = state.physics.p2
         .convertCollisionObjects(state.map, 'platform', true)
@@ -231,4 +233,14 @@ function makeParticles(state) {
     state.glass.setScale(0.25, 1.75, 0.25, 1.75)
     state.glass.setAlpha(0.1, 0.8)
     state.glass.gravity = state.physics.p2.gravity.y
+
+    state.puffs = state.add.emitter(0, 0, 50)
+    state.puffs.makeParticles('sprites', 
+        Phaser.Animation.generateFrameNames('dust', 1, 4))
+    state.puffs.setScale(0.5, 2, 0.5, 2, 400)
+    state.puffs.setAlpha(1, 0.2, 400)
+    state.puffs.setRotation(0)
+    state.puffs.setXSpeed(-40, 40)
+    state.puffs.setYSpeed(-40, 40)
+    state.puffs.gravity = 0
 }
