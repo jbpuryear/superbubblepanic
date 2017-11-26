@@ -80,7 +80,7 @@ Level.prototype.explode = function(x, y, width) {
     this.explosionPool.getFirstDead(true).reset(x, y, width)
     this.puffs.x = x
     this.puffs.y = y
-    this.puffs.explode(800, 20)
+    this.puffs.explode(800, 10)
 }
 
 
@@ -104,7 +104,8 @@ Level.prototype.gameOver = function() {
     this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
     this.gameOverScreen.exists = true
     this.time.slowMotion = 6
-    this.soundtrack.stop()
+    if (this.soundtrack && this.soundtrack.isPlaying)
+      this.soundtrack.stop()
     this.players.forEach(this.world.addChild, this.world)
 }
 
@@ -178,7 +179,8 @@ Level.prototype.shutdown = function() {
     this.splatter.destroy()
     this.gameOverScreen.destroy()
     this.time.slowMotion = 1
-    if (this.soundtrack) this.soundtrack.stop()
+    if (this.soundtrack && this.soundtrack.isPlaying)
+      this.soundtrack.stop()
 }
 
 
@@ -255,7 +257,8 @@ Level.prototype.update = function() {
 Level.prototype.win = function() {
   this.time.events.add(200, function() {
     this.game.data.checkWin(this.mapName)
-    this.soundtrack.stop()
+    if (this.soundtrack && this.soundtrack.isPlaying)
+      this.soundtrack.stop()
     this.sound.play('victory-jingle')
     this.players.children[0].playerState.change('victory')
 
