@@ -32,7 +32,8 @@ Button.prototype.update = function() {
     this.mouseWasOver = this.mouseIsOver
     this.mouseIsOver = this.getBounds().contains(ret.x, ret.y)
 
-    if (this.mouseIsOver && !this.mouseWasOver) this.inputOver.call(this)
+    if (this.mouseIsOver && !this.mouseWasOver) this.inputOver()
+    if (!this.mouseIsOver && this.mouseWasOver) this.inputOut()
 }
 
 
@@ -70,5 +71,9 @@ Button.prototype.inputDown = function() {
 
 Button.prototype.inputOver = function() {
     this.onOverSound.play()
+}
+
+
+Button.prototype.inputOut = function() {
 }
 

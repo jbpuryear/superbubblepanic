@@ -29,8 +29,9 @@ Load.prototype = {
     },
 
     create: function() {
-        //this.state.start('Menu')
-        this.state.start('ShmupLevel', true, false, 'shmup')
+        // this.state.start('Menu')
+        // this.state.start('ShmupLevel', true, false, 'shmup')
+        this.state.start('LevelSelect')
     }
 }
 

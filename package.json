@@ -7,6 +7,7 @@
     "lib": "lib"
   },
   "dependencies": {
+    "@orange-games/phaser-nineslice": "^2.0.1",
     "pixelsmith": "^2.1.2",
     "spritesmith-cli": "^1.1.2",
     "spritesmith-texturepacker": "^1.0.0"

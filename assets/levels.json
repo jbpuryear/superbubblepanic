@@ -3,7 +3,8 @@
     "key": "_menu",
     "mapX": 40,
     "mapY": 40,
-    "state": "Menu"
+    "state": "Menu",
+    "title": "home sweet home"
   },
 
   "levels": [
@@ -14,7 +15,8 @@
       "format": "TILED_JSON",
       "mapX": 10,
       "mapY": 40,
-      "state": "Level"
+      "state": "Level",
+      "title": "and so it begins"
     },
     {
       "type": "tilemap",
@@ -23,7 +25,8 @@
       "format": "TILED_JSON",
       "mapX": 100,
       "mapY": 100,
-      "state": "MonsterLevel"
+      "state": "MonsterLevel",
+      "title": "ooh creepy"
     },
     {
       "type": "tilemap",
@@ -32,7 +35,8 @@
       "format": "TILED_JSON",
       "mapX": 25,
       "mapY": 305,
-      "state": "RocketLevel"
+      "state": "RocketLevel",
+      "title": "ground control"
     },
     {
       "type": "tilemap",
@@ -41,7 +45,8 @@
       "format": "TILED_JSON",
       "mapX": 250,
       "mapY": 305,
-      "state": "ShmupLevel"
+      "state": "ShmupLevel",
+      "title": "the not so friendly skies"
     },
     {
       "type": "tilemap",
@@ -50,7 +55,8 @@
       "format": "TILED_JSON",
       "mapX": 50,
       "mapY": 10,
-      "state": "Level"
+      "state": "Level",
+      "title": "showdown"
     }
   ]
 }
