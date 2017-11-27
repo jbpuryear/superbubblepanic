@@ -5,6 +5,7 @@ var Button = require('./gui/Button.js')
 var Character = require('./entities/heroes/Character.js')
 var Reticule = require('./Reticule.js')
 var WorldMap = require('./WorldMap.js')
+var SmallFont = require('./entities/SmallFont.js')
 
 
 function LevelSelect() {
@@ -102,6 +103,17 @@ LevelSelect.prototype = {
 
     this.world.add(this.reticule)
 
+    var margin = 0
+    this.preview = new PhaserNineSlice.NineSlice(game, margin, margin, 'sprites', 'window',
+      this.game.width - 2*margin, 80, { top: 8 })
+    this.preview.font = new SmallFont(this)
+    this.preview.font.anchor.setTo(0, 0.5)
+    this.preview.font.x = 8
+    this.preview.font.y = this.preview.height/2
+    this.preview.addChild(this.preview.font)
+    this.preview.exists = false
+    this.world.add(this.preview)
+
     this.camera.flash(0x180c08, 1000)
   },
 
@@ -131,6 +143,9 @@ LevelSelect.prototype = {
       plyr.animations.stop()
       plyr.frameName = 'p1-stand'
     }
+    
+    this.preview.y = this.reticule.y >= this.game.height * 2/3 ?
+        0 : this.game.height - this.preview.height
   },
 
 
@@ -180,6 +195,8 @@ LevelButton.prototype.inputOver = function() {
   this.state.selectIcon.exists = true
   this.state.selectIcon.x = this.x
   this.state.selectIcon.y = this.y
+  this.state.preview.font.font.text = this.level.title
+  this.state.preview.exists = true
 }
 
 
