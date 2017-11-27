@@ -104,7 +104,7 @@ Level.prototype.gameOver = function() {
     this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
     this.gameOverScreen.exists = true
     this.time.slowMotion = 6
-    if (this.soundtrack && this.soundtrack.isPlaying)
+    if (this.soundtrack)
       this.soundtrack.stop()
     this.players.forEach(this.world.addChild, this.world)
 }
@@ -179,7 +179,7 @@ Level.prototype.shutdown = function() {
     this.splatter.destroy()
     this.gameOverScreen.destroy()
     this.time.slowMotion = 1
-    if (this.soundtrack && this.soundtrack.isPlaying)
+    if (this.soundtrack)
       this.soundtrack.stop()
 }
 
@@ -257,7 +257,7 @@ Level.prototype.update = function() {
 Level.prototype.win = function() {
   this.time.events.add(200, function() {
     this.game.data.checkWin(this.mapName)
-    if (this.soundtrack && this.soundtrack.isPlaying)
+    if (this.soundtrack)
       this.soundtrack.stop()
     this.sound.play('victory-jingle')
     this.players.children[0].playerState.change('victory')
