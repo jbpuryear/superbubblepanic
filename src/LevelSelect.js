@@ -7,6 +7,8 @@ var Reticule = require('./Reticule.js')
 var WorldMap = require('./WorldMap.js')
 var SmallFont = require('./entities/SmallFont.js')
 
+var ICON_SIZE = 16
+
 
 function LevelSelect() {
   this.inputEnabled = true
@@ -50,7 +52,7 @@ LevelSelect.prototype = {
 
     this.trail.lineStyle(2, 0xcccccc, 0.4)
     this.trail.moveTo(start.mapX, start.mapY)
-    for (var i = 0; i < levels.length; i++) {
+    for (var i = 0; i < levels.length && i <= lastCompleted+1; i++) {
       lvl = levels[i]
       this.trail.lineTo(lvl.mapX, lvl.mapY)
     }
@@ -71,8 +73,11 @@ LevelSelect.prototype = {
         symbols.addChild(butt)
         if (lvl.state === 'RocketLevel') butt.anchor.setTo(0.5, 1)
       } else {
-        symbols.addChild(this.make.image(lvl.mapX, lvl.mapY, 'sprites', 'lvlLocked'))
-          .anchor.setTo(0.5)
+        var icon = this.make.image(lvl.mapX, lvl.mapY, 'sprites', 'lvlLocked')
+        icon.anchor.setTo(0.5)
+        icon.width = ICON_SIZE
+        icon.height = ICON_SIZE
+        symbols.addChild(icon)
       }
     }
 
@@ -103,7 +108,7 @@ LevelSelect.prototype = {
 
     this.world.add(this.reticule)
 
-    var margin = 0
+    var margin = 40
     this.preview = new PhaserNineSlice.NineSlice(game, margin, margin, 'sprites', 'window',
       this.game.width - 2*margin, 80, { top: 8 })
     this.preview.font = new SmallFont(this)
@@ -182,8 +187,8 @@ function LevelButton(state, level, frame) {
   Button.call(this, state, 'sprites', frame, this.callback, this)
   this.state = state
   this.level = level
-  this.width = 16
-  this.height = 16
+  this.width = ICON_SIZE
+  this.height = ICON_SIZE
 }
 
 
