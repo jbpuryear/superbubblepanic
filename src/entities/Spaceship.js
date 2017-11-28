@@ -2,7 +2,8 @@ module.exports = Spaceship
 
 
 function Spaceship(state, ctlr) {
-  Phaser.Sprite.call(this, state.game, 0, 0, 'sprites', 'rocket')
+  // Spawn off screen to hide flame particles
+  Phaser.Sprite.call(this, state.game, -100, 0, 'sprites', 'rocket')
 
   this.state = state
   this.ctlr = ctlr
