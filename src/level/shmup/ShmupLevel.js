@@ -1,9 +1,11 @@
 module.exports = ShmupLevel
 
 
-var Level = require('./Level.js')
-var Spaceship = require('../entities/Spaceship.js')
-var DefaultCtlr = require('../entities/heroes/DefaultCtlr.js')
+var Level = require('../Level.js')
+var Director = require('./Director.js')
+var Script = require('./Script.js')
+var Spaceship = require('../../entities/Spaceship.js')
+var DefaultCtlr = require('../../entities/heroes/DefaultCtlr.js')
 
 
 function ShmupLevel() {
@@ -16,6 +18,8 @@ ShmupLevel.prototype = Object.create(Level.prototype)
 
 ShmupLevel.prototype.create = function() {
   Level.prototype.create.call(this)
+
+  this.director = new Director(this, Script)
 
   this.puffs.setXSpeed(-80, 80)
   this.puffs.setYSpeed(400, 480)
@@ -54,38 +58,51 @@ ShmupLevel.prototype.create = function() {
     .onComplete.addOnce(function() {
       this.ship.body.addToWorld()
       this.ship.body.velocity.y = 0
+      this.director.start()
     }, this)
 
   this.sound.play('jetpack')
 }
 
 
+ShmupLevel.prototype.update = function() {
+  this.director.update()
+  Level.prototype.update.call(this)
+}
+
+
 ShmupLevel.prototype.winCondition = function() {
-  return false
+  return this.director.finished
 }
   
 
 ShmupLevel.prototype.win = function() {
   this.time.events.add(200, function() {
     this.game.data.checkWin(this.mapName)
-    if (this.soundtrack && this.soundtrack.isPlaying)
-      this.soundtrack.stop()
+    if (this.soundtrack) this.soundtrack.stop()
     this.sound.play('victory-jingle')
 
-    var clear = this.add.image(this.game.width/2, this.game.height/2,
-        'sprites', 'stage-clear')
-    clear.anchor.setTo(0.5)
-    clear.fixedToCamera = true
-    var clearTween = this.add.tween(clear)
-    clearTween.from({width: clear.width * 4, height: clear.height * 4, alpha: 0},
-        800, Phaser.Easing.Quartic.Out, null, 200)
-    clearTween.onComplete.addOnce(function() {
-      this.camera.onFadeComplete.addOnce(function() {
-        this.exit()
+    var t = this.add.tween(this.ship.body).to({ y: -200 }, 1000)
+
+    t.onComplete.addOnce(function() {
+      this.ship.body.removeFromWorld()
+      var clear = this.add.image(this.game.width/2, this.game.height/2,
+          'sprites', 'stage-clear')
+      clear.anchor.setTo(0.5)
+      clear.fixedToCamera = true
+      var clearTween = this.add.tween(clear)
+      clearTween.onComplete.addOnce(function() {
+        console.log
+        this.camera.onFadeComplete.addOnce(function() {
+          this.exit()
+        }, this)
+        this.camera.fade(0xf6eeee, 1000)
       }, this)
-      this.camera.fade(0xf6eeee, 1000)
+      clearTween.from({width: clear.width * 4, height: clear.height * 4, alpha: 0},
+          800, Phaser.Easing.Quartic.Out, null, 200).start()
     }, this)
-    clearTween.start()
+
+    t.start()
   }, this)
 }
 
