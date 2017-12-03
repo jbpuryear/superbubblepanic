@@ -106,6 +106,7 @@ Player.prototype.kill = function(_, enemy) {
 
 
 Player.prototype.update = function() {
+    if (this.weapon && typeof this.weapon.update === 'function') this.weapon.update()
     this.playerState.update()
     this.collider.update()
 }
