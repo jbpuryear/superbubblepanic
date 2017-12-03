@@ -9,12 +9,13 @@ function state() {
 function make() {
     var data = {
         type: this.value,
-        x: 450,
+        x: 100,
         y: 70,
         width: 30,
         properties: {},
     };
-    state().addEntity(data);
+    var e = state().addEntity(data);
+    e.reset(20, 20)
     this.value = '';
 }
 
