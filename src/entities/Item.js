@@ -14,9 +14,11 @@ function Item(state, data) {
     this.frameName = texture;
 
     this.pulse = state.add.tween(this)
+    this.throb = state.add.tween(this.scale)
     this.sounds = {}
 
     this.pulse.to({alpha: 0.2}, 100, null, false, this._lifespan - 750, null, true)
+    this.throb.to({x: 1.15, y: 1.15}, 850, Phaser.Easing.Quadratic.In, false, null, -1)
 
     state.physics.p2.enable(this);
 
@@ -51,7 +53,9 @@ Item.prototype._lifespan = LIFESPAN;
 Item.prototype.pickup = function(thisBody, heroBody) {
     if (this.sounds.pickup) this.state.playSound(this.sounds.pickup)
     this.pulse.stop()
+    this.throb.stop()
     this.alpha = 1
+    this.scale.setTo(1)
     this.body.destroy()
     this.x = 0
     this.y = 0
@@ -61,9 +65,8 @@ Item.prototype.pickup = function(thisBody, heroBody) {
 Item.prototype.reset = function(x, y, health) {
     this.lifespan = this._lifespan
     this.pulse.start()
-    this.x = x;
-    this.y = y;
-    Phaser.Sprite.prototype.reset.call(this, this.x, this.y,health);
+    this.throb.start()
+    Phaser.Sprite.prototype.reset.call(this, x, y, health);
 }
 
 
