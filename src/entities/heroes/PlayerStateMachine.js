@@ -216,6 +216,11 @@ function Falling(machine) {
 Falling.prototype = Object.create(PlayerState.prototype)
 
 
+Falling.prototype.enter = function() {
+    this.time = this.player.game.time.now
+}
+
+
 Falling.prototype.exit = function() {
     this.player.weapon.y = 0
 }
@@ -225,18 +230,23 @@ Falling.prototype.update = function() {
     var plyr = this.player
 
     if (plyr.standing) {
-        plyr.state.playSound('land')
-        plyr.fx.land()
+        if (plyr.game.time.now - this.time > 300) {
+          plyr.state.playSound('land')
+          plyr.fx.land()
+        }
 
         this.machine.change('standing')
         return
     }
 
-    if (plyr.body.vel.y > 30) {
+    var v = plyr.body.vel.y
+    if (v > 30) {
         plyr.character.animations.play('fall')
         plyr.weapon.y = -2
-    } else {
+    } else if (v >10) {
         plyr.character.frameName = 'p1-fall1'
+    } else {
+        plyr.character.frameName = 'p1-stand'
     }
 
     PlayerState.prototype.update.call(this)

@@ -26,6 +26,7 @@ function PlayerCollider(player) {
     this.player.standing = false
 }
 
+
 PlayerCollider.prototype = {
     update: function() {
         var vec2 = p2.vec2
@@ -50,12 +51,14 @@ PlayerCollider.prototype = {
           }
           var y = this.rayBounds.bottom + this.padding + 0.1
           vec2.set(ray.from, x, y)
-          vec2.set(ray.to, x, y - this.padding - 0.1)
+          vec2.set(ray.to, x, y - this.padding - 0.2)
           ray.update()
           if (!this.game.physics.p2.world.raycast(res, ray)) {
             this.player.standing = false
           } else if (this.maxStandAngle < Math.acos(vec2.dot(res.normal, UNIT_Y))) {
             this.player.standing = false
+          } else {
+            vec2.rotate90cw(this.slopeVector, res.normal)
           }
           res.reset()
         }
