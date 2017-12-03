@@ -297,6 +297,12 @@
             "key": "sprites",
             "textureURL": "assets/images/spritesheet.png",
             "atlasURL": "assets/images/sprites.json"
+        },
+        {
+            "type": "atlasJSONHash",
+            "key": "space-boss",
+            "textureURL": "assets/images/space-boss-sheet.png",
+            "atlasURL": "assets/images/space-boss.json"
         }
     ],
 
