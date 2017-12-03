@@ -18,7 +18,7 @@ function Gun(state, data, BulletClass) {
     this.sounds.shot = data.shotSound || 'gunshot'
 
     this.clips = []
-    this.lastShot = 0
+    this.shotThrottle = 0
 
     var clips = data.clips || 1
     var clipSize = data.clipSize || 3
@@ -50,8 +50,7 @@ Gun.prototype.pickup = function(_, playerBody) {
 Gun.prototype.fire = function(newShot) {
     if (this.auto || newShot) {
 
-        var now = this.game.time.now
-        if (now - this.lastShot < this.rate) return false
+        if (this.shotThrottle > 0) return false
 
         // TODO: Not the best way to do this. Maybe ask bullets
         // if they're ready instead of dead?
@@ -59,7 +58,7 @@ Gun.prototype.fire = function(newShot) {
 
         if (!bullets.every(function(bullet) { return bullet })) return false
 
-        this.lastShot = now
+        this.shotThrottle = this.rate
 
         var theta = this.rotation
         var x = this.world.x + (this.width/2 * Math.cos(theta))
@@ -80,3 +79,10 @@ Gun.prototype.fire = function(newShot) {
     }
     return false
 }
+
+
+Gun.prototype.update = function() {
+    if (this.shotThrottle > 0)
+      this.shotThrottle = Math.max(this.shotThrottle - this.game.time.physicsElapsedMS, 0)
+}
+
