@@ -1,0 +1,174 @@
+{
+    "frames": {
+        "bg": {
+            "frame": {
+                "x": 238,
+                "y": 180,
+                "w": 136,
+                "h": 30
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 136,
+                "h": 30
+            },
+            "sourceSize": {
+                "w": 136,
+                "h": 30
+            }
+        },
+        "eyeball-overlay": {
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 236,
+                "h": 60
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 236,
+                "h": 60
+            },
+            "sourceSize": {
+                "w": 236,
+                "h": 60
+            }
+        },
+        "eyeball": {
+            "frame": {
+                "x": 0,
+                "y": 62,
+                "w": 236,
+                "h": 60
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 236,
+                "h": 60
+            },
+            "sourceSize": {
+                "w": 236,
+                "h": 60
+            }
+        },
+        "fg-left": {
+            "frame": {
+                "x": 238,
+                "y": 46,
+                "w": 87,
+                "h": 66
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 87,
+                "h": 66
+            },
+            "sourceSize": {
+                "w": 87,
+                "h": 66
+            }
+        },
+        "fg-right": {
+            "frame": {
+                "x": 238,
+                "y": 114,
+                "w": 77,
+                "h": 64
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 77,
+                "h": 64
+            },
+            "sourceSize": {
+                "w": 77,
+                "h": 64
+            }
+        },
+        "fg": {
+            "frame": {
+                "x": 0,
+                "y": 124,
+                "w": 136,
+                "h": 58
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 136,
+                "h": 58
+            },
+            "sourceSize": {
+                "w": 136,
+                "h": 58
+            }
+        },
+        "lid-closed": {
+            "frame": {
+                "x": 0,
+                "y": 184,
+                "w": 152,
+                "h": 44
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 152,
+                "h": 44
+            },
+            "sourceSize": {
+                "w": 152,
+                "h": 44
+            }
+        },
+        "lid": {
+            "frame": {
+                "x": 238,
+                "y": 0,
+                "w": 152,
+                "h": 44
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 152,
+                "h": 44
+            },
+            "sourceSize": {
+                "w": 152,
+                "h": 44
+            }
+        }
+    },
+    "meta": {
+        "app": "https://github.com/Ensighten/spritesmith",
+        "image": "space-boss-sheet.png",
+        "format": "RGBA8888",
+        "size": {
+            "w": 390,
+            "h": 228
+        },
+        "scale": 1
+    }
+}
