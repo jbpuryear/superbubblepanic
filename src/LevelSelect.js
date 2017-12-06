@@ -50,11 +50,40 @@ LevelSelect.prototype = {
     var lastCompleted = this.game.data.lastCompleted
     var lvl = levels[0]
 
-    this.trail.lineStyle(2, 0xcccccc, 0.4)
-    this.trail.moveTo(start.mapX, start.mapY)
+    // This would be easier with BitmapData, but I can't turn off smoothing!
+    this.trail.lineStyle(2, 0xfff2cd, 0.6)
+    var x = start.mapX
+    var y = start.mapY
+    this.trail.moveTo(x, y)
+    var dashLength = 5
+    var spaceLength = 4
     for (var i = 0; i < levels.length && i <= lastCompleted+1; i++) {
       lvl = levels[i]
-      this.trail.lineTo(lvl.mapX, lvl.mapY)
+      var run = lvl.mapX - x
+      var rise = lvl.mapY - y
+      var d = Math.sqrt(run*run + rise*rise)
+      var dashX = dashLength * run/d
+      var dashY = dashLength * rise/d
+      var spaceX = dashLength * run/d
+      var spaceY = dashLength * rise/d
+      while (x !== lvl.mapX) {
+        if (Math.abs(x - lvl.mapX) < Math.abs(dashX)) {
+          x = lvl.mapX
+          y = lvl.mapY
+        } else {
+          x += dashX
+          y += dashY
+        }
+        this.trail.lineTo(x, y)
+        if (Math.abs(x - lvl.mapX) < Math.abs(dashX)) {
+          x = lvl.mapX
+          y = lvl.mapY
+        } else {
+          x += spaceX
+          y += spaceY
+        }
+        this.trail.moveTo(x, y)
+      }
     }
 
     for (i = 0; i < levels.length; i++) {
