@@ -6,6 +6,7 @@ module.exports = Level
 function Level() {
     Phaser.State.call(this)
     this.won = false
+    this.lost = false
 }
 
 
@@ -246,8 +247,10 @@ Level.prototype.update = function() {
         }
     }
 
-    if (this.loseCondition()) this.gameOver()
-    else if (!this.won && this.winCondition()) {
+    if (!this.lost && this.loseCondition()) {
+      this.lost = true
+      this.gameOver()
+    } else if (!this.won && this.winCondition()) {
       this.win()
       this.won = true
     }

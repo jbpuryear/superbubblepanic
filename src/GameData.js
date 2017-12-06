@@ -11,14 +11,18 @@ function GameData(game) {
   this.lastCompleted = -1
 
   this.load()
-  // TODO remove me
-  this.lastCompleted = 2
 }
 
 
 GameData.prototype = {
   mapStart: mapData.start,
   levels: levels,
+
+  clear: function() {
+    this.hiScore = 0
+    this.lastCompleted = -1
+    return this.save()
+  },
 
   load: function() {
     try {
