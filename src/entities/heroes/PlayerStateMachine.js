@@ -93,8 +93,7 @@ PlayerState.prototype = {
         var ctlr = this.machine.ctlr
 
         if (this.machine.shooting) {
-            plyr.character.animations.stop()
-            plyr.character.frameName = 'p1-shoot'
+            plyr.character.animations.play('shoot')
         }
 
         var theta = Phaser.Point.angle(ctlr.position, plyr.position)
@@ -132,7 +131,7 @@ PlayerState.prototype = {
         if (!plyr.weapon) return
         if (plyr.weapon.fire(this.machine.ctlr.newShot)) {
             plyr.character.animations.stop()
-            plyr.character.frameName = 'p1-shoot'
+            plyr.character.animations.play('shoot')
             var angle = plyr.weapon.rotation
             if (plyr.standing) {
               plyr.body.kick.x += -3 * plyr.facing
@@ -244,9 +243,9 @@ Falling.prototype.update = function() {
         plyr.character.animations.play('fall')
         plyr.weapon.y = -2
     } else if (v >10) {
-        plyr.character.frameName = 'p1-fall1'
+        plyr.character.animations.play('fall-slow')
     } else {
-        plyr.character.frameName = 'p1-stand'
+        plyr.character.animations.play('idle')
     }
 
     PlayerState.prototype.update.call(this)
@@ -378,6 +377,7 @@ Standing.prototype = Object.create(PlayerState.prototype)
 Standing.prototype.update = function() {
     var plyr = this.player
     var mchn = this.machine
+    var ctlr = mchn.ctlr
     var velx = plyr.body.vel.x
 
     if (!plyr.standing) mchn.change('falling')
@@ -394,15 +394,14 @@ Standing.prototype.update = function() {
             Math.max(velx - friction, 0)
     }
 
-    if (Math.abs(velx) >= plyr.speed/2) {
+    if (ctlr.left || ctlr.right || Math.abs(velx) >= plyr.speed/2) {
         plyr.character.animations.play('walk')
         if (this.lastStep < plyr.state.time.now - 200) {
             plyr.state.playSound('step', 200)
             this.lastStep = plyr.state.time.now
         }
     } else {
-        plyr.character.animations.stop()
-        plyr.character.frameName = 'p1-stand'
+        plyr.character.animations.play('idle')
     }
 
     PlayerState.prototype.update.call(this)
@@ -417,7 +416,7 @@ function Stunned(machine) {
 Stunned.prototype = {
     exit: function() {},
     update: function() {
-        this.player.character.frameName = 'p1-die1'
+        this.player.character.animations.play('stun')
     },
 
     enter: function() {

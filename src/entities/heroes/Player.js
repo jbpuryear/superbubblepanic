@@ -102,6 +102,7 @@ Player.prototype.equip = function(weapon) {
 
 
 Player.prototype.kill = function(_, enemy) {
+    this.alive = false
     this.playerState.change('dead')
 }
 
