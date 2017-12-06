@@ -186,7 +186,7 @@ Level.prototype.shutdown = function() {
 
 
 Level.prototype.loseCondition = function() {
-    return !this.players.getFirstAlive()
+    return !this.p1.alive
 }
 
 
@@ -250,7 +250,7 @@ Level.prototype.update = function() {
     if (!this.lost && this.loseCondition()) {
       this.lost = true
       this.gameOver()
-    } else if (!this.won && this.winCondition()) {
+    } else if (!this.lost && !this.won && this.winCondition()) {
       this.win()
       this.won = true
     }
@@ -263,7 +263,7 @@ Level.prototype.win = function() {
     if (this.soundtrack)
       this.soundtrack.stop()
     this.sound.play('victory-jingle')
-    this.players.children[0].playerState.change('victory')
+    this.p1.playerState.change('victory')
 
     var clear = this.add.image(this.game.width/2, this.game.height/2,
         'sprites', 'stage-clear')

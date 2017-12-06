@@ -13,6 +13,7 @@ function SpaceBoss() {
   this.hp = this.maxHp
   this.trigger = null
   this.blinking = false
+  this.hitTimeout = false
 }
 
 
@@ -26,7 +27,17 @@ SpaceBoss.prototype.create = function() {
   this.rotSpeed = 0
   this.hp = this.maxHp
   this.blinking = false
+  this.hitTimeout = false
   this.makeMonster()
+
+  this.p1.character.animations.add('walk',
+    Phaser.Animation.generateFrameNames('p1-walk-space', 1, 4), 12, true)
+  this.p1.character.animations.add('fall', ['p1-space'], 1, true)
+  this.p1.character.animations.add('fall-slow', ['p1-space'], 1, true)
+  this.p1.character.animations.add('fly', ['p1-space'], 1, true)
+  this.p1.character.animations.add('idle', ['p1-walk-space1'], 1, true)
+  this.p1.character.animations.add('stun', ['p1-space'], 1, true)
+  this.p1.character.animations.add('shoot', ['p1-shoot-space'], 1, true)
 }
 
 
@@ -92,11 +103,18 @@ SpaceBoss.prototype.update = function() {
 
   var p1 = this.p1
   var c = this.eye
-  if (this.eye.exists &&
+  if (this.eye.exists && !this.hitTimeout &&
     (p1.x-c.x)*(p1.x-c.x) + (p1.y+p1.character.height/2-c.y)*(p1.y+p1.character.height/2-c.y) < 300*300) {
     this.blink(1000)
+    this.hitTimeout = true
+    this.time.events.add(2400, this.clearHitTimeout, this)
     this.p1.damage(null, this.eye.body)
   }
+}
+
+
+SpaceBoss.prototype.clearHitTimeout = function(_, src) {
+  this.hitTimeout = false
 }
 
 
@@ -152,6 +170,12 @@ SpaceBoss.prototype.defeatMonster = function() {
 
 SpaceBoss.prototype.winCondition = function() {
   return this.trigger.contains(this.p1.x, this.p1.y)
+}
+
+
+SpaceBoss.prototype.gameOver = function() {
+  Level.prototype.gameOver.call(this)
+  this.p1.playerState.states.floating.exit()
 }
 
 
