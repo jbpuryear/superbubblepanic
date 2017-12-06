@@ -6,7 +6,7 @@ var Hydroid = require('../entities/enemies/Hydroid.js');
 var SETTINGS = ['desert']
 
 function Arcade() {
-    return Level.call(this);
+    Level.call(this);
 }
 
 
@@ -22,6 +22,20 @@ Arcade.prototype.create = function() {
     this.map.properties.setting = setting
 
     Level.prototype.create.call(this);
+
+    var hsMod = this.gameOverScreen.hsMod = this.add.group()
+    var character = hsMod.create(0, this.game.height/2, 'sprites', 'p1-victory')
+    character.anchor.setTo(0, 0.5)
+    character.scale.setTo(4)
+    var hs = hsMod.hs = this.entities.smallFont(this, 'New High Score!')
+    hs.anchor.setTo(0, 0.5)
+    hs.scale.setTo(2)
+    hs.x = character.width + 5
+    hs.y = this.game.height/2
+    hsMod.addChild(hs)
+    hsMod.x = this.game.world.width/2 - hsMod.width/2
+    this.gameOverScreen.addChild(hsMod)
+    this.gameOverScreen.hsMod = hsMod
 
     this.maxTime = 20000;
     this.timer = this.maxTime;
@@ -41,9 +55,9 @@ Arcade.prototype.create = function() {
     this._score = 0;
     this.score = this.entities.smallFont(this, this._score + '')
     this.score.anchor.setTo(0)
-    this.score.x = 16
-    this.score.y = 16
-    this.world.add(this.score)
+    this.score.x = 36
+    this.score.y = 22
+    this.hud.add(this.score)
 
     this.enemyPools = {};
     var enemyData = {
@@ -89,7 +103,38 @@ Arcade.prototype.update = function() {
 
 Arcade.prototype.gameOver = function() {
     Level.prototype.gameOver.call(this)
-    this.game.data.checkScore(this._score)
+
+    var hsMod = this.gameOverScreen.hsMod
+    var x = hsMod.x
+    hsMod.x = this.game.width + 20
+    if (this.game.data.checkScore(this._score)) {
+      this.time.events.add(800, function() {
+        this.sound.play('victory-jingle')
+        this.gameOverScreen.hsMod.hs.font.text = 'New High Score:\n\n' + this._score
+        this.gameOverScreen.hsMod.x = x
+        this.gameOverScreen.addChild(this.frag)
+        this.gameOverScreen.addChild(this.glass)
+        this.time.events.loop(10, function() { hsMod.hs.tint = (hsMod.hs.tint + 10) % 0xffffff })
+        this.time.events.loop(200, function() {
+          this.frag.x = Math.random() * this.game.width
+          this.frag.y = -10
+          this.frag.explode(1000, 5)
+          this.glass.x = Math.random() * this.game.width
+          this.glass.y = -10
+          this.glass.explode(1000, 10)
+        }, this)
+      }, this)
+    }    
+}
+
+
+Arcade.prototype.exit = function() {
+    this.state.start('Menu')
+}
+
+
+Arcade.prototype.winCondition = function() {
+    return false
 }
 
 
