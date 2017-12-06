@@ -23,7 +23,6 @@ module.exports = function create() {
     this.players = this.make.group()
     this.enemies = this.make.group()
     this.items = this.make.group()
-    this.platforms = this.make.group()
     this.fgItems = this.make.group()
     this.hud = this.make.group()
 
@@ -36,11 +35,11 @@ module.exports = function create() {
 
     makeMap(this)
 
-    this.add.image(0, 0, this.splatter)
+    this.splatterImage = this.add.image(0, 0, this.splatter)
+
     this.world.addChild(this.players)
     this.world.addChild(this.enemies)
     this.world.addChild(this.items)
-    this.world.addChild(this.platforms)
     this.world.addChild(this.fgItems)
     this.world.addChild(this.hud)
 
@@ -174,6 +173,9 @@ function makeMap(state) {
             platform.collides(state.bulletsCG)
         }
 
+        // Only used in SpaceBoss leve so we can remove it after the fight
+        if (data.properties && data.properties.shouldRemove) platform.shouldRemove = true
+
         platform.setMaterial(state.platformMaterial)
     }, state)
 
@@ -199,6 +201,8 @@ function makeMap(state) {
         ])
         bounds[i].setMaterial(state.platformMaterial)
     }
+
+    state.platforms = plats
 }
 
 
