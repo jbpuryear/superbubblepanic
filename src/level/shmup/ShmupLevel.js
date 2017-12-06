@@ -60,6 +60,7 @@ ShmupLevel.prototype.create = function() {
       this.ship.body.velocity.y = 0
       this.director.start()
     }, this)
+  this.p1 =  ship
 
   this.sound.play('jetpack')
 }
