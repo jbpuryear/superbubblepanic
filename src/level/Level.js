@@ -35,7 +35,7 @@ Level.prototype.addEntity = function(data) {
 Level.prototype.bleed = function(object) {
     for (var i = 0; i < 5; i++) {
         var drop = this.blood.getFirstDead() || this.blood.getRandom()
-        drop.reset(object.world.x + Math.random() * 5 - 2.5, object.y)
+        drop.reset(object.world.x + Math.random() * 5 - 2.5, object.world.y)
         drop.body.velocity.x = (Math.random() * 220 + 170) * Math.cos(object.killTheta)
         drop.body.velocity.y = (Math.random() * 220 + 170) * Math.sin(object.killTheta)
         drop.body.velocity.x *= this.bulletTime

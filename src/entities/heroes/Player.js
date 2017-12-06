@@ -82,6 +82,7 @@ Object.defineProperty(Player.prototype, 'facing', {
 
 
 Player.prototype.damage = function(_, enemy) {
+    if (this.health <= 0) return
     var theta = this.world.angle(enemy.sprite)
     this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? -1 : 1
     this.health -= 1
