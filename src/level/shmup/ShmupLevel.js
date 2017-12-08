@@ -93,7 +93,6 @@ ShmupLevel.prototype.win = function() {
       clear.fixedToCamera = true
       var clearTween = this.add.tween(clear)
       clearTween.onComplete.addOnce(function() {
-        console.log
         this.camera.onFadeComplete.addOnce(function() {
           this.exit()
         }, this)

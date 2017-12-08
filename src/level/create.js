@@ -103,7 +103,6 @@ function paintBackground(state) {
 
 function makeMap(state) {
     var conf = mapsConfig[state.map.properties.setting]
-  console.log('foo', conf, state.map)
     state.map.addTilesetImage(conf.tiles)
     var plats = state.physics.p2
         .convertCollisionObjects(state.map, 'platform', true)
