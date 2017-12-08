@@ -67,7 +67,6 @@ Attack.Single.prototype = Object.create(Attack.prototype)
 
 
 Attack.Single.prototype.init =  function() {
-  console.log('weh')
   this.director.spawn(this.type, this.x, this.y, this.width, this.velx, this.vely)
   Attack.prototype.init.call(this)
 }

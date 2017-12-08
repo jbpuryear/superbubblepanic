@@ -12,6 +12,7 @@ var RocketLevel = require('./level/RocketLevel.js');
 var ShmupLevel = require('./level/shmup/ShmupLevel.js');
 var MonsterLevel = require('./level/MonsterLevel.js');
 var SpaceBoss = require('./level/SpaceBoss.js');
+var FinalBoss = require('./level/FinalBoss.js');
 var Arcade = require('./arcade/arcade.js');
 var Credits = require('./Credits.js');
 
@@ -32,6 +33,7 @@ function Game() {
     game.state.add('ShmupLevel', new ShmupLevel);
     game.state.add('MonsterLevel', new MonsterLevel);
     game.state.add('SpaceBoss', new SpaceBoss);
+    game.state.add('FinalBoss', new FinalBoss);
     game.state.add('Menu', new Menu);
     game.state.add('Arcade', new Arcade);
     game.state.add('LevelSelect', new LevelSelect);

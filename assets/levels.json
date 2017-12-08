@@ -65,7 +65,7 @@
       "format": "TILED_JSON",
       "mapX": 50,
       "mapY": 10,
-      "state": "Level",
+      "state": "FinalBoss",
       "title": "showdown"
     }
   ]

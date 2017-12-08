@@ -3,7 +3,7 @@ module.exports = SeekBoss;
 
 var Seeker = require('./Seeker.js');
 
-var HEALTH = 20;
+var HEALTH = 1;
 var POOL_SIZE = 120;
 var CHILD_WIDTH = 30;
 var CHILD_VEL = 100;
