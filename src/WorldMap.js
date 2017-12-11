@@ -11,6 +11,7 @@ function WorldMap(game) {
   this.characterAt = null
 
   this.map = this.create(0, 0, 'world-map')
+  this.map.scale.setTo(2)
 
   this.ocean = this.addChild(game.make.tileSprite(0, 0, this.width, this.height, 'sprites', 'ocean1'))
   this.ocean.animations.add('wave', Phaser.Animation.generateFrameNames('ocean', 1, 5))
