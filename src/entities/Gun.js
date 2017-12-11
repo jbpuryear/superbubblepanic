@@ -2,7 +2,6 @@ module.exports = Gun
 
 
 var Item = require('./Item.js')
-var Bullet = require('./bullets/Bullet.js')
 
 
 function Gun(state, data, BulletClass) {
@@ -16,28 +15,32 @@ function Gun(state, data, BulletClass) {
     this.speedVar = data.speedVar || 0
     this.sounds.pickup = data.equipSound || 'reload'
     this.sounds.shot = data.shotSound || 'gunshot'
+    this.clipSize = data.clipSize || 3
+    this.bulletsPerShot = data.bulletsPerShot || 1
 
-    this.clips = []
     this.shotThrottle = 0
+    this.dead = this.clipSize
 
-    var clips = data.clips || 1
-    var clipSize = data.clipSize || 3
+    this.clip = new Phaser.Group(state.game)
+
     var bulletTexture = data.bulletTexture
 
-    for (var i=0; i<clips; i++) {
-        var clip = new Phaser.Group(state.game)
-
-        for (var j=0; j<clipSize; j++) {
-            var bullet = new BulletClass(state, 0, 0, bulletTexture)
-            clip.add(bullet)
-        }
-
-        this.clips.push(clip)
+    for (var i = 0; i < this.clipSize; ++i) {
+        var bullet = new BulletClass(state, 0, 0, bulletTexture)
+        bullet.events.onKilled.add(this.onBulletKilled, this)
+        this.clip.add(bullet)
     }
 }
 
 
 Gun.prototype = Object.create(Item.prototype)
+
+
+Object.defineProperty(Gun.prototype, 'available', {
+  get: function() {
+    return Math.floor(this.dead/this.bulletsPerShot)
+  }
+})
 
 
 Gun.prototype.pickup = function(_, playerBody) {
@@ -50,13 +53,7 @@ Gun.prototype.pickup = function(_, playerBody) {
 Gun.prototype.fire = function(newShot) {
     if (this.auto || newShot) {
 
-        if (this.shotThrottle > 0) return false
-
-        // TODO: Not the best way to do this. Maybe ask bullets
-        // if they're ready instead of dead?
-        var bullets = this.clips.map(function(clip) { return clip.getFirstDead() })
-
-        if (!bullets.every(function(bullet) { return bullet })) return false
+        if (this.shotThrottle > 0 || this.available === 0) return false
 
         this.shotThrottle = this.rate
 
@@ -64,11 +61,14 @@ Gun.prototype.fire = function(newShot) {
         var x = this.world.x + (this.width/2 * Math.cos(theta))
         var y = this.world.y + (this.width/2 * Math.sin(theta))
 
-        bullets.forEach(function(bullet, i) {
+        for (var i = 0; i < this.bulletsPerShot; ++i) {
+            this.dead -= 1
+            var bullet = this.clip.getFirstDead()
             var speedBonus = this.speedMul * (1 + (Math.random()*2 - 1)*this.speedVar)
-            var bulletTheta = theta + (this.spread/this.clips.length *i - this.spread/2) + (Math.random()*2 - 1)*this.accuracy
+            var bulletTheta = theta + (this.spread/this.clipSize *i - this.spread/2)
+            bulletTheta += (Math.random()*2 - 1)*this.accuracy
             bullet.fire(x, y, bulletTheta, speedBonus)
-        }, this)
+        }
 
         var dir = theta > Math.PI/2 || theta < -Math.PI/2 ? 2 : -2
         this.state.throwShell(this.world.x, this.world.y, dir)
@@ -81,8 +81,12 @@ Gun.prototype.fire = function(newShot) {
 }
 
 
+Gun.prototype.onBulletKilled = function() {
+  this.dead += 1
+}
+
+
 Gun.prototype.update = function() {
-    if (this.shotThrottle > 0)
-      this.shotThrottle = Math.max(this.shotThrottle - this.game.time.physicsElapsedMS, 0)
+    if (this.shotThrottle > 0) this.shotThrottle -= this.game.time.physicsElapsedMS
 }
 

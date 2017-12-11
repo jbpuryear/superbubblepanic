@@ -19,7 +19,8 @@ function Bullet(state, x, y, texture) {
     this.body.data.gravityScale = 0;
     this.body.collideWorldBounds = false;
     this.autoCull = true;
-    this.outOfCameraBoundsKill = true;
+    this.checkWorldBounds = true
+    this.outOfBoundsKill = true;
     this.body.mass = 0.6;
     this.body.setCollisionGroup(state.bulletsCG);
     this.body.collides([state.enemiesCG, state.platformsCG], this.hit, this);

@@ -26,6 +26,7 @@ module.exports = function create() {
     this.items = this.make.group()
     this.fgItems = this.make.group()
     this.hud = this.make.group()
+    this.hud.fixedToCamera = true
 
     this.splatter = this.make.bitmapData(this.world.width, this.world.height)
     this.splatter.mask = this.make.bitmapData(this.world.width, this.world.height)

@@ -4,6 +4,7 @@ module.exports = Player
 var PlayerStateMachine = require('./PlayerStateMachine.js')
 var PlayerCollider = require('./PlayerCollider.js')
 var PlayerFX = require('./PlayerFX.js')
+var Hud = require('./Hud.js')
 var Character = require('./Character.js')
 var setPhysics = require('./setPhysics.js')
 
@@ -21,11 +22,15 @@ function Player(state, data, ctlr) {
 
     this.state = state
 
+    this.fuel = this.maxFuel
     this.speedBonus = 1
     this.standing = true
 
+    this.onEquip = new Phaser.Signal()
+
     this.character = new Character(state)
     this.fx = new PlayerFX(this)
+    this.hud = new Hud(state, this)
 
     setPhysics(this)
     this.playerState = new PlayerStateMachine(this, ctlr)
@@ -98,6 +103,7 @@ Player.prototype.equip = function(weapon) {
     weapon.pivot.setTo(-Math.abs(this.character.width/8), 0)
     this.weapon = weapon
     this.addChild(weapon)
+    this.onEquip.dispatch()
 }
 
 
@@ -111,4 +117,5 @@ Player.prototype.update = function() {
     if (this.weapon && typeof this.weapon.update === 'function') this.weapon.update()
     this.playerState.update()
     this.collider.update()
+    this.hud.update()
 }

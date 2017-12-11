@@ -5,7 +5,6 @@ function PlayerStateMachine(player, ctlr) {
     this.player = player
     this.ctlr = ctlr
 
-    this.fuel = this.maxFuel
     this.states = {
         dead: new Dead(this),
         falling: new Falling(this),
@@ -22,25 +21,10 @@ function PlayerStateMachine(player, ctlr) {
     this.player.body.kick = new Phaser.Physics.P2.InversePointProxy(player.game.physics.p2, [0, 0])
 
     var g = player.game
-    var tankMargin = 20
-    var tank = g.make.sprite(tankMargin, tankMargin, 'sprites', 'fuel-tank')
-    this.fuelHeight = tank.height - 4
-    var fuel = this.fuelGauge =  g.make.sprite(
-      tankMargin + 2, tankMargin + tank.height - 2, 'sprites', 'fuel')
-    fuel.anchor.setTo(0, 1)
-    fuel.width = tank.width - 4
-    fuel.height = this.fuelHeight
-    fuel.alpha = 0.8
-    fuel.fixedToCamera = true
-    tank.fixedToCamera = true
-    g.state.getCurrentState().hud.add(fuel)
-    g.state.getCurrentState().hud.add(tank)
 }
 
 
 PlayerStateMachine.prototype = {
-    maxFuel: 2000,
-
     change: function(key){
         this.current.exit()
         this.current = this.states[key]
@@ -48,29 +32,6 @@ PlayerStateMachine.prototype = {
     },
 
     update: function() {
-        var rFull = 0x4a0000
-        var gFull = 0xb600
-        var bFull = 0x7b
-        var rHalf = 0xf60000
-        var gHalf = 0xd600
-        var bHalf = 0x39
-        var rEmpty = 0xff0000
-        var gEmpty = 0x5500
-        var bEmpty = 0x5a
-        var interp = this.fuel/this.maxFuel
-        this.fuelGauge.height = this.fuelHeight * interp
-        if (interp > 0.5) {
-          interp = (interp - 0.5) / 0.5
-          this.fuelGauge.tint = ((rFull - rHalf) * interp + rHalf) & 0xff0000
-          this.fuelGauge.tint = this.fuelGauge.tint | (((gFull - gHalf) * interp + gHalf) & 0xff00)
-          this.fuelGauge.tint = this.fuelGauge.tint | (((bFull - bHalf) * interp + bHalf) & 0xff)
-        } else {
-          interp /= 0.5
-          this.fuelGauge.tint = ((rHalf - rEmpty) * interp + rEmpty) & 0xff0000
-          this.fuelGauge.tint = this.fuelGauge.tint | (((gHalf - gEmpty) * interp + gEmpty) & 0xff00)
-          this.fuelGauge.tint = this.fuelGauge.tint | (((bHalf - bEmpty) * interp + bEmpty) & 0xff)
-        }
-
         var game = this.player.game
         this.player.body.vel.y += game.physics.p2.gravity.y * game.time.physicsElapsed
         this.ctlr.update()
@@ -113,7 +74,7 @@ PlayerState.prototype = {
     },
 
     onUp: function() {
-        if (this.machine.fuel > 100) this.machine.change('flying')
+        if (this.player.fuel > 100) this.machine.change('flying')
     },
 
     onLeft: function() {
@@ -342,7 +303,7 @@ Flying.prototype.update = function() {
     var plyr = this.player
     var mchn = this.machine
 
-    if (mchn.fuel <= 0 || !this.machine.ctlr.up) {
+    if (plyr.fuel <= 0 || !this.machine.ctlr.up) {
         mchn.change('falling')
         return
     }
@@ -352,7 +313,7 @@ Flying.prototype.update = function() {
     plyr.weapon.y = plyr.body.vel.y < -30 ? 2 : 0
 
     plyr.body.vel.y -= plyr.game.physics.p2.gravity.y * 2.5 * plyr.game.time.physicsElapsed
-    mchn.fuel = Math.max(mchn.fuel - plyr.game.time.physicsElapsedMS, 0)
+    plyr.fuel = Math.max(plyr.fuel - plyr.game.time.physicsElapsedMS, 0)
 
     plyr.fx.jet()
 
@@ -382,9 +343,9 @@ Standing.prototype.update = function() {
 
     if (!plyr.standing) mchn.change('falling')
 
-    if (mchn.fuel < mchn.maxFuel) {
-        var fuel = mchn.fuel + plyr.game.time.physicsElapsedMS / 2
-        mchn.fuel = Math.min(mchn.maxFuel, fuel)
+    if (plyr.fuel < plyr.maxFuel) {
+        var fuel = plyr.fuel + plyr.game.time.physicsElapsedMS / 2
+        plyr.fuel = Math.min(plyr.maxFuel, fuel)
     }
 
     if (velx !== 0) {
