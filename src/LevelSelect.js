@@ -146,7 +146,7 @@ LevelSelect.prototype = {
     this.preview.font.y = this.preview.height/2
     this.preview.addChild(this.preview.font)
     this.preview.exists = false
-    this.world.add(this.preview)
+    //this.world.add(this.preview)
 
     this.camera.flash(0x180c08, 1000)
   },
