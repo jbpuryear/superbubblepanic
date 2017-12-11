@@ -19,15 +19,13 @@ function Gun(state, data, BulletClass) {
     this.bulletsPerShot = data.bulletsPerShot || 1
 
     this.shotThrottle = 0
-    this.dead = this.clipSize
 
     this.clip = new Phaser.Group(state.game)
 
     var bulletTexture = data.bulletTexture
 
-    for (var i = 0; i < this.clipSize; ++i) {
+    for (var i = 0; i < this.clipSize * this.bulletsPerShot; ++i) {
         var bullet = new BulletClass(state, 0, 0, bulletTexture)
-        bullet.events.onKilled.add(this.onBulletKilled, this)
         this.clip.add(bullet)
     }
 }
@@ -38,7 +36,7 @@ Gun.prototype = Object.create(Item.prototype)
 
 Object.defineProperty(Gun.prototype, 'available', {
   get: function() {
-    return Math.floor(this.dead/this.bulletsPerShot)
+    return Math.floor(this.clip.countDead()/this.bulletsPerShot)
   }
 })
 
@@ -62,7 +60,6 @@ Gun.prototype.fire = function(newShot) {
         var y = this.world.y + (this.width/2 * Math.sin(theta))
 
         for (var i = 0; i < this.bulletsPerShot; ++i) {
-            this.dead -= 1
             var bullet = this.clip.getFirstDead()
             var speedBonus = this.speedMul * (1 + (Math.random()*2 - 1)*this.speedVar)
             var bulletTheta = theta + (this.spread/this.clipSize *i - this.spread/2)
@@ -78,11 +75,6 @@ Gun.prototype.fire = function(newShot) {
         return true
     }
     return false
-}
-
-
-Gun.prototype.onBulletKilled = function() {
-  this.dead += 1
 }
 
 
