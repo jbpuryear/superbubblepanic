@@ -57,7 +57,7 @@ module.exports = {
             y: data.y,
             texture: 'gun',
             rate: 100,
-            clips: 1,
+            bulletsPerShot: 1,
             clipSize: 3,
         }, Bullet);
     },
@@ -69,7 +69,7 @@ module.exports = {
             texture: 'gun',
             rate: 500,
             spread: Math.PI/4,
-            clips: 6,
+            bulletsPerShot: 6,
             clipSize: 3
         }, Bullet);
     }, 
@@ -83,7 +83,7 @@ module.exports = {
             spread: Math.PI/18,
             accuracy: Math.PI/54,
             bulletTexture: 'pellet',
-            clips: 5,
+            bulletsPerShot: 5,
             clipSize: 3,
             speedVar: 0.1,
             shotSound: 'shotgun'
@@ -98,8 +98,8 @@ module.exports = {
             auto: true,
             rate: 100,
             accuracy: Math.PI/16,
-            clips: 1,
-            clipSize: 30,
+            bulletsPerShot: 1,
+            clipSize: 12,
         }, Bullet);
     },
 
@@ -109,7 +109,7 @@ module.exports = {
             x: data.x,
             y: data.y,
             texture: 'gravgun1',
-            clips: 1,
+            bulletsPerShot: 1,
             clipSize: 1,
         }, Gravity);
         gun.animations.add('rest',
@@ -123,7 +123,7 @@ module.exports = {
             x: data.x,
             y: data.y,
             texture: 'grenade-launcher',
-            clips: 1,
+            bulletsPerShot: 1,
             clipSize: 1,
             shotSound: 'launch'
         }, Grenade);
@@ -137,7 +137,7 @@ module.exports = {
             rate: 1000,
             spread: Math.PI/8,
             accuracy: Math.PI/8,
-            clips: 8,
+            bulletsPerShot: 8,
             clipSize: 3,
             speedVar: 0.05,
         }, Grenade);
@@ -149,7 +149,7 @@ module.exports = {
             y: data.y,
             texture: 'gun',
             rate: 100,
-            clips: 1,
+            bulletsPerShot: 1,
             clipSize: 3,
         }, Bouncy);
     },
