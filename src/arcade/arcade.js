@@ -54,8 +54,8 @@ Arcade.prototype.create = function() {
 
     this._score = 0;
     this.score = this.entities.smallFont(this, this._score + '')
-    this.score.anchor.setTo(0)
-    this.score.x = 36
+    this.score.anchor.setTo(1, 0)
+    this.score.x = this.game.width - 36
     this.score.y = 22
     this.hud.add(this.score)
 
