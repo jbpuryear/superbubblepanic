@@ -31,7 +31,8 @@ Hydroid.prototype.minWidth = MIN_WIDTH
 Hydroid.prototype.childDeath = function(enemy) {
     var drop = enemy.drop
     enemy.drop = null
-    var dropL = null, dropR = null
+    var dropL
+    var dropR
     if (Array.isArray(drop)) {
         dropL = drop[1] || null
         dropR = drop[2] || null
@@ -54,8 +55,8 @@ Hydroid.prototype.childDeath = function(enemy) {
     var velx = Math.cos(theta + Math.PI/4) * mag
     var vely = Math.sin(theta + Math.PI/4) * mag
 
-    this.spawn(x + xOff, y + yOff, width, velx, vely, dropL)
     this.spawn(x - xOff, y - yOff, width, vely, -velx, dropL)
+    this.spawn(x + xOff, y + yOff, width, velx, vely, dropR)
 }
 
 
