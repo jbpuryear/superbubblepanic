@@ -26,8 +26,18 @@ LevelSelect.prototype = {
     this.characterAt = null
     var bg = this.bg = this.add.image(0, 0, 'space')
     var map = this.world.add(new WorldMap(this.game))
-    this.scale.setGameSize(map.map.width, map.map.height)
-    this.bg.scale.setTo( Math.max(this.game.width/bg.width, this.game.height/bg.height) )
+
+    this.preview = new PhaserNineSlice.NineSlice(game, 0, map.map.height, 'sprites', 'window',
+      map.map.width, 40, { top: 8 })
+    this.preview.font = new SmallFont(this)
+    this.preview.font.anchor.setTo(0.5)
+    this.preview.font.x = this.preview.width/2
+    this.preview.font.y = this.preview.height/2
+    this.preview.addChild(this.preview.font)
+    this.world.add(this.preview)
+
+    this.scale.setGameSize(map.map.width, map.map.height+this.preview.height)
+    this.bg.scale.setTo( Math.max(this.game.width/bg.width, this.game.height/bg.height-this.preview.height) )
     bg.scale.setTo( bg.scale.x * 1.25 )
     this.add.image(410, 10, 'sprites', 'floating-eye')
       .scale.setTo(2)
@@ -138,15 +148,6 @@ LevelSelect.prototype = {
     this.world.add(this.reticule)
 
     var margin = 40
-    this.preview = new PhaserNineSlice.NineSlice(game, margin, margin, 'sprites', 'window',
-      this.game.width - 2*margin, 80, { top: 8 })
-    this.preview.font = new SmallFont(this)
-    this.preview.font.anchor.setTo(0, 0.5)
-    this.preview.font.x = 8
-    this.preview.font.y = this.preview.height/2
-    this.preview.addChild(this.preview.font)
-    this.preview.exists = false
-    //this.world.add(this.preview)
 
     this.camera.flash(0x180c08, 1000)
   },
@@ -177,9 +178,6 @@ LevelSelect.prototype = {
       plyr.animations.stop()
       plyr.frameName = 'p1-stand'
     }
-    
-    this.preview.y = this.reticule.y >= this.game.height * 2/3 ?
-        0 : this.game.height - this.preview.height
   },
 
 
@@ -230,7 +228,6 @@ LevelButton.prototype.inputOver = function() {
   this.state.selectIcon.x = this.x
   this.state.selectIcon.y = this.y
   this.state.preview.font.font.text = this.level.title
-  this.state.preview.exists = true
 }
 
 

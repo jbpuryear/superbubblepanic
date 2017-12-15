@@ -1,8 +1,8 @@
 {
   "start": {
     "key": "_menu",
-    "mapX": 40,
-    "mapY": 40,
+    "mapX": 519,
+    "mapY": 197,
     "state": "Menu",
     "title": "home sweet home"
   },
@@ -13,8 +13,28 @@
       "key": "level1",
       "url": "assets/levels/level1.json",
       "format": "TILED_JSON",
-      "mapX": 10,
-      "mapY": 40,
+      "mapX": 472,
+      "mapY": 157,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level2",
+      "url": "assets/levels/level2.json",
+      "format": "TILED_JSON",
+      "mapX": 445,
+      "mapY": 169,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level3",
+      "url": "assets/levels/level3.json",
+      "format": "TILED_JSON",
+      "mapX": 453,
+      "mapY": 201,
       "state": "Level",
       "title": "and so it begins"
     },
