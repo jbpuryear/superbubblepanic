@@ -83,7 +83,7 @@ Credits.prototype = {
     this.add.tween(character)
       .to({x: 500, y: 180}, scrollTime+mapTime+explodeTime/2, null, true, explodeTime/2)
     this.add.tween(character.scale)
-      .to({x: -0.01, y: 0.01}, scrollTime+mapTime+explodeTime/2,
+      .to({x: -0.05, y: 0.05}, scrollTime+mapTime+explodeTime/2,
         Phaser.Easing.Cubic.In, true, explodeTime/2)
 
     // Camera shake messes with retrofont rendering, so we have to wait to
@@ -106,12 +106,6 @@ Credits.prototype = {
             .start()
             .onComplete.addOnce(function() {
               this.add.tween(thanks).to({alpha: 1}, 500, null, true, 2000)
-                .onComplete.addOnce(function() {
-                  this.camera.onFadeComplete.addOnce(function() {
-                    this.state.start('Menu')
-                  }, this)
-                  this.time.events.add(2000, function() { this.camera.fade(0xf6eeee, 1000) }, this)
-                }, this)
             }, this)
         }, this)
     }, this)
