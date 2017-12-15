@@ -56,6 +56,7 @@ FinalBoss.prototype.update = function() {
 
 
 FinalBoss.prototype.win = function() {
+  this.game.data.checkWin(this.mapName)
   this.hasLanded = false
   if (this.soundtrack)
     this.soundtrack.stop()
