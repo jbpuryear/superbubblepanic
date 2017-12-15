@@ -289,6 +289,7 @@ Flying.prototype = Object.create(PlayerState.prototype)
 
 
 Flying.prototype.enter = function() {
+    if (this.player.standing) this.player.body.vel.y += -80
     this.jet = this.player.state.playSound('jetpack', undefined, true, true)
     this.player.fx.puff()
 }
@@ -312,7 +313,7 @@ Flying.prototype.update = function() {
 
     plyr.weapon.y = plyr.body.vel.y < -30 ? 2 : 0
 
-    plyr.body.vel.y -= plyr.game.physics.p2.gravity.y * 2.5 * plyr.game.time.physicsElapsed
+    plyr.body.vel.y -= plyr.game.physics.p2.gravity.y * 2 * plyr.game.time.physicsElapsed
     plyr.fuel = Math.max(plyr.fuel - plyr.game.time.physicsElapsedMS, 0)
 
     plyr.fx.jet()
