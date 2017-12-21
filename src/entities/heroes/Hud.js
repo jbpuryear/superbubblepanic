@@ -40,7 +40,8 @@ function Hud(state, player) {
 Hud.prototype.initClipDisplay = function() {
   this.gun = this.player.weapon
   var h = this.tank.height / this.gun.clipSize
-  var spacing = (this.tank.height - h) / (this.gun.clipSize - 1)
+  var spacing = this.gun.clipSize > 1 ?
+    (this.tank.height - h) / (this.gun.clipSize - 1) : 0
   for (var i = 0; i < this.bullets.children.length; ++i) {
     var b = this.bullets.children[i]
     b.y = i * spacing

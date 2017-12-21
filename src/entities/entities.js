@@ -58,7 +58,7 @@ module.exports = {
             texture: 'gun',
             rate: 100,
             bulletsPerShot: 1,
-            clipSize: 3,
+            clipSize: 1,
         }, Bullet);
     },
 
