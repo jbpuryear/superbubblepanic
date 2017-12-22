@@ -16,8 +16,9 @@
     "brfs": "^1.4.3"
   },
   "scripts": {
+    "build-dev": "browserify src/index.js -t brfs -o game.bundle.js",
     "pack": "spritesmith",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "watch 'npm run build-dev' src &"
   },
   "repository": {
     "type": "git",
