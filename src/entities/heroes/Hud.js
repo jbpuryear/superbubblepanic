@@ -10,7 +10,6 @@ function Hud(state, player) {
   this.fuelLast = player.fuel
   this.tank = game.make.sprite(tankMargin, tankMargin, 'sprites', 'fuel-tank')
   this.fuelHeight = this.tank.height - 4
-  this.available = 0
 
   this.fuelGauge =  game.make.sprite(
     tankMargin + 2, tankMargin + this.tank.height - 2, 'sprites', 'fuel')
@@ -40,21 +39,37 @@ function Hud(state, player) {
 Hud.prototype.initClipDisplay = function() {
   this.gun = this.player.weapon
   var h = this.tank.height / this.gun.clipSize
+  this.bulletHeight = h
   var spacing = this.gun.clipSize > 1 ?
     (this.tank.height - h) / (this.gun.clipSize - 1) : 0
   for (var i = 0; i < this.bullets.children.length; ++i) {
     var b = this.bullets.children[i]
     b.y = i * spacing
     b.exists = false
-    b.resize(8, h)
-    this.updateClip()
+    b.resize(8, this.bulletHeight)
   }
+  this.updateClip()
 }
 
 
 Hud.prototype.updateClip = function() {
+  var avail = this.gun.available
   for (var i = 0; i < this.gun.clipSize; ++i) {
-    this.bullets.children[i].exists = i < this.available ? true : false
+    var b = this.bullets.children[i]
+    if (i < avail) {
+      b.exists = true
+      if (i <= avail-1) {
+        b.alpha = 1
+        b.resize(8, this.bulletHeight)
+      } else {
+        b.alpha = 0.6
+        var h = this.bulletHeight*(avail - i)
+        console.log(h)
+        b.resize(8, Math.max(4, h))
+      }
+    } else {
+      b.exists = false
+    }
   }
 }
 
@@ -72,10 +87,6 @@ Hud.prototype.update = function() {
   }
 
   this.fuelGauge.height = this.fuelHeight * prcnt/100
-
-  var available = this.gun.available
-  if (this.available !== available) {
-    this.available = available
-    this.updateClip()
-  }
+  this.updateClip()
 }
+

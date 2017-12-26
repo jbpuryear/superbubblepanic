@@ -56,9 +56,9 @@ module.exports = {
             x: data.x,
             y: data.y,
             texture: 'gun',
-            rate: 100,
+            rate: 400,
             bulletsPerShot: 1,
-            clipSize: 1,
+            clipSize: 2,
         }, Bullet);
     },
 
