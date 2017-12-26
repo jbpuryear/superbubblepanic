@@ -55,6 +55,9 @@ module.exports = function create() {
     this.startFX()
     this.world.add(this.reticule)
     this.p1 = this.players.children[0]
+
+    this.physics.p2.pause()
+    this.time.events.add(250, this.physics.p2.resume, this.physics.p2)
 }
 
 
