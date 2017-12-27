@@ -64,7 +64,6 @@ Hud.prototype.updateClip = function() {
       } else {
         b.alpha = 0.6
         var h = this.bulletHeight*(avail - i)
-        console.log(h)
         b.resize(8, Math.max(4, h))
       }
     } else {

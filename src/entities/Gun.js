@@ -53,12 +53,12 @@ Gun.prototype.pickup = function(_, playerBody) {
 
 
 Gun.prototype.fire = function(newShot) {
-    if (this._available < 1 || this.shotThrottle > 0 || (!newShot && !this.auto)) {
+    if (this._available < 1 || (!newShot && this.shotThrottle > 0) || (!newShot && !this.auto)) {
       return false
     }
 
     this.shotThrottle = this.throttle
-    this._available -= 1
+    this._available = Math.floor(this._available-1)
 
     var theta = this.rotation
     var x = this.world.x + (this.width/2 * Math.cos(theta))
@@ -88,6 +88,10 @@ Gun.prototype.fire = function(newShot) {
 Gun.prototype.update = function() {
     var dt = this.game.time.physicsElapsedMS
     if (this.shotThrottle > 0) this.shotThrottle -= dt
+    var old = Math.floor(this._available)
     this._available = Math.min(this._available + dt/this.rate, this.clipSize)
+    if (old !== Math.floor(this._available)) {
+        this.state.playSound('click')
+    }
 }
 
