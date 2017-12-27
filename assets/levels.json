@@ -60,6 +60,26 @@
     },
     {
       "type": "tilemap",
+      "key": "level6",
+      "url": "assets/levels/level6.json",
+      "format": "TILED_JSON",
+      "mapX": 386,
+      "mapY": 272,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level7",
+      "url": "assets/levels/level7.json",
+      "format": "TILED_JSON",
+      "mapX": 407,
+      "mapY": 300,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
       "key": "monster",
       "url": "assets/levels/monster.json",
       "format": "TILED_JSON",
