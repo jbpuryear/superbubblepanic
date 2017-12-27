@@ -62,6 +62,18 @@ module.exports = {
         }, Bullet);
     },
 
+    dblPistol: function(state, data) {
+        return new Gun(state, {
+            x: data.x,
+            y: data.y,
+            texture: 'dbl-pistol',
+            rate: 200,
+            bulletsPerShot: 1,
+            clipSize: 4,
+            accuracy: Math.PI/48,
+        }, Bullet);
+    },
+
     spread: function(state, data) {
         return new Gun(state, {
             x: data.x,
@@ -79,12 +91,12 @@ module.exports = {
             x: data.x,
             y: data.y,
             texture: 'shotgun',
-            rate: 1000,
+            rate: 800,
             spread: Math.PI/18,
             accuracy: Math.PI/54,
             bulletTexture: 'pellet',
             bulletsPerShot: 5,
-            clipSize: 3,
+            clipSize: 2,
             speedVar: 0.1,
             shotSound: 'shotgun'
         }, Bullet);

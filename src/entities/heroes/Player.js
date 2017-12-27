@@ -58,7 +58,7 @@ Object.defineProperty(Player.prototype, 'speed', {
 
 Object.defineProperty(Player.prototype, 'accel', {
     get: function() {
-        var rate = this.standing ? 0.05 : 0.5
+        var rate = this.standing ? 0.075 : 0.5
         return this.speed / rate
     }
 })
