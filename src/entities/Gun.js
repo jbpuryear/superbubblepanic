@@ -27,6 +27,7 @@ function Gun(state, data, BulletClass) {
     this.shotThrottle = 0
 
     this.clip = new Phaser.Group(state.game)
+    state.bgItems.add(this.clip)
 
     for (var i = 0; i < this.clipSize * this.bulletsPerShot; ++i) {
         var bullet = new BulletClass(state, 0, 0, this.bulletTexture)
@@ -73,7 +74,8 @@ Gun.prototype.fire = function(newShot) {
         var speedBonus = this.speedMul * (1 + (Math.random()*2 - 1)*this.speedVar)
         var bulletTheta = theta + (this.spread/this.clipSize *i - this.spread/2)
         bulletTheta += (Math.random()*2 - 1)*this.accuracy
-        bullet.fire(x, y, bulletTheta, speedBonus)
+        var r = this.state.reticule
+        bullet.fire(x, y, bulletTheta, speedBonus, r.x, r.y)
     }
 
     var dir = theta > Math.PI/2 || theta < -Math.PI/2 ? 2 : -2

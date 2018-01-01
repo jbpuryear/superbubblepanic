@@ -1,43 +1,59 @@
 module.exports = Director
 
 
-var Attack = require('./Attack.js')
 var Hydroid = require('../../entities/enemies/Hydroid.js')
 
 
-function Director(state, Script) {
+function Director(state) {
   this.state = state
   this.finished = false
-  this.attack = new Script(this)
+  this.started = false
+  this.script = null
   this.pool = state.addEntity({ type: 'enemy',  width: 40*Hydroid.prototype.minWidth })
   this.pool.getFirstExists().exists = false
 
+  function cull(obj) {
+    obj.exists = false
+  }
+
   this.pool.forEach(function(enemy) {
     enemy.body.removeCollisionGroup(enemy.game.physics.p2.boundsCollisionGroup)
+    enemy.checkWorldBounds = true
+    enemy.events.onOutOfBounds.add(cull)
   })
 }
 
 
 Director.prototype = {
   update: function() {
-    var noneExist = true
-    for (var i = 0; i < this.pool.children.length; ++i) {
-      var e = this.pool.children[i]
-      if (e.exists) {
-        if (e.top > this.state.game.height) {
-          e.exists = false
-        } else {
+    if (this.finished || !this.started) { return }
+
+    if (this.script.finished) {
+      var noneExist = true
+      for (var i = 0; i < this.pool.children.length; ++i) {
+        if (this.pool.children[i].exists) {
           noneExist = false
         }
       }
+      this.finished = noneExist
+      return
     }
-    this.attack.update()
-    this.finished = this.attack.finished && noneExist
+
+    this.script.update(this.state.time.physicsElapsedMS)
+  },
+
+  load: function(script) {
+    this.script = script
   },
 
   start: function(idx) {
     idx = idx || 0
-    this.attack.start()
+    if (!this.script || this.script.length <= idx) {
+      this.finished = true
+      return false
+    }
+    this.script.start(idx)
+    this.started = true
   },
 
   spawn: function(type, x, y, width, velx, vely) {
