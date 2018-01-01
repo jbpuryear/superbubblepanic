@@ -3,7 +3,7 @@ module.exports = ShmupLevel
 
 var Level = require('../Level.js')
 var Director = require('./Director.js')
-var Script = require('./Script.js')
+var makeScript = require('./makeScript.js')
 var Spaceship = require('../../entities/Spaceship.js')
 var DefaultCtlr = require('../../entities/heroes/DefaultCtlr.js')
 
@@ -15,11 +15,17 @@ function ShmupLevel() {
 
 ShmupLevel.prototype = Object.create(Level.prototype)
 
+ShmupLevel.prototype.gravity = 0
+
+
+ShmupLevel.prototype.throwShell = function() {}
+
 
 ShmupLevel.prototype.create = function() {
   Level.prototype.create.call(this)
 
-  this.director = new Director(this, Script)
+  this.director = new Director(this)
+  this.director.load(makeScript(this.director))
 
   this.puffs.setXSpeed(-80, 80)
   this.puffs.setYSpeed(400, 480)
@@ -44,11 +50,14 @@ ShmupLevel.prototype.create = function() {
   this.ocean = this.make.image(0, 0, 'ocean')
   this.ocean.scale.setTo(this.game.height/this.ocean.height)
   this.bgItems.addChild(this.ocean)
-  this.add.tween(this.ocean).to({ y: this.game.height }, 3000).chain(
-    this.add.tween(this.atmosphere)
-      .to({ alpha: 0 }, 8000, Phaser.Easing.Quadratic.In, false, 2000)
-  ).start()
-
+  var tween = this.add.tween(this.atmosphere)
+    .to({ alpha: 0 }, 8000, Phaser.Easing.Quadratic.In, false, 2000)
+  tween.onComplete.addOnce(function() {
+    this.atmosphere.exists = false
+    this.ocean.exists = false
+  }, this)
+  this.add.tween(this.ocean).to({ y: this.game.height }, 3000).chain(tween).start()
+  
   var ship = this.players.addChild(new Spaceship(this, new DefaultCtlr(this)))
   this.ship = ship
   ship.body.removeFromWorld()

@@ -13,7 +13,6 @@
         }, 
         {
          "draworder":"topdown",
-         "height":35,
          "name":"object",
          "objects":[
                 {
@@ -37,17 +36,27 @@
                  "width":32,
                  "x":56,
                  "y":320
+                }, 
+                {
+                 "ellipse":true,
+                 "height":64,
+                 "id":135,
+                 "name":"",
+                 "rotation":0,
+                 "type":"enemy",
+                 "visible":true,
+                 "width":64,
+                 "x":224,
+                 "y":184
                 }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":75,
          "x":0,
          "y":0
         }, 
         {
          "draworder":"topdown",
-         "height":35,
          "name":"platform",
          "objects":[
                 {
@@ -85,11 +94,10 @@
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":75,
          "x":0,
          "y":0
         }],
- "nextobjectid":135,
+ "nextobjectid":136,
  "orientation":"orthogonal",
  "properties":
     {
@@ -100,6 +108,7 @@
      "setting":"string"
     },
  "renderorder":"right-down",
+ "tiledversion":"1.0.3",
  "tileheight":8,
  "tilesets":[
         {
@@ -116,6 +125,7 @@
          "tilewidth":8
         }],
  "tilewidth":8,
+ "type":"map",
  "version":1,
  "width":74
 }
