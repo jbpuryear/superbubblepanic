@@ -103,9 +103,19 @@
       "key": "shmup",
       "url": "assets/levels/shmup.json",
       "format": "TILED_JSON",
-      "mapX": 250,
-      "mapY": 305,
+      "mapX": 15,
+      "mapY": 15,
       "state": "ShmupLevel",
+      "title": "the not so friendly skies"
+    },
+    {
+      "type": "tilemap",
+      "key": "zero-g",
+      "url": "assets/levels/zero-g.json",
+      "format": "TILED_JSON",
+      "mapX": 274,
+      "mapY": 13,
+      "state": "ZeroGLevel",
       "title": "the not so friendly skies"
     },
     {
@@ -123,8 +133,8 @@
       "key": "seeker",
       "url": "assets/levels/seeker.json",
       "format": "TILED_JSON",
-      "mapX": 50,
-      "mapY": 10,
+      "mapX": 465,
+      "mapY": 66,
       "state": "FinalBoss",
       "title": "showdown"
     }
