@@ -112,54 +112,56 @@ function makeMap(state) {
     var plats = state.physics.p2
         .convertCollisionObjects(state.map, 'platform', true)
 
-    state.map.objects.object.forEach(state.addEntity, state)
-
-    state.map.createLayer('background')
+    var bg = state.map.createLayer('background')
+    var tex = bg.generateTexture()
+    state.splatter.mask.draw(tex)
+    tex.destroy()
     plats.forEach(function(platform, i) {
         var data = state.map.objects.platform[i]
 
-        var xMin=0, xMax=0, yMin=0, yMax=0;
-        var poly = data.polyline;
-        for (var i=0; i<poly.length; i++) {
-            // P2.converCollisionObjects converts the tilemap data to P2 units
-            // so change them back so we can draw with them.
-            var x = poly[i][0] = state.physics.p2.mpxi(poly[i][0]);
-            var y = poly[i][1] = state.physics.p2.mpxi(poly[i][1]);
-            if (x < xMin) xMin = x;
-            if (x > xMax) xMax = x;
-            if (y < yMin) yMin = y;
-            if (y > yMax) yMax = y;
+        if (data.properties && data.properties.breakable) {
+            var xMin=0, xMax=0, yMin=0, yMax=0;
+            var poly = data.polyline;
+            for (var i=0; i<poly.length; i++) {
+                // P2.converCollisionObjects converts the tilemap data to P2 units
+                // so change them back so we can draw with them.
+                var x = poly[i][0] = state.physics.p2.mpxi(poly[i][0]);
+                var y = poly[i][1] = state.physics.p2.mpxi(poly[i][1]);
+                if (x < xMin) xMin = x;
+                if (x > xMax) xMax = x;
+                if (y < yMin) yMin = y;
+                if (y > yMax) yMax = y;
+            }
+            var width = xMax - xMin;
+            var height = yMax - yMin;
+
+            var points = [];
+            for (i=0; i<poly.length; i++) {
+                var x = poly[i][0] - xMin;
+                var y = poly[i][1] - yMin;
+                points.push([x, y]);
+            }
+            points.cx = width/2 + data.x  + xMin;
+            points.cy = height/2 + data.y + yMin;
+            points.width = width
+            points.height = height
+            data.points = points;
+
+            var texture = new Phaser.Graphics(state.game);
+            texture.beginFill(0xFFFFFF, 1);
+            texture.drawPolygon(points);
+            texture.endFill();
+
+            var img = state.make.image(x, y, texture.generateTexture());
+            texture.destroy();
+
+            img.anchor.setTo(0.5)
+            img.x = points.cx
+            img.y = points.cy
+            data.mask = img
+
+            this.splatter.mask.draw(img)
         }
-        var width = xMax - xMin;
-        var height = yMax - yMin;
-
-        var points = [];
-        for (i=0; i<poly.length; i++) {
-            var x = poly[i][0] - xMin;
-            var y = poly[i][1] - yMin;
-            points.push([x, y]);
-        }
-        points.cx = width/2 + data.x  + xMin;
-        points.cy = height/2 + data.y + yMin;
-        points.width = width
-        points.height = height
-        data.points = points;
-
-        var texture = new Phaser.Graphics(state.game);
-        texture.beginFill(0xFFFFFF, 1);
-        texture.drawPolygon(points);
-        texture.endFill();
-
-        var img = state.make.image(x, y, texture.generateTexture());
-        texture.destroy();
-
-        img.anchor.setTo(0.5)
-        img.x = points.cx
-        img.y = points.cy
-        data.mask = img
-
-        this.splatter.mask.draw(img)
-
 
         platform.setCollisionGroup(state.platformsCG)
         platform.collides(
@@ -208,6 +210,10 @@ function makeMap(state) {
     }
 
     state.platforms = plats
+
+    state.setSize()
+    state.map.objects.object.forEach(state.addEntity, state)
+
 }
 
 
