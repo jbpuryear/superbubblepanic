@@ -5,8 +5,10 @@ function PlayerFX(player) {
     var state = player.game.state.getCurrentState()
     this.player = player
 
-    this.dust = state.add.emitter(0, 0, 10)
-    this.flame = state.add.emitter(0, 0, 30)
+    this.dust = state.make.emitter(0, 0, 10)
+    this.flame = state.make.emitter(0, 0, 30)
+    state.bgItems.addChild(this.dust)
+    state.bgItems.addChild(this.flame)
 
     this.dust.makeParticles('sprites', 
         Phaser.Animation.generateFrameNames('dust', 1, 4))
