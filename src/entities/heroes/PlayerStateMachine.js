@@ -345,7 +345,7 @@ Standing.prototype.update = function() {
     if (!plyr.standing) mchn.change('falling')
 
     if (plyr.fuel < plyr.maxFuel) {
-        var fuel = plyr.fuel + plyr.game.time.physicsElapsedMS / 2
+        var fuel = plyr.fuel + plyr.game.time.physicsElapsedMS
         plyr.fuel = Math.min(plyr.maxFuel, fuel)
     }
 
