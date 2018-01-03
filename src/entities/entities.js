@@ -27,6 +27,9 @@ module.exports = {
     },
 
 
+    spikes: require('./Spikes.js'),
+
+
     // Enemies
     enemy: function(state, data, drop) {
         return new Hydroid(state, data, drop, Enemy);
