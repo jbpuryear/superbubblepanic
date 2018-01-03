@@ -3,29 +3,23 @@ module.exports = Hud
 
 function Hud(state, player) {
   var game = state.game
-  var tankMargin = 20
+  var marginLeft = state.game.width * 0.02
+  var marginTop = state.game.height * 0.03
+  this.height = state.game.height * 0.2
+  this.width = 8
 
   this.player = player
   this.gun = this.player.weapon
-  this.fuelLast = player.fuel
-  this.tank = game.make.sprite(tankMargin, tankMargin, 'sprites', 'fuel-tank')
-  this.fuelHeight = this.tank.height - 4
 
-  this.fuelGauge =  game.make.sprite(
-    tankMargin + 2, tankMargin + this.tank.height - 2, 'sprites', 'fuel')
-
-  this.fuelGauge.anchor.setTo(0, 1)
-  this.fuelGauge.width = this.tank.width - 4
-  this.fuelGauge.height = this.fuelHeight
+  this.fuelGauge = new PhaserNineSlice
+      .NineSlice(game, marginLeft, marginTop, 'sprites', 'fuel', 8, 8, { top: 2 })
+  this.fuelGauge.resize(this.width, this.height)
   this.fuelGauge.alpha = 0.8
   state.hud.add(this.fuelGauge)
-  state.hud.add(this.tank)
-
-  this.player.onEquip.add(this.initClipDisplay, this)
 
   this.bullets = game.make.group()
-  this.bullets.x = this.tank.right
-  this.bullets.y = this.tank.top
+  this.bullets.x = marginLeft + this.width
+  this.bullets.y = marginTop
 
   for (var i = 0; i < 12; ++i) {
     this.bullets.add(new PhaserNineSlice
@@ -33,20 +27,23 @@ function Hud(state, player) {
   }
   this.bullets.alpha = 0.8
   state.hud.add(this.bullets)
+  console.log(this.bullets.x, this.bullets.y)
+
+  this.player.onEquip.add(this.initClipDisplay, this)
 }
 
 
 Hud.prototype.initClipDisplay = function() {
   this.gun = this.player.weapon
-  var h = this.tank.height / this.gun.clipSize
+  var h = this.height / this.gun.clipSize
   this.bulletHeight = h
   var spacing = this.gun.clipSize > 1 ?
-    (this.tank.height - h) / (this.gun.clipSize - 1) : 0
+    (this.height - h) / (this.gun.clipSize - 1) : 0
   for (var i = 0; i < this.bullets.children.length; ++i) {
     var b = this.bullets.children[i]
     b.y = i * spacing
     b.exists = false
-    b.resize(8, this.bulletHeight)
+    b.resize(this.width, this.bulletHeight)
   }
   this.updateClip()
 }
@@ -85,7 +82,7 @@ Hud.prototype.update = function() {
     this.fuelGauge.tint = Phaser.Color.interpolateColor(empty, half, 50, prcnt)
   }
 
-  this.fuelGauge.height = this.fuelHeight * prcnt/100
+  this.fuelGauge.resize(this.width, this.height * prcnt/100)
   this.updateClip()
 }
 
