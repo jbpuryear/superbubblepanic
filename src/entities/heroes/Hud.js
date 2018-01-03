@@ -27,7 +27,6 @@ function Hud(state, player) {
   }
   this.bullets.alpha = 0.8
   state.hud.add(this.bullets)
-  console.log(this.bullets.x, this.bullets.y)
 
   this.player.onEquip.add(this.initClipDisplay, this)
 }
