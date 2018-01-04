@@ -2,7 +2,7 @@
   "start": {
     "key": "_menu",
     "mapX": 519,
-    "mapY": 197,
+    "mapY": 222,
     "state": "Menu",
     "title": "home sweet home"
   },
@@ -14,7 +14,7 @@
       "url": "assets/levels/level1.json",
       "format": "TILED_JSON",
       "mapX": 472,
-      "mapY": 157,
+      "mapY": 182,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -24,7 +24,7 @@
       "url": "assets/levels/level2.json",
       "format": "TILED_JSON",
       "mapX": 445,
-      "mapY": 169,
+      "mapY": 194,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -34,7 +34,7 @@
       "url": "assets/levels/level3.json",
       "format": "TILED_JSON",
       "mapX": 453,
-      "mapY": 201,
+      "mapY": 226,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -44,7 +44,7 @@
       "url": "assets/levels/level4.json",
       "format": "TILED_JSON",
       "mapX": 413,
-      "mapY": 214,
+      "mapY": 239,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -54,7 +54,7 @@
       "url": "assets/levels/level5.json",
       "format": "TILED_JSON",
       "mapX": 405,
-      "mapY": 240,
+      "mapY": 265,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -64,7 +64,7 @@
       "url": "assets/levels/level6.json",
       "format": "TILED_JSON",
       "mapX": 386,
-      "mapY": 272,
+      "mapY": 297,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -74,7 +74,7 @@
       "url": "assets/levels/level7.json",
       "format": "TILED_JSON",
       "mapX": 407,
-      "mapY": 300,
+      "mapY": 325,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -84,7 +84,7 @@
       "url": "assets/levels/monster.json",
       "format": "TILED_JSON",
       "mapX": 100,
-      "mapY": 100,
+      "mapY": 125,
       "state": "MonsterLevel",
       "title": "ooh creepy"
     },
@@ -94,7 +94,7 @@
       "url": "assets/levels/rocket.json",
       "format": "TILED_JSON",
       "mapX": 25,
-      "mapY": 305,
+      "mapY": 330,
       "state": "RocketLevel",
       "title": "ground control"
     },
@@ -104,7 +104,7 @@
       "url": "assets/levels/shmup.json",
       "format": "TILED_JSON",
       "mapX": 15,
-      "mapY": 15,
+      "mapY": 35,
       "state": "ShmupLevel",
       "title": "the not so friendly skies"
     },
@@ -113,8 +113,8 @@
       "key": "zero-g",
       "url": "assets/levels/zero-g.json",
       "format": "TILED_JSON",
-      "mapX": 274,
-      "mapY": 13,
+      "mapX": 215,
+      "mapY": 22,
       "state": "ZeroGLevel",
       "title": "the not so friendly skies"
     },
@@ -123,8 +123,8 @@
       "key": "space-boss",
       "url": "assets/levels/space-boss.json",
       "format": "TILED_JSON",
-      "mapX": 400,
-      "mapY": 10,
+      "mapX": 477,
+      "mapY": 135,
       "state": "SpaceBoss",
       "title": "how high the moon"
     },
@@ -133,8 +133,8 @@
       "key": "seeker",
       "url": "assets/levels/seeker.json",
       "format": "TILED_JSON",
-      "mapX": 465,
-      "mapY": 66,
+      "mapX": 486,
+      "mapY": 43,
       "state": "FinalBoss",
       "title": "showdown"
     }

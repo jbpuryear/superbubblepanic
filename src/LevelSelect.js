@@ -8,6 +8,7 @@ var WorldMap = require('./WorldMap.js')
 var SmallFont = require('./entities/SmallFont.js')
 
 var ICON_SIZE = 16
+var padTop = 25
 
 
 function LevelSelect() {
@@ -26,8 +27,9 @@ LevelSelect.prototype = {
     this.characterAt = null
     var bg = this.bg = this.add.image(0, 0, 'space')
     var map = this.world.add(new WorldMap(this.game))
+    map.y = padTop
 
-    this.preview = new PhaserNineSlice.NineSlice(game, 0, map.map.height, 'sprites', 'window',
+    this.preview = new PhaserNineSlice.NineSlice(game, 0, map.map.height+padTop, 'sprites', 'window',
       map.map.width, 40, { top: 8 })
     this.preview.font = new SmallFont(this)
     this.preview.font.anchor.setTo(0.5)
@@ -36,11 +38,9 @@ LevelSelect.prototype = {
     this.preview.addChild(this.preview.font)
     this.world.add(this.preview)
 
-    this.scale.setGameSize(map.map.width, map.map.height+this.preview.height)
+    this.scale.setGameSize(map.map.width, map.map.height+this.preview.height+padTop)
     this.bg.scale.setTo( Math.max(this.game.width/bg.width, this.game.height/bg.height-this.preview.height) )
     bg.scale.setTo( bg.scale.x * 1.25 )
-    this.add.image(410, 10, 'sprites', 'floating-eye')
-      .scale.setTo(2)
     this.world.setBounds(0, 0, this.game.width, this.game.height)
     this.reticule = new Reticule(this.game)
 
@@ -53,7 +53,7 @@ LevelSelect.prototype = {
 
     var startBtn = symbols.addChild(new LevelButton(this, start, 'map-start'))
     startBtn.x = start.mapX
-    startBtn.y = start.mapY
+    startBtn.y = start.mapY - padTop
     startBtn.anchor.setTo(0.5, 1)
 
     if (levels.length === 0) return
@@ -63,14 +63,14 @@ LevelSelect.prototype = {
     // This would be easier with BitmapData, but I can't turn off smoothing!
     this.trail.lineStyle(2, 0xfff2cd, 0.6)
     var x = start.mapX
-    var y = start.mapY
+    var y = start.mapY - padTop
     this.trail.moveTo(x, y)
     var dashLength = 5
     var spaceLength = 4
     for (var i = 0; i < levels.length && i <= lastCompleted+1; i++) {
       lvl = levels[i]
       var run = lvl.mapX - x
-      var rise = lvl.mapY - y
+      var rise = lvl.mapY - y - padTop
       var d = Math.sqrt(run*run + rise*rise)
       var dashX = dashLength * run/d
       var dashY = dashLength * rise/d
@@ -79,7 +79,7 @@ LevelSelect.prototype = {
       while (x !== lvl.mapX) {
         if (Math.abs(x - lvl.mapX) < Math.abs(dashX)) {
           x = lvl.mapX
-          y = lvl.mapY
+          y = lvl.mapY - padTop
         } else {
           x += dashX
           y += dashY
@@ -87,7 +87,7 @@ LevelSelect.prototype = {
         this.trail.lineTo(x, y)
         if (Math.abs(x - lvl.mapX) < Math.abs(dashX)) {
           x = lvl.mapX
-          y = lvl.mapY
+          y = lvl.mapY - padTop
         } else {
           x += spaceX
           y += spaceY
@@ -108,11 +108,11 @@ LevelSelect.prototype = {
           butt.animations.play('blink', 1.5, true)
         }
         butt.x = lvl.mapX
-        butt.y = lvl.mapY
+        butt.y = lvl.mapY - padTop
         symbols.addChild(butt)
         if (lvl.state === 'RocketLevel') butt.anchor.setTo(0.5, 1)
       } else {
-        var icon = this.make.image(lvl.mapX, lvl.mapY, 'sprites', 'lvlLocked')
+        var icon = this.make.image(lvl.mapX, lvl.mapY-padTop, 'sprites', 'lvlLocked')
         icon.anchor.setTo(0.5)
         icon.width = ICON_SIZE
         icon.height = ICON_SIZE
@@ -134,16 +134,21 @@ LevelSelect.prototype = {
     this.playerIcon = symbols.addChild(new Character(this))
     this.playerIcon.anchor.setTo(0.5, 1)
     this.playerIcon.x = lvl.mapX
-    this.playerIcon.y = lvl.mapY
+    this.playerIcon.y = lvl.mapY - padTop
     if (lastPlayed > lastCompleted) this.walkTo(lastCompleted)
 
+    var key = lastCompleted >= this.game.data.getLevelIndex('space-boss')
+      ? 'floating-eye-damaged' : 'floating-eye'
+    var eye = this.add.image(425, -30, 'sprites', key)
+    eye.scale.setTo(2)
+    map.addAt(eye, map.getChildIndex(map.clouds))
     map.addAt(symbols, map.getChildIndex(map.clouds))
 
     this.selectIcon = this.add.sprite(0, 0, 'sprites', 'select-icon')
     this.selectIcon.anchor.setTo(0.5)
-    this.selectIcon.exists = false
     this.selectIcon.width = 20
     this.selectIcon.height = 20
+    this.selectIcon.exists = false
 
     this.world.add(this.reticule)
 
@@ -172,11 +177,11 @@ LevelSelect.prototype = {
       var vel = 200
       var p = pts[pts.length - 1]
       var dx = p.mapX - plyr.x
-      var dy = p.mapY - plyr.y
+      var dy = p.mapY - padTop - plyr.y
       var d = Math.sqrt(dx*dx + dy*dy)
       if (d <= dt*vel) {
         plyr.x = p.mapX
-        plyr.y = p.mapY
+        plyr.y = p.mapY - padTop
         this.characterAt = this.game.data.getLevelIndex(p.key)
         this.walkPoints.pop()
       } else {
@@ -236,7 +241,7 @@ LevelButton.prototype.inputOver = function() {
   Button.prototype.inputOver.call(this)
   this.state.selectIcon.exists = true
   this.state.selectIcon.x = this.x
-  this.state.selectIcon.y = this.y
+  this.state.selectIcon.y = this.y + padTop
   this.state.preview.font.font.text = this.level.title
 }
 

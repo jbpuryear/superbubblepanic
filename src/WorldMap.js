@@ -23,9 +23,6 @@ function WorldMap(game) {
 
   this.bringToTop(this.map)
 
-  this.eye = this.create(410, 10, 'sprites', 'floating-eye')
-  this.eye.scale.setTo(2)
-
   function rotate() {
     this.rotation += Math.PI * 0.01 / this.pivot.y
   }

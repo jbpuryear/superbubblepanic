@@ -28,7 +28,7 @@ Button.prototype = Object.create(Phaser.Sprite.prototype)
 Button.prototype.update = function() {
     if (!this.exists || !this.visible || this.worldAlpha !== 1) return
 
-    var ret = this.state.reticule.world
+    var ret = this.state.reticule.position
     this.mouseWasOver = this.mouseIsOver
     this.mouseIsOver = this.getBounds().contains(ret.x, ret.y)
 
