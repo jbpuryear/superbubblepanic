@@ -22,6 +22,7 @@ module.exports = function create() {
 
     this.bgItems = this.make.group()
     this.players = this.make.group()
+    this.bullets = this.make.group()
     this.enemies = this.make.group()
     this.items = this.make.group()
     this.fgItems = this.make.group()
@@ -32,7 +33,7 @@ module.exports = function create() {
     this.splatter.mask = this.make.bitmapData(this.world.width, this.world.height)
 
     this.world.addChild(this.bgItems)
-
+    this.world.addChild(this.bullets)
     makeParticles(this)
 
     this.world.addChild(this.players)
