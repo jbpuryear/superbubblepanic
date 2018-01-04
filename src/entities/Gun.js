@@ -27,7 +27,7 @@ function Gun(state, data, BulletClass) {
     this.shotThrottle = 0
 
     this.clip = new Phaser.Group(state.game)
-    state.bgItems.add(this.clip)
+    state.bullets.add(this.clip)
 
     for (var i = 0; i < this.clipSize * this.bulletsPerShot; ++i) {
         var bullet = new BulletClass(state, 0, 0, this.bulletTexture)
