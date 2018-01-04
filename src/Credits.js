@@ -20,7 +20,6 @@ Credits.prototype = {
 
     var bg = this.bg = this.add.image(0, 0, 'space')
     var map = this.map = this.world.addChild(new WorldMap(this.game))
-    map.eye.exists = false
     
     this.scale.setGameSize(map.map.width, map.map.height)
     bg.scale.setTo( Math.max(this.game.width/bg.width, this.game.height/bg.height) )
