@@ -24,16 +24,17 @@ Arcade.prototype.create = function() {
     Level.prototype.create.call(this);
 
     var hsMod = this.gameOverScreen.hsMod = this.add.group()
-    var character = hsMod.create(0, this.game.height/2, 'sprites', 'p1-victory')
+    var character = hsMod.create(0, 0, 'sprites', 'p1-victory')
     character.anchor.setTo(0, 0.5)
     character.scale.setTo(4)
     var hs = hsMod.hs = this.entities.smallFont(this, 'New High Score!')
     hs.anchor.setTo(0, 0.5)
     hs.scale.setTo(2)
     hs.x = character.width + 5
-    hs.y = this.game.height/2
+    hs.y = 0
     hsMod.addChild(hs)
-    hsMod.x = this.game.world.width/2 - hsMod.width/2
+    hsMod.x = -hsMod.width/2
+    hsMod.y = 0
     this.gameOverScreen.addChild(hsMod)
     this.gameOverScreen.hsMod = hsMod
 

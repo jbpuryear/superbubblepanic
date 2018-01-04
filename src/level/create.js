@@ -72,16 +72,16 @@ function makeExplosions(state) {
 function makeGameOverScreen(state) {
     var gameOverScreen = state.make.graphics()
     gameOverScreen.beginFill(0x000000)
-    gameOverScreen.drawRect(
-        0, 0, state.game.width, state.game.height)
+    gameOverScreen.drawRect(0, 0, state.game.width*1.1, state.game.height*1.1)
     gameOverScreen.endFill()
-    state.gameOverScreen = state.make.image(
-        0, 0, gameOverScreen.generateTexture())
+    state.gameOverScreen = state.make.image(state.game.width/2, state.game.height/2,
+         gameOverScreen.generateTexture())
+    state.gameOverScreen.anchor.setTo(0.5)
 
     var GOtext = state.entities.smallFont(state, 'x: menu r: retry')
     GOtext.anchor.setTo(0, 1)
-    GOtext.x = 16
-    GOtext.y = state.game.height-16
+    GOtext.x = -state.game.width/2 + 16
+    GOtext.y = state.game.height/2 - 16
 
     state.gameOverScreen.addChild(GOtext)
     state.gameOverScreen.alpha = 0
