@@ -47,6 +47,9 @@ SpaceBoss.prototype.makeMonster = function() {
   l.scale.setTo(2)
   this.bgItems.create(l.width, 260, 'space-boss', 'bg').scale.setTo(2)
   var i = this.eye = this.bgItems.create(this.game.width/2+5, 308, 'space-boss', 'eyeball')
+  i.mask = this.add.graphics()
+  i.mask.beginFill(0xffffff)
+  i.mask.drawRect(0, 0, this.game.width, this.game.height-20)
   var overlay = this.add.sprite(0, 0, 'space-boss', 'eyeball-overlay')
   overlay.anchor.setTo(0.5)
   overlay.alpha = 0
