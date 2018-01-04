@@ -150,6 +150,12 @@ LevelSelect.prototype = {
     var margin = 40
 
     this.camera.flash(0x180c08, 1000)
+
+    var track = this.sound.addSprite('gone')
+    this.soundtrack = track
+    if (track) {
+      this.time.events.add(800, track.play, track, 'loop')
+    }
   },
 
 

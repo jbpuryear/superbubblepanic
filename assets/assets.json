@@ -187,6 +187,21 @@
         },
         {
             "type": "audiosprite",
+            "key": "gone",
+            "urls": ["assets/songs/alex-mcculloch_gone.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "loop": {
+                        "start": 0.066,
+                        "end": 40.04,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
             "key": "everything-is-changing",
             "urls": ["assets/songs/Noi-Everything_Is_Changing.ogg"],
             "autoDecode": false,

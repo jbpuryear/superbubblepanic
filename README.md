@@ -37,6 +37,9 @@ This game uses the following tracks provided by [Free Music Archive](http://free
 * [N35-40-19-800](http://freemusicarchive.org/music/springtide/This_is_the_End/N35-40-19-800) by [Springtide](http://freemusicarchive.org/music/springtide/)
 [![License](http://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/3.0/)
 
+* [Gone](https://opengameart.org/content/gone) by Alex McCulloch
+[![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+
 ###Sound FX
 
 This game uses the following sound files from [Open Game Art](https://opengameart.org/):
