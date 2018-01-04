@@ -433,14 +433,23 @@ Victory.prototype = {
       this.player.weapon.y = -this.player.character.height/3
       this.player.weapon.rotation = -Math.PI/4
       this.player.weapon.pivot.setTo(0.5, 0.5)
-      this.player.game.add.tween(this.player.weapon)
+      var tween = this.player.game.add.tween(this.player.weapon)
         .to({rotation: -Math.PI * 4.25}, 500, null, true, 200)
       this.started = true
       this.player.body.vel.x = 0
       this.player.body.vel.y = 0
+      tween.onComplete.addOnce(function() {
+        this.player.game.time.events.add(1500, function() {
+          this.machine.change('standing')
+        }, this)
+      }, this)
     }
   },
 
-  exit: function() {}
+  exit: function() {
+      this.player.weapon.x = 0
+      this.player.weapon.y = 0
+      this.player.weapon.pivot.setTo(-Math.abs(this.player.character.width/8), 0)
+  }
 }
 
