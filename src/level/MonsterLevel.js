@@ -41,6 +41,14 @@ MonsterLevel.prototype.create = function() {
   this.camera.bounds = this.world.bounds
   this.camera.focusOn(p1)
   this.reticule.follow(p1, X_CLAMP, Y_CLAMP)
+
+  var glow = this.fgItems.create(0, 0, 'sprites', 'halo')
+  glow.width = this.game.width * 1.05
+  glow.height = this.game.height * 1.05
+  glow.anchor.setTo(0.5)
+  glow.x = this.game.width/2
+  glow.y = this.game.height/2
+  glow.fixedToCamera = true
 }
 
 
