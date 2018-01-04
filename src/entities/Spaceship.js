@@ -50,9 +50,11 @@ function Spaceship(state, ctlr) {
     this.body.offset.y = Math.random() * 1.25 - 0.625
   }, this)
 
-  this.health = 3
-  this.maxFuel = 3
+  this.maxHealth = 3
+  this.health = this.maxHealth
+  this.maxFuel = this.maxHealth
   this.inputDisabled = false
+  this.invincible = false
 }
 
 
@@ -124,24 +126,47 @@ Spaceship.prototype.shoot = function() {
 
 
 Spaceship.prototype.damage = function() {
-  if (this.health <= 0) { return }
+  this.state.camera.shake(0.01, 200)
+  if (this.health <= 0 || this.invincible) { return }
   this.health -= 1
-  if (this.health <= 0) { this.kill() }
+  if (this.health <= 2/3 * this.maxHealth) { this.icon.frameName = 'rocket-damaged' }
+  if (this.health <= 1/3 * this.maxHealth) { this.icon.frameName = 'rocket-damaged2' }
+  if (this.health <= 0) {
+    this.kill()
+    return
+  }
+  this.invincible = true
+  var tween = this.state.add.tween(this.icon)
+  tween.to({alpha: 0.4}, 100, null, false, 0, -1, true)
+  tween.start()
+
+  this.state.time.events.add(2400, function() {
+    tween.stop()
+    this.icon.alpha = 1
+    this.invincible = false
+  }, this)
 }
 
 
 Spaceship.prototype.kill = function() {
   this.body.removeCollisionGroup(this.game.physics.p2.boundsCollisionGroup)
   this.inputDisabled = true
-  this.icon.frameName = 'p1-die2'
   this.body.collideWorldBounds = false
   this.alive = false
+  this.state.bgItems.addChild(this)
   var ev = this.game.time.events
-  var x = this.x
-  var y = this.y
-  var loop = ev.loop(150, function() {
-    //this.state.explode(x+Math.random()*20-10, y+Math.random()*20-10, Math.random()*20+40)
+  var loop = ev.loop(111, function() {
+    this.state.glass.x = this.x
+    this.state.glass.y = this.y
+    this.state.glass.explode(400, 10)
+    this.state.frag.x = this.x
+    this.state.frag.y = this.y
+    this.state.frag.explode(400, 10)
+    this.state.explode(this.x+Math.random()*40-20, this.y+Math.random()*40-20, Math.random()*60+20)
   }, this)
-  ev.add(2000, ev.remove, ev, loop)
+  ev.add(1200, function() {
+    ev.remove(loop)
+    this.icon.frameName = 'p1-die2'
+  }, this)
 }
 

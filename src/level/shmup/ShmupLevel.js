@@ -43,9 +43,9 @@ ShmupLevel.prototype.create = function() {
   dust.setAll('outOfBoundsKill', true)
   dust.start(false, 0, 250)
 
-  this.atmosphere = this.make.image(0, 0, 'sprites', 'sky')
-  this.atmosphere.width = this.game.width
-  this.atmosphere.height = this.game.height
+  this.atmosphere = this.make.image(-this.game.width*0.05, -this.game.height*0.05, 'sprites', 'sky')
+  this.atmosphere.width = this.game.width * 1.1
+  this.atmosphere.height = this.game.height * 1.1
   this.bgItems.addChild(this.atmosphere)
   this.ocean = this.make.image(0, 0, 'ocean')
   this.ocean.scale.setTo(this.game.height/this.ocean.height)
