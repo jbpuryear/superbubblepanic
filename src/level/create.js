@@ -37,12 +37,12 @@ module.exports = function create() {
     this.world.addChild(this.bullets)
 
     this.world.addChild(this.players)
+    this.world.addChild(this.enemies)
 
     makeMap(this)
 
     this.splatterImage = this.add.image(0, 0, this.splatter)
 
-    this.world.addChild(this.enemies)
     this.world.addChild(this.items)
     this.world.addChild(this.fgItems)
     this.world.addChild(this.hud)

@@ -49,6 +49,14 @@
         "tiles": "living-tissue-tileset"
     },
 
+    "final-boss": {
+        "bgImage": "living-tissue",
+        "songs": [
+            "memory"
+        ],
+        "tiles": "tiles"
+    },
+
     "menu": {
         "bgImage": "desert",
         "songs": ["menu-theme"],
