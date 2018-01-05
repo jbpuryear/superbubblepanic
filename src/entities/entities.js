@@ -111,6 +111,7 @@ module.exports = {
             y: data.y,
             texture: 'smg',
             auto: true,
+            throttle: 100,
             rate: 100,
             accuracy: Math.PI/16,
             bulletsPerShot: 1,
