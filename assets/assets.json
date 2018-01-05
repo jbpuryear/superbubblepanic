@@ -294,6 +294,11 @@
         },
         {
             "type": "image",
+            "key": "desert-plain",
+            "url": "assets/images/backgrounds/desert-plain.png"
+        },
+        {
+            "type": "image",
             "key": "forest",
             "url": "assets/images/backgrounds/forest.png"
         },

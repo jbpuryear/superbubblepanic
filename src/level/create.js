@@ -33,8 +33,8 @@ module.exports = function create() {
     this.splatter.mask = this.make.bitmapData(this.world.width, this.world.height)
 
     this.world.addChild(this.bgItems)
-    this.world.addChild(this.bullets)
     makeParticles(this)
+    this.world.addChild(this.bullets)
 
     this.world.addChild(this.players)
 
