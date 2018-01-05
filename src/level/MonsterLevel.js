@@ -48,6 +48,10 @@ MonsterLevel.prototype.create = function() {
   glow.anchor.setTo(0.5)
   glow.x = this.game.width/2
   glow.y = this.game.height/2
+  var tween = this.add.tween(glow.scale)
+  var x = glow.scale.x * 1.02
+  var y = glow.scale.y * 1.02
+  tween.to({ x: x, y: y }, 1000, Phaser.Easing.Sinusoidal.InOut, true, null, -1, true) 
   glow.fixedToCamera = true
 }
 

@@ -11,9 +11,26 @@ function FinalBoss() {
 FinalBoss.prototype = Object.create(Level.prototype)
 
 
+FinalBoss.prototype.create = function() {
+  this.boss = null
+  this.startOutro = false
+  Level.prototype.create.call(this)
+  var glow = this.fgItems.create(0, 0, 'sprites', 'halo')
+  glow.width = this.game.width * 1.12
+  glow.height = this.game.height * 1.12
+  glow.anchor.setTo(0.5)
+  glow.x = this.game.width/2
+  glow.y = this.game.height/2
+  var tween = this.add.tween(glow.scale)
+  var x = glow.scale.x * 1.02
+  var y = glow.scale.y * 1.02
+  tween.to({ x: x, y: y }, 1000, Phaser.Easing.Sinusoidal.InOut, true, null, -1, true) 
+}
+
+
 FinalBoss.prototype.update = function() {
   Level.prototype.update.call(this)
-  if (this.won && !this.hasLanded) {
+  if (this.startOutro && !this.hasLanded) {
     this.hasLanded = this.p1.standing
     if (this.hasLanded) {
       var ctlr = {
@@ -23,7 +40,7 @@ FinalBoss.prototype.update = function() {
         update: function() {}
       }
       this.p1.playerState.ctlr = ctlr
-      var t = 1000
+      var t = 2000
       this.time.events.add(t, function() {
         ctlr.right = true
       }, this)
@@ -55,19 +72,30 @@ FinalBoss.prototype.update = function() {
 }
 
 
+FinalBoss.prototype.winCondition = function() {
+  return !this.boss.alive
+}
+
+
 FinalBoss.prototype.win = function() {
   this.game.data.checkWin(this.mapName)
+  this.p1.body.removeCollisionGroup(this.enemiesCG)
   this.hasLanded = false
-  if (this.soundtrack)
-    this.soundtrack.stop()
   this.camera.flash(0xf6eeee, 2000)
-  var bleedSpoof = {world: {x: 0, y: 0}, killTheta: Math.PI/2}
-  this.time.events.loop(400, function() { this.camera.flash(0xf6eeee, 150) }, this)
-  this.time.events.loop(150, function() {
-    bleedSpoof.world.x = Math.random() * this.game.width
-    this.bleed(bleedSpoof)
-    this.explode(Math.random()*this.game.width,
-      Math.random()*this.game.height, Math.random()*160 + 40)
+  var loop = this.time.events.loop(100, this.camera.shake, this.camera, 0.01, 3000, true)
+  this.time.events.add(1000, function() {
+    this.startOutro = true
+    this.time.events.remove(loop)
+    if (this.soundtrack)
+      this.soundtrack.stop()
+    var bleedSpoof = {world: {x: 0, y: 0}, killTheta: Math.PI/2}
+    this.time.events.loop(400, function() { this.camera.flash(0xf6eeee, 150) }, this)
+    this.time.events.loop(150, function() {
+      bleedSpoof.world.x = Math.random() * this.game.width
+      this.bleed(bleedSpoof)
+      this.explode(Math.random()*this.game.width,
+        Math.random()*this.game.height, Math.random()*160 + 40)
+    }, this)
   }, this)
 }
 
