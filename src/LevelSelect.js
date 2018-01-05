@@ -167,7 +167,6 @@ LevelSelect.prototype = {
   update: function() {
     // Hack: Force a repaint to get around camera shake bug.
     this.preview.resize(this.world.width, 40)
-    this.preview.font.font.buildRetroFontText()
 
     var plyr = this.playerIcon
     var pts = this.walkPoints

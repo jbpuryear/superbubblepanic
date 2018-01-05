@@ -8,6 +8,7 @@ var Button = require('./Button.js')
 function TextButton(state, text, callback, ctx) {
     var font = smallFont.Text(state, text)
     Button.call(this, state, font, null, callback, ctx)
+    this.font = font
     this.tint = smallFont.colors.PLAIN
 
     this.background.tint = this.tint
@@ -17,6 +18,12 @@ function TextButton(state, text, callback, ctx) {
 
 
 TextButton.prototype = Object.create(Button.prototype)
+
+
+TextButton.prototype.update = function() {
+  this.font.buildRetroFontText()
+  Button.prototype.update.call(this)
+}
 
 
 TextButton.prototype.inputOver = function() {

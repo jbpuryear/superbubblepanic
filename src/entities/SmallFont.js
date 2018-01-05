@@ -7,7 +7,13 @@ function SmallFont(state, text, type) {
     img.font = font
     img.anchor.setTo(0.5)
     img.tint = SmallFont.colors.PLAIN
+    img.update = update
     return img
+}
+
+
+function update() {
+    this.font.buildRetroFontText()
 }
 
 

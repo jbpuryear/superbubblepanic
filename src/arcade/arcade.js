@@ -86,9 +86,6 @@ Arcade.prototype.create = function() {
 Arcade.prototype.update = function() {
     Level.prototype.update.call(this);
 
-    // Force repaint to get around a bug in Phaser
-    this.score.font.buildRetroFontText()
-
     this.timer -= this.time.physicsElapsedMS;
     if (this.timer < 0) this.spawnEnemy();
     var noEnemy = true;
