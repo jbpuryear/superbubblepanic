@@ -80,13 +80,23 @@
     },
     {
       "type": "tilemap",
-      "key": "monster",
-      "url": "assets/levels/monster.json",
+      "key": "level8",
+      "url": "assets/levels/level8.json",
       "format": "TILED_JSON",
-      "mapX": 100,
-      "mapY": 125,
-      "state": "MonsterLevel",
-      "title": "ooh creepy"
+      "mapX": 359,
+      "mapY": 332,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level9",
+      "url": "assets/levels/level9.json",
+      "format": "TILED_JSON",
+      "mapX": 274,
+      "mapY": 313,
+      "state": "Level",
+      "title": "and so it begins"
     },
     {
       "type": "tilemap",
@@ -130,6 +140,16 @@
     },
     {
       "type": "tilemap",
+      "key": "monster",
+      "url": "assets/levels/monster.json",
+      "format": "TILED_JSON",
+      "mapX": 515,
+      "mapY": 75,
+      "state": "MonsterLevel",
+      "title": "ooh creepy"
+    },
+    {
+      "type": "tilemap",
       "key": "seeker",
       "url": "assets/levels/seeker.json",
       "format": "TILED_JSON",
@@ -140,3 +160,4 @@
     }
   ]
 }
+
