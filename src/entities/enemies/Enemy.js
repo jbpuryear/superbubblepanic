@@ -55,7 +55,7 @@ Enemy.prototype = Object.create(Phaser.Sprite.prototype)
 
 Enemy.prototype.maxHealth = MAX_HEALTH
 
-Enemy.prototype.maxSpeed = 600
+Enemy.prototype.maxSpeed = 400
 
 Enemy.prototype.defaultFrame = 'enemy'
 
