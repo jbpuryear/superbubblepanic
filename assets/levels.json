@@ -100,6 +100,16 @@
     },
     {
       "type": "tilemap",
+      "key": "level10",
+      "url": "assets/levels/level10.json",
+      "format": "TILED_JSON",
+      "mapX": 244,
+      "mapY": 273,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
       "key": "rocket",
       "url": "assets/levels/rocket.json",
       "format": "TILED_JSON",
