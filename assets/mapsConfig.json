@@ -33,10 +33,19 @@
         "tiles": "tiles"
     },
 
+    "shmup": {
+        "bgImage": "space",
+        "songs": [
+            "venus"
+        ],
+        "tiles": "tiles"
+    },
+
     "space": {
         "bgImage": "space",
         "songs": [
-            "memory"
+            "space",
+            "observing-the-star"
         ],
         "tiles": "tiles"
     },

@@ -14,6 +14,8 @@ function Director(state) {
 
   function cull(obj) {
     obj.exists = false
+    obj.alive = false
+    obj.visible = false
   }
 
   this.pool.forEach(function(enemy) {

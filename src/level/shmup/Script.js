@@ -103,7 +103,7 @@ Script.Multi.prototype = {
     var finished = true
     for (var i = 0; i < this.children.length; ++i) {
       var child = this.children[i]
-      child.update(dt)
+      if (typeof child.update === 'function') { child.update(dt) }
       if (!child.finished) { finished = false }
     }
     this.finished = finished
@@ -118,7 +118,7 @@ Script.Curtain = function(dir, type, count, rate, width, velx, vely, offset, spa
   span = span || dir.state.game.width
 
   var actions = []
-  var dx = span / count + 1
+  var dx = span / (count - 1)
   var y = -width/2 - 2
   for (var i = 0; i < count; ++i) {
     actions.push( new Script.Spawn(dir, type, dx*i+offset, y, width, velx, vely) )

@@ -12,6 +12,7 @@ function Spaceship(state, ctlr) {
   // TODO more hacks to make hud work
   state.physics.p2.enable(this)
   this.weapon = new Gun(state, { rate: 5000, clipSize: 1 }, Rocket)
+  this.weapon.alpha = 0
   this.weapon.y = -8
   this.addChild(this.weapon)
   this.icon = new Phaser.Sprite(state.game, 0, 0, 'sprites', 'rocket')
@@ -60,8 +61,9 @@ function Spaceship(state, ctlr) {
 
 Spaceship.prototype = Object.create(Phaser.Sprite.prototype)
 
-Spaceship.prototype.maxSpeed = 200
-Spaceship.prototype.acceleration = 250
+var max = 200
+Spaceship.prototype.maxSpeed = max
+Spaceship.prototype.acceleration = max/0.35
 
 // TODO Hack to make player hud show health bar
 Object.defineProperty(Spaceship.prototype, 'fuel', {

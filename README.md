@@ -40,6 +40,15 @@ This game uses the following tracks provided by [Free Music Archive](http://free
 * [Gone](https://opengameart.org/content/gone) by Alex McCulloch
 [![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
 
+* [Venus](https://opengameart.org/content/nes-shooter-music-5-tracks-3-jingles) by SketchyLogic
+[![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+
+* [Space](https://opengameart.org/content/space-1) by [Alexandr Zhelanov] (https://soundcloud.com/alexandr-zhelanov)
+[![License](https://opengameart.org/sites/default/files/license_images/cc-by.png)](http://creativecommons.org/licenses/by/3.0/)
+
+* [Observing The Star](https://opengameart.org/content/another-space-background-track) by Yd
+[![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+
 ###Sound FX
 
 This game uses the following sound files from [Open Game Art](https://opengameart.org/):

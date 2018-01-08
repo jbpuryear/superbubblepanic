@@ -13,25 +13,21 @@
         }, 
         {
          "draworder":"topdown",
-         "height":48,
          "name":"object",
          "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":32,
          "x":0,
          "y":0
         }, 
         {
          "draworder":"topdown",
-         "height":48,
          "name":"platform",
          "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":32,
          "x":0,
          "y":0
         }],
@@ -39,29 +35,31 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "setting":"space"
+     "setting":"shmup"
     },
  "propertytypes":
     {
      "setting":"string"
     },
  "renderorder":"right-down",
+ "tiledversion":"1.0.3",
  "tileheight":8,
  "tilesets":[
         {
          "columns":20,
          "firstgid":1,
          "image":"..\/images\/tiles.png",
-         "imageheight":160,
+         "imageheight":168,
          "imagewidth":160,
          "margin":0,
          "name":"tiles",
          "spacing":0,
-         "tilecount":400,
+         "tilecount":420,
          "tileheight":8,
          "tilewidth":8
         }],
  "tilewidth":8,
+ "type":"map",
  "version":1,
  "width":32
 }
