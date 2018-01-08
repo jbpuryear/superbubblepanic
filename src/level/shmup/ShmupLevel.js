@@ -66,6 +66,7 @@ ShmupLevel.prototype.create = function() {
   this.add.tween(this.ship.body).to({ y: this.game.height - 40 }, 1000, null, true, 1000)
     .onComplete.addOnce(function() {
       this.ship.body.addToWorld()
+      this.ship.body.velocity.x = 0
       this.ship.body.velocity.y = 0
       this.director.start()
     }, this)

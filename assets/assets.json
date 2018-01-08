@@ -254,6 +254,51 @@
                     }
                 }
             }
+        },
+        {
+            "type": "audiosprite",
+            "key": "venus",
+            "urls": ["assets/songs/sketchylogic_venus.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "loop": {
+                        "start": 0,
+                        "end": 25.591,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "space",
+            "urls": ["assets/songs/alexandr-zhelanov_space.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "loop": {
+                        "start": 0,
+                        "end": 176.140,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "observing-the-star",
+            "urls": ["assets/songs/yd_observing-the-star.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "loop": {
+                        "start": 0,
+                        "end": 132.252,
+                        "loop": true
+                    }
+                }
+            }
         }
     ],
 
