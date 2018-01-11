@@ -3,7 +3,6 @@ module.exports = Credits
 
 var fs = require('fs')
 var SmallFont = require('./entities/SmallFont.js')
-var Explosion = require('./magic/Explosion.js')
 var text = fs.readFileSync(__dirname + '/../credits.txt', 'utf8')
 
 var WorldMap = require('./WorldMap.js')
@@ -16,7 +15,7 @@ function Credits() {
 Credits.prototype = {
   create: function() {
     this.input.keyboard.addKey(Phaser.Keyboard.X)
-        .onDown.add(function() { this.state.start('Menu') }, this)
+      .onDown.add(function() { this.state.start('Menu') }, this)
 
     var bg = this.bg = this.add.image(0, 0, 'space')
     var map = this.map = this.world.addChild(new WorldMap(this.game))
@@ -32,7 +31,7 @@ Credits.prototype = {
     character.scale.x = -1
 
     dust.makeParticles('sprites', 
-        Phaser.Animation.generateFrameNames('dust', 1, 4), 4)
+      Phaser.Animation.generateFrameNames('dust', 1, 4), 4)
     dust.setSize(this.game.width, 1)
     dust.minParticleSpeed.setTo(0, -2000)
     dust.maxParticleSpeed.setTo(0, -20)
@@ -60,7 +59,7 @@ Credits.prototype = {
         Math.random()*this.game.width, Math.random()*20+expY.value)
       e.width = e.height = Math.random()*160 + 40
       e.animations.play('explode', null, false, true)
-      this.camera.shake(0.015, 400);
+      this.camera.shake(0.015, 400)
     }, this)
 
     map.y = this.game.height + 5

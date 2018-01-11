@@ -44,12 +44,12 @@ RocketLevel.prototype.win = function() {
     this.sound.play('victory-jingle')
     this.p1.playerState.change('victory')
     var clear = this.add.image(this.game.width/2, this.game.height/2,
-        'sprites', 'stage-clear')
+      'sprites', 'stage-clear')
     clear.anchor.setTo(0.5)
     clear.fixedToCamera = true
     var clearTween = this.add.tween(clear)
     clearTween.from({width: clear.width * 4, height: clear.height * 4, alpha: 0},
-        800, Phaser.Easing.Quartic.Out, null, 200)
+      800, Phaser.Easing.Quartic.Out, null, 200)
       .chain(this.add.tween(clear).to({ alpha: 0 }, 200, null, null, 1000))
     clearTween.start()
   }, this)
@@ -75,7 +75,7 @@ RocketLevel.prototype.winLoop = function() {
     p1.exists = false
     this.loopEnd = true
     p1.fx.flame.makeParticles('sprites',
-        Phaser.Animation.generateFrameNames('flame', 1, 4), 1000)
+      Phaser.Animation.generateFrameNames('flame', 1, 4), 1000)
     this.time.events.add(1000, function() {
       this.takeoff = true
       this.playSound('jetpack', false, false, true)

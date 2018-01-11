@@ -33,7 +33,7 @@ ShmupLevel.prototype.create = function() {
   var dust = this.bgItems.addChild(this.make.emitter(this.game.width/2, 0, 100))
   this.dust = dust
   dust.makeParticles('sprites', 
-      Phaser.Animation.generateFrameNames('dust', 1, 4), 4)
+    Phaser.Animation.generateFrameNames('dust', 1, 4), 4)
   dust.setSize(this.game.width, 1)
   dust.minParticleSpeed.setTo(0, 2000)
   dust.maxParticleSpeed.setTo(0, 1000)
@@ -98,7 +98,7 @@ ShmupLevel.prototype.win = function() {
     t.onComplete.addOnce(function() {
       this.ship.body.removeFromWorld()
       var clear = this.add.image(this.game.width/2, this.game.height/2,
-          'sprites', 'stage-clear')
+        'sprites', 'stage-clear')
       clear.anchor.setTo(0.5)
       clear.fixedToCamera = true
       var clearTween = this.add.tween(clear)
@@ -109,7 +109,7 @@ ShmupLevel.prototype.win = function() {
         this.camera.fade(0xf6eeee, 1000)
       }, this)
       clearTween.from({width: clear.width * 4, height: clear.height * 4, alpha: 0},
-          800, Phaser.Easing.Quartic.Out, null, 200).start()
+        800, Phaser.Easing.Quartic.Out, null, 200).start()
     }, this)
 
     t.start()

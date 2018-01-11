@@ -13,35 +13,35 @@ var SPEED = 100
 
 
 function Player(state, data, ctlr) {
-    var game = state.game
-    var x = data.x || 0
-    var y = data.y || 0
-    var weapon = state.parseDrop(data.properties.weapon || DEFAULT_WEAPON)
+  var game = state.game
+  var x = data.x || 0
+  var y = data.y || 0
+  var weapon = state.parseDrop(data.properties.weapon || DEFAULT_WEAPON)
 
-    Phaser.Sprite.call(this, game, x, y)
+  Phaser.Sprite.call(this, game, x, y)
 
-    this.state = state
+  this.state = state
 
-    this.fuel = this.maxFuel
-    this.speedBonus = 1
-    this.standing = true
+  this.fuel = this.maxFuel
+  this.speedBonus = 1
+  this.standing = true
 
-    this.onEquip = new Phaser.Signal()
+  this.onEquip = new Phaser.Signal()
 
-    this.character = new Character(state)
-    this.fx = new PlayerFX(this)
-    this.hud = new Hud(state, this)
+  this.character = new Character(state)
+  this.fx = new PlayerFX(this)
+  this.hud = new Hud(state, this)
 
-    setPhysics(this)
-    this.playerState = new PlayerStateMachine(this, ctlr)
-    this.collider = new PlayerCollider(this)
+  setPhysics(this)
+  this.playerState = new PlayerStateMachine(this, ctlr)
+  this.collider = new PlayerCollider(this)
 
-    this.addChild(this.character)
+  this.addChild(this.character)
 
-    weapon.exists = true
-    weapon.pickup(null, this.body)
+  weapon.exists = true
+  weapon.pickup(null, this.body)
 
-    state.players.add(this)
+  state.players.add(this)
 }
 
 
@@ -50,72 +50,72 @@ Player.prototype = Object.create(Phaser.Sprite.prototype)
 Player.prototype.maxFuel = 2000
 
 Object.defineProperty(Player.prototype, 'speed', {
-    get: function() {
-        return this.speedBonus * SPEED
-    }
+  get: function() {
+    return this.speedBonus * SPEED
+  }
 })
 
 
 Object.defineProperty(Player.prototype, 'accel', {
-    get: function() {
-        var rate = this.standing ? 0.075 : 0.5
-        return this.speed / rate
-    }
+  get: function() {
+    var rate = this.standing ? 0.075 : 0.5
+    return this.speed / rate
+  }
 })
 
 
 Object.defineProperty(Player.prototype, 'facing', {
-    set: function(dir) {
-        this.character.scale.x = dir
-        if (this.weapon) {
-            if (dir === -1) {
-                this.weapon.scale.y = -1
-                this.removeChild(this.weapon)
-                this.addChild(this.weapon)
-            } else {
-                this.weapon.scale.y = 1
-                this.removeChild(this.character)
-                this.addChild(this.character)
-            }
-        }
-    },
-
-    get: function () {
-        return this.character.scale.x > 0 ? 1 : -1
+  set: function(dir) {
+    this.character.scale.x = dir
+    if (this.weapon) {
+      if (dir === -1) {
+        this.weapon.scale.y = -1
+        this.removeChild(this.weapon)
+        this.addChild(this.weapon)
+      } else {
+        this.weapon.scale.y = 1
+        this.removeChild(this.character)
+        this.addChild(this.character)
+      }
     }
+  },
+
+  get: function () {
+    return this.character.scale.x > 0 ? 1 : -1
+  }
 })
 
 
 Player.prototype.damage = function(_, enemy) {
-    if (this.health <= 0) return
-    var theta = this.world.angle(enemy.sprite)
-    this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? -1 : 1
-    this.health -= 1
-    if (this.health <= 0) this.kill()
-    else this.playerState.change('stunned')
+  if (this.health <= 0) return
+  var theta = this.world.angle(enemy.sprite)
+  this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? -1 : 1
+  this.health -= 1
+  if (this.health <= 0) this.kill()
+  else this.playerState.change('stunned')
 }
 
 
 Player.prototype.equip = function(weapon) {
-    if (this.weapon instanceof Phaser.Sprite) this.weapon.destroy()
-    weapon.anchor.setTo(0, 0.5)
-    // abs because character is flipped by setting scale to -1.
-    weapon.pivot.setTo(-Math.abs(this.character.width/8), 0)
-    this.weapon = weapon
-    this.addChild(weapon)
-    this.onEquip.dispatch()
+  if (this.weapon instanceof Phaser.Sprite) this.weapon.destroy()
+  weapon.anchor.setTo(0, 0.5)
+  // abs because character is flipped by setting scale to -1.
+  weapon.pivot.setTo(-Math.abs(this.character.width/8), 0)
+  this.weapon = weapon
+  this.addChild(weapon)
+  this.onEquip.dispatch()
 }
 
 
-Player.prototype.kill = function(_, enemy) {
-    this.alive = false
-    this.playerState.change('dead')
+Player.prototype.kill = function() {
+  this.alive = false
+  this.playerState.change('dead')
 }
 
 
 Player.prototype.update = function() {
-    if (this.weapon && typeof this.weapon.update === 'function') this.weapon.update()
-    this.playerState.update()
-    this.collider.update()
-    this.hud.update()
+  if (this.weapon && typeof this.weapon.update === 'function') this.weapon.update()
+  this.playerState.update()
+  this.collider.update()
+  this.hud.update()
 }

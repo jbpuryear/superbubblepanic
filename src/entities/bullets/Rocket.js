@@ -7,9 +7,8 @@ var SPEED = 1000
 var ACCEL = SPEED / 0.5
 
 
-function Rocket(state, x, y, texture) {
-  texture = texture || 'bullet'
-  Bullet.apply(this, arguments)
+function Rocket(state, x, y) {
+  Bullet.call(this, state, x, y)
   this.target = { x: 0, y: 0 }
   this.animations.add('loop', Phaser.Animation.generateFrameNames('missile', 1, 3), 15, true)
   this.animations.play('loop')

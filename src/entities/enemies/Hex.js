@@ -1,14 +1,14 @@
-module.exports = Hex;
+module.exports = Hex
 
-var Enemy = require('./Enemy.js');
+var Enemy = require('./Enemy.js')
 
 
 function Hex(state, data, drop) {
-    Enemy.call(this, state, data, drop);
-    this.body.data.gravityScale = 0;
+  Enemy.call(this, state, data, drop)
+  this.body.data.gravityScale = 0
 }
 
 
-Hex.prototype = Object.create(Enemy.prototype);
+Hex.prototype = Object.create(Enemy.prototype)
 
 Hex.prototype.defaultFrame = 'hex'
