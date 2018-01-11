@@ -20,7 +20,7 @@ function LevelSelect() {
 LevelSelect.prototype = {
   create: function() {
     this.input.keyboard.addKey(Phaser.Keyboard.X)
-        .onDown.add(this.exit, this)
+      .onDown.add(this.exit, this)
 
     this.walkPoints = []
     this.walkDirection = 1
@@ -74,8 +74,8 @@ LevelSelect.prototype = {
       var d = Math.sqrt(run*run + rise*rise)
       var dashX = dashLength * run/d
       var dashY = dashLength * rise/d
-      var spaceX = dashLength * run/d
-      var spaceY = dashLength * rise/d
+      var spaceX = spaceLength * run/d
+      var spaceY = spaceLength * rise/d
       while (x !== lvl.mapX) {
         if (Math.abs(x - lvl.mapX) < Math.abs(dashX)) {
           x = lvl.mapX
@@ -99,11 +99,12 @@ LevelSelect.prototype = {
     for (i = 0; i < levels.length; i++) {
       lvl = levels[i]
       if (i <= lastCompleted + 1) {
+        var butt
         if (lvl.state === 'RocketLevel') {
-          var butt = new LevelButton(this, lvl, 'rocket')
+          butt = new LevelButton(this, lvl, 'rocket')
         } else {
           var frame = i === lastCompleted + 1 ? 'lvlButtonCurrent' : 'lvlButtonComplete'
-          var butt = new LevelButton(this, lvl, frame + '1')
+          butt = new LevelButton(this, lvl, frame + '1')
           butt.animations.add('blink', [frame + '1', frame + '1', frame + '2'])
           butt.animations.play('blink', 1.5, true)
         }
@@ -152,8 +153,6 @@ LevelSelect.prototype = {
 
     this.world.add(this.reticule)
 
-    var margin = 40
-
     this.camera.flash(0x180c08, 1000)
 
     var track = this.sound.addSprite('gone')
@@ -200,7 +199,7 @@ LevelSelect.prototype = {
   },
 
 
-  walkTo(index) {
+  walkTo: function(index) {
     var at = this.characterAt
     var pts = []
     if (index === at) return

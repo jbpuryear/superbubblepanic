@@ -13,10 +13,12 @@
     "spritesmith-texturepacker": "^1.0.0"
   },
   "devDependencies": {
-    "brfs": "^1.4.3"
+    "brfs": "^1.4.3",
+    "eslint": "^4.15.0"
   },
   "scripts": {
     "build-dev": "browserify src/index.js -t brfs -o game.bundle.js",
+    "lint": "eslint src/",
     "pack": "spritesmith",
     "watch": "watch 'npm run build-dev' src --ignoreDotFiles &"
   },

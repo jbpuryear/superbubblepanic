@@ -28,7 +28,7 @@ function Spaceship(state, ctlr) {
   this.flame = state.bgItems.addChild(state.make.emitter(0, 0, 200))
 
   this.flame.makeParticles('sprites',
-        Phaser.Animation.generateFrameNames('flame', 1, 4))
+    Phaser.Animation.generateFrameNames('flame', 1, 4))
   this.flame.setScale(0.25, 1, 0.25, 1, 200)
   this.flame.setAlpha(1, 0.2, 400)
   this.flame.setRotation(0)

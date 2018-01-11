@@ -47,27 +47,27 @@ GameData.prototype = {
 
   checkScore: function(score) {
     if (score > this.hiScore) {
-        this.hiScore = score
-        this.save()
-        return true
+      this.hiScore = score
+      this.save()
+      return true
     }
     return false
   },
 
-  checkWin(key) {
+  checkWin: function(key) {
     var id = this.getLevelIndex(key)
     this.lastCompleted = Math.max(id, this.lastCompleted)
     this.save()
   },
 
-  getLevelIndex(key) {
+  getLevelIndex: function(key) {
     for (var i = 0; i < this.levels.length; i++) {
       if (this.levels[i].key === key) return i
     }
     return -1
   },
 
-  getLevelKey(index) {
+  getLevelKey: function(index) {
     return (index >= 0 && index < this.levels.length) ? this.levels[index].key : null
   }
 }

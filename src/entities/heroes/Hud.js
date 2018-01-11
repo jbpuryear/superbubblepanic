@@ -12,7 +12,7 @@ function Hud(state, player) {
   this.gun = this.player.weapon
 
   this.fuelGauge = new PhaserNineSlice
-      .NineSlice(game, marginLeft, marginTop, 'sprites', 'fuel', 8, 8, { top: 2 })
+    .NineSlice(game, marginLeft, marginTop, 'sprites', 'fuel', 8, 8, { top: 2 })
   this.fuelGauge.resize(this.width, this.height)
   this.fuelGauge.alpha = 0.8
   state.hud.add(this.fuelGauge)

@@ -92,12 +92,13 @@ SpaceBoss.prototype.update = function() {
 
   var d = Math.abs(this.eye.rotation - theta) * 180/Math.PI
   if (!this.blinking) {
+    var rot
     if (d > 10) {
       this.rotSpeed = Math.min(this.rotSpeed + this.rotAccel * dt, this.rotMaxSpeed)
-      var rot = this.rotSpeed * dt
+      rot = this.rotSpeed * dt
       this.eye.body.rotation += theta > this.eye.rotation ? rot : -rot
     } else if (d > 1) {
-      var rot = d/10 * this.rotSpeed * dt
+      rot = d/10 * this.rotSpeed * dt
       this.eye.body.rotation +=  theta > this.eye.rotation ? rot : -rot
     } else {
       this.rotSpeed = 0
@@ -116,7 +117,7 @@ SpaceBoss.prototype.update = function() {
 }
 
 
-SpaceBoss.prototype.clearHitTimeout = function(_, src) {
+SpaceBoss.prototype.clearHitTimeout = function() {
   this.hitTimeout = false
 }
 
@@ -139,7 +140,7 @@ SpaceBoss.prototype.blink = function(time) {
 }
 
 
-SpaceBoss.prototype.unblink = function(time) {
+SpaceBoss.prototype.unblink = function() {
   this.blinking = false
   this.eye.tint = 0xffffff
   this.lid.frameName = 'lid'
