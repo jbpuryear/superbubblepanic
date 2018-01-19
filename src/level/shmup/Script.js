@@ -94,6 +94,7 @@ Script.Multi = function(dir, children) {
 
 Script.Multi.prototype = {
   start: function() {
+    this.finished = false
     for (var i = 0; i < this.children.length; ++i) {
       this.children[i].start()
     }
