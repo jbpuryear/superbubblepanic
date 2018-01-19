@@ -11,7 +11,7 @@ function Spaceship(state, ctlr) {
   Phaser.Sprite.call(this, state.game, -100, 0)
   // TODO more hacks to make hud work
   state.physics.p2.enable(this)
-  this.weapon = new Gun(state, { rate: 5000, clipSize: 1 }, Rocket)
+  this.weapon = new Gun(state, { rate: 20000, clipSize: 1 }, Rocket)
   this.weapon.alpha = 0
   this.weapon.y = -8
   this.addChild(this.weapon)

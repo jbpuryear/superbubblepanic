@@ -23,6 +23,14 @@ ShmupLevel.prototype.throwShell = function() {}
 
 ShmupLevel.prototype.create = function() {
   Level.prototype.create.call(this)
+  this.background.anchor.setTo(0.5, 0)
+  this.background.scale.x *= 1.2
+  this.background.scale.y *= 1.2
+  this.background.x -= 15
+  this.background.y = this.game.height-this.background.height
+  this.add.tween(this.background)
+    .to({ y: 0 }, 120000)
+    .start()
 
   this.director = new Director(this)
   this.director.load(makeScript(this.director))
