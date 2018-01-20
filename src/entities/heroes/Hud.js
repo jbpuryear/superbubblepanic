@@ -6,7 +6,7 @@ function Hud(state, player) {
   var marginLeft = state.game.width * 0.02
   var marginTop = state.game.height * 0.03
   this.height = state.game.height * 0.2
-  this.width = 8
+  this.width = Math.max(4, this.height/10)
 
   this.player = player
   this.gun = this.player.weapon
@@ -56,11 +56,11 @@ Hud.prototype.updateClip = function() {
       b.exists = true
       if (i <= avail-1) {
         b.alpha = 1
-        b.resize(8, this.bulletHeight)
+        b.resize(this.width, this.bulletHeight)
       } else {
         b.alpha = 0.6
         var h = this.bulletHeight*(avail - i)
-        b.resize(8, Math.max(4, h))
+        b.resize(this.width, Math.max(4, h))
       }
     } else {
       b.exists = false
