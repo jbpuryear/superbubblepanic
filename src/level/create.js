@@ -1,6 +1,11 @@
 var BrkPlat = require('../entities/BrkPlat.js')
 var Explosion = require('../magic/Explosion.js')
 var Blood = require('../magic/Blood.js')
+var Hydroid = require('../entities/enemies/Hydroid.js')
+var Enemy = require('../entities/enemies/Enemy.js')
+var Hex = require('../entities/enemies/Hex.js')
+var Seeker = require('../entities/enemies/Seeker.js')
+
 var mapsConfig = require('../../assets/mapsConfig.json')
 var Reticule = require('../Reticule.js')
 
@@ -38,6 +43,12 @@ module.exports = function create() {
 
   this.world.addChild(this.players)
   this.world.addChild(this.enemies)
+
+  this.enemyPools = {
+    enemy: new Hydroid(this, Enemy, 70),
+    hex: new Hydroid(this, Hex, 70),
+    seeker: new Hydroid(this, Seeker, 70)
+  }
 
   makeMap(this)
 
@@ -214,7 +225,6 @@ function makeMap(state) {
 
   state.setSize()
   state.map.objects.object.forEach(state.addEntity, state)
-
 }
 
 

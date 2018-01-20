@@ -4,22 +4,20 @@ module.exports = Hydroid
 var MIN_WIDTH = 10
 
 
-function Hydroid(state, data, drop, EnemyClass) {
+function Hydroid(state, EnemyClass, count) {
+  count = count || 70
+
   Phaser.Group.call(this, state.game)
   state.enemies.add(this)
 
-  var w = data.width
-  if (w < MIN_WIDTH) return
+  var data = { x: 0, y: 0 }
 
-  var i = Math.ceil(w/MIN_WIDTH) + 1
-  for (; i>0; i--) this.add(new EnemyClass(state, data))
+  for (var i = 0; i < count; ++i) {
+    var e = this.add(new EnemyClass(state, data))
+    e.events.onKilled.add(this.childDeath, this)
+  }
 
-  this.forEach(function(enemy) {
-    enemy.events.onKilled.add(this.childDeath, this)
-  }, this)
-
-  this.spawn(data.x, data.y, data.width, data.properties.velx,
-    data.properties.vely, drop)
+  this.updateOnlyExistingChildren = true
 }
 
 
@@ -65,3 +63,4 @@ Hydroid.prototype.spawn = function(x, y, width, velx, vely, drop) {
   if (!enemy || width < MIN_WIDTH) return null
   return enemy.spawn(x, y, width, velx, vely, drop)
 }
+
