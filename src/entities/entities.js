@@ -1,10 +1,6 @@
 var Player = require('./heroes/Player.js')
 var DefaultCtlr = require('./heroes/DefaultCtlr')
 
-var Hydroid = require('./enemies/Hydroid.js')
-var Enemy = require('./enemies/Enemy.js')
-var Hex = require('./enemies/Hex.js')
-var Seeker = require('./enemies/Seeker.js')
 var SeekBoss = require('./enemies/SeekBoss.js')
 
 var Gun = require('./Gun.js')
@@ -32,15 +28,15 @@ module.exports = {
 
   // Enemies
   enemy: function(state, data, drop) {
-    return new Hydroid(state, data, drop, Enemy)
+    state.spawn(data.type, data.x, data.y, data.width, data.properties.velx, data.properties.vely, drop)
   },
 
   hex: function(state, data, drop) {
-    return new Hydroid(state, data, drop, Hex)
+    state.spawn(data.type, data.x, data.y, data.width, data.properties.velx, data.properties.vely, drop)
   },
 
   seeker: function(state, data, drop) {
-    return new Hydroid(state, data, drop, Seeker)
+    state.spawn(data.type, data.x, data.y, data.width, data.properties.velx, data.properties.vely, drop)
   },
     
   seekboss: SeekBoss,

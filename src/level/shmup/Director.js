@@ -3,6 +3,7 @@ module.exports = Director
 
 var Hydroid = require('../../entities/enemies/Hydroid.js')
 var Enemy = require('../../entities/enemies/Enemy.js')
+var Hex = require('../../entities/enemies/Hex.js')
 
 
 function cull(obj) {
@@ -35,11 +36,9 @@ function Director(state) {
   this.started = false
   this.script = null
   this.pool = {
-    "enemy": state.addEntity({ type: 'enemy',  width: 40*Hydroid.prototype.minWidth }),
-    "hex": state.addEntity({ type: 'hex',  width: 40*Hydroid.prototype.minWidth })
+    "enemy": new Hydroid(state, Enemy, 40),
+    "hex": new Hydroid(state, Hex, 40)
   }
-  this.pool.enemy.getFirstExists().exists = false
-  this.pool.hex.getFirstExists().exists = false
 
   this.pool.enemy.forEach(initEnemy)
   this.pool.hex.forEach(initEnemy)
