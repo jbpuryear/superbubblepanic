@@ -2,10 +2,8 @@ module.exports = SeekBoss
 
 
 var Seeker = require('./Seeker.js')
-var Hydroid = require('./Hydroid.js')
 
 var HEALTH = 40
-var POOL_SIZE = 70
 var CHILD_WIDTH = 30
 var CHILD_VEL = 100
 

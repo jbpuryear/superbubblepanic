@@ -2,7 +2,6 @@ module.exports = Arcade
 
 
 var Level = require('../level/Level.js')
-var Hydroid = require('../entities/enemies/Hydroid.js')
 var SETTINGS = ['desert']
 
 function Arcade() {
@@ -60,7 +59,7 @@ Arcade.prototype.create = function() {
   this.score.y = this.game.height * 0.03
   this.hud.add(this.score)
 
-  for (type in this.enemyPools) {
+  for (var type in this.enemyPools) {
     var pool = this.enemyPools[type].children
     for (var i = 0; i < pool.length; ++i) {
       pool[i].events.onKilled.add(this.getDrop, this)

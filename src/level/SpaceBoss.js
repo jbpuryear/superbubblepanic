@@ -185,20 +185,20 @@ SpaceBoss.prototype.attack = function() {
   }
   var roll = Math.random()
   switch (true) {
-    case roll < 0.2:
-      if (sinceSeeker > 15000) {
-        this.generateSeeker()
-      }
-      this.attackTimer = 5
-      return
-    case roll < 0.95:
-      var t = 400
-      this.blink(t)
-      this.time.events.add(t, curtCB, this)
-      this.attackTimer = Math.random()*2 + t/1000 + 2
-      return
-    default:
-      this.attackTimer = Math.random() * 3
+  case roll < 0.2:
+    if (sinceSeeker > 15000) {
+      this.generateSeeker()
+    }
+    this.attackTimer = 5
+    return
+  case roll < 0.95:
+    var t = 400
+    this.blink(t)
+    this.time.events.add(t, curtCB, this)
+    this.attackTimer = Math.random()*2 + t/1000 + 2
+    return
+  default:
+    this.attackTimer = Math.random() * 3
   }
 }
 
@@ -217,7 +217,7 @@ SpaceBoss.prototype.onCollide = function(_, src) {
 }
 
 
-SpaceBoss.prototype.throwHex = function(amt) {
+SpaceBoss.prototype.throwHex = function() {
   if (this.hp <= 0) { return }
   var roll = Math.random()
   var width = Math.random() * 80 + 80
