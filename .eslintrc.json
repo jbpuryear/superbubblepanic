@@ -9,7 +9,8 @@
     "Phaser": false,
     "p2": false,
     "game": false,
-    "PhaserNineSlice": false
+    "PhaserNineSlice": false,
+    "PIXI": false
   },
   "rules": {
     "indent": [

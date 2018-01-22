@@ -37,8 +37,8 @@ function Director(state) {
   this.started = false
   this.script = null
   this.pool = {
-    "enemy": new Hydroid(state, Enemy, 40),
-    "hex": new Hydroid(state, Hex, 40)
+    enemy: new Hydroid(state, Enemy, 40),
+    hex: new Hydroid(state, Hex, 40)
   }
 
   this.pool.enemy.forEach(initEnemy)
