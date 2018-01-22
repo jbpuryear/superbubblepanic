@@ -215,8 +215,7 @@ function makeMap(state) {
     bounds[j].addPlane()
     bounds[j].setCollisionGroup(p2.boundsCollisionGroup)
     bounds[j].collides([
-      state.enemiesCG, state.playersCG, state.itemsCG,
-      state.shellsCG, state.bulletsCG
+      state.enemiesCG, state.playersCG, state.itemsCG, state.bulletsCG
     ])
     bounds[j].setMaterial(state.platformMaterial)
   }
@@ -236,7 +235,8 @@ function makeParticles(state) {
   state.shellPool.forEach(function(shell) {
     shell.body.setRectangle(4, 2)
     shell.body.setCollisionGroup(state.shellsCG)
-    shell.body.collides(state.platformsCG)
+    // We collide with enemy so the giant eye can blink when shells hit it
+    shell.body.collides([state.platformsCG, state.enemiesCG])
   }, state)
 
   state.frag = state.add.emitter(0, 0, 50)

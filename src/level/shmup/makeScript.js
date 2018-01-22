@@ -1,4 +1,4 @@
-var Script = require('./Script.js')
+var Script = require('../Script.js')
 
 var Curtain = Script.Curtain
 // dir, type, count, rate, width, velx, vely, offset, span

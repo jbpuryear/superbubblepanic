@@ -191,7 +191,7 @@ Level.prototype.loseCondition = function() {
 
 
 Level.prototype.spawn = function(type, x, y, width, velx, vely, drop) {
-  this.enemyPools[type]
+  return this.enemyPools[type]
     .spawn(x, y, width, velx, vely, drop)
 }
 
