@@ -1,9 +1,9 @@
 module.exports = Director
 
 
-var Hydroid = require('../../entities/enemies/Hydroid.js')
-var Enemy = require('../../entities/enemies/Enemy.js')
-var Hex = require('../../entities/enemies/Hex.js')
+var Hydroid = require('../entities/enemies/Hydroid.js')
+var Enemy = require('../entities/enemies/Enemy.js')
+var Hex = require('../entities/enemies/Hex.js')
 
 
 function cull(obj) {
@@ -25,6 +25,7 @@ function update() {
 
 function initEnemy(enemy) {
   enemy.body.removeCollisionGroup(enemy.game.physics.p2.boundsCollisionGroup)
+  enemy.body.data.gravityScale = 0
   enemy.checkWorldBounds = true
   enemy.update = update
 }
@@ -41,7 +42,10 @@ function Director(state) {
   }
 
   this.pool.enemy.forEach(initEnemy)
-  this.pool.hex.forEach(initEnemy)
+  this.pool.hex.forEach(function(e) {
+    initEnemy(e)
+    e.body.removeCollisionGroup(state.platformsCG)
+  }, this)
 }
 
 
@@ -65,18 +69,20 @@ Director.prototype = {
     }
     this.script.start(idx)
     this.started = true
+    this.finished = false
   },
 
-  spawn: function(type, x, y, width, velx, vely) {
+  spawn: function(type, x, y, width, velx, vely, drop) {
     type = type || 'enemy'
     x = x || 0
     y = y || 0
     width = width || 8
     velx = velx || 0
-    vely = vely || 40
-    var e = this.pool[type].spawn(x, y, width, velx, vely)
-    if (!e) { return }
+    vely = vely || 0
+    var e = this.pool[type].spawn(x, y, width, velx, vely, drop)
+    if (!e) { return null }
     e.wasInWorld = false
+    return e
   }
 }
 

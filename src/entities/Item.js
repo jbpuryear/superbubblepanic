@@ -32,8 +32,9 @@ function Item(state, data) {
 
   this.body.setCollisionGroup(state.itemsCG)
 
+  // Collide with enemies so space boss will blink if items touch it's eye
   this.body.collides(state.playersCG, null, null, this.playerSensor)
-  this.body.collides([state.platformsCG,
+  this.body.collides([state.platformsCG, state.enemiesCG,
     state.physics.p2.boundsCollisionGroup], null, null, s)
 
   // Necessary, maybe a bug in Phaser.
