@@ -33,7 +33,11 @@ function Enemy(state, data) {
   this.body.collides([state.platformsCG, state.physics.p2.boundsCollisionGroup], function() {
     var oldBounce = this.lastBounce
     this.lastBounce = state.time.now
-    if (state.time.now - oldBounce < 250) return
+    if (state.time.now - oldBounce < 250
+        || Math.abs(state.p1.x - this.x) > 600
+        || Math.abs(state.p1.y - this.y) > 600) {
+      return
+    }
     var snd = state.playSound(this.sounds.bounce)
     if (snd && snd.isPlaying && snd.usingWebAudio) {
       var scale = 128/this.width
@@ -54,7 +58,7 @@ Enemy.prototype = Object.create(Phaser.Sprite.prototype)
 
 Enemy.prototype.maxHealth = MAX_HEALTH
 
-Enemy.prototype.maxSpeed = 400
+Enemy.prototype.maxSpeed = 500
 
 Enemy.prototype.defaultFrame = 'enemy'
 
