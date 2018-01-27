@@ -15,8 +15,8 @@ MonsterLevel.prototype.tileset = 'living-tissue-tileset'
 
 
 
-var WIDTH = 450
-var HEIGHT = 300
+var WIDTH = 16 * 28
+var HEIGHT = 16 * 18
 var CAM_PAD = 40
 var X_CLAMP = WIDTH - CAM_PAD
 var Y_CLAMP = HEIGHT - CAM_PAD
@@ -80,8 +80,12 @@ MonsterLevel.prototype.win = function() {
   this.winning = true
   this.reticule.exists = false
   this.p1.body.removeCollisionGroup(this.enemiesCG)
-  this.players.children[0].playerState.ctlr = {
-    right: true, position: {y: 10000000, x: 10000000}, update: function(){}
+  if (!this.trigger.down) {
+    this.players.children[0].playerState.ctlr = {
+      right: true, position: {y: 10000000, x: 10000000}, update: function(){}
+    }
+  } else {
+    this.p1.playerState.ctlr = { position: { x: 100000, y: -100000 }, update: function() {} }
   }
 }
 
@@ -93,11 +97,20 @@ MonsterLevel.prototype.winCondition = function() {
 
 MonsterLevel.prototype.winLoop = function() {
   var p1 = this.p1
-  if (p1.standing) {
-    var d = this.world.width + p1.width
-    var dx = d - p1.world.x
+  if (!this.trigger.down) {
+    if (p1.standing) {
+      var d = this.world.width + p1.width
+      var dx = d - p1.world.x
+      this.add.tween(p1.body)
+        .to({x: d}, dx*1000/p1.speed)
+        .start()
+        .onComplete.add(Level.prototype.win, this)
+      this.doneWinning = true
+    }
+  } else {
+    p1.body.removeCollisionGroup(this.physics.p2.boundsCollisionGroup)
     this.add.tween(p1.body)
-      .to({x: d}, dx*1000/p1.speed)
+      .to({ y: this.world.height + 24 }, 100)
       .start()
       .onComplete.add(Level.prototype.win, this)
     this.doneWinning = true

@@ -23,7 +23,7 @@
                  "type":"player1",
                  "visible":true,
                  "width":16,
-                 "x":80,
+                 "x":40,
                  "y":296
                 }, 
                 {
@@ -47,8 +47,8 @@
                  "type":"enemy",
                  "visible":true,
                  "width":208,
-                 "x":-8,
-                 "y":0
+                 "x":1,
+                 "y":1
                 }, 
                 {
                  "ellipse":true,
@@ -71,8 +71,8 @@
                  "type":"enemy",
                  "visible":true,
                  "width":208,
-                 "x":272,
-                 "y":0
+                 "x":271,
+                 "y":1
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -140,12 +140,12 @@
          "columns":20,
          "firstgid":1,
          "image":"..\/images\/tiles.png",
-         "imageheight":160,
+         "imageheight":168,
          "imagewidth":160,
          "margin":0,
          "name":"tiles",
          "spacing":0,
-         "tilecount":400,
+         "tilecount":420,
          "tileheight":8,
          "tilewidth":8
         }],
