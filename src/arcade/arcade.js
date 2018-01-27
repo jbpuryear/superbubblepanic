@@ -101,11 +101,11 @@ Arcade.prototype.gameOver = function() {
       this.gameOverScreen.addChild(this.glass)
       this.time.events.loop(10, function() { hsMod.hs.tint = (hsMod.hs.tint + 10) % 0xffffff })
       this.time.events.loop(200, function() {
-        this.frag.x = Math.random() * this.game.width
-        this.frag.y = -10
+        this.frag.x = Math.random() * this.game.width - this.game.width/2
+        this.frag.y = Math.random() * this.game.height - this.game.height/2
         this.frag.explode(1000, 5)
-        this.glass.x = Math.random() * this.game.width
-        this.glass.y = -10
+        this.glass.x = Math.random() * this.game.width - this.game.width/2
+        this.glass.y = Math.random() * this.game.height - this.game.height/2
         this.glass.explode(1000, 10)
       }, this)
     }, this)
