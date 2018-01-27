@@ -25,6 +25,7 @@ function Player(state, data, ctlr) {
   this.fuel = this.maxFuel
   this.speedBonus = 1
   this.standing = true
+  this.invincible = false
 
   this.onEquip = new Phaser.Signal()
 
@@ -58,7 +59,7 @@ Object.defineProperty(Player.prototype, 'speed', {
 
 Object.defineProperty(Player.prototype, 'accel', {
   get: function() {
-    var rate = this.standing ? 0.075 : 0.5
+    var rate = this.standing ? 0.075 : 0.2
     return this.speed / rate
   }
 })
@@ -87,7 +88,7 @@ Object.defineProperty(Player.prototype, 'facing', {
 
 
 Player.prototype.damage = function(_, enemy) {
-  if (this.health <= 0) return
+  if (this.invincible || this.health <= 0) return
   var theta = this.world.angle(enemy.sprite)
   this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? -1 : 1
   this.health -= 1
