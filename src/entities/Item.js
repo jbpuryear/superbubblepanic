@@ -24,7 +24,7 @@ function Item(state, data) {
 
   this.body.clearShapes()
   var s = this.body.addRectangle(this.width, this.height)
-  this.playerSensor = this.body.addRectangle(this.width/3, this.height/3)
+  this.playerSensor = this.body.addRectangle(this.width/2, this.height/2)
   this.playerSensor.sensor = true
   this.body.collideWorldBounds = false
 
