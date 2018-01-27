@@ -110,6 +110,16 @@
     },
     {
       "type": "tilemap",
+      "key": "level11",
+      "url": "assets/levels/level11.json",
+      "format": "TILED_JSON",
+      "mapX": 268,
+      "mapY": 234,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
       "key": "rocket",
       "url": "assets/levels/rocket.json",
       "format": "TILED_JSON",
@@ -123,8 +133,8 @@
       "key": "shmup",
       "url": "assets/levels/shmup.json",
       "format": "TILED_JSON",
-      "mapX": 15,
-      "mapY": 35,
+      "mapX": 13,
+      "mapY": 47,
       "state": "ShmupLevel",
       "title": "a leaf on the wind"
     },
@@ -133,8 +143,28 @@
       "key": "zero-g",
       "url": "assets/levels/zero-g.json",
       "format": "TILED_JSON",
+      "mapX": 63,
+      "mapY": 25,
+      "state": "ZeroGLevel",
+      "title": "the not so friendly skies"
+    },
+    {
+      "type": "tilemap",
+      "key": "zero-g2",
+      "url": "assets/levels/zero-g2.json",
+      "format": "TILED_JSON",
       "mapX": 215,
       "mapY": 22,
+      "state": "ZeroGLevel",
+      "title": "the not so friendly skies"
+    },
+    {
+      "type": "tilemap",
+      "key": "zero-g3",
+      "url": "assets/levels/zero-g3.json",
+      "format": "TILED_JSON",
+      "mapX": 360,
+      "mapY": 53,
       "state": "ZeroGLevel",
       "title": "the not so friendly skies"
     },
@@ -152,6 +182,16 @@
       "type": "tilemap",
       "key": "monster",
       "url": "assets/levels/monster.json",
+      "format": "TILED_JSON",
+      "mapX": 481,
+      "mapY": 69,
+      "state": "MonsterLevel",
+      "title": "ooh creepy"
+    },
+    {
+      "type": "tilemap",
+      "key": "monster2",
+      "url": "assets/levels/monster2.json",
       "format": "TILED_JSON",
       "mapX": 515,
       "mapY": 75,
