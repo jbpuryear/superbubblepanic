@@ -18,8 +18,8 @@ MonsterLevel.prototype.tileset = 'living-tissue-tileset'
 var WIDTH = 16 * 28
 var HEIGHT = 16 * 18
 var CAM_PAD = 40
-var X_CLAMP = WIDTH - CAM_PAD
-var Y_CLAMP = HEIGHT - CAM_PAD
+var X_CLAMP = WIDTH - CAM_PAD * 2
+var Y_CLAMP = HEIGHT - CAM_PAD * 2
 var X_FOCUS = (WIDTH/2 - CAM_PAD) / X_CLAMP
 var Y_FOCUS = (HEIGHT/2 - CAM_PAD) / Y_CLAMP
 
