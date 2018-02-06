@@ -501,6 +501,86 @@ module.exports={
     },
     {
       "type": "tilemap",
+      "key": "level11",
+      "url": "assets/levels/level11.json",
+      "format": "TILED_JSON",
+      "mapX": 268,
+      "mapY": 234,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level12",
+      "url": "assets/levels/level12.json",
+      "format": "TILED_JSON",
+      "mapX": 244,
+      "mapY": 198,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level13",
+      "url": "assets/levels/level13.json",
+      "format": "TILED_JSON",
+      "mapX": 283,
+      "mapY": 171,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level14",
+      "url": "assets/levels/level14.json",
+      "format": "TILED_JSON",
+      "mapX": 279,
+      "mapY": 121,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level15",
+      "url": "assets/levels/level15.json",
+      "format": "TILED_JSON",
+      "mapX": 264,
+      "mapY": 85,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level16",
+      "url": "assets/levels/level16.json",
+      "format": "TILED_JSON",
+      "mapX": 225,
+      "mapY": 72,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level24",
+      "url": "assets/levels/level24.json",
+      "format": "TILED_JSON",
+      "mapX": 85,
+      "mapY": 275,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level25",
+      "url": "assets/levels/level25.json",
+      "format": "TILED_JSON",
+      "mapX": 75,
+      "mapY": 306,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
       "key": "rocket",
       "url": "assets/levels/rocket.json",
       "format": "TILED_JSON",
@@ -514,8 +594,8 @@ module.exports={
       "key": "shmup",
       "url": "assets/levels/shmup.json",
       "format": "TILED_JSON",
-      "mapX": 15,
-      "mapY": 35,
+      "mapX": 13,
+      "mapY": 47,
       "state": "ShmupLevel",
       "title": "a leaf on the wind"
     },
@@ -524,8 +604,28 @@ module.exports={
       "key": "zero-g",
       "url": "assets/levels/zero-g.json",
       "format": "TILED_JSON",
+      "mapX": 63,
+      "mapY": 25,
+      "state": "ZeroGLevel",
+      "title": "the not so friendly skies"
+    },
+    {
+      "type": "tilemap",
+      "key": "zero-g2",
+      "url": "assets/levels/zero-g2.json",
+      "format": "TILED_JSON",
       "mapX": 215,
       "mapY": 22,
+      "state": "ZeroGLevel",
+      "title": "the not so friendly skies"
+    },
+    {
+      "type": "tilemap",
+      "key": "zero-g3",
+      "url": "assets/levels/zero-g3.json",
+      "format": "TILED_JSON",
+      "mapX": 360,
+      "mapY": 53,
       "state": "ZeroGLevel",
       "title": "the not so friendly skies"
     },
@@ -543,6 +643,16 @@ module.exports={
       "type": "tilemap",
       "key": "monster",
       "url": "assets/levels/monster.json",
+      "format": "TILED_JSON",
+      "mapX": 481,
+      "mapY": 69,
+      "state": "MonsterLevel",
+      "title": "ooh creepy"
+    },
+    {
+      "type": "tilemap",
+      "key": "monster2",
+      "url": "assets/levels/monster2.json",
       "format": "TILED_JSON",
       "mapX": 515,
       "mapY": 75,
@@ -1337,11 +1447,11 @@ Arcade.prototype.gameOver = function() {
       this.gameOverScreen.addChild(this.glass)
       this.time.events.loop(10, function() { hsMod.hs.tint = (hsMod.hs.tint + 10) % 0xffffff })
       this.time.events.loop(200, function() {
-        this.frag.x = Math.random() * this.game.width
-        this.frag.y = -10
+        this.frag.x = Math.random() * this.game.width - this.game.width/2
+        this.frag.y = Math.random() * this.game.height - this.game.height/2
         this.frag.explode(1000, 5)
-        this.glass.x = Math.random() * this.game.width
-        this.glass.y = -10
+        this.glass.x = Math.random() * this.game.width - this.game.width/2
+        this.glass.y = Math.random() * this.game.height - this.game.height/2
         this.glass.explode(1000, 10)
       }, this)
     }, this)
@@ -1793,7 +1903,7 @@ function Item(state, data) {
 
   this.body.clearShapes()
   var s = this.body.addRectangle(this.width, this.height)
-  this.playerSensor = this.body.addRectangle(this.width/3, this.height/3)
+  this.playerSensor = this.body.addRectangle(this.width/2, this.height/2)
   this.playerSensor.sensor = true
   this.body.collideWorldBounds = false
 
@@ -2103,6 +2213,9 @@ module.exports = Trigger
 function Trigger(state, data) {
   Phaser.Rectangle.call(this, data.x - data.width/2, data.y - data.height/2, data.width, data.height)
   if (state.trigger) throw new Error('Only one trigger allowed per state')
+  if (data.properties) {
+    this.down = data.properties.down
+  }
   state.trigger = this
 }
 
@@ -2696,17 +2809,7 @@ function Enemy(state, data) {
   this._circle = this.body.setCircle(1)
   this.body.setCollisionGroup(state.enemiesCG)
   this.body.collideWorldBounds = false
-  this.body.collides([state.platformsCG, state.physics.p2.boundsCollisionGroup], function() {
-    var oldBounce = this.lastBounce
-    this.lastBounce = state.time.now
-    if (state.time.now - oldBounce < 250) return
-    var snd = state.playSound(this.sounds.bounce)
-    if (snd && snd.isPlaying && snd.usingWebAudio) {
-      var scale = 128/this.width
-      snd._sound.detune.value = scale * 400
-      snd.volume = Math.min(0.5+0.5/scale, 1)
-    }
-  }, this)
+  this.body.collides([state.platformsCG, state.physics.p2.boundsCollisionGroup], this.bounce, this)
   this.body.collides([state.playersCG, state.bulletsCG], this.damage, this)
   this.body.setMaterial(state.enemyMaterial)
   this.body.fixedRotation = true
@@ -2720,9 +2823,26 @@ Enemy.prototype = Object.create(Phaser.Sprite.prototype)
 
 Enemy.prototype.maxHealth = MAX_HEALTH
 
-Enemy.prototype.maxSpeed = 400
+Enemy.prototype.maxSpeed = 500
 
 Enemy.prototype.defaultFrame = 'enemy'
+
+
+Enemy.prototype.bounce = function() {
+  var oldBounce = this.lastBounce
+  this.lastBounce = this.state.time.now
+  if (this.state.time.now - oldBounce < 250
+      || Math.abs(this.state.p1.x - this.x) > 600
+      || Math.abs(this.state.p1.y - this.y) > 600) {
+    return
+  }
+  var snd = this.state.playSound(this.sounds.bounce)
+  if (snd && snd.isPlaying && snd.usingWebAudio) {
+    var scale = 128/this.width
+    snd._sound.detune.value = scale * 400
+    snd.volume = Math.min(0.5+0.5/scale, 1)
+  }
+}
 
 
 Enemy.prototype.damage = function(_, src) {
@@ -2991,6 +3111,19 @@ Seeker.prototype.update = function() {
     this.body.world.pxm(-steer.y * this.body.mass)
   ])
 }
+
+
+Seeker.prototype.bounce = function() {
+  Enemy.prototype.bounce.call(this)
+  var vx = this.body.velocity.x 
+  var vy = this.body.velocity.y
+  var speed = Math.sqrt(vx*vx + vy*vy)
+  var desiredSpeed = Math.max(speed, 70)
+  if (speed === desiredSpeed) { return }
+  this.body.velocity.x *= desiredSpeed/speed
+  this.body.velocity.y *= desiredSpeed/speed
+}
+
 
 },{"./Enemy.js":30}],35:[function(require,module,exports){
 var Player = require('./heroes/Player.js')
@@ -3381,6 +3514,7 @@ function Player(state, data, ctlr) {
   this.fuel = this.maxFuel
   this.speedBonus = 1
   this.standing = true
+  this.invincible = false
 
   this.onEquip = new Phaser.Signal()
 
@@ -3414,7 +3548,7 @@ Object.defineProperty(Player.prototype, 'speed', {
 
 Object.defineProperty(Player.prototype, 'accel', {
   get: function() {
-    var rate = this.standing ? 0.075 : 0.5
+    var rate = this.standing ? 0.075 : 0.2
     return this.speed / rate
   }
 })
@@ -3443,7 +3577,7 @@ Object.defineProperty(Player.prototype, 'facing', {
 
 
 Player.prototype.damage = function(_, enemy) {
-  if (this.health <= 0) return
+  if (this.invincible || this.health <= 0) return
   var theta = this.world.angle(enemy.sprite)
   this.facing = theta > Math.PI/2 || theta < -Math.PI/2 ? -1 : 1
   this.health -= 1
@@ -3498,7 +3632,7 @@ function PlayerCollider(player) {
 
   this.spacingH = (this.rayBounds.top - this.rayBounds.bottom - this.padding) / (this.rayCountH - 1)
   this.spacingV = (this.rayBounds.right - this.rayBounds.left - this.padding) / (this.rayCountV - 1)
-  this.maxStandAngle = Math.PI / 4 + 0.0000001
+  this.maxStandAngle = Math.PI / 6 + 0.0000001
   this.slopeVector = p2.vec2.create()
 
   this.ray.collisionMask = this.game.state.getCurrentState().platformsCG.mask | this.game.physics.p2.boundsCollisionGroup.mask
@@ -3530,7 +3664,7 @@ PlayerCollider.prototype = {
       }
       var y = this.rayBounds.bottom + this.padding + 0.1
       vec2.set(ray.from, x, y)
-      vec2.set(ray.to, x, y - this.padding - 0.2)
+      vec2.set(ray.to, x, y - this.padding - 0.14)
       ray.update()
       if (!this.game.physics.p2.world.raycast(res, ray)) {
         this.player.standing = false
@@ -4071,7 +4205,7 @@ Flying.prototype.update = function() {
 
   plyr.weapon.y = plyr.body.vel.y < -30 ? 2 : 0
 
-  plyr.body.vel.y -= plyr.game.physics.p2.gravity.y * 2 * plyr.game.time.physicsElapsed
+  plyr.body.vel.y -= plyr.game.physics.p2.gravity.y * 2.5 * plyr.game.time.physicsElapsed
   plyr.fuel = Math.max(plyr.fuel - plyr.game.time.physicsElapsedMS, 0)
 
   plyr.fx.jet()
@@ -4144,6 +4278,7 @@ Stunned.prototype = {
     var lvl = plyr.state
 
     plyr.body.removeCollisionGroup(lvl.enemiesCG, false)
+    plyr.invincible = true
 
     if (plyr.weapon)
       plyr.weapon.rotation = plyr.facing === 1 ? 0 : Math.PI
@@ -4160,6 +4295,7 @@ Stunned.prototype = {
     this.tween.pause()
     this.player.character.alpha = 1
     this.player.body.collides(this.player.state.enemiesCG)
+    this.player.invincible = false
   },
 
   endStun: function() {
@@ -4963,11 +5099,11 @@ MonsterLevel.prototype.tileset = 'living-tissue-tileset'
 
 
 
-var WIDTH = 450
-var HEIGHT = 300
+var WIDTH = 16 * 28
+var HEIGHT = 16 * 18
 var CAM_PAD = 40
-var X_CLAMP = WIDTH - CAM_PAD
-var Y_CLAMP = HEIGHT - CAM_PAD
+var X_CLAMP = WIDTH - CAM_PAD * 2
+var Y_CLAMP = HEIGHT - CAM_PAD * 2
 var X_FOCUS = (WIDTH/2 - CAM_PAD) / X_CLAMP
 var Y_FOCUS = (HEIGHT/2 - CAM_PAD) / Y_CLAMP
 
@@ -5028,8 +5164,12 @@ MonsterLevel.prototype.win = function() {
   this.winning = true
   this.reticule.exists = false
   this.p1.body.removeCollisionGroup(this.enemiesCG)
-  this.players.children[0].playerState.ctlr = {
-    right: true, position: {y: 10000000, x: 10000000}, update: function(){}
+  if (!this.trigger.down) {
+    this.players.children[0].playerState.ctlr = {
+      right: true, position: {y: 10000000, x: 10000000}, update: function(){}
+    }
+  } else {
+    this.p1.playerState.ctlr = { position: { x: 100000, y: -100000 }, update: function() {} }
   }
 }
 
@@ -5041,11 +5181,20 @@ MonsterLevel.prototype.winCondition = function() {
 
 MonsterLevel.prototype.winLoop = function() {
   var p1 = this.p1
-  if (p1.standing) {
-    var d = this.world.width + p1.width
-    var dx = d - p1.world.x
+  if (!this.trigger.down) {
+    if (p1.standing) {
+      var d = this.world.width + p1.width
+      var dx = d - p1.world.x
+      this.add.tween(p1.body)
+        .to({x: d}, dx*1000/p1.speed)
+        .start()
+        .onComplete.add(Level.prototype.win, this)
+      this.doneWinning = true
+    }
+  } else {
+    p1.body.removeCollisionGroup(this.physics.p2.boundsCollisionGroup)
     this.add.tween(p1.body)
-      .to({x: d}, dx*1000/p1.speed)
+      .to({ y: this.world.height + 24 }, 100)
       .start()
       .onComplete.add(Level.prototype.win, this)
     this.doneWinning = true
@@ -5510,13 +5659,6 @@ SpaceBoss.prototype.throwHex = function() {
   if (this.hp <= 0) { return }
   var roll = Math.random()
   var width = Math.random() * 80 + 80
-  var drop = null
-  if (this.time.now - this.lastShield > 40000) {
-    if (Math.random() < 1/40) {
-      drop = this.addEntity({ x: 0, y: 0, type: 'shield'})
-      this.lastShield = this.time.now
-    }
-  }
   this.time.events.add(Math.random() * 3000 + 500, this.throwHex, this)
   var h
   var speed = 100
@@ -5528,14 +5670,19 @@ SpaceBoss.prototype.throwHex = function() {
       Math.random()*this.game.height*3/4, width, -speed, 0, drop)
   }
   if (!h) { return }
-  if (drop) {
-    drop.kill()
-    var tween = this.add.tween(h)
-    tween.to({ alpha: 0.6 }, 200, Phaser.Easing.Sinusoidal.InOut, true, null, -1, true)
-    h.events.onKilled.addOnce(function() {
-      tween.manager.remove(tween)
-      h.alpha = 1
-    })
+  if (this.time.now - this.lastShield > 40000 && h.y <= this.game.height * 3/5) {
+    if (Math.random() < 1/40) {
+      var drop = this.addEntity({ x: 0, y: 0, type: 'shield'})
+      this.lastShield = this.time.now
+      drop.kill()
+      h.drop = drop
+      var tween = this.add.tween(h)
+      tween.to({ alpha: 0.6 }, 200, Phaser.Easing.Sinusoidal.InOut, true, null, -1, true)
+      h.events.onKilled.addOnce(function() {
+        tween.manager.remove(tween)
+        h.alpha = 1
+      })
+    }
   }
 }
 
