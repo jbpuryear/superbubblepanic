@@ -233,7 +233,7 @@ SpaceBoss.prototype.throwHex = function() {
   }
   if (!h) { return }
   if (this.time.now - this.lastShield > 40000 && h.y <= this.game.height * 3/5) {
-    if (Math.random() < 40) {
+    if (Math.random() < 1/40) {
       var drop = this.addEntity({ x: 0, y: 0, type: 'shield'})
       this.lastShield = this.time.now
       drop.kill()

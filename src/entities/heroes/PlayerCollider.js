@@ -51,7 +51,7 @@ PlayerCollider.prototype = {
       }
       var y = this.rayBounds.bottom + this.padding + 0.1
       vec2.set(ray.from, x, y)
-      vec2.set(ray.to, x, y - this.padding - 0.2)
+      vec2.set(ray.to, x, y - this.padding - 0.14)
       ray.update()
       if (!this.game.physics.p2.world.raycast(res, ray)) {
         this.player.standing = false

@@ -120,6 +120,46 @@
     },
     {
       "type": "tilemap",
+      "key": "level12",
+      "url": "assets/levels/level12.json",
+      "format": "TILED_JSON",
+      "mapX": 244,
+      "mapY": 198,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level13",
+      "url": "assets/levels/level13.json",
+      "format": "TILED_JSON",
+      "mapX": 283,
+      "mapY": 171,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level14",
+      "url": "assets/levels/level14.json",
+      "format": "TILED_JSON",
+      "mapX": 279,
+      "mapY": 121,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level25",
+      "url": "assets/levels/level25.json",
+      "format": "TILED_JSON",
+      "mapX": 75,
+      "mapY": 306,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
       "key": "rocket",
       "url": "assets/levels/rocket.json",
       "format": "TILED_JSON",
