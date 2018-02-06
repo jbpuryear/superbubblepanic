@@ -221,13 +221,6 @@ SpaceBoss.prototype.throwHex = function() {
   if (this.hp <= 0) { return }
   var roll = Math.random()
   var width = Math.random() * 80 + 80
-  var drop = null
-  if (this.time.now - this.lastShield > 40000) {
-    if (Math.random() < 1/40) {
-      drop = this.addEntity({ x: 0, y: 0, type: 'shield'})
-      this.lastShield = this.time.now
-    }
-  }
   this.time.events.add(Math.random() * 3000 + 500, this.throwHex, this)
   var h
   var speed = 100
@@ -239,14 +232,19 @@ SpaceBoss.prototype.throwHex = function() {
       Math.random()*this.game.height*3/4, width, -speed, 0, drop)
   }
   if (!h) { return }
-  if (drop) {
-    drop.kill()
-    var tween = this.add.tween(h)
-    tween.to({ alpha: 0.6 }, 200, Phaser.Easing.Sinusoidal.InOut, true, null, -1, true)
-    h.events.onKilled.addOnce(function() {
-      tween.manager.remove(tween)
-      h.alpha = 1
-    })
+  if (this.time.now - this.lastShield > 40000 && h.y <= this.game.height * 3/5) {
+    if (Math.random() < 1/40) {
+      var drop = this.addEntity({ x: 0, y: 0, type: 'shield'})
+      this.lastShield = this.time.now
+      drop.kill()
+      h.drop = drop
+      var tween = this.add.tween(h)
+      tween.to({ alpha: 0.6 }, 200, Phaser.Easing.Sinusoidal.InOut, true, null, -1, true)
+      h.events.onKilled.addOnce(function() {
+        tween.manager.remove(tween)
+        h.alpha = 1
+      })
+    }
   }
 }
 

@@ -19,7 +19,7 @@ function PlayerCollider(player) {
 
   this.spacingH = (this.rayBounds.top - this.rayBounds.bottom - this.padding) / (this.rayCountH - 1)
   this.spacingV = (this.rayBounds.right - this.rayBounds.left - this.padding) / (this.rayCountV - 1)
-  this.maxStandAngle = Math.PI / 4 + 0.0000001
+  this.maxStandAngle = Math.PI / 6 + 0.0000001
   this.slopeVector = p2.vec2.create()
 
   this.ray.collisionMask = this.game.state.getCurrentState().platformsCG.mask | this.game.physics.p2.boundsCollisionGroup.mask
@@ -51,7 +51,7 @@ PlayerCollider.prototype = {
       }
       var y = this.rayBounds.bottom + this.padding + 0.1
       vec2.set(ray.from, x, y)
-      vec2.set(ray.to, x, y - this.padding - 0.2)
+      vec2.set(ray.to, x, y - this.padding - 0.14)
       ray.update()
       if (!this.game.physics.p2.world.raycast(res, ray)) {
         this.player.standing = false

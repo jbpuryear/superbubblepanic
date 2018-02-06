@@ -30,17 +30,7 @@ function Enemy(state, data) {
   this._circle = this.body.setCircle(1)
   this.body.setCollisionGroup(state.enemiesCG)
   this.body.collideWorldBounds = false
-  this.body.collides([state.platformsCG, state.physics.p2.boundsCollisionGroup], function() {
-    var oldBounce = this.lastBounce
-    this.lastBounce = state.time.now
-    if (state.time.now - oldBounce < 250) return
-    var snd = state.playSound(this.sounds.bounce)
-    if (snd && snd.isPlaying && snd.usingWebAudio) {
-      var scale = 128/this.width
-      snd._sound.detune.value = scale * 400
-      snd.volume = Math.min(0.5+0.5/scale, 1)
-    }
-  }, this)
+  this.body.collides([state.platformsCG, state.physics.p2.boundsCollisionGroup], this.bounce, this)
   this.body.collides([state.playersCG, state.bulletsCG], this.damage, this)
   this.body.setMaterial(state.enemyMaterial)
   this.body.fixedRotation = true
@@ -54,9 +44,26 @@ Enemy.prototype = Object.create(Phaser.Sprite.prototype)
 
 Enemy.prototype.maxHealth = MAX_HEALTH
 
-Enemy.prototype.maxSpeed = 400
+Enemy.prototype.maxSpeed = 500
 
 Enemy.prototype.defaultFrame = 'enemy'
+
+
+Enemy.prototype.bounce = function() {
+  var oldBounce = this.lastBounce
+  this.lastBounce = this.state.time.now
+  if (this.state.time.now - oldBounce < 250
+      || Math.abs(this.state.p1.x - this.x) > 600
+      || Math.abs(this.state.p1.y - this.y) > 600) {
+    return
+  }
+  var snd = this.state.playSound(this.sounds.bounce)
+  if (snd && snd.isPlaying && snd.usingWebAudio) {
+    var scale = 128/this.width
+    snd._sound.detune.value = scale * 400
+    snd.volume = Math.min(0.5+0.5/scale, 1)
+  }
+}
 
 
 Enemy.prototype.damage = function(_, src) {

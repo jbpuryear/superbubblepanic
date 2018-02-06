@@ -53,3 +53,16 @@ Seeker.prototype.update = function() {
     this.body.world.pxm(-steer.y * this.body.mass)
   ])
 }
+
+
+Seeker.prototype.bounce = function() {
+  Enemy.prototype.bounce.call(this)
+  var vx = this.body.velocity.x 
+  var vy = this.body.velocity.y
+  var speed = Math.sqrt(vx*vx + vy*vy)
+  var desiredSpeed = Math.max(speed, 70)
+  if (speed === desiredSpeed) { return }
+  this.body.velocity.x *= desiredSpeed/speed
+  this.body.velocity.y *= desiredSpeed/speed
+}
+

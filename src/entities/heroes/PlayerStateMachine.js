@@ -311,7 +311,7 @@ Flying.prototype.update = function() {
 
   plyr.weapon.y = plyr.body.vel.y < -30 ? 2 : 0
 
-  plyr.body.vel.y -= plyr.game.physics.p2.gravity.y * 2 * plyr.game.time.physicsElapsed
+  plyr.body.vel.y -= plyr.game.physics.p2.gravity.y * 2.5 * plyr.game.time.physicsElapsed
   plyr.fuel = Math.max(plyr.fuel - plyr.game.time.physicsElapsedMS, 0)
 
   plyr.fx.jet()
@@ -384,6 +384,7 @@ Stunned.prototype = {
     var lvl = plyr.state
 
     plyr.body.removeCollisionGroup(lvl.enemiesCG, false)
+    plyr.invincible = true
 
     if (plyr.weapon)
       plyr.weapon.rotation = plyr.facing === 1 ? 0 : Math.PI
@@ -400,6 +401,7 @@ Stunned.prototype = {
     this.tween.pause()
     this.player.character.alpha = 1
     this.player.body.collides(this.player.state.enemiesCG)
+    this.player.invincible = false
   },
 
   endStun: function() {
