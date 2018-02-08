@@ -28,7 +28,7 @@
                 }, 
                 {
                  "ellipse":true,
-                 "height":80,
+                 "height":88,
                  "id":190,
                  "name":"",
                  "properties":
@@ -44,129 +44,9 @@
                  "rotation":0,
                  "type":"hex",
                  "visible":true,
-                 "width":80,
-                 "x":80,
+                 "width":88,
+                 "x":48,
                  "y":72
-                }, 
-                {
-                 "ellipse":true,
-                 "height":10,
-                 "id":207,
-                 "name":"",
-                 "properties":
-                    {
-                     "velx":60
-                    },
-                 "propertytypes":
-                    {
-                     "velx":"float"
-                    },
-                 "rotation":0,
-                 "type":"enemy",
-                 "visible":true,
-                 "width":10,
-                 "x":57,
-                 "y":0
-                }, 
-                {
-                 "ellipse":true,
-                 "height":10,
-                 "id":235,
-                 "name":"",
-                 "properties":
-                    {
-                     "velx":60
-                    },
-                 "propertytypes":
-                    {
-                     "velx":"float"
-                    },
-                 "rotation":0,
-                 "type":"enemy",
-                 "visible":true,
-                 "width":10,
-                 "x":185,
-                 "y":0
-                }, 
-                {
-                 "ellipse":true,
-                 "height":10,
-                 "id":236,
-                 "name":"",
-                 "properties":
-                    {
-                     "velx":60
-                    },
-                 "propertytypes":
-                    {
-                     "velx":"float"
-                    },
-                 "rotation":0,
-                 "type":"enemy",
-                 "visible":true,
-                 "width":10,
-                 "x":217,
-                 "y":12
-                }, 
-                {
-                 "ellipse":true,
-                 "height":10,
-                 "id":237,
-                 "name":"",
-                 "properties":
-                    {
-                     "velx":60
-                    },
-                 "propertytypes":
-                    {
-                     "velx":"float"
-                    },
-                 "rotation":0,
-                 "type":"enemy",
-                 "visible":true,
-                 "width":10,
-                 "x":89,
-                 "y":12
-                }, 
-                {
-                 "ellipse":true,
-                 "height":10,
-                 "id":238,
-                 "name":"",
-                 "properties":
-                    {
-                     "velx":60
-                    },
-                 "propertytypes":
-                    {
-                     "velx":"float"
-                    },
-                 "rotation":0,
-                 "type":"enemy",
-                 "visible":true,
-                 "width":10,
-                 "x":121,
-                 "y":0
-                }, 
-                {
-                 "ellipse":true,
-                 "height":10,
-                 "id":239,
-                 "name":"",
-                 "properties":
-                    {
-                     "velx":60
-                    },
-                 "propertytypes":
-                    {
-                     "velx":"float"
-                    },
-                 "rotation":0,
-                 "type":"enemy",
-                 "visible":true,
-                 "width":10,
-                 "x":153,
-                 "y":12
                 }, 
                 {
                  "ellipse":true,
@@ -290,7 +170,7 @@
                 }, 
                 {
                  "ellipse":true,
-                 "height":80,
+                 "height":88,
                  "id":253,
                  "name":"",
                  "properties":
@@ -306,29 +186,9 @@
                  "rotation":0,
                  "type":"hex",
                  "visible":true,
-                 "width":80,
-                 "x":176,
+                 "width":88,
+                 "x":200,
                  "y":72
-                }, 
-                {
-                 "ellipse":true,
-                 "height":10,
-                 "id":257,
-                 "name":"",
-                 "properties":
-                    {
-                     "velx":60
-                    },
-                 "propertytypes":
-                    {
-                     "velx":"float"
-                    },
-                 "rotation":0,
-                 "type":"enemy",
-                 "visible":true,
-                 "width":10,
-                 "x":250,
-                 "y":0
                 }, 
                 {
                  "ellipse":true,

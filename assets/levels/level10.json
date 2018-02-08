@@ -23,7 +23,7 @@
                  "type":"player1",
                  "visible":true,
                  "width":16,
-                 "x":240,
+                 "x":152,
                  "y":296
                 }, 
                 {
@@ -191,13 +191,11 @@
                         }],
                  "properties":
                     {
-                     "breakable":true,
-                     "drop":"shotgun"
+                     "breakable":true
                     },
                  "propertytypes":
                     {
-                     "breakable":"bool",
-                     "drop":"string"
+                     "breakable":"bool"
                     },
                  "rotation":0,
                  "type":"",
@@ -301,6 +299,48 @@
                  "width":0,
                  "x":424,
                  "y":40
+                }, 
+                {
+                 "height":0,
+                 "id":268,
+                 "name":"",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-8
+                        }, 
+                        {
+                         "x":16,
+                         "y":-8
+                        }, 
+                        {
+                         "x":16,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":0
+                        }],
+                 "properties":
+                    {
+                     "breakable":true,
+                     "drop":"shotgun"
+                    },
+                 "propertytypes":
+                    {
+                     "breakable":"bool",
+                     "drop":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":232,
+                 "y":232
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -308,7 +348,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":268,
+ "nextobjectid":269,
  "orientation":"orthogonal",
  "properties":
     {
