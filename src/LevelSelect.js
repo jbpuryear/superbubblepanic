@@ -112,9 +112,9 @@ LevelSelect.prototype = {
         butt.y = lvl.mapY - padTop
         symbols.addChild(butt)
         if (lvl.state === 'RocketLevel') butt.anchor.setTo(0.5, 1)
-      } else {
-        var icon = this.make.image(lvl.mapX, lvl.mapY-padTop, 'sprites', 'lvlLocked')
-        icon.anchor.setTo(0.5)
+      } else if (lvl.state === 'RocketLevel') {
+        var icon = this.make.image(lvl.mapX, lvl.mapY-padTop, 'sprites', 'rocket')
+        icon.anchor.setTo(0.5, 1)
         icon.width = ICON_SIZE
         icon.height = ICON_SIZE
         symbols.addChild(icon)
