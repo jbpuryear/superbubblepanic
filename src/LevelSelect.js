@@ -29,17 +29,8 @@ LevelSelect.prototype = {
     var map = this.world.add(new WorldMap(this.game))
     map.y = padTop
 
-    this.preview = new PhaserNineSlice.NineSlice(game, 0, map.map.height+padTop, 'sprites', 'window',
-      map.map.width, 40, { top: 8 })
-    this.preview.font = new SmallFont(this)
-    this.preview.font.anchor.setTo(0.5)
-    this.preview.font.x = this.preview.width/2
-    this.preview.font.y = this.preview.height/2
-    this.preview.addChild(this.preview.font)
-    this.world.add(this.preview)
-
-    this.scale.setGameSize(map.map.width, map.map.height+this.preview.height+padTop)
-    this.bg.scale.setTo( Math.max(this.game.width/bg.width, this.game.height/bg.height-this.preview.height) )
+    this.scale.setGameSize(map.map.width, map.map.height+padTop)
+    this.bg.scale.setTo( Math.max(this.game.width/bg.width, this.game.height/bg.height) )
     bg.scale.setTo( bg.scale.x * 1.25 )
     this.world.setBounds(0, 0, this.game.width, this.game.height)
     this.reticule = new Reticule(this.game)
@@ -164,9 +155,6 @@ LevelSelect.prototype = {
 
 
   update: function() {
-    // Hack: Force a repaint to get around camera shake bug.
-    this.preview.resize(this.world.width, 40)
-
     var plyr = this.playerIcon
     var pts = this.walkPoints
     if (pts.length > 0) {
@@ -240,7 +228,12 @@ LevelButton.prototype.inputOver = function() {
   this.state.selectIcon.exists = true
   this.state.selectIcon.x = this.x
   this.state.selectIcon.y = this.y + padTop
-  this.state.preview.font.font.text = this.level.title
+}
+
+
+LevelButton.prototype.inputOut = function() {
+  Button.prototype.inputOut.call(this)
+  this.state.selectIcon.exists = false
 }
 
 
