@@ -163,6 +163,7 @@ LevelSelect.prototype = {
       var vel = 200
       var p = pts[pts.length - 1]
       var dx = p.mapX - plyr.x
+      plyr.scale.x = dx >= 0 ? 1 : -1
       var dy = p.mapY - padTop - plyr.y
       var d = Math.sqrt(dx*dx + dy*dy)
       if (d <= dt*vel) {
