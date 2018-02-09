@@ -84,6 +84,8 @@ Enemy.prototype.kill = function() {
   this.state.playSound(this.sounds.pop, 400)
   this.state.camera.shake(0.005, 100)
 
+  this.body.removeCollisionGroup(this.state.playersCG, false)
+
   var tween = this.game.add.tween(this)
   tween.to({width: this.width*2, height: this.height*2, alpha: 0.8}, 60)
   tween.onComplete.addOnce(function() {
@@ -98,6 +100,7 @@ Enemy.prototype.kill = function() {
     this.animations.stop()
     this.frameName = this.defaultFrame
     Phaser.Sprite.prototype.kill.call(this)
+    this.body.collides(this.state.playersCG)
   }, this)
 
   tween.start()
