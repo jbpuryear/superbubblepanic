@@ -160,10 +160,19 @@
 
     "songs": [
         {
-            "type": "audio",
+            "type": "audiosprite",
             "key": "menu-theme",
             "urls": ["assets/songs/C_C_-_05_-_NRIN_HUS.ogg"],
-            "autoDecode": true
+            "autoDecode": true,
+            "jsonData": {
+                "spritemap": {
+                    "loop": {
+                        "start": 0,
+                        "end": 168.29,
+                        "loop": false
+                    }
+                }
+            }
         },
         {
             "type": "audiosprite",

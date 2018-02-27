@@ -1,3 +1,5 @@
+var Scene = require('../Scene.js')
+
 var BrkPlat = require('../entities/BrkPlat.js')
 var Explosion = require('../magic/Explosion.js')
 var Blood = require('../magic/Blood.js')
@@ -11,11 +13,10 @@ var Reticule = require('../Reticule.js')
 
 
 module.exports = function create() {
+  Scene.prototype.create.call(this)
+
   this.won = false
   this.lost = false
-
-  this.soundPool = []
-  for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
 
   if (this.map.properties && this.map.properties.setting) 
     paintBackground(this)
@@ -64,7 +65,9 @@ module.exports = function create() {
   this.input.keyboard.addKey(Phaser.Keyboard.X)
     .onDown.add(this.exit, this)
 
-  this.time.events.add(500, this.startMusic, this)
+  var track = Phaser.ArrayUtils.getRandomItem(
+    mapsConfig[this.map.properties.setting].songs)
+  this.time.events.add(500, this.startMusic, this, track)
   this.startFX()
   this.world.add(this.reticule)
   this.p1 = this.players.children[0]

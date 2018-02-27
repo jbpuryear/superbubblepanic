@@ -94,8 +94,8 @@ Arcade.prototype.gameOver = function() {
   hsMod.x = this.game.width + 20
   if (this.game.data.checkScore(this._score)) {
     this.time.events.add(800, function() {
-      this.sound.play('victory-jingle')
       this.gameOverScreen.hsMod.hs.font.text = 'New High Score:\n\n' + this._score
+      this.playSound('victory-jingle', undefined, undefined, true)
       this.gameOverScreen.hsMod.x = x
       this.gameOverScreen.addChild(this.frag)
       this.gameOverScreen.addChild(this.glass)
