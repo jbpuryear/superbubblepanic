@@ -3,9 +3,9 @@
 ##Credits and License
 
 This game uses the [Phaser](http://phaser.io) framework.
-Code written by me and licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+Code copyright holder is [jbpuryear](https://github.com/jbpuryear) and licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
-###Images
+### Images
 
 All images created by me except for:
 * The city, desert, space, and living tissue background, and the Living Tissue Tileset which are based on (better) works by [Ansimuz](http://ansimuz.com)
@@ -18,7 +18,7 @@ All images licenced under [CC0](https://creativecommons.org/publicdomain/zero/1.
 * Images which use Pixel Block Font [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 * The ocean background [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 
-###Music
+### Music
 
 This game uses the following tracks provided by [Free Music Archive](http://freemusicarchive.org):
 
@@ -32,7 +32,7 @@ This game uses the following tracks provided by [Free Music Archive](http://free
 [![License](http://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/3.0/us/)
 
 * [Everything Is Changing](http://freemusicarchive.org/music/Noi/~/noi_-_everything_is_changin) by [Noi](http://freemusicarchive.org/music/Noi/)
-[![License](http://i.creativecommons.org/l/by/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)
+[![License](http://i.creativecommons.org/l/by-nc/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)
 
 * [N35-40-19-800](http://freemusicarchive.org/music/springtide/This_is_the_End/N35-40-19-800) by [Springtide](http://freemusicarchive.org/music/springtide/)
 [![License](http://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/3.0/)
@@ -49,7 +49,7 @@ This game uses the following tracks provided by [Free Music Archive](http://free
 * [Observing The Star](https://opengameart.org/content/another-space-background-track) by Yd
 [![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
 
-###Sound FX
+### Sound FX
 
 This game uses the following sound files from [Open Game Art](https://opengameart.org/):
 
