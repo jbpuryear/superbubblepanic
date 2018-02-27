@@ -7,7 +7,7 @@ Code copyright holder is [jbpuryear](https://github.com/jbpuryear) and licensed 
 
 ### Images
 
-All images created by me except for:
+All images created by [jbpuryear](https://github.com/jbpuryear) except for:
 * The city, desert, space, and living tissue background, and the Living Tissue Tileset which are based on (better) works by [Ansimuz](http://ansimuz.com)
 * The ocean background by KnoblePersona (palette swapped)
 * logo.png and go.png which use a pallette swapped version of [Pixel Block Font ](https://opengameart.org/content/pixel-block-font) by [J-Robot](https://j-robotson.tumblr.com/)
