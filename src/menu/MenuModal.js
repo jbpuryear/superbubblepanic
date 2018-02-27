@@ -22,14 +22,14 @@ function MenuModal(state, gui) {
   var startBtn = new Btn(state, 'start', function() {
     state.start('LevelSelect')
   }, state)
-  startBtn.onDownSound = state.sound.add('start')
+  startBtn.onDownSound = 'start'
   startBtn.y = hiScore.bottom + 28
   this.startBtn = startBtn
 
   var arcadeBtn = new Btn(state, 'arcade', function() {
     state.start('Arcade')
   }, state)
-  arcadeBtn.onDownSound = state.sound.add('start')
+  arcadeBtn.onDownSound = 'start'
   arcadeBtn.y = startBtn.bottom + 24
   this.arcadeBtn = arcadeBtn
 

@@ -126,19 +126,3 @@ Menu.prototype.startFX = function() {
 }
 
 
-Menu.prototype.startMusic = function() {
-  var track = mapConf.menu.songs[0]
-  this.soundtrack = null
-  if (!this.cache.checkSoundKey(track)) return
-  this.soundtrack = this.sound.add(track)
-  var cb = function() { this.soundtrack.fadeIn(30000) }
-
-  if (this.soundtrack.isDecoded) {
-    cb.call(this)
-    return
-  }
-
-  this.soundtrack.onDecoded.addOnce(cb, this)
-
-  if (!this.soundtrack.isDecoding) this.sound.decode(track)
-}

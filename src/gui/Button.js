@@ -13,8 +13,8 @@ function Button(state, key, frame, callback, ctx) {
   this.addChild(this.background)
   this.anchor.setTo(0.5)
 
-  this.onOverSound = state.sound.add('rollover')
-  this.onDownSound = state.sound.add('click')
+  this.onOverSound = 'rollover'
+  this.onDownSound = 'click'
   this.mouseWasOver = false
   this.mouseIsOver = false
 
@@ -40,7 +40,7 @@ Button.prototype.update = function() {
 Button.prototype.inputDown = function() {
   if (!this.exists || !this.visible
         || this.worldAlpha !== 1 || !this.mouseIsOver) return
-  this.onDownSound.play()
+  this.state.playSound(this.onDownSound)
   var scale = 1.02
   this.width *= scale
   this.height *= scale
@@ -70,7 +70,7 @@ Button.prototype.inputDown = function() {
 
 
 Button.prototype.inputOver = function() {
-  this.onOverSound.play()
+  this.state.playSound(this.onOverSound)
 }
 
 

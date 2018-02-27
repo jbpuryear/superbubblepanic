@@ -80,7 +80,7 @@ ShmupLevel.prototype.create = function() {
     }, this)
   this.p1 =  ship
 
-  this.sound.play('jetpack')
+  Level.prototype.playSound.call(this, 'jetpack')
 }
 
 
@@ -99,7 +99,7 @@ ShmupLevel.prototype.win = function() {
   this.time.events.add(200, function() {
     this.game.data.checkWin(this.mapName)
     if (this.soundtrack) this.soundtrack.stop()
-    this.sound.play('victory-jingle')
+    Level.prototype.playSound.call(this, 'victory-jingle')
 
     var t = this.add.tween(this.ship.body).to({ y: -200 }, 1000)
 
