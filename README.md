@@ -1,6 +1,6 @@
 ![Screenshot](screen.png "Super Bubble Panic")
 
-##Credits and License
+## Credits and License
 
 This game uses the [Phaser](http://phaser.io) framework.
 Code copyright holder is [jbpuryear](https://github.com/jbpuryear) and licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
