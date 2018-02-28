@@ -43,10 +43,9 @@ function Enemy(state, data) {
 Enemy.prototype = Object.create(Phaser.Sprite.prototype)
 
 Enemy.prototype.maxHealth = MAX_HEALTH
-
 Enemy.prototype.maxSpeed = 500
-
 Enemy.prototype.defaultFrame = 'enemy'
+Enemy.prototype.bloodColor = 0xacc7479
 
 
 Enemy.prototype.bounce = function() {
@@ -72,7 +71,7 @@ Enemy.prototype.damage = function(_, src) {
   else
     this.killTheta = src.sprite.world.angle(this.world)
   this.animations.play('flash')
-  this.state.bleed(this)
+  this.state.bleed(this.x, this.y, this.killTheta, this.bloodColor)
   Phaser.Sprite.prototype.damage.call(this, src.attack || 1)
 }
 

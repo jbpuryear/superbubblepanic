@@ -213,6 +213,7 @@ SpaceBoss.prototype.onCollide = function(_, src) {
   this.camera.shake(0.01, 100)
   this.eye.tint = 0x180c08
   this.damage(src.attack || 1)
+  this.bleed(src.x, src.y, -Math.PI/2)
   this.time.events.add(20, this.blink, this)
 }
 
@@ -291,15 +292,12 @@ SpaceBoss.prototype.unblink = function() {
 SpaceBoss.prototype.defeatMonster = function() {
   this.blink(-1)
   var time = 4000
-  var bleedSpoof = {world: {x: 40, y: 40}, killTheta: 0}
   var loop = this.time.events.loop(50, function() {
     var x = Math.random() * 200 - 100 + this.eye.x
     var y = Math.random() * 60 + 250
-    bleedSpoof.world.x = x
-    bleedSpoof.world.y = y
-    bleedSpoof.killTheta = Math.random() * Math.PI/4 - Math.PI/8 - Math.PI/2
+    var angle = Math.random() * Math.PI/4 - Math.PI/8 - Math.PI/2
+    this.bleed(x, y, angle)
     this.explode(x, y, Math.random() * 80 + 40)
-    this.bleed(bleedSpoof)
   }, this)
   this.time.events.add(time, this.time.events.remove, this.time.events, loop)
   this.add.tween(this.eye).to({alpha: 0}, time, null, true).onComplete.add(function() {

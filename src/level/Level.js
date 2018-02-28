@@ -3,6 +3,7 @@ module.exports = Level
 
 var Scene = require('../Scene.js')
 var mapsConfig = require('../../assets/mapsConfig.json')
+var Enemy = require('../entities/enemies/Enemy.js')
 
 
 function Level() {
@@ -35,15 +36,17 @@ Level.prototype.addEntity = function(data) {
 }
 
 
-Level.prototype.bleed = function(object) {
+Level.prototype.bleed = function(x, y, angle, color) {
+  color = color !== undefined ? color : Enemy.prototype.bloodColor
   for (var i = 0; i < 5; i++) {
     var drop = this.blood.getFirstDead() || this.blood.getRandom()
-    drop.reset(object.world.x + Math.random() * 5 - 2.5, object.world.y)
-    drop.body.velocity.x = (Math.random() * 220 + 170) * Math.cos(object.killTheta)
-    drop.body.velocity.y = (Math.random() * 220 + 170) * Math.sin(object.killTheta)
+    drop.reset(x + Math.random() * 5 - 2.5, y)
+    drop.body.velocity.x = (Math.random() * 220 + 170) * Math.cos(angle)
+    drop.body.velocity.y = (Math.random() * 220 + 170) * Math.sin(angle)
     drop.body.velocity.x *= this.bulletTime
     drop.body.velocity.y *= this.bulletTime
     drop.scale.setTo(Math.random()/2 + 0.25)
+    drop.tint = color
   }
 }
 

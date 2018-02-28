@@ -14,6 +14,7 @@ function Blood(game) {
   this.body.setCollisionGroup(this.state.enemiesCG)
   this.body.collides(this.state.platformsCG, this.kill, this)
   this.body.collideWorldBounds = false
+  this.alpha = 0.7
 }
 
 
@@ -42,12 +43,10 @@ Blood.prototype.kill = function() {
     snd.volume = scale * scale
   }
   this.frameName = 'splatter'
-  this.alpha = 0.7
   this.body.rotation = Math.random() * Math.PI*2
 
   this.state.paintFX(this)
 
   this.frameName = 'blood'
-  this.alpha = 1
   Phaser.Sprite.prototype.kill.call(this)
 }

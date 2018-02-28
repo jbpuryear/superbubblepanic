@@ -23,6 +23,7 @@ Seeker.prototype = Object.create(Enemy.prototype)
 Object.defineProperty(Seeker.prototype, 'preferSpeed', {get: function() { return this._preferSpeed/this.body.mass }})
 
 Seeker.prototype.defaultFrame = 'seeker'
+Seeker.prototype.bloodColor = 0x69b58b
 
 
 Seeker.prototype.update = function() {
