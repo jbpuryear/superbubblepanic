@@ -55,10 +55,11 @@ Level.prototype.changeTime = function(factor) {
   if (factor === 0 || isNaN(factor)) return
   this.bulletTime *= factor
   this.enemies.recurse(function(enemy) {
-    enemy.body.mass /= factor
+    var f2 = factor * factor
     enemy.body.velocity.x *= factor
     enemy.body.velocity.y *= factor
-    enemy.body.data.gravityScale *= factor * factor
+    enemy.body.data.gravityScale *= f2
+    enemy.body.mass /= f2
   })
   this.blood.recurse(function(drop) {
     drop.body.mass /= factor
