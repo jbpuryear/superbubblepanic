@@ -3,7 +3,7 @@
 ## Credits and License
 
 This game uses the [Phaser](http://phaser.io) framework.
-Code copyright holder is [jbpuryear](https://github.com/jbpuryear) and licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+Code copyright holder is [jbpuryear](https://github.com/jbpuryear) and licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 ### Images
 
@@ -31,7 +31,7 @@ This game uses the following tracks provided by [Free Music Archive](http://free
 | [N35-40-19-800](http://freemusicarchive.org/music/springtide/This_is_the_End/N35-40-19-800) by [Springtide](http://freemusicarchive.org/music/springtide/) | [![License](http://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/3.0/)
 | [Gone](https://opengameart.org/content/gone) by Alex McCulloch | [![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
 | [Venus](https://opengameart.org/content/nes-shooter-music-5-tracks-3-jingles) by SketchyLogic | [![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
-| [Space](https://opengameart.org/content/space-1) by [Alexandr Zhelanov] (https://soundcloud.com/alexandr-zhelanov) | [![License](https://opengameart.org/sites/default/files/license_images/cc-by.png)](http://creativecommons.org/licenses/by/3.0/)
+| [Space](https://opengameart.org/content/space-1) by [Alexandr Zhelanov](https://soundcloud.com/alexandr-zhelanov) | [![License](https://opengameart.org/sites/default/files/license_images/cc-by.png)](http://creativecommons.org/licenses/by/3.0/)
 | [Observing The Star](https://opengameart.org/content/another-space-background-track) by Yd | [![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
 
 ### Sound FX
