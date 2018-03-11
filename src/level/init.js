@@ -31,6 +31,7 @@ function setPhysics(state) {
   state.platformMaterial = p2.createMaterial('platformMaterial')
   state.enemyMaterial = p2.createMaterial('enemyMaterial')
   state.grenadeMaterial = p2.createMaterial('grenadeMaterial')
+  state.itemMaterial = p2.createMaterial('itemMaterial')
 
   p2.createContactMaterial(state.platformMaterial, state.enemyMaterial, {
     restitution: 1,
@@ -51,5 +52,8 @@ function setPhysics(state) {
   p2.createContactMaterial(state.grenadeMaterial, state.worldMaterial, {
     friction: 0.4,
     restitution: 0.7
+  })
+  p2.createContactMaterial(state.itemMaterial, state.platformMaterial, {
+    friction: 0.6,
   })
 }

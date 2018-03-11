@@ -40,8 +40,8 @@ SpaceBoss.prototype.create = function() {
   this.lastShield = 0
 
   this.director = new Director(this)
-  this.curtain = new Script.Curtain(this.director, null, 12, 200, 28)
-  this.curtainR = new Script.Curtain(this.director, null, 12, 200, 28,
+  this.curtain = new Script.Curtain(this.director, null, 16, 200, 28)
+  this.curtainR = new Script.Curtain(this.director, null, 16, 200, 28,
     null, null, this.game.width, -this.game.width)
 
   this.splatterImage.exists = false
@@ -97,7 +97,7 @@ SpaceBoss.prototype.makeMonster = function() {
   c.anchor.setTo(0, 1)
   c.x = l.width
   c.scale.setTo(2)
-  var r = this.bgItems.create(600, 400, 'space-boss', 'fg-right')
+  var r = this.bgItems.create(800, 400, 'space-boss', 'fg-right')
   r.anchor.setTo(1, 1)
   r.scale.setTo(2)
   var lid = this.lid =  this.bgItems.create(this.game.width/2+8, 284, 'space-boss', 'lid')

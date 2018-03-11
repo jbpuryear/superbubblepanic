@@ -31,6 +31,7 @@ function Item(state, data) {
   this.body.onBeginContact.add(this.shouldPickup, this)
 
   this.body.setCollisionGroup(state.itemsCG)
+  this.body.setMaterial(state.itemMaterial)
 
   // Collide with enemies so space boss will blink if items touch it's eye
   this.body.collides(state.playersCG, null, null, this.playerSensor)
