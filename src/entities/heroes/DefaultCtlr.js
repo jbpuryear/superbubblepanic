@@ -39,16 +39,9 @@ DefaultCtlr.prototype = {
   },
 
   update: function() {
-    if (!this.shoot) {
-      this._wasDown = false
-      return
-    }
-
-    if (this._wasDown)
-      this.newShot = false
-    else
-      this.newShot = true
-
-    this._wasDown = true
+    var shoot = this.shoot
+    this.newShot = (this.shoot && !this._wasDown) ? true : false
+    this._wasDown = shoot
   }
 }
+

@@ -17,6 +17,7 @@ function Gun(state, data, BulletClass) {
   this.speedVar = data.speedVar || 0
   this.sounds.pickup = data.equipSound || 'reload'
   this.sounds.shot = data.shotSound || 'gunshot'
+  this.sounds.dryFire = data.dryFire || 'dry-fire'
   this.clipSize = data.clipSize || 3
   this.bulletsPerShot = data.bulletsPerShot || 1
   this.bulletType = BulletClass
@@ -54,9 +55,14 @@ Gun.prototype.pickup = function(_, playerBody) {
 
 
 Gun.prototype.fire = function(newShot) {
-  if (this._available < 1 || (!newShot && this.shotThrottle > 0) || (!newShot && !this.auto)) {
+  if (newShot && this._available < 1) {
+    this.state.playSound('dry-fire', 400)
     return false
   }
+  if (!newShot && (!this.auto || this.available < 1 || this.shotThrottle > 0)) {
+    return false
+  }
+
 
   this.shotThrottle = this.throttle
   this._available = Math.floor(this._available-1)
