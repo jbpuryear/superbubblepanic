@@ -17,16 +17,65 @@ function update() {
   Enemy.prototype.update.call(this)
   var x = this.x
   var y = this.y
+  var vx = this.body.velocity.x
+  var vy = this.body.velocity.y
   var hw = this.width/2
   var inWorld = !(x+hw < 0 || x-hw > this.game.width || y+hw < 0 || y-hw > this.game.height)
-  if (this.wasInWorld && !inWorld) { cull(this) }
-  this.wasInWorld = inWorld
+  if (!inWorld) {
+    if (x < 0) {
+      if (vx <= 0) {
+        cull(this)
+        return
+      }
+      var t = -x/vx
+      var iy = y + t*vy
+      if (iy > this.game.height+hw || iy < -hw) {
+        cull(this)
+        return
+      }
+    }
+    if (x > this.game.width) {
+      if (vx >= 0) {
+        cull(this)
+        return
+      }
+      var t = -x/vx
+      var iy = y + t*vy
+      if (iy > this.game.height+hw || iy < -hw) {
+        cull(this)
+        return
+      }
+    }
+    if (y < 0) {
+      if (vy <= 0) {
+        cull(this)
+        return
+      }
+      var t = -y/vy
+      var ix = x + t*vx
+      if (ix > this.game.width+hw || ix < -hw) {
+        cull(this)
+        return
+      }
+    }
+    if (y > this.game.height) {
+      if (vy >= 0) {
+        cull(this)
+        return
+      }
+      var t = -y/vy
+      var ix = x + t*vx
+      if (ix > this.game.width+hw || ix < -hw) {
+        cull(this)
+        return
+      }
+    }
+  }
 }
 
 function initEnemy(enemy) {
   enemy.body.removeCollisionGroup(enemy.game.physics.p2.boundsCollisionGroup)
   enemy.body.data.gravityScale = 0
-  enemy.checkWorldBounds = true
   enemy.update = update
 }
 
