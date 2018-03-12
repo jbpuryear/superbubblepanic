@@ -38,6 +38,12 @@
 	      },
         {
             "type": "audio",
+            "key": "dry-fire",
+            "urls": ["assets/audio/dry-fire.ogg"],
+            "autoDecode": true
+	      },
+        {
+            "type": "audio",
             "key": "explode",
             "urls": ["assets/audio/explode.ogg"],
             "autoDecode": true
