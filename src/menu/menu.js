@@ -116,7 +116,7 @@ Menu.prototype.start = function(key) {
     this.camera.onFadeComplete.addOnce(function() {
       this.state.start(key)
     }, this)
-    this.camera.fade(0x180c08, 800)
+    this.camera.fade(0x180c08, 800, true)
   }, this)
 }
 

@@ -244,7 +244,7 @@ LevelButton.prototype.callback = function() {
   if (this.state.inputEnabled === false) return
   this.state.inputEnabled = false
   this.state.camera.onFadeComplete.addOnce(fadeCb, this)
-  this.state.camera.fade(0x180c08, 800)
+  this.state.camera.fade(0x180c08, 800, true)
   var i = this.game.data.getLevelIndex(this.level.key)
   this.state.walkTo(i)
   this.state.lastPlayed = i
