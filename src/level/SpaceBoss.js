@@ -333,6 +333,7 @@ SpaceBoss.prototype.generateSeeker = function(drop) {
   this.lastSeeker = this.time.now
 
   e.body.removeFromWorld()
+  e.alpha = 1
   e.blendMode = PIXI.blendModes.ADD
 
   var time = 2000
