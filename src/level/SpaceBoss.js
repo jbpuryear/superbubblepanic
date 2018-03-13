@@ -40,8 +40,8 @@ SpaceBoss.prototype.create = function() {
   this.lastShield = 0
 
   this.director = new Director(this)
-  this.curtain = new Script.Curtain(this.director, null, 16, 200, 28)
-  this.curtainR = new Script.Curtain(this.director, null, 16, 200, 28,
+  this.curtain = new Script.Curtain(this.director, null, 16, 150, 28)
+  this.curtainR = new Script.Curtain(this.director, null, 16, 150, 28,
     null, null, this.game.width, -this.game.width)
 
   this.splatterImage.exists = false
