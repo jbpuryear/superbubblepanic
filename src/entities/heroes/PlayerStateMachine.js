@@ -221,7 +221,7 @@ function Floating(machine) {
 Floating.prototype = Object.create(PlayerState.prototype)
 
 
-Floating.prototype.angularSpeed = Math.PI
+Floating.prototype.angularSpeed = Math.PI * 1.5
 Floating.prototype.thrust = 200
 
 
@@ -237,9 +237,12 @@ Floating.prototype.exit = function() {
 
 Floating.prototype.update = function() {
   var plyr = this.player
-  if (!this.machine.ctlr.up && this.wasThrusting) {
-    plyr.fx.backfire()
-    this.wasThrusting = false
+  if (!this.machine.ctlr.up) {
+    if (this.wasThrusting) {
+      plyr.fx.backfire()
+      this.wasThrusting = false
+    }
+    plyr.fuel = Math.min(plyr.maxFuel, plyr.fuel + plyr.game.time.physicsElapsedMS)
   }
   PlayerState.prototype.update.call(this)
   plyr.character.frameName = 'p1-space'
@@ -275,6 +278,7 @@ Floating.prototype.onUp = function() {
   }
   this.wasThrusting = true
   plyr.fx.jet()
+  plyr.fuel = Math.max(0, plyr.fuel - dt*1000)
 }
 
 
