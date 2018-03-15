@@ -69,19 +69,20 @@ Menu.prototype.create = function() {
 
   this.gui = new GUI(this)
 
-
   if (this.firstTime) {
     var menu = this.gui.modals.menu
     menu.hiScore.visible = false
     menu.startBtn.visible = false
     menu.arcadeBtn.visible = false
     menu.howToBtn.visible = false
+    menu.settingsBtn.visible = false
       
     this.time.events.add(2000, function() {
       menu.hiScore.visible = true
       menu.startBtn.visible = true
       menu.arcadeBtn.visible = true
       menu.howToBtn.visible = true
+      menu.settingsBtn.visible = true
     })
     this.firstTime = false
   }

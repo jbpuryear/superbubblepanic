@@ -17,12 +17,36 @@ function GameData(game) {
 GameData.prototype = {
   mapStart: mapData.start,
   levels: levels,
+  _musicOn: true,
+  sfxOn: true,
+
+
+  get musicOn() {
+    return this._musicOn
+  },
+
+  set musicOn(val) {
+    this._musicOn = !!val
+    var state = this.game.state.getCurrentState()
+    if (!this._musicOn) {
+      if (state.soundtrack && typeof state.soundtrack.stop === 'function') {
+        state.soundtrack.stop()
+      }
+    } else {
+      if (state.soundtrack && typeof state.soundtrack.play === 'function') {
+        state.soundtrack.play('loop')
+      }
+    }
+  },
+
+
 
   clear: function() {
     this.hiScore = 0
     this.lastCompleted = -1
     return this.save()
   },
+
 
   load: function() {
     try {
@@ -35,6 +59,7 @@ GameData.prototype = {
     }
   },
 
+
   save: function() {
     try {
       localStorage.setItem('hiScore', this.hiScore)
@@ -45,6 +70,7 @@ GameData.prototype = {
     return true
   },
 
+
   checkScore: function(score) {
     if (score > this.hiScore) {
       this.hiScore = score
@@ -54,11 +80,13 @@ GameData.prototype = {
     return false
   },
 
+
   checkWin: function(key) {
     var id = this.getLevelIndex(key)
     this.lastCompleted = Math.max(id, this.lastCompleted)
     this.save()
   },
+
 
   getLevelIndex: function(key) {
     for (var i = 0; i < this.levels.length; i++) {
@@ -66,6 +94,7 @@ GameData.prototype = {
     }
     return -1
   },
+
 
   getLevelKey: function(index) {
     return (index >= 0 && index < this.levels.length) ? this.levels[index].key : null

@@ -17,7 +17,7 @@ Scene.prototype.create = function() {
 
 
 Scene.prototype.playSound = function(key, randomize, useBulletTime, lock, repeat) {
-  if (!this.cache.isSoundDecoded(key)) return
+  if (!this.game.data.sfxOn || !this.cache.isSoundDecoded(key)) { return null }
   lock = lock || false
   repeat = repeat || false
   if (useBulletTime === undefined) useBulletTime = true
@@ -66,6 +66,7 @@ Scene.prototype.playSound = function(key, randomize, useBulletTime, lock, repeat
 
 
 Scene.prototype.startMusic = function(track) {
+  if (!this.game.data.musicOn) { return null }
   this.soundtrack = this.sound.addSprite(track)
   if (!this.soundtrack) return null
   if (this.soundtrack.get('intro')) {
