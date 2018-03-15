@@ -4,8 +4,7 @@ module.exports = function init(map) {
   this.map = this.add.tilemap(map)
   this.mapName = map
 
-  this.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
-  this.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels)
+  this.setSize()
 
   setPhysics(this)
 }

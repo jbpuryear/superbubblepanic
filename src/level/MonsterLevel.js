@@ -32,6 +32,7 @@ MonsterLevel.prototype.create = function() {
   Level.prototype.create.apply(this, arguments)
   this.background.destroy()
   this.background = bg
+  this.splatterImage.kill()
   this.winning = false
   this.doneWinning = false
 
