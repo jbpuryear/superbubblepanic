@@ -26,6 +26,14 @@ function ClearModal(state, gui) {
   no.y = yes.y
 
   this.addMultiple([msg, yes, no])
+
+  var pad = 48
+  var b = this.getBounds()
+  var win = new PhaserNineSlice.NineSlice(state.game, 0, 0, 'sprites', 'window', 24, 24, { top: 8 })
+  win.resize(b.width*2+pad, yes.bottom-msg.top+pad)
+  win.anchor.setTo(0.5, 0)
+  win.y = -40
+  this.addAt(win, 0)
 }
 
 

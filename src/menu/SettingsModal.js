@@ -62,6 +62,12 @@ function SettingsModal(state, gui) {
   backBtn.y = clear.y + 32
 
   this.addMultiple([vol, up, v, down, music, this.mOn, sfx, this.sfxOn, clear, backBtn])
+
+  var win = new PhaserNineSlice.NineSlice(state.game, 0, 0, 'sprites', 'window', 24, 24, { top: 8 })
+  win.resize(264, 192)
+  win.anchor.setTo(0.5, 0)
+  win.y = -32
+  this.addAt(win, 0)
 }
 
 
