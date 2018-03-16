@@ -43,7 +43,7 @@ function SettingsModal(state, gui) {
   var sfx = state.entities.smallFont(state, 'sfx:')
   sfx.anchor.setTo(1, 0.5)
   sfx.scale.setTo(sfx.scale.x*2)
-  this.sfxOn = new Btn(state, (this.game.data.musicOn ? ' on' : ' off'), function() {
+  this.sfxOn = new Btn(state, (this.game.data.sfxOn ? ' on' : ' off'), function() {
     this.game.data.sfxOn = !this.game.data.sfxOn
     this.sfxOn.font.text = this.game.data.sfxOn ? ' on' : ' off'
   }, this)
