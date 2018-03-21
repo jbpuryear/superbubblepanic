@@ -11,9 +11,6 @@ function Spikes(state, data) {
   this.height = data.height
   state.physics.p2.enable(this)
   this.body.static = true
-  this.body.setCollisionGroup(state.bulletsCG)
-  this.body.collides(state.enemiesCG)
-  this.body.onBeginContact.add(this.stab, this)
 }
 
 
@@ -28,11 +25,6 @@ Spikes.prototype.update = function() {
       || p1.x - p1.character.width/6 > this.right) {
     return
   }
-  this.stab(p1.body)
-}
-
-
-Spikes.prototype.stab = function(target) {
-  if (typeof target.sprite.damage === 'function') { target.sprite.damage(null, this.body) }
+  p1.damage(null, this.body)
 }
 

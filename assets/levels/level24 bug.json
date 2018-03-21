@@ -16,15 +16,15 @@
          "name":"object",
          "objects":[
                 {
-                 "height":16,
+                 "height":14.1538461538462,
                  "id":141,
                  "name":"",
                  "rotation":0,
                  "type":"player1",
                  "visible":true,
-                 "width":16,
+                 "width":14.1538461538462,
                  "x":48,
-                 "y":128
+                 "y":120
                 }, 
                 {
                  "ellipse":true,
@@ -111,6 +111,38 @@
                  "width":0,
                  "x":-7.99999999999994,
                  "y":254.615384615385
+                }, 
+                {
+                 "height":0,
+                 "id":315,
+                 "name":"",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-8
+                        }, 
+                        {
+                         "x":24,
+                         "y":-8
+                        }, 
+                        {
+                         "x":24,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":0
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":48,
+                 "y":152
                 }, 
                 {
                  "height":0,
@@ -207,38 +239,6 @@
                  "width":0,
                  "x":200,
                  "y":152
-                }, 
-                {
-                 "height":0,
-                 "id":320,
-                 "name":"",
-                 "polyline":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":24,
-                         "y":0
-                        }, 
-                        {
-                         "x":24,
-                         "y":8
-                        }, 
-                        {
-                         "x":0,
-                         "y":8
-                        }, 
-                        {
-                         "x":0,
-                         "y":0
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":48,
-                 "y":144
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -246,7 +246,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":321,
+ "nextobjectid":319,
  "orientation":"orthogonal",
  "properties":
     {
