@@ -2,7 +2,9 @@
     "city": {
         "bgImage": "city",
         "songs": [
-            "memory"
+            "memory",
+            "heartbeat",
+            "live"
         ],
         "tiles": "tiles"
     },
@@ -20,7 +22,9 @@
     "forest": {
         "bgImage": "forest",
         "songs": [
-            "memory"
+            "memory",
+            "walk-of-the-day",
+            "super-poupi"
         ],
         "tiles": "tiles"
     },
@@ -41,15 +45,6 @@
         "tiles": "tiles"
     },
 
-
-    "space-boss": {
-        "bgImage": "space",
-        "songs": [
-            "venus"
-        ],
-        "tiles": "tiles"
-    },
-
     "space": {
         "bgImage": "space",
         "songs": [
@@ -59,10 +54,18 @@
         "tiles": "tiles"
     },
 
+    "space-boss": {
+        "bgImage": "space",
+        "songs": [
+            "cylinder-three"
+        ],
+        "tiles": "tiles"
+    },
+
     "monster": {
         "bgImage": "living-tissue",
         "songs": [
-            "memory"
+            "fater-lee"
         ],
         "tiles": "living-tissue-tileset"
     },
@@ -70,7 +73,7 @@
     "final-boss": {
         "bgImage": "living-tissue",
         "songs": [
-            "memory"
+            "cynic"
         ],
         "tiles": "tiles"
     },

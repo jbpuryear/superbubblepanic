@@ -265,7 +265,6 @@ SpaceBoss.prototype.damage = function(amt) {
       var drop = this.addEntity({ x: 0, y: 0, type: 'dblPistol' })
       drop.kill()
       this.generateSeeker(drop)
-      Level.prototype.startMusic.call(this, mapsConfig['space-boss'].songs[0])
     }, this)
     this.time.events.add(t, this.throwHex, this)
     this.attackTimer = 3 + 1.2
@@ -374,6 +373,4 @@ SpaceBoss.prototype.generateSeeker = function(drop) {
 
 
 SpaceBoss.prototype.playSound = function() {}
-
-SpaceBoss.prototype.startMusic = function() {}
 

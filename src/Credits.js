@@ -19,6 +19,7 @@ Credits.prototype = Object.create(Scene.prototype)
 
 Credits.prototype.create = function() {
   Scene.prototype.create.call(this)
+  this.startMusic('wood-chopper')
 
   this.input.keyboard.addKey(Phaser.Keyboard.X)
     .onDown.add(function() { this.state.start('Menu') }, this)

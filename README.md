@@ -24,15 +24,23 @@ This game uses the following tracks provided by [Free Music Archive](http://free
 
 | Title and author | License |
 |------------------|---------|
-| [NRIN HUS](http://freemusicarchive.org/music/C_C/Impendulo/05_-_NRIN_HUS) by [C\_C](http://freemusicarchive.org/music/C_C/) | [![License](http://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-nd/4.0/) 
-| [Memory](http://freemusicarchive.org/music/Creo/~/Memory_1520) by [Creo](http://freemusicarchive.org/music/Creo/) | [![License](http://i.creativecommons.org/l/by-nc/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc/4.0/)
+| Cynic by [Creo](http://creo-music.com) | [![License](https://opengameart.org/sites/default/files/license_images/cc-by.png)](http://creativecommons.org/licenses/by/3.0/)
+| Heartbeat by [Creo](http://creo-music.com) | [![License](https://opengameart.org/sites/default/files/license_images/cc-by.png)](http://creativecommons.org/licenses/by/3.0/)
+| Live by [Creo](http://creo-music.com) | [![License](https://opengameart.org/sites/default/files/license_images/cc-by.png)](http://creativecommons.org/licenses/by/3.0/)
+| Memory by [Creo](http://creo-music.com) | [![License](http://i.creativecommons.org/l/by-nc/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc/4.0/)
+| Poupi's Theme by [Komiku](http://freemusicarchive.org/music/Komiku/) | [![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+| Super Poupi by [Komiku](http://freemusicarchive.org/music/Komiku/) | [![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+| Time For The Walk Of The Day by [Komiku](http://freemusicarchive.org/music/Komiku/) | [![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
 | [2 Spring\_Summer](http://freemusicarchive.org/music/Dustin_Wong/Seasons/2_Spring_Summer) by [Dustin Wong](http://freemusicarchive.org/music/Dustin_Wong/) | [![License](http://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/3.0/us/)
-| [Everything Is Changing](http://freemusicarchive.org/music/Noi/~/noi_-_everything_is_changin) by [Noi](http://freemusicarchive.org/music/Noi/) | [![License](http://i.creativecommons.org/l/by-nc/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)
+| [Everything Is Changing](https://soundcloud.com/noi/noi-everything-is-changing) by [Noi](https://soundcloud.com/noi/) | [![License](https://opengameart.org/sites/default/files/license_images/cc-by.png)](http://creativecommons.org/licenses/by/3.0/)
 | [N35-40-19-800](http://freemusicarchive.org/music/springtide/This_is_the_End/N35-40-19-800) by [Springtide](http://freemusicarchive.org/music/springtide/) | [![License](http://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/3.0/)
 | [Gone](https://opengameart.org/content/gone) by Alex McCulloch | [![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
 | [Venus](https://opengameart.org/content/nes-shooter-music-5-tracks-3-jingles) by SketchyLogic | [![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
 | [Space](https://opengameart.org/content/space-1) by [Alexandr Zhelanov](https://soundcloud.com/alexandr-zhelanov) | [![License](https://opengameart.org/sites/default/files/license_images/cc-by.png)](http://creativecommons.org/licenses/by/3.0/)
 | [Observing The Star](https://opengameart.org/content/another-space-background-track) by Yd | [![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+| [Fater Lee](https://opengameart.org/content/another-space-background-track) by Yd | [![License](https://licensebuttons.net/l/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+| [Cylinder Three](http://freemusicarchive.org/music/Chris_Zabriskie/2014010103336111/Chris_Zabriskie_-_Cylinders_-_03_-_Cylinder_Three) by [Chris Zabriskie](http://chriszabriskie.com/) | [![License](http://i.creativecommons.org/l/by/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)
+| The Wood Chopper by The Settlers | Used with permission, all rights reserved.
 
 ### Sound FX
 
