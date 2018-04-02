@@ -51,20 +51,25 @@ function SettingsModal(state, gui) {
   this.sfxOn.x = sfx.right
   sfx.y = this.sfxOn.y = music.y + 32
 
+  var credits = new Btn(state, 'credits', function() {
+    this.game.state.start('Credits')
+  }, this)
+  credits.y = sfx.y + 32
+
   var clear = new Btn(state, 'reset', function() {
     this.gui.switchModal('clear')
   }, this)
-  clear.y = sfx.y + 32
+  clear.y = credits.y + 32
 
   var backBtn = new Btn(state, 'back', function() {
     this.gui.switchModal('menu')
   }, this)
   backBtn.y = clear.y + 32
 
-  this.addMultiple([vol, up, v, down, music, this.mOn, sfx, this.sfxOn, clear, backBtn])
+  this.addMultiple([vol, up, v, down, music, this.mOn, sfx, this.sfxOn, credits, clear, backBtn])
 
   var win = new PhaserNineSlice.NineSlice(state.game, 0, 0, 'sprites', 'window', 24, 24, { top: 8 })
-  win.resize(264, 192)
+  win.resize(264, 224)
   win.anchor.setTo(0.5, 0)
   win.y = -32
   this.addAt(win, 0)

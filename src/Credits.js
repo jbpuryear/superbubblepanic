@@ -19,10 +19,30 @@ Credits.prototype = Object.create(Scene.prototype)
 
 Credits.prototype.create = function() {
   Scene.prototype.create.call(this)
-  this.startMusic('wood-chopper')
+
+  var pause = 2000
+  var explodeTime = 4000 + pause
+  var scrollTime = 20000
+  var mapTime = 10000
 
   this.input.keyboard.addKey(Phaser.Keyboard.X)
     .onDown.add(function() { this.state.start('Menu') }, this)
+
+  if (this.game.data.lastCompleted < this.game.data.levels.length-1) {
+    var scroll = this.add.existing(SmallFont(this, text))
+
+    scroll.anchor.setTo(0, 1)
+    scroll.x = 40
+    scroll.y = scroll.height + this.game.height + 10
+    this.add.tween(scroll)
+      .to({y: -10}, scrollTime, null, true)
+      .onComplete.addOnce(function() {
+        this.state.start('Menu')
+      }, this)
+    return
+  }
+
+  this.startMusic('wood-chopper')
 
   var bg = this.bg = this.add.image(0, 0, 'space')
   var map = this.map = this.world.addChild(new WorldMap(this.game))
@@ -70,17 +90,10 @@ Credits.prototype.create = function() {
   }, this)
 
   map.y = this.game.height + 5
-  var pause = 2000
-  var explodeTime = 4000 + pause
-  var scrollTime = 20000
-  var mapTime = 10000
   
   this.add.tween(expY).to({ value: -200 }, explodeTime).start()
 
   this.time.events.add(explodeTime-pause, this.time.events.remove, this.time.events, loop)
-
-  var scroll
-  var thanks
 
   this.add.tween(bg)
     .to({y: -(bg.height - this.game.height)}, scrollTime+mapTime+explodeTime)
@@ -94,8 +107,8 @@ Credits.prototype.create = function() {
   // Camera shake messes with retrofont rendering, so we have to wait to
   // add our text
   this.time.events.add(explodeTime, function() {
-    scroll = this.add.existing(SmallFont(this, text))
-    thanks = this.add.existing(SmallFont(this, 'Thanks for playing!'))
+    var scroll = this.add.existing(SmallFont(this, text))
+    var thanks = this.add.existing(SmallFont(this, 'Thanks for playing!'))
     thanks.alpha = 0
     thanks.x = this.game.width/2
     thanks.y = this.game.height/2
