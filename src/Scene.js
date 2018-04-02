@@ -1,7 +1,15 @@
 module.exports = Scene
 
+
+var NON_DIEGETIC = {
+  "death": true,
+  "victory-jingle": true
+}
+
+
 function Scene() {
   Phaser.State.call(this)
+  this.playDiegetic = true
   this.bulletTime = 1
   this.soundtrack = null
 }
@@ -11,6 +19,7 @@ Scene.prototype = Object.create(Phaser.State.prototype)
 
 
 Scene.prototype.create = function() {
+  this.playDiegetic = true
   this.soundPool = []
   for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
 }
@@ -18,6 +27,7 @@ Scene.prototype.create = function() {
 
 Scene.prototype.playSound = function(key, randomize, useBulletTime, lock, repeat) {
   if (!this.game.data.sfxOn || !this.cache.isSoundDecoded(key)) { return null }
+  if (!this.playDiegetic && !NON_DIEGETIC[key]) { return null }
   lock = lock || false
   repeat = repeat || false
   if (useBulletTime === undefined) useBulletTime = true

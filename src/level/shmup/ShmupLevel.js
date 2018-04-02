@@ -79,7 +79,8 @@ ShmupLevel.prototype.create = function() {
     }, this)
   this.p1 =  ship
 
-  Level.prototype.playSound.call(this, 'jetpack')
+  this.playSound('jetpack')
+  this.playDiegetic = false
 
   var delay = 3000
   this.timer = delay
@@ -125,7 +126,7 @@ ShmupLevel.prototype.win = function() {
   this.time.events.add(3000, function() {
     this.game.data.checkWin(this.mapName)
     if (this.soundtrack) this.soundtrack.stop()
-    Level.prototype.playSound.call(this, 'victory-jingle')
+    this.playSound('victory-jingle')
 
     var t = this.add.tween(this.ship.body).to({ y: -200 }, 1000)
     this.ship.body.removeCollisionGroup(this.enemiesCG)
@@ -149,9 +150,5 @@ ShmupLevel.prototype.win = function() {
 
     t.start()
   }, this)
-}
-
-ShmupLevel.prototype.playSound = function() {
-  return
 }
 

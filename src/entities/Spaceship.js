@@ -123,6 +123,7 @@ Spaceship.prototype.kill = function() {
   this.body.collideWorldBounds = false
   this.alive = false
   this.state.bgItems.addChild(this)
+  this.state.playSound('death')
   var ev = this.game.time.events
   var loop = ev.loop(111, function() {
     this.state.glass.x = this.x

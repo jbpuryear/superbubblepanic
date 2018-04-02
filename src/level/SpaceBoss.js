@@ -34,6 +34,7 @@ SpaceBoss.prototype.create = function() {
   this.trigger = null
   Level.prototype.create.call(this)
 
+  this.playDiegetic = false
   this.provoked = false
   this.attackTimer = 0
   this.blinkTimer = 0
@@ -370,7 +371,4 @@ SpaceBoss.prototype.generateSeeker = function(drop) {
 
   this.blink(time + 100)
 }
-
-
-SpaceBoss.prototype.playSound = function() {}
 
