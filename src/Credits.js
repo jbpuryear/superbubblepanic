@@ -20,10 +20,10 @@ Credits.prototype = Object.create(Scene.prototype)
 Credits.prototype.create = function() {
   Scene.prototype.create.call(this)
 
-  var pause = 2000
+  var pause = 6000
   var explodeTime = 4000 + pause
-  var scrollTime = 20000
-  var mapTime = 10000
+  var scrollTime = 60000
+  var mapTime = 20000
 
   this.input.keyboard.addKey(Phaser.Keyboard.X)
     .onDown.add(function() { this.state.start('Menu') }, this)
@@ -42,7 +42,7 @@ Credits.prototype.create = function() {
     return
   }
 
-  this.startMusic('wood-chopper')
+  this.time.events.add(explodeTime, this.startMusic, this, 'wood-chopper')
 
   var bg = this.bg = this.add.image(0, 0, 'space')
   var map = this.map = this.world.addChild(new WorldMap(this.game))
@@ -99,7 +99,7 @@ Credits.prototype.create = function() {
     .to({y: -(bg.height - this.game.height)}, scrollTime+mapTime+explodeTime)
     .start()
   this.add.tween(character)
-    .to({x: 500, y: 180}, scrollTime+mapTime+explodeTime/2, null, true, explodeTime/2)
+    .to({x: 500, y: 180}, scrollTime+mapTime+explodeTime, null, true, explodeTime)
   this.add.tween(character.scale)
     .to({x: -0.05, y: 0.05}, scrollTime+mapTime+explodeTime/2,
       Phaser.Easing.Cubic.In, true, explodeTime/2)
