@@ -190,6 +190,16 @@
     },
     {
       "type": "tilemap",
+      "key": "level19",
+      "url": "assets/levels/level19.json",
+      "format": "TILED_JSON",
+      "mapX": 104,
+      "mapY": 180,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
       "key": "level20",
       "url": "assets/levels/level20.json",
       "format": "TILED_JSON",
