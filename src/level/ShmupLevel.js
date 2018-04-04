@@ -1,10 +1,10 @@
 module.exports = ShmupLevel
 
 
-var Level = require('../Level.js')
-var Director = require('../Director.js')
-var Spaceship = require('../../entities/Spaceship.js')
-var DefaultCtlr = require('../../entities/heroes/DefaultCtlr.js')
+var Level = require('./Level.js')
+var Director = require('./Director.js')
+var Spaceship = require('../entities/Spaceship.js')
+var DefaultCtlr = require('../entities/heroes/DefaultCtlr.js')
 
 
 function ShmupLevel() {

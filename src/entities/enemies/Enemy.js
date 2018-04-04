@@ -1,7 +1,7 @@
 module.exports = Enemy
 
 
-var Bullet = require('../bullets/Bullet.js')
+var Bullet = require('../Bullet.js')
 
 
 var MAX_HEALTH = 1
