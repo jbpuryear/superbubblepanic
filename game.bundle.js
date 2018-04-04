@@ -39,6 +39,12 @@ module.exports={
 	      },
         {
             "type": "audio",
+            "key": "dry-fire",
+            "urls": ["assets/audio/dry-fire.ogg"],
+            "autoDecode": true
+	      },
+        {
+            "type": "audio",
             "key": "explode",
             "urls": ["assets/audio/explode.ogg"],
             "autoDecode": true
@@ -161,10 +167,59 @@ module.exports={
 
     "songs": [
         {
-            "type": "audio",
+            "type": "audiosprite",
             "key": "menu-theme",
-            "urls": ["assets/songs/C_C_-_05_-_NRIN_HUS.ogg"],
-            "autoDecode": true
+            "urls": ["assets/songs/komiku_poupis-theme.ogg"],
+            "autoDecode": true,
+            "jsonData": {
+                "spritemap": {
+                    "loop": {
+                        "start": 0,
+                        "end": 52.06,
+                        "loop": false
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "heartbeat",
+            "urls": ["assets/songs/creo_heartbeat.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "intro" : {
+                        "start": 0,
+                        "end": 6.388,
+                        "loop": false
+                    },
+                    "loop": {
+                        "start": 6.388,
+                        "end": 108.75,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "live",
+            "urls": ["assets/songs/creo_live.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "intro" : {
+                        "start": 0,
+                        "end": 8.0,
+                        "loop": false
+                    },
+                    "loop": {
+                        "start": 8.0,
+                        "end": 104.003,
+                        "loop": true
+                    }
+                }
+            }
         },
         {
             "type": "audiosprite",
@@ -181,6 +236,56 @@ module.exports={
                     "loop": {
                         "start": 3.356,
                         "end": 210.378,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "fater-lee",
+            "urls": ["assets/songs/black_ant-fater_lee.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "intro" : {
+                        "start": 0,
+                        "end": 1.711,
+                        "loop": false
+                    },
+                    "loop": {
+                        "start": 1.711,
+                        "end": 103.044,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "wood-chopper",
+            "urls": ["assets/songs/wood-chopper.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "loop": {
+                        "start": 0,
+                        "end": 226,
+                        "loop": false
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "cylinder-three",
+            "urls": ["assets/songs/chris-zabriskie_cylinder-three.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "loop": {
+                        "start": 0.106,
+                        "end": 164.462,
                         "loop": true
                     }
                 }
@@ -218,6 +323,26 @@ module.exports={
         },
         {
             "type": "audiosprite",
+            "key": "cynic",
+            "urls": ["assets/songs/creo_cynic.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "intro" : {
+                        "start": 0,
+                        "end": 15.904,
+                        "loop": false
+                    },
+                    "loop": {
+                        "start": 15.904,
+                        "end": 63.949,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
             "key": "memory",
             "urls": ["assets/songs/Creo-Memory.ogg"],
             "autoDecode": false,
@@ -225,12 +350,47 @@ module.exports={
                 "spritemap": {
                     "intro" : {
                         "start": 0,
-                        "end": 34.958,
+                        "end": 8.723,
                         "loop": false
                     },
                     "loop": {
-                        "start": 34.958,
-                        "end": 226.927,
+                        "start": 8.723,
+                        "end": 113.452,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "super-poupi",
+            "urls": ["assets/songs/komiku_super-poupi.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "intro" : {
+                        "start": 0,
+                        "end": 5.111,
+                        "loop": false
+                    },
+                    "loop": {
+                        "start": 5.111,
+                        "end": 556.641,
+                        "loop": true
+                    }
+                }
+            }
+        },
+        {
+            "type": "audiosprite",
+            "key": "walk-of-the-day",
+            "urls": ["assets/songs/komiku_walk-of-the-day.ogg"],
+            "autoDecode": false,
+            "jsonData": {
+                "spritemap": {
+                    "loop": {
+                        "start": 0,
+                        "end": 82.294,
                         "loop": true
                     }
                 }
@@ -504,8 +664,8 @@ module.exports={
       "key": "level11",
       "url": "assets/levels/level11.json",
       "format": "TILED_JSON",
-      "mapX": 268,
-      "mapY": 234,
+      "mapX": 230,
+      "mapY": 235,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -514,8 +674,8 @@ module.exports={
       "key": "level12",
       "url": "assets/levels/level12.json",
       "format": "TILED_JSON",
-      "mapX": 244,
-      "mapY": 198,
+      "mapX": 268,
+      "mapY": 234,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -524,8 +684,8 @@ module.exports={
       "key": "level13",
       "url": "assets/levels/level13.json",
       "format": "TILED_JSON",
-      "mapX": 283,
-      "mapY": 171,
+      "mapX": 244,
+      "mapY": 198,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -534,8 +694,8 @@ module.exports={
       "key": "level14",
       "url": "assets/levels/level14.json",
       "format": "TILED_JSON",
-      "mapX": 279,
-      "mapY": 121,
+      "mapX": 289,
+      "mapY": 174,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -544,8 +704,8 @@ module.exports={
       "key": "level15",
       "url": "assets/levels/level15.json",
       "format": "TILED_JSON",
-      "mapX": 264,
-      "mapY": 85,
+      "mapX": 232,
+      "mapY": 147,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -554,8 +714,78 @@ module.exports={
       "key": "level16",
       "url": "assets/levels/level16.json",
       "format": "TILED_JSON",
-      "mapX": 225,
-      "mapY": 72,
+      "mapX": 277,
+      "mapY": 118,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level17",
+      "url": "assets/levels/level17.json",
+      "format": "TILED_JSON",
+      "mapX": 249,
+      "mapY": 77,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level18",
+      "url": "assets/levels/level18.json",
+      "format": "TILED_JSON",
+      "mapX": 183,
+      "mapY": 76,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level19",
+      "url": "assets/levels/level19.json",
+      "format": "TILED_JSON",
+      "mapX": 141,
+      "mapY": 119,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level20",
+      "url": "assets/levels/level20.json",
+      "format": "TILED_JSON",
+      "mapX": 82,
+      "mapY": 151,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level21",
+      "url": "assets/levels/level21.json",
+      "format": "TILED_JSON",
+      "mapX": 132,
+      "mapY": 173,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level22",
+      "url": "assets/levels/level22.json",
+      "format": "TILED_JSON",
+      "mapX": 76,
+      "mapY": 201,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level23",
+      "url": "assets/levels/level23.json",
+      "format": "TILED_JSON",
+      "mapX": 113,
+      "mapY": 222,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -564,8 +794,8 @@ module.exports={
       "key": "level24",
       "url": "assets/levels/level24.json",
       "format": "TILED_JSON",
-      "mapX": 85,
-      "mapY": 275,
+      "mapX": 152,
+      "mapY": 242,
       "state": "Level",
       "title": "and so it begins"
     },
@@ -573,6 +803,26 @@ module.exports={
       "type": "tilemap",
       "key": "level25",
       "url": "assets/levels/level25.json",
+      "format": "TILED_JSON",
+      "mapX": 119,
+      "mapY": 257,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level26",
+      "url": "assets/levels/level26.json",
+      "format": "TILED_JSON",
+      "mapX": 85,
+      "mapY": 275,
+      "state": "Level",
+      "title": "and so it begins"
+    },
+    {
+      "type": "tilemap",
+      "key": "level27",
+      "url": "assets/levels/level27.json",
       "format": "TILED_JSON",
       "mapX": 75,
       "mapY": 306,
@@ -605,7 +855,7 @@ module.exports={
       "url": "assets/levels/zero-g.json",
       "format": "TILED_JSON",
       "mapX": 63,
-      "mapY": 25,
+      "mapY": 22,
       "state": "ZeroGLevel",
       "title": "the not so friendly skies"
     },
@@ -614,8 +864,8 @@ module.exports={
       "key": "zero-g2",
       "url": "assets/levels/zero-g2.json",
       "format": "TILED_JSON",
-      "mapX": 215,
-      "mapY": 22,
+      "mapX": 219,
+      "mapY": 25,
       "state": "ZeroGLevel",
       "title": "the not so friendly skies"
     },
@@ -624,8 +874,8 @@ module.exports={
       "key": "zero-g3",
       "url": "assets/levels/zero-g3.json",
       "format": "TILED_JSON",
-      "mapX": 360,
-      "mapY": 53,
+      "mapX": 366,
+      "mapY": 62,
       "state": "ZeroGLevel",
       "title": "the not so friendly skies"
     },
@@ -654,8 +904,8 @@ module.exports={
       "key": "monster2",
       "url": "assets/levels/monster2.json",
       "format": "TILED_JSON",
-      "mapX": 515,
-      "mapY": 75,
+      "mapX": 454,
+      "mapY": 50,
       "state": "MonsterLevel",
       "title": "ooh creepy"
     },
@@ -678,7 +928,9 @@ module.exports={
     "city": {
         "bgImage": "city",
         "songs": [
-            "memory"
+            "memory",
+            "heartbeat",
+            "live"
         ],
         "tiles": "tiles"
     },
@@ -696,7 +948,9 @@ module.exports={
     "forest": {
         "bgImage": "forest",
         "songs": [
-            "memory"
+            "memory",
+            "walk-of-the-day",
+            "super-poupi"
         ],
         "tiles": "tiles"
     },
@@ -717,15 +971,6 @@ module.exports={
         "tiles": "tiles"
     },
 
-
-    "space-boss": {
-        "bgImage": "space",
-        "songs": [
-            "venus"
-        ],
-        "tiles": "tiles"
-    },
-
     "space": {
         "bgImage": "space",
         "songs": [
@@ -735,10 +980,18 @@ module.exports={
         "tiles": "tiles"
     },
 
+    "space-boss": {
+        "bgImage": "space",
+        "songs": [
+            "cylinder-three"
+        ],
+        "tiles": "tiles"
+    },
+
     "monster": {
         "bgImage": "living-tissue",
         "songs": [
-            "memory"
+            "fater-lee"
         ],
         "tiles": "living-tissue-tileset"
     },
@@ -746,7 +999,7 @@ module.exports={
     "final-boss": {
         "bgImage": "living-tissue",
         "songs": [
-            "memory"
+            "cynic"
         ],
         "tiles": "tiles"
     },
@@ -761,118 +1014,138 @@ module.exports={
 },{}],4:[function(require,module,exports){
 module.exports = Credits
 
+var Scene = require('./Scene.js')
 
 
 var SmallFont = require('./entities/SmallFont.js')
-var text = "Super Bubble Panic\nby jeemz\n\n\nFeaturing Art by\nAnsimuz\nKnoblePersona\n\n\nMusic\n\nNRIN HUS by C_C\nMemory by Creo\nSpring Summer by Dustin Wong\nEverything is Changing by Noi\nN35-40-19-800 by Springtide\nGone by Alex McCulloch\nVenus by SketchyLogic\nSpace by Alexandr Zhelanov\nObserving The Star by Yd\n\n\nWith Sound FX By\ndklon & Michel Baradari\n\n\nfor full credits and licenses\nplease consult the readme\n\n\nThanks To\n\nOpen Game Art\nFree Music Archive\n\n"
+var text = "Super Bubble Panic\nby James Puryear\n\n\n\nMade with Phaser\n\n\n\nBackground art based on works by\n\nAnsimuz (ansimuz.com)\nKnoblePersona\n\n\n\nSongs\n\nFater Lee\nby Black Ant\n(black-ant.bandcamp.com)\n\nMemory\nCynic\nHeartbeat\nLive\nby Creo\n(creo-music.com)\n\nPoupi's Theme\nSuper Poupi\nTime For The Walk Of The Day\nby Komiku\n(loyaltyfreakmusic.com)\n\nGone\nby Alex McCulloch\n\nEverything is Changing\nby Noi\n(soundcloud.com/noi)\n\nThe Wood Chopper\nby The Settlers\n(soundcloud.com/user-659046245)\n\nVenus\nby SketchyLogic\n\nN35-40-19-800\nby Springtide\n(springtide.jp)\n\nSpring Summer\nby Dustin Wong\n(thrilljockey.com)\n\nObserving The Star\nby Yd\n\nCylinder Three\nby Chris Zabriskie\n(chriszabriskie.com)\n\nSpace\nby Alexandr Zhelanov\n(soundcloud.com/alexandr-zhelanov)\n\n\n\nWith Sound FX By\ndklon & Michel Baradari\n\n\n\nThanks To\n\nRichard Davey\nSchteppe\nOpen Game Art\nFree Music Archive\nYoshiki Okamoto\nToshihiko Uda\nHudson Soft\nAbetusk\nCosmo\nJT\nDr Murder\n\n\n\nWant to help us create more free games?\nVisit us on Patreon.\n\nwww.patreon.com/antirival\n\n"
 
 var WorldMap = require('./WorldMap.js')
 
 
 function Credits() {
+  Scene.call(this)
 }
 
 
-Credits.prototype = {
-  create: function() {
-    this.input.keyboard.addKey(Phaser.Keyboard.X)
-      .onDown.add(function() { this.state.start('Menu') }, this)
+Credits.prototype = Object.create(Scene.prototype)
 
-    var bg = this.bg = this.add.image(0, 0, 'space')
-    var map = this.map = this.world.addChild(new WorldMap(this.game))
-    
-    this.scale.setGameSize(map.map.width, map.map.height)
-    bg.scale.setTo( Math.max(this.game.width/bg.width, this.game.height/bg.height) )
-    bg.scale.setTo( bg.scale.x * 1.25 )
 
-    var dust = this.dust = this.add.emitter(this.game.width/2, this.game.height, 100)
-    var character = this.character = this.add.sprite(
-      this.game.width * 0.75, -20, 'sprites', 'p1-space')
+Credits.prototype.create = function() {
+  Scene.prototype.create.call(this)
 
-    character.scale.x = -1
+  var pause = 6000
+  var explodeTime = 4000 + pause
+  var scrollTime = 60000
+  var mapTime = 20000
 
-    dust.makeParticles('sprites', 
-      Phaser.Animation.generateFrameNames('dust', 1, 4), 4)
-    dust.setSize(this.game.width, 1)
-    dust.minParticleSpeed.setTo(0, -2000)
-    dust.maxParticleSpeed.setTo(0, -20)
-    dust.setRotation(0, 0)
-    dust.gravity = 0
-    dust.setAll('checkWorldBounds', true)
-    dust.setAll('outOfBoundsKill', true)
-    dust.start(false, 0, 250)
+  this.input.keyboard.addKey(Phaser.Keyboard.X)
+    .onDown.add(function() { this.state.start('Menu') }, this)
 
-    this.camera.flash(0xf6eeee, 8000)
+  if (this.game.data.lastCompleted < this.game.data.levels.length-1) {
+    var scroll = this.add.existing(SmallFont(this, text))
 
-    this.explosionPool = this.add.group()
-    this.explosionPool.createMultiple(40, 'sprites')
-    this.explosionPool.forEach(function(exp) {
-      exp.anchor.setTo(0.5)
-      exp.animations.add('explode',
-        Phaser.Animation.generateFrameNames('explosion', 1, 4), 60, false)
-    })
-
-    var expY = {value: 10}
-    var loop = this.time.events.loop(150, function() {
-      var e = this.explosionPool.getFirstDead()
-      if (!e) return
-      e.reset(
-        Math.random()*this.game.width, Math.random()*20+expY.value)
-      e.width = e.height = Math.random()*160 + 40
-      e.animations.play('explode', null, false, true)
-      this.camera.shake(0.015, 400)
-    }, this)
-
-    map.y = this.game.height + 5
-    var pause = 2000
-    var explodeTime = 4000 + pause
-    var scrollTime = 20000
-    var mapTime = 10000
-    
-    this.add.tween(expY).to({ value: -200 }, explodeTime).start()
-
-    this.time.events.add(explodeTime-pause, this.time.events.remove, this.time.events, loop)
-
-    var scroll
-    var thanks
-
-    this.add.tween(bg)
-      .to({y: -(bg.height - this.game.height)}, scrollTime+mapTime+explodeTime)
-      .start()
-    this.add.tween(character)
-      .to({x: 500, y: 180}, scrollTime+mapTime+explodeTime/2, null, true, explodeTime/2)
-    this.add.tween(character.scale)
-      .to({x: -0.05, y: 0.05}, scrollTime+mapTime+explodeTime/2,
-        Phaser.Easing.Cubic.In, true, explodeTime/2)
-
-    // Camera shake messes with retrofont rendering, so we have to wait to
-    // add our text
-    this.time.events.add(explodeTime, function() {
-      scroll = this.add.existing(SmallFont(this, text))
-      thanks = this.add.existing(SmallFont(this, 'Thanks for playing!'))
-      thanks.alpha = 0
-      thanks.x = this.game.width/2
-      thanks.y = this.game.height/2
-
-      scroll.anchor.setTo(0, 1)
-      scroll.x = 40
-      scroll.y = scroll.height + this.game.height + 10
-      this.add.tween(scroll)
-        .to({y: -10}, scrollTime, null, true,  explodeTime)
-        .onComplete.addOnce(function() {
-          this.time.events.add(mapTime * 0.75, function() { dust.on = false })
-          this.add.tween(map).to({y: 0}, mapTime)
-            .start()
-            .onComplete.addOnce(function() {
-              this.add.tween(thanks).to({alpha: 1}, 500, null, true, 2000)
-            }, this)
-        }, this)
-    }, this)
+    scroll.anchor.setTo(0, 1)
+    scroll.x = 40
+    scroll.y = scroll.height + this.game.height + 10
+    this.add.tween(scroll)
+      .to({y: -10}, scrollTime, null, true)
+      .onComplete.addOnce(function() {
+        this.state.start('Menu')
+      }, this)
+    return
   }
+
+  this.time.events.add(explodeTime, this.startMusic, this, 'wood-chopper')
+
+  var bg = this.bg = this.add.image(0, 0, 'space')
+  var map = this.map = this.world.addChild(new WorldMap(this.game))
+  
+  this.scale.setGameSize(map.map.width, map.map.height)
+  bg.scale.setTo( Math.max(this.game.width/bg.width, this.game.height/bg.height) )
+  bg.scale.setTo( bg.scale.x * 1.25 )
+
+  var dust = this.dust = this.add.emitter(this.game.width/2, this.game.height, 100)
+  var character = this.character = this.add.sprite(
+    this.game.width * 0.75, -20, 'sprites', 'p1-space')
+
+  character.scale.x = -1
+
+  dust.makeParticles('sprites', 
+    Phaser.Animation.generateFrameNames('dust', 1, 4), 4)
+  dust.setSize(this.game.width, 1)
+  dust.minParticleSpeed.setTo(0, -2000)
+  dust.maxParticleSpeed.setTo(0, -20)
+  dust.setRotation(0, 0)
+  dust.gravity = 0
+  dust.setAll('checkWorldBounds', true)
+  dust.setAll('outOfBoundsKill', true)
+  dust.start(false, 0, 250)
+
+  this.camera.flash(0xf6eeee, 8000)
+
+  this.explosionPool = this.add.group()
+  this.explosionPool.createMultiple(40, 'sprites')
+  this.explosionPool.forEach(function(exp) {
+    exp.anchor.setTo(0.5)
+    exp.animations.add('explode',
+      Phaser.Animation.generateFrameNames('explosion', 1, 4), 60, false)
+  })
+
+  var expY = {value: 10}
+  var loop = this.time.events.loop(150, function() {
+    var e = this.explosionPool.getFirstDead()
+    if (!e) return
+    e.reset(
+      Math.random()*this.game.width, Math.random()*20+expY.value)
+    e.width = e.height = Math.random()*160 + 40
+    e.animations.play('explode', null, false, true)
+    this.camera.shake(0.015, 400)
+  }, this)
+
+  map.y = this.game.height + 5
+  
+  this.add.tween(expY).to({ value: -200 }, explodeTime).start()
+
+  this.time.events.add(explodeTime-pause, this.time.events.remove, this.time.events, loop)
+
+  this.add.tween(bg)
+    .to({y: -(bg.height - this.game.height)}, scrollTime+mapTime+explodeTime)
+    .start()
+  this.add.tween(character)
+    .to({x: 500, y: 180}, scrollTime+mapTime+explodeTime, null, true, explodeTime)
+    .onComplete.add(character.kill, character)
+  this.add.tween(character.scale)
+    .to({x: -0.05, y: 0.05}, scrollTime+mapTime+explodeTime/2,
+      Phaser.Easing.Cubic.In, true, explodeTime/2)
+
+  // Camera shake messes with retrofont rendering, so we have to wait to
+  // add our text
+  this.time.events.add(explodeTime, function() {
+    var scroll = this.add.existing(SmallFont(this, text))
+    var thanks = this.add.existing(SmallFont(this, 'Thanks for playing!'))
+    thanks.alpha = 0
+    thanks.x = this.game.width/2
+    thanks.y = this.game.height/2
+
+    scroll.anchor.setTo(0, 1)
+    scroll.x = 40
+    scroll.y = scroll.height + this.game.height + 10
+    this.add.tween(scroll)
+      .to({y: -10}, scrollTime, null, true,  explodeTime)
+      .onComplete.addOnce(function() {
+        this.time.events.add(mapTime * 0.75, function() { dust.on = false })
+        this.add.tween(map).to({y: 0}, mapTime)
+          .start()
+          .onComplete.addOnce(function() {
+            this.add.tween(thanks).to({alpha: 1}, 500, null, true, 2000)
+          }, this)
+      }, this)
+  }, this)
 }
 
 
-},{"./WorldMap.js":8,"./entities/SmallFont.js":16}],5:[function(require,module,exports){
+},{"./Scene.js":8,"./WorldMap.js":9,"./entities/SmallFont.js":18}],5:[function(require,module,exports){
 module.exports = GameData
 
 
@@ -892,12 +1165,36 @@ function GameData(game) {
 GameData.prototype = {
   mapStart: mapData.start,
   levels: levels,
+  _musicOn: true,
+  sfxOn: true,
+
+
+  get musicOn() {
+    return this._musicOn
+  },
+
+  set musicOn(val) {
+    this._musicOn = !!val
+    var state = this.game.state.getCurrentState()
+    if (!this._musicOn) {
+      if (state.soundtrack && typeof state.soundtrack.stop === 'function') {
+        state.soundtrack.stop()
+      }
+    } else {
+      if (state.soundtrack && typeof state.soundtrack.play === 'function') {
+        state.soundtrack.play('loop')
+      }
+    }
+  },
+
+
 
   clear: function() {
     this.hiScore = 0
     this.lastCompleted = -1
     return this.save()
   },
+
 
   load: function() {
     try {
@@ -910,6 +1207,7 @@ GameData.prototype = {
     }
   },
 
+
   save: function() {
     try {
       localStorage.setItem('hiScore', this.hiScore)
@@ -920,6 +1218,7 @@ GameData.prototype = {
     return true
   },
 
+
   checkScore: function(score) {
     if (score > this.hiScore) {
       this.hiScore = score
@@ -929,11 +1228,13 @@ GameData.prototype = {
     return false
   },
 
+
   checkWin: function(key) {
     var id = this.getLevelIndex(key)
     this.lastCompleted = Math.max(id, this.lastCompleted)
     this.save()
   },
+
 
   getLevelIndex: function(key) {
     for (var i = 0; i < this.levels.length; i++) {
@@ -941,6 +1242,7 @@ GameData.prototype = {
     }
     return -1
   },
+
 
   getLevelKey: function(index) {
     return (index >= 0 && index < this.levels.length) ? this.levels[index].key : null
@@ -951,6 +1253,7 @@ GameData.prototype = {
 },{"../assets/levels.json":2}],6:[function(require,module,exports){
 module.exports = LevelSelect
 
+var Scene = require('./Scene.js')
 
 var Button = require('./gui/Button.js')
 var Character = require('./entities/heroes/Character.js')
@@ -963,214 +1266,204 @@ var padTop = 25
 
 
 function LevelSelect() {
+  Scene.call(this)
   this.inputEnabled = true
   this.lastPlayed = null
 }
 
 
-LevelSelect.prototype = {
-  create: function() {
-    this.input.keyboard.addKey(Phaser.Keyboard.X)
-      .onDown.add(this.exit, this)
+LevelSelect.prototype = Object.create(Scene.prototype)
 
-    this.walkPoints = []
-    this.walkDirection = 1
-    this.characterAt = null
-    var bg = this.bg = this.add.image(0, 0, 'space')
-    var map = this.world.add(new WorldMap(this.game))
-    map.y = padTop
 
-    this.preview = new PhaserNineSlice.NineSlice(game, 0, map.map.height+padTop, 'sprites', 'window',
-      map.map.width, 40, { top: 8 })
-    this.preview.font = new SmallFont(this)
-    this.preview.font.anchor.setTo(0.5)
-    this.preview.font.x = this.preview.width/2
-    this.preview.font.y = this.preview.height/2
-    this.preview.addChild(this.preview.font)
-    this.world.add(this.preview)
 
-    this.scale.setGameSize(map.map.width, map.map.height+this.preview.height+padTop)
-    this.bg.scale.setTo( Math.max(this.game.width/bg.width, this.game.height/bg.height-this.preview.height) )
-    bg.scale.setTo( bg.scale.x * 1.25 )
-    this.world.setBounds(0, 0, this.game.width, this.game.height)
-    this.reticule = new Reticule(this.game)
+LevelSelect.prototype.create = function() {
+  Scene.prototype.create.call(this)
 
-    this.inputEnabled = true
+  this.input.keyboard.addKey(Phaser.Keyboard.X)
+    .onDown.add(this.exit, this)
 
-    var levels = this.game.data.levels
-    var start = this.game.data.mapStart
-    var symbols = this.make.group()
-    this.trail = symbols.addChild(this.make.graphics())
+  this.walkPoints = []
+  this.walkDirection = 1
+  this.characterAt = null
+  var bg = this.bg = this.add.image(0, 0, 'space')
+  var map = this.world.add(new WorldMap(this.game))
+  map.y = padTop
 
-    var startBtn = symbols.addChild(new LevelButton(this, start, 'map-start'))
-    startBtn.x = start.mapX
-    startBtn.y = start.mapY - padTop
-    startBtn.anchor.setTo(0.5, 1)
+  this.scale.setGameSize(map.map.width, map.map.height+padTop)
+  this.bg.scale.setTo( Math.max(this.game.width/bg.width, this.game.height/bg.height) )
+  bg.scale.setTo( bg.scale.x * 1.25 )
+  this.world.setBounds(0, 0, this.game.width, this.game.height)
+  this.reticule = new Reticule(this.game)
 
-    if (levels.length === 0) return
-    var lastCompleted = this.game.data.lastCompleted
-    var lvl = levels[0]
+  this.inputEnabled = true
 
-    // This would be easier with BitmapData, but I can't turn off smoothing!
-    this.trail.lineStyle(2, 0xfff2cd, 0.6)
-    var x = start.mapX
-    var y = start.mapY - padTop
-    this.trail.moveTo(x, y)
-    var dashLength = 5
-    var spaceLength = 4
-    for (var i = 0; i < levels.length && i <= lastCompleted+1; i++) {
-      lvl = levels[i]
-      var run = lvl.mapX - x
-      var rise = lvl.mapY - y - padTop
-      var d = Math.sqrt(run*run + rise*rise)
-      var dashX = dashLength * run/d
-      var dashY = dashLength * rise/d
-      var spaceX = spaceLength * run/d
-      var spaceY = spaceLength * rise/d
-      while (x !== lvl.mapX) {
-        if (Math.abs(x - lvl.mapX) < Math.abs(dashX)) {
-          x = lvl.mapX
-          y = lvl.mapY - padTop
-        } else {
-          x += dashX
-          y += dashY
-        }
-        this.trail.lineTo(x, y)
-        if (Math.abs(x - lvl.mapX) < Math.abs(dashX)) {
-          x = lvl.mapX
-          y = lvl.mapY - padTop
-        } else {
-          x += spaceX
-          y += spaceY
-        }
-        this.trail.moveTo(x, y)
-      }
-    }
+  var levels = this.game.data.levels
+  var start = this.game.data.mapStart
+  var symbols = this.make.group()
+  this.trail = symbols.addChild(this.make.graphics())
 
-    for (i = 0; i < levels.length; i++) {
-      lvl = levels[i]
-      if (i <= lastCompleted + 1) {
-        var butt
-        if (lvl.state === 'RocketLevel') {
-          butt = new LevelButton(this, lvl, 'rocket')
-        } else {
-          var frame = i === lastCompleted + 1 ? 'lvlButtonCurrent' : 'lvlButtonComplete'
-          butt = new LevelButton(this, lvl, frame + '1')
-          butt.animations.add('blink', [frame + '1', frame + '1', frame + '2'])
-          butt.animations.play('blink', 1.5, true)
-        }
-        butt.x = lvl.mapX
-        butt.y = lvl.mapY - padTop
-        symbols.addChild(butt)
-        if (lvl.state === 'RocketLevel') butt.anchor.setTo(0.5, 1)
+  var startBtn = symbols.addChild(new LevelButton(this, start, 'map-start'))
+  startBtn.x = start.mapX
+  startBtn.y = start.mapY - padTop
+  startBtn.anchor.setTo(0.5, 1)
+
+  if (levels.length === 0) return
+  var lastCompleted = this.game.data.lastCompleted
+  var lvl = levels[0]
+
+  // This would be easier with BitmapData, but I can't turn off smoothing!
+  this.trail.lineStyle(2, 0xfff2cd, 0.6)
+  var x = start.mapX
+  var y = start.mapY - padTop
+  this.trail.moveTo(x, y)
+  var dashLength = 5
+  var spaceLength = 4
+  for (var i = 0; i < levels.length && i <= lastCompleted+1; i++) {
+    lvl = levels[i]
+    var run = lvl.mapX - x
+    var rise = lvl.mapY - y - padTop
+    var d = Math.sqrt(run*run + rise*rise)
+    var dashX = dashLength * run/d
+    var dashY = dashLength * rise/d
+    var spaceX = spaceLength * run/d
+    var spaceY = spaceLength * rise/d
+    while (x !== lvl.mapX) {
+      if (Math.abs(x - lvl.mapX) < Math.abs(dashX)) {
+        x = lvl.mapX
+        y = lvl.mapY - padTop
       } else {
-        var icon = this.make.image(lvl.mapX, lvl.mapY-padTop, 'sprites', 'lvlLocked')
-        icon.anchor.setTo(0.5)
-        icon.width = ICON_SIZE
-        icon.height = ICON_SIZE
-        symbols.addChild(icon)
+        x += dashX
+        y += dashY
       }
-    }
-
-    var lastPlayed = this.lastPlayed
-    if (lastPlayed !== null) {
-      this.characterAt = lastPlayed
-      lvl = lastPlayed === -1 ? start : levels[lastPlayed]
-    } else if (lastCompleted >=0) {
-      this.characterAt = lastCompleted
-      lvl = levels[lastCompleted]
-    } else {
-      this.characterAt = -1
-      lvl = start
-    }
-    this.playerIcon = symbols.addChild(new Character(this))
-    this.playerIcon.anchor.setTo(0.5, 1)
-    this.playerIcon.x = lvl.mapX
-    this.playerIcon.y = lvl.mapY - padTop
-    if (lastPlayed > lastCompleted) this.walkTo(lastCompleted)
-
-    var key = lastCompleted >= this.game.data.getLevelIndex('space-boss')
-      ? 'floating-eye-damaged' : 'floating-eye'
-    var eye = this.add.image(425, -30, 'sprites', key)
-    eye.scale.setTo(2)
-    map.addAt(eye, map.getChildIndex(map.clouds))
-    map.addAt(symbols, map.getChildIndex(map.clouds))
-
-    this.selectIcon = this.add.sprite(0, 0, 'sprites', 'select-icon')
-    this.selectIcon.anchor.setTo(0.5)
-    this.selectIcon.width = 20
-    this.selectIcon.height = 20
-    this.selectIcon.exists = false
-
-    this.world.add(this.reticule)
-
-    this.camera.flash(0x180c08, 1000)
-
-    var track = this.sound.addSprite('gone')
-    this.soundtrack = track
-    if (track) {
-      this.time.events.add(800, track.play, track, 'loop')
-    }
-  },
-
-
-  update: function() {
-    // Hack: Force a repaint to get around camera shake bug.
-    this.preview.resize(this.world.width, 40)
-
-    var plyr = this.playerIcon
-    var pts = this.walkPoints
-    if (pts.length > 0) {
-      plyr.animations.play('walk')
-      var dt = this.time.physicsElapsed
-      var vel = 200
-      var p = pts[pts.length - 1]
-      var dx = p.mapX - plyr.x
-      var dy = p.mapY - padTop - plyr.y
-      var d = Math.sqrt(dx*dx + dy*dy)
-      if (d <= dt*vel) {
-        plyr.x = p.mapX
-        plyr.y = p.mapY - padTop
-        this.characterAt = this.game.data.getLevelIndex(p.key)
-        this.walkPoints.pop()
+      this.trail.lineTo(x, y)
+      if (Math.abs(x - lvl.mapX) < Math.abs(dashX)) {
+        x = lvl.mapX
+        y = lvl.mapY - padTop
       } else {
-        if (this.characterAt % 1 === 0) this.characterAt += this.walkDirection * 0.5
-        plyr.x += vel*dt * dx/d
-        plyr.y += vel*dt * dy/d
+        x += spaceX
+        y += spaceY
       }
-    } else {
-      plyr.animations.stop()
-      plyr.frameName = 'p1-stand'
+      this.trail.moveTo(x, y)
     }
-  },
-
-
-  exit: function() {
-    this.state.start('Menu')
-  },
-
-
-  walkTo: function(index) {
-    var at = this.characterAt
-    var pts = []
-    if (index === at) return
-    var dir = index >= at ? 1 : -1
-    this.walkDirection = dir
-    if (index === -1) {
-      pts.push(this.game.data.mapStart)
-      index++
-    }
-    if (at % 1 === 0.5) at += 0.5 * dir
-    for (; index !== at; index -= dir) {
-      pts.push(this.game.data.levels[index])
-    }
-    if (at === -1) {
-      pts.push(this.game.data.mapStart)
-    } else {
-      pts.push(this.game.data.levels[at])
-    }
-    this.walkPoints = pts
   }
+
+  for (i = 0; i < levels.length; i++) {
+    lvl = levels[i]
+    if (i <= lastCompleted + 1) {
+      var butt
+      if (lvl.state === 'RocketLevel') {
+        butt = new LevelButton(this, lvl, 'rocket')
+      } else {
+        var frame = i === lastCompleted + 1 ? 'lvlButtonCurrent' : 'lvlButtonComplete'
+        butt = new LevelButton(this, lvl, frame + '1')
+        butt.animations.add('blink', [frame + '1', frame + '1', frame + '2'])
+        butt.animations.play('blink', 1.5, true)
+      }
+      butt.x = lvl.mapX
+      butt.y = lvl.mapY - padTop
+      symbols.addChild(butt)
+      if (lvl.state === 'RocketLevel') butt.anchor.setTo(0.5, 1)
+    } else if (lvl.state === 'RocketLevel') {
+      var icon = this.make.image(lvl.mapX, lvl.mapY-padTop, 'sprites', 'rocket')
+      icon.anchor.setTo(0.5, 1)
+      icon.width = ICON_SIZE
+      icon.height = ICON_SIZE
+      symbols.addChild(icon)
+    }
+  }
+
+  var lastPlayed = this.lastPlayed
+  if (lastPlayed !== null) {
+    this.characterAt = lastPlayed
+    lvl = lastPlayed === -1 ? start : levels[lastPlayed]
+  } else if (lastCompleted >=0) {
+    this.characterAt = lastCompleted
+    lvl = levels[lastCompleted]
+  } else {
+    this.characterAt = -1
+    lvl = start
+  }
+  this.playerIcon = symbols.addChild(new Character(this))
+  this.playerIcon.anchor.setTo(0.5, 1)
+  this.playerIcon.x = lvl.mapX
+  this.playerIcon.y = lvl.mapY - padTop
+  if (lastPlayed > lastCompleted) this.walkTo(lastCompleted)
+
+  var key = lastCompleted >= this.game.data.getLevelIndex('space-boss')
+    ? 'floating-eye-damaged' : 'floating-eye'
+  var eye = this.add.image(425, -30, 'sprites', key)
+  eye.scale.setTo(2)
+  map.addAt(eye, map.getChildIndex(map.clouds))
+  map.addAt(symbols, map.getChildIndex(map.clouds))
+
+  this.selectIcon = this.add.sprite(0, 0, 'sprites', 'select-icon')
+  this.selectIcon.anchor.setTo(0.5)
+  this.selectIcon.width = 20
+  this.selectIcon.height = 20
+  this.selectIcon.exists = false
+
+  this.world.add(this.reticule)
+
+  this.camera.flash(0x180c08, 1000)
+
+  this.time.events.add(800, this.startMusic, this, 'gone')
+}
+
+
+LevelSelect.prototype.update = function() {
+  var plyr = this.playerIcon
+  var pts = this.walkPoints
+  if (pts.length > 0) {
+    plyr.animations.play('walk')
+    var dt = this.time.physicsElapsed
+    var vel = 200
+    var p = pts[pts.length - 1]
+    var dx = p.mapX - plyr.x
+    plyr.scale.x = dx >= 0 ? 1 : -1
+    var dy = p.mapY - padTop - plyr.y
+    var d = Math.sqrt(dx*dx + dy*dy)
+    if (d <= dt*vel) {
+      plyr.x = p.mapX
+      plyr.y = p.mapY - padTop
+      this.characterAt = this.game.data.getLevelIndex(p.key)
+      this.walkPoints.pop()
+    } else {
+      if (this.characterAt % 1 === 0) this.characterAt += this.walkDirection * 0.5
+      plyr.x += vel*dt * dx/d
+      plyr.y += vel*dt * dy/d
+    }
+  } else {
+    plyr.animations.stop()
+    plyr.frameName = 'p1-stand'
+  }
+}
+
+
+LevelSelect.prototype.exit = function() {
+  this.state.start('Menu')
+}
+
+
+LevelSelect.prototype.walkTo = function(index) {
+  var at = this.characterAt
+  var pts = []
+  if (index === at) return
+  var dir = index >= at ? 1 : -1
+  this.walkDirection = dir
+  if (index === -1) {
+    pts.push(this.game.data.mapStart)
+    index++
+  }
+  if (at % 1 === 0.5) at += 0.5 * dir
+  for (; index !== at; index -= dir) {
+    pts.push(this.game.data.levels[index])
+  }
+  if (at === -1) {
+    pts.push(this.game.data.mapStart)
+  } else {
+    pts.push(this.game.data.levels[at])
+  }
+  this.walkPoints = pts
 }
 
 
@@ -1191,7 +1484,12 @@ LevelButton.prototype.inputOver = function() {
   this.state.selectIcon.exists = true
   this.state.selectIcon.x = this.x
   this.state.selectIcon.y = this.y + padTop
-  this.state.preview.font.font.text = this.level.title
+}
+
+
+LevelButton.prototype.inputOut = function() {
+  Button.prototype.inputOut.call(this)
+  this.state.selectIcon.exists = false
 }
 
 
@@ -1199,7 +1497,7 @@ LevelButton.prototype.callback = function() {
   if (this.state.inputEnabled === false) return
   this.state.inputEnabled = false
   this.state.camera.onFadeComplete.addOnce(fadeCb, this)
-  this.state.camera.fade(0x180c08, 800)
+  this.state.camera.fade(0x180c08, 800, true)
   var i = this.game.data.getLevelIndex(this.level.key)
   this.state.walkTo(i)
   this.state.lastPlayed = i
@@ -1211,7 +1509,7 @@ function fadeCb() {
 }
 
 
-},{"./Reticule.js":7,"./WorldMap.js":8,"./entities/SmallFont.js":16,"./entities/heroes/Character.js":36,"./gui/Button.js":44}],7:[function(require,module,exports){
+},{"./Reticule.js":7,"./Scene.js":8,"./WorldMap.js":9,"./entities/SmallFont.js":18,"./entities/heroes/Character.js":32,"./gui/Button.js":40}],7:[function(require,module,exports){
 module.exports = Reticule
 
 
@@ -1298,6 +1596,97 @@ Reticule.prototype.updateNormal = function() {
 }
 
 },{}],8:[function(require,module,exports){
+module.exports = Scene
+
+
+var NON_DIEGETIC = {
+  "death": true,
+  "victory-jingle": true
+}
+
+
+function Scene() {
+  Phaser.State.call(this)
+  this.playDiegetic = true
+  this.bulletTime = 1
+  this.soundtrack = null
+}
+
+
+Scene.prototype = Object.create(Phaser.State.prototype)
+
+
+Scene.prototype.create = function() {
+  this.playDiegetic = true
+  this.soundPool = []
+  for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
+}
+
+
+Scene.prototype.playSound = function(key, randomize, useBulletTime, lock, repeat) {
+  if (!this.game.data.sfxOn || !this.cache.isSoundDecoded(key)) { return null }
+  if (!this.playDiegetic && !NON_DIEGETIC[key]) { return null }
+  lock = lock || false
+  repeat = repeat || false
+  if (useBulletTime === undefined) useBulletTime = true
+
+  var sound = null
+
+  for (var i = 0; i < this.soundPool.length; i++) {
+    if (!this.soundPool[i].isPlaying) {
+      sound = this.soundPool[i]
+      break
+    }
+  }
+
+  if (!sound) {
+    for (i = 0; i < this.soundPool.length; i++) {
+      if (!this.soundPool[i].isLocked) {
+        sound = this.soundPool[i]
+        break
+      }
+    }
+  }
+
+  if (!sound) return null
+
+  sound.volume = 1
+
+  sound.key = key
+  sound.isLocked = lock
+  sound.useBulletTime = useBulletTime
+  sound.play('', 0, 1, repeat, true)
+
+  if (sound._sound && sound.usingWebAudio) {
+    if (useBulletTime)
+      sound._sound.playbackRate.value = this.bulletTime
+    else
+      sound._sound.playbackRate.value = 1
+
+    if (randomize)
+      sound._sound.detune.value = Math.random() * -randomize
+    else
+      sound._sound.detune.value = 0
+  }
+
+  return sound
+}
+
+
+Scene.prototype.startMusic = function(track) {
+  if (!this.game.data.musicOn) { return null }
+  this.soundtrack = this.sound.addSprite(track)
+  if (!this.soundtrack) return null
+  if (this.soundtrack.get('intro')) {
+    var intro = this.soundtrack.play('intro')
+    intro.onMarkerComplete.addOnce(function () { this.soundtrack.play('loop') }, this)
+  } else {
+    this.soundtrack.play('loop')
+  }
+}
+
+
+},{}],9:[function(require,module,exports){
 module.exports = WorldMap
 
 
@@ -1343,7 +1732,7 @@ function WorldMap(game) {
 WorldMap.prototype = Object.create(Phaser.Group.prototype)
 
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 module.exports = Arcade
 
 
@@ -1440,8 +1829,8 @@ Arcade.prototype.gameOver = function() {
   hsMod.x = this.game.width + 20
   if (this.game.data.checkScore(this._score)) {
     this.time.events.add(800, function() {
-      this.sound.play('victory-jingle')
       this.gameOverScreen.hsMod.hs.font.text = 'New High Score:\n\n' + this._score
+      this.playSound('victory-jingle', undefined, undefined, true)
       this.gameOverScreen.hsMod.x = x
       this.gameOverScreen.addChild(this.frag)
       this.gameOverScreen.addChild(this.glass)
@@ -1527,7 +1916,7 @@ Arcade.prototype.getDrop = function(enemy) {
   }
 }
 
-},{"../level/Level.js":50,"./enemyConfig.js":10,"./itemConfig.js":11}],10:[function(require,module,exports){
+},{"../level/Level.js":46,"./enemyConfig.js":11,"./itemConfig.js":12}],11:[function(require,module,exports){
 module.exports = function() {
   return [
     {
@@ -1551,7 +1940,7 @@ module.exports = function() {
   ]
 }
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports = function() {
   return [
     {
@@ -1587,7 +1976,7 @@ module.exports = function() {
   ]
 }
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports = Boot
 
 
@@ -1683,7 +2072,7 @@ function onReleasePointer(locked) {
   game.canvas.addEventListener('click', grabPointer, true)
 }
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 module.exports = BrkPlat
 
 // TODO: This is a hack to let us draw a Tiled polyline to the
@@ -1775,7 +2164,65 @@ function sprinkle() {
   this.state.glass.explode(2000, 25)
 }
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
+module.exports = Bullet
+
+
+var SPEED = 500
+var BODY_RADIUS = 4
+
+
+function Bullet(state, x, y, texture) {
+  Phaser.Sprite.call(this, state.game, x, y, 'sprites')
+  if (texture) this.defaultFrame = texture
+  this.frameName = this.defaultFrame
+  Phaser.Sprite.prototype.kill.call(this)
+
+  this.state = state
+
+  state.game.physics.p2.enable(this)
+  this.body.setCircle(BODY_RADIUS)
+  this.body.data.gravityScale = 0
+  this.body.collideWorldBounds = false
+  this.autoCull = true
+  this.checkWorldBounds = true
+  this.outOfBoundsKill = true
+  this.body.mass = 0.6
+  this.body.setCollisionGroup(state.bulletsCG)
+  this.body.collides([state.enemiesCG, state.platformsCG], this.hit, this)
+}
+
+
+Bullet.prototype = Object.create(Phaser.Sprite.prototype)
+
+Bullet.prototype.attack = 1
+Bullet.prototype.defaultFrame = 'bullet'
+Bullet.prototype.speed = SPEED
+
+
+Bullet.prototype.hit = function() {
+  this.kill()
+  this.state.frag.x = this.x
+  this.state.frag.y = this.y
+  this.state.frag.explode(40, 5)
+}
+
+
+Bullet.prototype.fire = function(x, y, theta, speedBonus) {
+  this.frameName = 'muzzle-flare'
+  this.game.time.events.add(40, function() {
+    this.frameName = this.defaultFrame
+  }, this)
+  speedBonus = speedBonus || 1
+  var speed = this.speed * speedBonus
+  this.reset(x, y)
+  this.body.rotation = theta
+  this.body.velocity.x = Math.cos(theta) * speed
+  this.body.velocity.y = Math.sin(theta) * speed
+} 
+
+
+},{}],16:[function(require,module,exports){
 module.exports = Gun
 
 
@@ -1795,6 +2242,7 @@ function Gun(state, data, BulletClass) {
   this.speedVar = data.speedVar || 0
   this.sounds.pickup = data.equipSound || 'reload'
   this.sounds.shot = data.shotSound || 'gunshot'
+  this.sounds.dryFire = data.dryFire || 'dry-fire'
   this.clipSize = data.clipSize || 3
   this.bulletsPerShot = data.bulletsPerShot || 1
   this.bulletType = BulletClass
@@ -1832,9 +2280,14 @@ Gun.prototype.pickup = function(_, playerBody) {
 
 
 Gun.prototype.fire = function(newShot) {
-  if (this._available < 1 || (!newShot && this.shotThrottle > 0) || (!newShot && !this.auto)) {
+  if (newShot && this._available < 1) {
+    this.state.playSound('dry-fire', 400)
     return false
   }
+  if (!newShot && (!this.auto || this.available < 1 || this.shotThrottle > 0)) {
+    return false
+  }
+
 
   this.shotThrottle = this.throttle
   this._available = Math.floor(this._available-1)
@@ -1876,7 +2329,7 @@ Gun.prototype.update = function() {
 }
 
 
-},{"./Item.js":15}],15:[function(require,module,exports){
+},{"./Item.js":17}],17:[function(require,module,exports){
 // Time in ms before item disappears.
 var LIFESPAN = 5000
 
@@ -1910,6 +2363,7 @@ function Item(state, data) {
   this.body.onBeginContact.add(this.shouldPickup, this)
 
   this.body.setCollisionGroup(state.itemsCG)
+  this.body.setMaterial(state.itemMaterial)
 
   // Collide with enemies so space boss will blink if items touch it's eye
   this.body.collides(state.playersCG, null, null, this.playerSensor)
@@ -1954,7 +2408,7 @@ Item.prototype.shouldPickup = function(targetBody, __, shape) {
   if (shape === this.playerSensor) this.pickup(shape, targetBody)
 }
 
-},{}],16:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports = SmallFont
 
 
@@ -1990,31 +2444,16 @@ SmallFont.colors = {
   PLAIN: 0xf6eeee
 }
 
-},{}],17:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports = Spaceship
-
-
-var Hud = require('./heroes/Hud.js')
-var Gun = require('./Gun.js')
-var Rocket = require('./bullets/Rocket.js')
 
 
 function Spaceship(state, ctlr) {
   // Spawn off screen to hide flame particles
   Phaser.Sprite.call(this, state.game, -100, 0)
-  // TODO more hacks to make hud work
   state.physics.p2.enable(this)
-  this.weapon = new Gun(state, { rate: 20000, clipSize: 1 }, Rocket)
-  this.weapon.alpha = 0
-  this.weapon.y = -8
-  this.addChild(this.weapon)
   this.icon = new Phaser.Sprite(state.game, 0, 0, 'sprites', 'rocket')
   this.addChild(this.icon).anchor.setTo(0.5)
-  this.weapon.body.removeFromWorld()
-  this.weapon.lifespan = 0
-  this.onEquip = new Phaser.Signal()
-  this.hud = new Hud(state, this)
-  this.onEquip.dispatch()
 
   this.state = state
   this.ctlr = ctlr
@@ -2046,7 +2485,6 @@ function Spaceship(state, ctlr) {
 
   this.maxHealth = 3
   this.health = this.maxHealth
-  this.maxFuel = this.maxHealth
   this.inputDisabled = false
   this.invincible = false
 }
@@ -2058,21 +2496,9 @@ var max = 200
 Spaceship.prototype.maxSpeed = max
 Spaceship.prototype.acceleration = max/0.35
 
-// TODO Hack to make player hud show health bar
-Object.defineProperty(Spaceship.prototype, 'fuel', {
-  get: function() {
-    return this.health
-  }
-})
-
 
 Spaceship.prototype.update = function() {
-  this.weapon.rotation = Phaser.Point.angle(this.ctlr.position, this.position)
-  this.hud.update()
   this.ctlr.update()
-  this.weapon.update()
-
-  if (this.ctlr.shoot && this.ctlr.newShot) this.shoot()
 
   var vel = this.body.velocity
   var speed = this.maxSpeed
@@ -2115,11 +2541,6 @@ Spaceship.prototype.update = function() {
 }
 
 
-Spaceship.prototype.shoot = function() {
-  this.weapon.fire(true)
-}
-
-
 Spaceship.prototype.damage = function() {
   this.state.camera.shake(0.01, 200)
   if (this.health <= 0 || this.invincible) { return }
@@ -2149,6 +2570,7 @@ Spaceship.prototype.kill = function() {
   this.body.collideWorldBounds = false
   this.alive = false
   this.state.bgItems.addChild(this)
+  this.state.playSound('death')
   var ev = this.game.time.events
   var loop = ev.loop(111, function() {
     this.state.glass.x = this.x
@@ -2166,47 +2588,7 @@ Spaceship.prototype.kill = function() {
 }
 
 
-},{"./Gun.js":14,"./bullets/Rocket.js":29,"./heroes/Hud.js":38}],18:[function(require,module,exports){
-module.exports = Spikes
-
-
-function Spikes(state, data) {
-  Phaser.Sprite.call(this, state.game, data.x, data.y)
-
-  this.state = state
-
-  state.world.addChild(this)
-  this.width = data.width
-  this.height = data.height
-  state.physics.p2.enable(this)
-  this.body.static = true
-  this.body.setCollisionGroup(state.bulletsCG)
-  this.body.collides(state.enemiesCG)
-  this.body.onBeginContact.add(this.stab, this)
-}
-
-
-Spikes.prototype = Object.create(Phaser.Sprite.prototype)
-
-
-Spikes.prototype.update = function() {
-  var p1 = this.state.p1
-  if (p1.y + p1.character.height/2 < this.top
-      || p1.y - p1.character.height/2 > this.bottom
-      || p1.x + p1.character.width/6 < this.left
-      || p1.x - p1.character.width/6 > this.right) {
-    return
-  }
-  this.stab(p1.body)
-}
-
-
-Spikes.prototype.stab = function(target) {
-  if (typeof target.sprite.damage === 'function') { target.sprite.damage(null, this.body) }
-}
-
-
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports = Trigger
 
 
@@ -2223,7 +2605,7 @@ function Trigger(state, data) {
 Trigger.prototype = Object.create(Phaser.Rectangle.prototype)
 
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 var Item = require('../Item.js')
 
 module.exports = Buff
@@ -2265,7 +2647,7 @@ Buff.prototype.pickup = function(_, playerBody) {
   return buff
 }
 
-},{"../Item.js":15}],21:[function(require,module,exports){
+},{"../Item.js":17}],22:[function(require,module,exports){
 module.exports = Repel
 
 
@@ -2359,7 +2741,7 @@ Repel.prototype.buffProto = {
   }
 }
 
-},{"./Buff.js":20}],22:[function(require,module,exports){
+},{"./Buff.js":21}],23:[function(require,module,exports){
 module.exports = Shield
 
 
@@ -2430,7 +2812,7 @@ Shield.prototype.buffProto = {
   }
 }
 
-},{"./Buff.js":20}],23:[function(require,module,exports){
+},{"./Buff.js":21}],24:[function(require,module,exports){
 module.exports = Shoes
 
 
@@ -2454,7 +2836,7 @@ Shoes.prototype.buffProto = {
   }
 }
 
-},{"./Buff.js":20}],24:[function(require,module,exports){
+},{"./Buff.js":21}],25:[function(require,module,exports){
 module.exports = Slomo
 
 
@@ -2489,298 +2871,11 @@ Slomo.prototype.buffProto = {
   }
 }
 
-},{"./Buff.js":20}],25:[function(require,module,exports){
-module.exports = Bouncy
-
-
-var Bullet = require('./Bullet.js')
-
-var TEXTURE = 'bullet'
-var LIFESPAN = 3000
-
-
-function Bouncy(state, x, y, texture) {
-  texture = texture || TEXTURE
-  Bullet.call(this, state, x, y, texture)
-  this._lifespan = LIFESPAN
-}
-
-
-Bouncy.prototype = Object.create(Bullet.prototype)
-
-
-Bouncy.prototype.hit = function(_, target) {
-  if (target.sprite) {
-    var theta = Math.atan2(this.body.velocity.y, this.body.velocity.x)
-    target.sprite.damage(this.attack, theta)
-  }
-}
-
-
-Bouncy.prototype.fire = function(x, y, theta, speedBonus) {
-  Bullet.prototype.fire.call(this, x, y, theta, speedBonus)
-  this.lifespan = this._lifespan
-}
-
-},{"./Bullet.js":26}],26:[function(require,module,exports){
-module.exports = Bullet
-
-
-var SPEED = 500
-var BODY_RADIUS = 4
-
-
-function Bullet(state, x, y, texture) {
-  Phaser.Sprite.call(this, state.game, x, y, 'sprites')
-  if (texture) this.defaultFrame = texture
-  this.frameName = this.defaultFrame
-  Phaser.Sprite.prototype.kill.call(this)
-
-  this.state = state
-
-  state.game.physics.p2.enable(this)
-  this.body.setCircle(BODY_RADIUS)
-  this.body.data.gravityScale = 0
-  this.body.collideWorldBounds = false
-  this.autoCull = true
-  this.checkWorldBounds = true
-  this.outOfBoundsKill = true
-  this.body.mass = 0.6
-  this.body.setCollisionGroup(state.bulletsCG)
-  this.body.collides([state.enemiesCG, state.platformsCG], this.hit, this)
-}
-
-
-Bullet.prototype = Object.create(Phaser.Sprite.prototype)
-
-Bullet.prototype.attack = 1
-Bullet.prototype.defaultFrame = 'bullet'
-Bullet.prototype.speed = SPEED
-
-
-Bullet.prototype.hit = function() {
-  this.kill()
-  this.state.frag.x = this.x
-  this.state.frag.y = this.y
-  this.state.frag.explode(40, 5)
-}
-
-
-Bullet.prototype.fire = function(x, y, theta, speedBonus) {
-  this.frameName = 'muzzle-flare'
-  this.game.time.events.add(40, function() {
-    this.frameName = this.defaultFrame
-  }, this)
-  speedBonus = speedBonus || 1
-  var speed = this.speed * speedBonus
-  this.reset(x, y)
-  this.body.rotation = theta
-  this.body.velocity.x = Math.cos(theta) * speed
-  this.body.velocity.y = Math.sin(theta) * speed
-} 
-
-
-},{}],27:[function(require,module,exports){
-module.exports = Gravity
-
-
-var Bullet = require('./Bullet.js')
-var dotGravity = require('../../magic/dotGravity.js')
-var explode = require('../../magic/explode.js')
-
-
-var TEXTURE = 'bullet'
-var SPEED = 340
-var RANGE = 80
-var MAGNITUDE = 250
-var LIFESPAN = 1600
-var KILL_RANGE = 20
-var EXPLOSION = 700
-var SELF_DAMP = 0.97
-
-
-function Gravity(state, x, y, texture) {
-  texture = texture || TEXTURE
-  Bullet.call(this, state, x, y, texture)
-
-  this.speed = SPEED
-  this.lifespan = LIFESPAN
-  this.enemies = state.enemies
-  this.body.clearCollision()
-}
-
-
-Gravity.prototype = Object.create(Bullet.prototype)
-
-
-Gravity.prototype.kill = function() {
-  Bullet.prototype.kill.call(this)
-  if (!this.enemies) return
-  explode(this.enemies, this, KILL_RANGE, null, EXPLOSION, 0, true)
-}
-
-
-Gravity.prototype.update = function() {
-  if (!this.alive) return
-  this.body.velocity.x *= SELF_DAMP
-  this.body.velocity.y *= SELF_DAMP
-  this.enemies.forInReach(this, RANGE, function(enemy) {
-    var dist = this.world.distance(enemy)
-    dist = Phaser.Physics.P2.prototype.pxm(dist)
-    dist = dist < 1 ? 1 : dist*dist
-    var damp = 1 - 1/dist
-    enemy.body.velocity.x *= damp
-    enemy.body.velocity.y *= damp
-  }, this)
-  dotGravity(this.enemies, this, MAGNITUDE, RANGE)
-}
-
-
-Gravity.prototype.reset = function(x, y, health) {
-  Bullet.prototype.reset.call(this, x, y, health)
-  this.lifespan = LIFESPAN
-}
-
-},{"../../magic/dotGravity.js":64,"../../magic/explode.js":65,"./Bullet.js":26}],28:[function(require,module,exports){
-module.exports = Grenade
-
-
-var Bullet = require('./Bullet.js')
-
-var TEXTURE = 'grenade'
-var SPEED = 400
-var MASS = 0.5
-var LIFE = 2500
-
-
-function Grenade(state, x, y, texture) {
-  Phaser.Group.call(this, state.game)
-  texture = texture || TEXTURE
-  this.addChild(new Round(state, x, y, texture))
-}
-
-
-Grenade.prototype = Object.create(Phaser.Group.prototype)
-
-// TODO: This is to get around how guns fire their bullets, which
-// which needs to be fixed.
-Object.defineProperty(Grenade.prototype, 'alive', {get: function() {return false}})
-
-
-Grenade.prototype.fire = function(x, y, theta, speedBonus) {
-  var round = this.children[0]
-  if (round.exists) round.kill()
-  else round.fire(x, y, theta, speedBonus)
-}
-
-
-function Round(state, x, y, texture) {
-  Bullet.call(this, state, x, y, texture)
-  this.body.setMaterial(state.grenadeMaterial)
-  this.body.data.gravityScale = 1
-  this.body.mass = MASS
-  this.body.removeCollisionGroup(state.platformsCG)
-  this.body.collides(state.platformsCG)
-  this.body.collideWorldBounds = true
-
-  var frames = Array(9).fill('grenade')
-  frames.unshift('grenade-flash')
-  this.animations.add('rest', frames, 10, true)
-    .onLoop.add(this.beep, this)
-  this.animations.play('rest')
-}
-
-
-Round.prototype = Object.create(Bullet.prototype)
-
-Round.prototype.speed = SPEED
-
-
-Round.prototype.beep = function() {
-  var snd = this.state.playSound('start')
-  if (snd) snd.volume = 0.6
-}
-
-
-Round.prototype.kill = function() {
-  this.state.explode(this.x, this.y)
-  Bullet.prototype.kill.apply(this, arguments)
-}
-
-
-Round.prototype.fire = function(x, y, theta, speedBonus) {
-  this.lifespan = LIFE
-  this.animations.getAnimation('rest').restart()
-  this.beep()
-  Bullet.prototype.fire.call(this, x, y, theta, speedBonus)
-  this.body.angularVelocity = (this.body.rotation > Math.PI/2 || this.body.rotation < -Math.PI/2) ?
-    Math.PI : -Math.PI
-}
-
-
-Round.prototype.hit = function() {
-  this.kill()
-}
-
-},{"./Bullet.js":26}],29:[function(require,module,exports){
-module.exports = Rocket
-
-
-var Bullet = require('./Bullet.js')
-
-var SPEED = 1000
-var ACCEL = SPEED / 0.5
-
-
-function Rocket(state, x, y) {
-  Bullet.call(this, state, x, y)
-  this.target = { x: 0, y: 0 }
-  this.animations.add('loop', Phaser.Animation.generateFrameNames('missile', 1, 3), 15, true)
-  this.animations.play('loop')
-}
-
-
-Rocket.prototype = Object.create(Bullet.prototype)
-
-
-Rocket.prototype.fire = function(x, y, theta, speedBonus, targetX, targetY) {
-  Bullet.prototype.fire.apply(this, arguments)
-  this.target.x = Math.abs(targetX - this.x)
-  this.target.y = Math.abs(targetY - this.y)
-  this.body.velocity.x = 0
-  this.body.velocity.y = 0
-  this.speed = 0
-}
-
-
-Rocket.prototype.hit = function() {
-  this.kill()
-  this.state.explode(this.x, this.y)
-}
-
-
-Rocket.prototype.update = function() {
-  if (!this.exists) { return }
-  var dt = this.state.time.physicsElapsed 
-  this.target.x -= Math.abs(this.body.velocity.x * dt)
-  this.target.y -= Math.abs(this.body.velocity.y * dt)
-  if (this.target.x <= 0 && this.target.y <= 0) {
-    this.hit()
-    return
-  }
-  if (this.speed === SPEED) { return }
-  var a = dt * ACCEL
-  this.speed = Math.min(this.speed + a, SPEED)
-  this.body.velocity.x = this.speed * Math.cos(this.body.rotation)
-  this.body.velocity.y = this.speed * Math.sin(this.body.rotation)
-}
-
-
-},{"./Bullet.js":26}],30:[function(require,module,exports){
+},{"./Buff.js":21}],26:[function(require,module,exports){
 module.exports = Enemy
 
 
-var Bullet = require('../bullets/Bullet.js')
+var Bullet = require('../Bullet.js')
 
 
 var MAX_HEALTH = 1
@@ -2822,10 +2917,9 @@ function Enemy(state, data) {
 Enemy.prototype = Object.create(Phaser.Sprite.prototype)
 
 Enemy.prototype.maxHealth = MAX_HEALTH
-
 Enemy.prototype.maxSpeed = 500
-
 Enemy.prototype.defaultFrame = 'enemy'
+Enemy.prototype.bloodColor = 0xacc7479
 
 
 Enemy.prototype.bounce = function() {
@@ -2851,7 +2945,7 @@ Enemy.prototype.damage = function(_, src) {
   else
     this.killTheta = src.sprite.world.angle(this.world)
   this.animations.play('flash')
-  this.state.bleed(this)
+  this.state.bleed(this.x, this.y, this.killTheta, this.bloodColor)
   Phaser.Sprite.prototype.damage.call(this, src.attack || 1)
 }
 
@@ -2862,6 +2956,8 @@ Enemy.prototype.kill = function() {
 
   this.state.playSound(this.sounds.pop, 400)
   this.state.camera.shake(0.005, 100)
+
+  this.body.removeCollisionGroup(this.state.playersCG, false)
 
   var tween = this.game.add.tween(this)
   tween.to({width: this.width*2, height: this.height*2, alpha: 0.8}, 60)
@@ -2877,6 +2973,7 @@ Enemy.prototype.kill = function() {
     this.animations.stop()
     this.frameName = this.defaultFrame
     Phaser.Sprite.prototype.kill.call(this)
+    this.body.collides(this.state.playersCG)
   }, this)
 
   tween.start()
@@ -2907,7 +3004,7 @@ Enemy.prototype.update = function() {
   this.body.velocity.y = this.maxSpeed * vy/speed
 }
 
-},{"../bullets/Bullet.js":26}],31:[function(require,module,exports){
+},{"../Bullet.js":15}],27:[function(require,module,exports){
 module.exports = Hex
 
 var Enemy = require('./Enemy.js')
@@ -2922,8 +3019,10 @@ function Hex(state, data, drop) {
 Hex.prototype = Object.create(Enemy.prototype)
 
 Hex.prototype.defaultFrame = 'hex'
+Hex.prototype.bloodColor = 0x6daab3
 
-},{"./Enemy.js":30}],32:[function(require,module,exports){
+
+},{"./Enemy.js":26}],28:[function(require,module,exports){
 module.exports = Hydroid
 
 
@@ -2991,13 +3090,13 @@ Hydroid.prototype.spawn = function(x, y, width, velx, vely, drop) {
 }
 
 
-},{}],33:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 module.exports = SeekBoss
 
 
 var Seeker = require('./Seeker.js')
 
-var HEALTH = 40
+var HEALTH = 50
 var CHILD_WIDTH = 30
 var CHILD_VEL = 100
 
@@ -3055,7 +3154,7 @@ SeekBoss.prototype.damage = function() {
   this.state.spawn('seeker', this.x, this.y, CHILD_WIDTH, v.x - CHILD_VEL, v.y + -CHILD_VEL)
 }
 
-},{"./Seeker.js":34}],34:[function(require,module,exports){
+},{"./Seeker.js":30}],30:[function(require,module,exports){
 module.exports = Seeker
 
 
@@ -3081,6 +3180,7 @@ Seeker.prototype = Object.create(Enemy.prototype)
 Object.defineProperty(Seeker.prototype, 'preferSpeed', {get: function() { return this._preferSpeed/this.body.mass }})
 
 Seeker.prototype.defaultFrame = 'seeker'
+Seeker.prototype.bloodColor = 0x69b58b
 
 
 Seeker.prototype.update = function() {
@@ -3118,27 +3218,20 @@ Seeker.prototype.bounce = function() {
   var vx = this.body.velocity.x 
   var vy = this.body.velocity.y
   var speed = Math.sqrt(vx*vx + vy*vy)
-  var desiredSpeed = Math.max(speed, 70)
+  var desiredSpeed = Math.max(speed, 70 * this.state.bulletTime)
   if (speed === desiredSpeed) { return }
   this.body.velocity.x *= desiredSpeed/speed
   this.body.velocity.y *= desiredSpeed/speed
 }
 
 
-},{"./Enemy.js":30}],35:[function(require,module,exports){
+},{"./Enemy.js":26}],31:[function(require,module,exports){
 var Player = require('./heroes/Player.js')
 var DefaultCtlr = require('./heroes/DefaultCtlr')
-
 var SeekBoss = require('./enemies/SeekBoss.js')
-
 var Gun = require('./Gun.js')
-var Bullet = require('./bullets/Bullet.js')
-var Gravity = require('./bullets/Gravity.js')
-var Grenade = require('./bullets/Grenade.js')
-var Bouncy = require('./bullets/Bouncy')
-
+var Bullet = require('./Bullet.js')
 var Trigger = require('./Trigger.js')
-
 var SmallFont = require('./SmallFont.js')
 
 
@@ -3149,9 +3242,6 @@ module.exports = {
     var ctlr = new DefaultCtlr(state)
     return new Player(state, data, ctlr)
   },
-
-
-  spikes: require('./Spikes.js'),
 
 
   // Enemies
@@ -3201,18 +3291,6 @@ module.exports = {
     }, Bullet)
   },
 
-  spread: function(state, data) {
-    return new Gun(state, {
-      x: data.x,
-      y: data.y,
-      texture: 'gun',
-      rate: 500,
-      spread: Math.PI/4,
-      bulletsPerShot: 6,
-      clipSize: 3
-    }, Bullet)
-  }, 
-
   shotgun: function(state, data) {
     return new Gun(state, {
       x: data.x,
@@ -3244,57 +3322,6 @@ module.exports = {
   },
 
 
-  gravgun: function(state, data) {
-    var gun = new Gun(state, {
-      x: data.x,
-      y: data.y,
-      texture: 'gravgun1',
-      bulletsPerShot: 1,
-      clipSize: 1,
-    }, Gravity)
-    gun.animations.add('rest',
-      Phaser.Animation.generateFrameNames('gravgun', 1, 4), 6, true)
-      .play()
-    return gun
-  },
-
-  grenade: function(state, data) {
-    return new Gun(state, {
-      x: data.x,
-      y: data.y,
-      texture: 'grenade-launcher',
-      bulletsPerShot: 1,
-      clipSize: 1,
-      shotSound: 'launch'
-    }, Grenade)
-  },
-
-  shotgrenade: function(state, data) {
-    return new Gun(state, {
-      x: data.x,
-      y: data.y,
-      texture: 'gun',
-      rate: 1000,
-      spread: Math.PI/8,
-      accuracy: Math.PI/8,
-      bulletsPerShot: 8,
-      clipSize: 3,
-      speedVar: 0.05,
-    }, Grenade)
-  },
-
-  bouncy: function(state, data) {
-    return new Gun(state, {
-      x: data.x,
-      y: data.y,
-      texture: 'gun',
-      rate: 100,
-      bulletsPerShot: 1,
-      clipSize: 3,
-    }, Bouncy)
-  },
-
-
   // Misc
   trigger: function(state, data) {
     return new Trigger(state, data)
@@ -3309,7 +3336,7 @@ module.exports = {
   }
 }
 
-},{"./Gun.js":14,"./SmallFont.js":16,"./Spikes.js":18,"./Trigger.js":19,"./buffs/Repel.js":21,"./buffs/Shield.js":22,"./buffs/Shoes.js":23,"./buffs/Slomo.js":24,"./bullets/Bouncy":25,"./bullets/Bullet.js":26,"./bullets/Gravity.js":27,"./bullets/Grenade.js":28,"./enemies/SeekBoss.js":33,"./heroes/DefaultCtlr":37,"./heroes/Player.js":39}],36:[function(require,module,exports){
+},{"./Bullet.js":15,"./Gun.js":16,"./SmallFont.js":18,"./Trigger.js":20,"./buffs/Repel.js":22,"./buffs/Shield.js":23,"./buffs/Shoes.js":24,"./buffs/Slomo.js":25,"./enemies/SeekBoss.js":29,"./heroes/DefaultCtlr":33,"./heroes/Player.js":35}],32:[function(require,module,exports){
 module.exports = Character
 
 
@@ -3341,7 +3368,7 @@ function Character(state) {
   return character
 }
 
-},{}],37:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 module.exports = DefaultCtlr
 
 
@@ -3383,21 +3410,14 @@ DefaultCtlr.prototype = {
   },
 
   update: function() {
-    if (!this.shoot) {
-      this._wasDown = false
-      return
-    }
-
-    if (this._wasDown)
-      this.newShot = false
-    else
-      this.newShot = true
-
-    this._wasDown = true
+    var shoot = this.shoot
+    this.newShot = (this.shoot && !this._wasDown) ? true : false
+    this._wasDown = shoot
   }
 }
 
-},{}],38:[function(require,module,exports){
+
+},{}],34:[function(require,module,exports){
 module.exports = Hud
 
 
@@ -3486,7 +3506,7 @@ Hud.prototype.update = function() {
 }
 
 
-},{}],39:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 module.exports = Player
 
 
@@ -3610,7 +3630,7 @@ Player.prototype.update = function() {
   this.hud.update()
 }
 
-},{"./Character.js":36,"./Hud.js":38,"./PlayerCollider.js":40,"./PlayerFX.js":41,"./PlayerStateMachine.js":42,"./setPhysics.js":43}],40:[function(require,module,exports){
+},{"./Character.js":32,"./Hud.js":34,"./PlayerCollider.js":36,"./PlayerFX.js":37,"./PlayerStateMachine.js":38,"./setPhysics.js":39}],36:[function(require,module,exports){
 module.exports = PlayerCollider
 
 
@@ -3818,7 +3838,7 @@ PlayerCollider.prototype.collide = (function() {
 })()
 
 
-},{}],41:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 module.exports = PlayerFX
 
 
@@ -3891,7 +3911,7 @@ PlayerFX.prototype = {
 
 }
 
-},{}],42:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 module.exports = PlayerStateMachine
 
 
@@ -4115,7 +4135,7 @@ function Floating(machine) {
 Floating.prototype = Object.create(PlayerState.prototype)
 
 
-Floating.prototype.angularSpeed = Math.PI
+Floating.prototype.angularSpeed = Math.PI * 1.5
 Floating.prototype.thrust = 200
 
 
@@ -4131,9 +4151,12 @@ Floating.prototype.exit = function() {
 
 Floating.prototype.update = function() {
   var plyr = this.player
-  if (!this.machine.ctlr.up && this.wasThrusting) {
-    plyr.fx.backfire()
-    this.wasThrusting = false
+  if (!this.machine.ctlr.up) {
+    if (this.wasThrusting) {
+      plyr.fx.backfire()
+      this.wasThrusting = false
+    }
+    plyr.fuel = Math.min(plyr.maxFuel, plyr.fuel + plyr.game.time.physicsElapsedMS)
   }
   PlayerState.prototype.update.call(this)
   plyr.character.frameName = 'p1-space'
@@ -4169,6 +4192,7 @@ Floating.prototype.onUp = function() {
   }
   this.wasThrusting = true
   plyr.fx.jet()
+  plyr.fuel = Math.max(0, plyr.fuel - dt*1000)
 }
 
 
@@ -4348,7 +4372,7 @@ Victory.prototype = {
 }
 
 
-},{}],43:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 module.exports = function setPhysics(player) {
   var state = player.state
 
@@ -4365,7 +4389,7 @@ module.exports = function setPhysics(player) {
   player.body.collides([state.itemsCG, state.platformsCG, state.physics.p2.boundsCollisionGroup])
 }
 
-},{}],44:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 module.exports = Button
 
 
@@ -4381,10 +4405,12 @@ function Button(state, key, frame, callback, ctx) {
   this.addChild(this.background)
   this.anchor.setTo(0.5)
 
-  this.onOverSound = state.sound.add('rollover')
-  this.onDownSound = state.sound.add('click')
+  this.onOverSound = 'rollover'
+  this.onDownSound = 'click'
   this.mouseWasOver = false
   this.mouseIsOver = false
+
+  this.clickEffect = null
 
   state.input.mousePointer.leftButton.onDown.add(this.inputDown, this)
 }
@@ -4408,16 +4434,10 @@ Button.prototype.update = function() {
 Button.prototype.inputDown = function() {
   if (!this.exists || !this.visible
         || this.worldAlpha !== 1 || !this.mouseIsOver) return
-  this.onDownSound.play()
-  var scale = 1.02
-  this.width *= scale
-  this.height *= scale
-  this.game.time.events.add(40, function() {
-    this.width /= scale
-    this.height /= scale
-  }, this)
 
+  if (this.clickEffect) { this.clickEffect.stop(true) }
   var tween = this.game.add.tween(this.background)
+  this.clickEffect = tween
   var height = this.background.height
   var width = this.background.width
   var alpha = this.background.alpha
@@ -4427,18 +4447,26 @@ Button.prototype.inputDown = function() {
     alpha: 0
   }, 1200, Phaser.Easing.Quadratic.Out)
   tween.onComplete.addOnce(function() {
-    this.background.height = height
-    this.background.width = width
+    this.background.scale.setTo(1)
     this.background.alpha = alpha
   }, this)
   tween.start()
+
+  this.state.playSound(this.onDownSound)
+  var scale = 1.02
+  this.width *= scale
+  this.height *= scale
+  this.game.time.events.add(40, function() {
+    this.width /= scale
+    this.height /= scale
+  }, this)
 
   this.callback.call(this.callbackCtx)
 }
 
 
 Button.prototype.inputOver = function() {
-  this.onOverSound.play()
+  this.state.playSound(this.onOverSound)
 }
 
 
@@ -4446,7 +4474,7 @@ Button.prototype.inputOut = function() {
 }
 
 
-},{}],45:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 module.exports = Modal
 
 
@@ -4483,6 +4511,7 @@ Modal.prototype.exit = function() {
   var width = this.width
   var tween = this.game.add.tween(this)
   this.ignoreChildInput = true
+  this.alpha = 0.99
   tween.to({
     alpha: 0
   }, 500, Phaser.Easing.Cubic.In)
@@ -4498,7 +4527,7 @@ Modal.prototype.exit = function() {
   tween.start()
 }
 
-},{}],46:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 module.exports = TextButton
 
 
@@ -4550,7 +4579,7 @@ TextButton.prototype.inputOver = function() {
   tween.start()
 }
 
-},{"../entities/SmallFont.js":16,"./Button.js":44}],47:[function(require,module,exports){
+},{"../entities/SmallFont.js":18,"./Button.js":40}],43:[function(require,module,exports){
 var GameData = require('./GameData.js')
 var Boot = require('./boot.js')
 var Load = require('./load.js')
@@ -4559,7 +4588,7 @@ var LevelSelect = require('./LevelSelect.js')
 var Level = require('./level/Level.js')
 var ZeroGLevel = require('./level/ZeroGLevel.js')
 var RocketLevel = require('./level/RocketLevel.js')
-var ShmupLevel = require('./level/shmup/ShmupLevel.js')
+var ShmupLevel = require('./level/ShmupLevel.js')
 var MonsterLevel = require('./level/MonsterLevel.js')
 var SpaceBoss = require('./level/SpaceBoss.js')
 var FinalBoss = require('./level/FinalBoss.js')
@@ -4591,7 +4620,7 @@ game.state.start('Boot')
 window.game = game
 
 
-},{"./Credits.js":4,"./GameData.js":5,"./LevelSelect.js":6,"./arcade/arcade.js":9,"./boot.js":12,"./level/FinalBoss.js":49,"./level/Level.js":50,"./level/MonsterLevel.js":51,"./level/RocketLevel.js":52,"./level/SpaceBoss.js":54,"./level/ZeroGLevel.js":55,"./level/shmup/ShmupLevel.js":59,"./load.js":61,"./menu/menu.js":69,"./phaserPatch.js":70}],48:[function(require,module,exports){
+},{"./Credits.js":4,"./GameData.js":5,"./LevelSelect.js":6,"./arcade/arcade.js":10,"./boot.js":13,"./level/FinalBoss.js":45,"./level/Level.js":46,"./level/MonsterLevel.js":47,"./level/RocketLevel.js":48,"./level/ShmupLevel.js":50,"./level/SpaceBoss.js":51,"./level/ZeroGLevel.js":52,"./load.js":56,"./menu/menu.js":64,"./phaserPatch.js":65}],44:[function(require,module,exports){
 module.exports = Director
 
 
@@ -4611,16 +4640,65 @@ function update() {
   Enemy.prototype.update.call(this)
   var x = this.x
   var y = this.y
+  var vx = this.body.velocity.x
+  var vy = this.body.velocity.y
   var hw = this.width/2
   var inWorld = !(x+hw < 0 || x-hw > this.game.width || y+hw < 0 || y-hw > this.game.height)
-  if (this.wasInWorld && !inWorld) { cull(this) }
-  this.wasInWorld = inWorld
+  if (!inWorld) {
+    if (x < 0) {
+      if (vx <= 0) {
+        cull(this)
+        return
+      }
+      var t = -x/vx
+      var iy = y + t*vy
+      if (iy > this.game.height+hw || iy < -hw) {
+        cull(this)
+        return
+      }
+    }
+    if (x > this.game.width) {
+      if (vx >= 0) {
+        cull(this)
+        return
+      }
+      var t = -x/vx
+      var iy = y + t*vy
+      if (iy > this.game.height+hw || iy < -hw) {
+        cull(this)
+        return
+      }
+    }
+    if (y < 0) {
+      if (vy <= 0) {
+        cull(this)
+        return
+      }
+      var t = -y/vy
+      var ix = x + t*vx
+      if (ix > this.game.width+hw || ix < -hw) {
+        cull(this)
+        return
+      }
+    }
+    if (y > this.game.height) {
+      if (vy >= 0) {
+        cull(this)
+        return
+      }
+      var t = -y/vy
+      var ix = x + t*vx
+      if (ix > this.game.width+hw || ix < -hw) {
+        cull(this)
+        return
+      }
+    }
+  }
 }
 
 function initEnemy(enemy) {
   enemy.body.removeCollisionGroup(enemy.game.physics.p2.boundsCollisionGroup)
   enemy.body.data.gravityScale = 0
-  enemy.checkWorldBounds = true
   enemy.update = update
 }
 
@@ -4681,7 +4759,7 @@ Director.prototype = {
 }
 
 
-},{"../entities/enemies/Enemy.js":30,"../entities/enemies/Hex.js":31,"../entities/enemies/Hydroid.js":32}],49:[function(require,module,exports){
+},{"../entities/enemies/Enemy.js":26,"../entities/enemies/Hex.js":27,"../entities/enemies/Hydroid.js":28}],45:[function(require,module,exports){
 module.exports = FinalBoss
 
 
@@ -4772,11 +4850,9 @@ FinalBoss.prototype.win = function() {
     this.time.events.remove(loop)
     if (this.soundtrack)
       this.soundtrack.stop()
-    var bleedSpoof = {world: {x: 0, y: 0}, killTheta: Math.PI/2}
     this.time.events.loop(400, function() { this.camera.flash(0xf6eeee, 150) }, this)
     this.time.events.loop(150, function() {
-      bleedSpoof.world.x = Math.random() * this.game.width
-      this.bleed(bleedSpoof)
+      this.bleed(Math.random() * this.game.width, 0, Math.PI/2)
       this.explode(Math.random()*this.game.width,
         Math.random()*this.game.height, Math.random()*160 + 40)
     }, this)
@@ -4784,20 +4860,23 @@ FinalBoss.prototype.win = function() {
 }
 
 
-},{"./Level.js":50}],50:[function(require,module,exports){
-var mapsConfig = require('../../assets/mapsConfig.json')
-
+},{"./Level.js":46}],46:[function(require,module,exports){
 module.exports = Level
 
 
+var Scene = require('../Scene.js')
+var mapsConfig = require('../../assets/mapsConfig.json')
+var Enemy = require('../entities/enemies/Enemy.js')
+
+
 function Level() {
-  Phaser.State.call(this)
+  Scene.call(this)
   this.won = false
   this.lost = false
 }
 
 
-Level.prototype = Object.create(Phaser.State.prototype)
+Level.prototype = Object.create(Scene.prototype)
   
 Level.prototype.gravity = 400
 
@@ -4820,15 +4899,17 @@ Level.prototype.addEntity = function(data) {
 }
 
 
-Level.prototype.bleed = function(object) {
+Level.prototype.bleed = function(x, y, angle, color) {
+  color = color !== undefined ? color : Enemy.prototype.bloodColor
   for (var i = 0; i < 5; i++) {
     var drop = this.blood.getFirstDead() || this.blood.getRandom()
-    drop.reset(object.world.x + Math.random() * 5 - 2.5, object.world.y)
-    drop.body.velocity.x = (Math.random() * 220 + 170) * Math.cos(object.killTheta)
-    drop.body.velocity.y = (Math.random() * 220 + 170) * Math.sin(object.killTheta)
+    drop.reset(x + Math.random() * 5 - 2.5, y)
+    drop.body.velocity.x = (Math.random() * 220 + 170) * Math.cos(angle)
+    drop.body.velocity.y = (Math.random() * 220 + 170) * Math.sin(angle)
     drop.body.velocity.x *= this.bulletTime
     drop.body.velocity.y *= this.bulletTime
     drop.scale.setTo(Math.random()/2 + 0.25)
+    drop.tint = color
   }
 }
 
@@ -4837,10 +4918,11 @@ Level.prototype.changeTime = function(factor) {
   if (factor === 0 || isNaN(factor)) return
   this.bulletTime *= factor
   this.enemies.recurse(function(enemy) {
-    enemy.body.mass /= factor
+    var f2 = factor * factor
     enemy.body.velocity.x *= factor
     enemy.body.velocity.y *= factor
-    enemy.body.data.gravityScale *= factor * factor
+    enemy.body.data.gravityScale *= f2
+    enemy.body.mass /= f2
   })
   this.blood.recurse(function(drop) {
     drop.body.mass /= factor
@@ -4892,8 +4974,7 @@ Level.prototype.gameOver = function() {
   this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
   this.gameOverScreen.exists = true
   this.time.slowMotion = 6
-  if (this.soundtrack)
-    this.soundtrack.stop()
+  if (this.soundtrack) { this.soundtrack.stop() }
   this.players.forEach(this.world.addChild, this.world)
 }
 
@@ -4913,62 +4994,12 @@ Level.prototype.paintFXupdate = function() {
 }
 
 
-Level.prototype.playSound = function(key, randomize, useBulletTime, lock, repeat) {
-  if (!this.cache.isSoundDecoded(key)) return
-  lock = lock || false
-  repeat = repeat || false
-  if (useBulletTime === undefined) useBulletTime = true
-
-  var sound = null
-
-  for (var i = 0; i < this.soundPool.length; i++) {
-    if (!this.soundPool[i].isPlaying) {
-      sound = this.soundPool[i]
-      break
-    }
-  }
-
-  if (!sound) {
-    for (i = 0; i < this.soundPool.length; i++) {
-      if (!this.soundPool[i].isLocked) {
-        sound = this.soundPool[i]
-        break
-      }
-    }
-  }
-
-  if (!sound) return null
-
-  sound.volume = 1
-
-  sound.key = key
-  sound.isLocked = lock
-  sound.useBulletTime = useBulletTime
-  sound.play('', 0, 1, repeat, true)
-
-  if (sound._sound && sound.usingWebAudio) {
-    if (useBulletTime)
-      sound._sound.playbackRate.value = this.bulletTime
-    else
-      sound._sound.playbackRate.value = 1
-
-    if (randomize)
-      sound._sound.detune.value = Math.random() * -randomize
-    else
-      sound._sound.detune.value = 0
-  }
-
-  return sound
-}
-
-
 Level.prototype.shutdown = function() {
   this.splatter.mask.destroy()
   this.splatter.destroy()
   this.gameOverScreen.destroy()
   this.time.slowMotion = 1
-  if (this.soundtrack)
-    this.soundtrack.stop()
+  if (this.soundtrack) { this.soundtrack.stop() }
 }
 
 
@@ -4999,20 +5030,6 @@ Level.prototype.startFX = function() {
   goTween.start()
 
   this.camera.flash(0x180c08, 1000)
-}
-
-
-Level.prototype.startMusic = function() {
-  var track = Phaser.ArrayUtils.getRandomItem(
-    mapsConfig[this.map.properties.setting].songs)
-  this.soundtrack = this.sound.addSprite(track)
-  if (!this.soundtrack) return
-  if (this.soundtrack.get('intro')) {
-    var intro = this.soundtrack.play('intro')
-    intro.onMarkerComplete.addOnce(function () { this.soundtrack.play('loop') }, this)
-  } else {
-    this.soundtrack.play('loop')
-  }
 }
 
 
@@ -5053,9 +5070,8 @@ Level.prototype.update = function() {
 Level.prototype.win = function() {
   this.time.events.add(200, function() {
     this.game.data.checkWin(this.mapName)
-    if (this.soundtrack)
-      this.soundtrack.stop()
-    this.sound.play('victory-jingle')
+    if (this.soundtrack) { this.soundtrack.stop() }
+    this.playSound('victory-jingle', undefined, undefined, true)
     this.p1.playerState.change('victory')
 
     var clear = this.add.image(this.game.width/2, this.game.height/2,
@@ -5081,7 +5097,7 @@ Level.prototype.winCondition = function() {
 }
 
 
-},{"../../assets/mapsConfig.json":3,"../entities/entities.js":35,"./create.js":56,"./init.js":57,"./parseDrop.js":58}],51:[function(require,module,exports){
+},{"../../assets/mapsConfig.json":3,"../Scene.js":8,"../entities/enemies/Enemy.js":26,"../entities/entities.js":31,"./create.js":53,"./init.js":54,"./parseDrop.js":55}],47:[function(require,module,exports){
 module.exports = MonsterLevel
 
 
@@ -5116,6 +5132,7 @@ MonsterLevel.prototype.create = function() {
   Level.prototype.create.apply(this, arguments)
   this.background.destroy()
   this.background = bg
+  this.splatterImage.kill()
   this.winning = false
   this.doneWinning = false
 
@@ -5202,7 +5219,7 @@ MonsterLevel.prototype.winLoop = function() {
 }
 
 
-},{"./Level.js":50}],52:[function(require,module,exports){
+},{"./Level.js":46}],48:[function(require,module,exports){
 module.exports = RocketLevel
 
 
@@ -5244,9 +5261,8 @@ RocketLevel.prototype.win = function() {
       update: function() {}
     }
     this.game.data.checkWin(this.mapName)
-    if (this.soundtrack)
-      this.soundtrack.stop()
-    this.sound.play('victory-jingle')
+    if (this.soundtrack) { this.soundtrack.stop() }
+    this.playSound('victory-jingle', undefined, undefined, true)
     this.p1.playerState.change('victory')
     var clear = this.add.image(this.game.width/2, this.game.height/2,
       'sprites', 'stage-clear')
@@ -5301,7 +5317,7 @@ RocketLevel.prototype.winLoop = function() {
 }
 
 
-},{"./Level.js":50}],53:[function(require,module,exports){
+},{"./Level.js":46}],49:[function(require,module,exports){
 module.exports = Script
 
 
@@ -5435,13 +5451,170 @@ Script.Curtain = function(dir, type, count, rate, width, velx, vely, offset, spa
 Script.Curtain.prototype = Object.create(Script.prototype)
 
 
-},{}],54:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
+module.exports = ShmupLevel
+
+
+var Level = require('./Level.js')
+var Director = require('./Director.js')
+var Spaceship = require('../entities/Spaceship.js')
+var DefaultCtlr = require('../entities/heroes/DefaultCtlr.js')
+
+
+function ShmupLevel() {
+  Level.call(this)
+  this.finished = false
+}
+
+
+ShmupLevel.prototype = Object.create(Level.prototype)
+
+ShmupLevel.prototype.gravity = 0
+
+
+ShmupLevel.prototype.throwShell = function() {}
+
+
+ShmupLevel.prototype.create = function() {
+  Level.prototype.create.call(this)
+  this.finished = false
+  this.background.anchor.setTo(0.5, 0)
+  this.background.scale.x *= 1.2
+  this.background.scale.y *= 1.2
+  this.background.x -= 15
+  this.background.y = this.game.height-this.background.height
+  this.add.tween(this.background)
+    .to({ y: 0 }, 120000)
+    .start()
+
+  this.director = new Director(this)
+
+  this.puffs.setXSpeed(-80, 80)
+  this.puffs.setYSpeed(400, 480)
+
+  var dust = this.bgItems.addChild(this.make.emitter(this.game.width/2, 0, 100))
+  this.dust = dust
+  dust.makeParticles('sprites', 
+    Phaser.Animation.generateFrameNames('dust', 1, 4), 4)
+  dust.setSize(this.game.width, 1)
+  dust.minParticleSpeed.setTo(0, 2000)
+  dust.maxParticleSpeed.setTo(0, 1000)
+  dust.setRotation(0, 0)
+  dust.gravity = 0
+  dust.setAll('checkWorldBounds', true)
+  dust.setAll('outOfBoundsKill', true)
+  dust.start(false, 0, 250)
+
+  this.atmosphere = this.make.image(-this.game.width*0.05, -this.game.height*0.05, 'sprites', 'sky')
+  this.atmosphere.width = this.game.width * 1.1
+  this.atmosphere.height = this.game.height * 1.1
+  this.bgItems.addChild(this.atmosphere)
+  this.ocean = this.make.image(0, 0, 'ocean')
+  this.ocean.scale.setTo(this.game.height/this.ocean.height)
+  this.bgItems.addChild(this.ocean)
+  var tween = this.add.tween(this.atmosphere)
+    .to({ alpha: 0 }, 3500, Phaser.Easing.Quadratic.In, false, 750)
+  tween.onComplete.addOnce(function() {
+    this.atmosphere.exists = false
+    this.ocean.exists = false
+  }, this)
+  this.add.tween(this.ocean).to({ y: this.game.height }, 2000).chain(tween).start()
+  
+  var ship = this.players.addChild(new Spaceship(this, new DefaultCtlr(this)))
+  this.ship = ship
+  ship.body.removeFromWorld()
+  ship.body.x = this.game.width/2
+  ship.body.y = this.game.height + ship.height
+  this.add.tween(this.ship.body).to({ y: this.game.height - 80 }, 1000, null, true, 1000)
+    .onComplete.addOnce(function() {
+      this.ship.body.addToWorld()
+      this.ship.body.velocity.x = 0
+      this.ship.body.velocity.y = 0
+    }, this)
+  this.p1 =  ship
+
+  this.playSound('jetpack')
+  this.playDiegetic = false
+
+  var delay = 3000
+  this.timer = delay
+  this.minWait = 500
+  this.maxWait = 2000
+  var phase1 = this.add.tween(this)
+  phase1.to({ minWait: 200, maxWait: 200 }, 18000, Phaser.Easing.Quadratic.In, false, delay)
+  var phase2 = this.add.tween(this)
+  phase2.to({ minWait: 1000, maxWait: 1000 }, 6000, Phaser.Easing.Quadratic.Out, false, 15000)
+  phase2.onComplete.add(function() { this.finished = true }, this)
+  phase1.chain(phase2)
+  phase1.start()
+  this.reticule.exists = false
+}
+
+
+ShmupLevel.prototype.update = function() {
+  Level.prototype.update.call(this)
+  if (this.finished) { return }
+  this.timer -= this.time.physicsElapsedMS
+  if (this.timer <= 0) {
+    this.timer = Math.random() * (this.maxWait - this.minWait) + this.minWait
+    this.minWait = Math.max(this.minWait * 0.98, 100)
+    this.maxWait = Math.max(this.maxWait * 0.98, 200)
+    var choice = Math.random()
+    if (choice > .4) {
+      this.director.spawn(null, Math.random()*this.game.width, -20, Math.random()*40+10, 0, Math.random()*300+100)
+    } else if (choice > 0.2) {
+      this.director.spawn('hex', -20, Math.random()*this.game.height/3, Math.random()*40+20, Math.random()*120+30, Math.random()*120+30)
+    } else {
+      this.director.spawn('hex', this.game.width+20, Math.random()*this.game.height/3, Math.random()*40+20, -Math.random()*120-30, Math.random()*120+30)
+    }
+  }
+}
+
+
+ShmupLevel.prototype.winCondition = function() {
+  return this.finished
+}
+  
+
+ShmupLevel.prototype.win = function() {
+  this.time.events.add(3000, function() {
+    this.game.data.checkWin(this.mapName)
+    if (this.soundtrack) this.soundtrack.stop()
+    this.playSound('victory-jingle')
+
+    var t = this.add.tween(this.ship.body).to({ y: -200 }, 1000)
+    this.ship.body.removeCollisionGroup(this.enemiesCG)
+
+    t.onComplete.addOnce(function() {
+      this.ship.body.removeFromWorld()
+      var clear = this.add.image(this.game.width/2, this.game.height/2,
+        'sprites', 'stage-clear')
+      clear.anchor.setTo(0.5)
+      clear.fixedToCamera = true
+      var clearTween = this.add.tween(clear)
+      clearTween.onComplete.addOnce(function() {
+        this.camera.onFadeComplete.addOnce(function() {
+          this.exit()
+        }, this)
+        this.camera.fade(0xf6eeee, 1000)
+      }, this)
+      clearTween.from({width: clear.width * 4, height: clear.height * 4, alpha: 0},
+        800, Phaser.Easing.Quartic.Out, null, 200).start()
+    }, this)
+
+    t.start()
+  }, this)
+}
+
+
+},{"../entities/Spaceship.js":19,"../entities/heroes/DefaultCtlr.js":33,"./Director.js":44,"./Level.js":46}],51:[function(require,module,exports){
 module.exports = SpaceBoss
 
 
 var Level = require('./Level.js')
 var Director = require('./Director.js')
 var Script = require('./Script.js')
+var mapsConfig = require('../../assets/mapsConfig.json')
 
 
 function SpaceBoss() {
@@ -5471,6 +5644,7 @@ SpaceBoss.prototype.create = function() {
   this.trigger = null
   Level.prototype.create.call(this)
 
+  this.playDiegetic = false
   this.provoked = false
   this.attackTimer = 0
   this.blinkTimer = 0
@@ -5478,8 +5652,8 @@ SpaceBoss.prototype.create = function() {
   this.lastShield = 0
 
   this.director = new Director(this)
-  this.curtain = new Script.Curtain(this.director, null, 12, 200, 28)
-  this.curtainR = new Script.Curtain(this.director, null, 12, 200, 28,
+  this.curtain = new Script.Curtain(this.director, null, 16, 150, 28)
+  this.curtainR = new Script.Curtain(this.director, null, 16, 150, 28,
     null, null, this.game.width, -this.game.width)
 
   this.splatterImage.exists = false
@@ -5535,7 +5709,7 @@ SpaceBoss.prototype.makeMonster = function() {
   c.anchor.setTo(0, 1)
   c.x = l.width
   c.scale.setTo(2)
-  var r = this.bgItems.create(600, 400, 'space-boss', 'fg-right')
+  var r = this.bgItems.create(800, 400, 'space-boss', 'fg-right')
   r.anchor.setTo(1, 1)
   r.scale.setTo(2)
   var lid = this.lid =  this.bgItems.create(this.game.width/2+8, 284, 'space-boss', 'lid')
@@ -5651,6 +5825,7 @@ SpaceBoss.prototype.onCollide = function(_, src) {
   this.camera.shake(0.01, 100)
   this.eye.tint = 0x180c08
   this.damage(src.attack || 1)
+  this.bleed(src.x, src.y, -Math.PI/2)
   this.time.events.add(20, this.blink, this)
 }
 
@@ -5704,7 +5879,6 @@ SpaceBoss.prototype.damage = function(amt) {
     }, this)
     this.time.events.add(t, this.throwHex, this)
     this.attackTimer = 3 + 1.2
-    //Level.prototype.startMusic.call(this)
   }
 }
 
@@ -5729,15 +5903,12 @@ SpaceBoss.prototype.unblink = function() {
 SpaceBoss.prototype.defeatMonster = function() {
   this.blink(-1)
   var time = 4000
-  var bleedSpoof = {world: {x: 40, y: 40}, killTheta: 0}
   var loop = this.time.events.loop(50, function() {
     var x = Math.random() * 200 - 100 + this.eye.x
     var y = Math.random() * 60 + 250
-    bleedSpoof.world.x = x
-    bleedSpoof.world.y = y
-    bleedSpoof.killTheta = Math.random() * Math.PI/4 - Math.PI/8 - Math.PI/2
+    var angle = Math.random() * Math.PI/4 - Math.PI/8 - Math.PI/2
+    this.bleed(x, y, angle)
     this.explode(x, y, Math.random() * 80 + 40)
-    this.bleed(bleedSpoof)
   }, this)
   this.time.events.add(time, this.time.events.remove, this.time.events, loop)
   this.add.tween(this.eye).to({alpha: 0}, time, null, true).onComplete.add(function() {
@@ -5773,6 +5944,7 @@ SpaceBoss.prototype.generateSeeker = function(drop) {
   this.lastSeeker = this.time.now
 
   e.body.removeFromWorld()
+  e.alpha = 1
   e.blendMode = PIXI.blendModes.ADD
 
   var time = 2000
@@ -5811,12 +5983,7 @@ SpaceBoss.prototype.generateSeeker = function(drop) {
 }
 
 
-SpaceBoss.prototype.playSound = function() {}
-
-SpaceBoss.prototype.startMusic = function() {}
-
-
-},{"./Director.js":48,"./Level.js":50,"./Script.js":53}],55:[function(require,module,exports){
+},{"../../assets/mapsConfig.json":3,"./Director.js":44,"./Level.js":46,"./Script.js":49}],52:[function(require,module,exports){
 module.exports = ZeroGLevel
 
 
@@ -5835,16 +6002,16 @@ ZeroGLevel.prototype.gravity = 0
 
 ZeroGLevel.prototype.create = function() {
   Level.prototype.create.call(this)
+  this.playDiegetic = false
   this.physics.p2.gravity.x = 0
   this.physics.p2.gravity.y = 0
   this.p1.playerState.change('floating')
 }
 
 
-ZeroGLevel.prototype.playSound = function() {}
+},{"./Level.js":46}],53:[function(require,module,exports){
+var Scene = require('../Scene.js')
 
-
-},{"./Level.js":50}],56:[function(require,module,exports){
 var BrkPlat = require('../entities/BrkPlat.js')
 var Explosion = require('../magic/Explosion.js')
 var Blood = require('../magic/Blood.js')
@@ -5858,11 +6025,10 @@ var Reticule = require('../Reticule.js')
 
 
 module.exports = function create() {
+  Scene.prototype.create.call(this)
+
   this.won = false
   this.lost = false
-
-  this.soundPool = []
-  for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
 
   if (this.map.properties && this.map.properties.setting) 
     paintBackground(this)
@@ -5881,8 +6047,10 @@ module.exports = function create() {
   this.hud = this.make.group()
   this.hud.fixedToCamera = true
 
-  this.splatter = this.make.bitmapData(this.world.width, this.world.height)
-  this.splatter.mask = this.make.bitmapData(this.world.width, this.world.height)
+  this.splatter = this.make.bitmapData(this.game.width, this.game.height)
+  this.splatter.mask = this.make.bitmapData(this.game.width, this.game.height)
+
+  this.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
 
   this.world.addChild(this.bgItems)
   makeParticles(this)
@@ -5911,7 +6079,9 @@ module.exports = function create() {
   this.input.keyboard.addKey(Phaser.Keyboard.X)
     .onDown.add(this.exit, this)
 
-  this.time.events.add(500, this.startMusic, this)
+  var track = Phaser.ArrayUtils.getRandomItem(
+    mapsConfig[this.map.properties.setting].songs)
+  this.time.events.add(500, this.startMusic, this, track)
   this.startFX()
   this.world.add(this.reticule)
   this.p1 = this.players.children[0]
@@ -5951,10 +6121,10 @@ function makeGameOverScreen(state) {
 
 function paintBackground(state) {
   var bgKey = mapsConfig[state.map.properties.setting].bgImage
-  var bg = state.add.image(state.world.width/2, state.world.height/2,
+  var bg = state.add.image(state.game.width/2, state.game.height/2,
     bgKey)
-  var wWidth = state.world.width
-  var wHeight = state.world.height
+  var wWidth = state.game.width
+  var wHeight = state.game.height
   bg.anchor.setTo(0.5)
   bg.x = wWidth/2
   bg.y = wHeight/2
@@ -6069,7 +6239,6 @@ function makeMap(state) {
 
   state.platforms = plats
 
-  state.setSize()
   state.map.objects.object.forEach(state.addEntity, state)
 }
 
@@ -6120,15 +6289,14 @@ function makeParticles(state) {
   state.puffs.gravity = 0
 }
 
-},{"../../assets/mapsConfig.json":3,"../Reticule.js":7,"../entities/BrkPlat.js":13,"../entities/enemies/Enemy.js":30,"../entities/enemies/Hex.js":31,"../entities/enemies/Hydroid.js":32,"../entities/enemies/Seeker.js":34,"../magic/Blood.js":62,"../magic/Explosion.js":63}],57:[function(require,module,exports){
+},{"../../assets/mapsConfig.json":3,"../Reticule.js":7,"../Scene.js":8,"../entities/BrkPlat.js":14,"../entities/enemies/Enemy.js":26,"../entities/enemies/Hex.js":27,"../entities/enemies/Hydroid.js":28,"../entities/enemies/Seeker.js":30,"../magic/Blood.js":57,"../magic/Explosion.js":58}],54:[function(require,module,exports){
 module.exports = function init(map) {
   this.buffs = []
   this.bulletTime = 1
   this.map = this.add.tilemap(map)
   this.mapName = map
 
-  this.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
-  this.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels)
+  this.setSize()
 
   setPhysics(this)
 }
@@ -6153,7 +6321,7 @@ function setPhysics(state) {
   state.playerMaterial = p2.createMaterial('playerMaterial')
   state.platformMaterial = p2.createMaterial('platformMaterial')
   state.enemyMaterial = p2.createMaterial('enemyMaterial')
-  state.grenadeMaterial = p2.createMaterial('grenadeMaterial')
+  state.itemMaterial = p2.createMaterial('itemMaterial')
 
   p2.createContactMaterial(state.platformMaterial, state.enemyMaterial, {
     restitution: 1,
@@ -6167,17 +6335,12 @@ function setPhysics(state) {
     restitution: 0,
     friction: 0
   })
-  p2.createContactMaterial(state.grenadeMaterial, state.platformMaterial, {
-    friction: 0.4,
-    restitution: 0.7
-  })
-  p2.createContactMaterial(state.grenadeMaterial, state.worldMaterial, {
-    friction: 0.4,
-    restitution: 0.7
+  p2.createContactMaterial(state.itemMaterial, state.platformMaterial, {
+    friction: 0.6,
   })
 }
 
-},{}],58:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 /*
 * The tiled representation of enemies have a recursive JSON list
 * of what they drop. It looks like:
@@ -6215,359 +6378,7 @@ module.exports = function parseDrop(drop) {
   return null
 }
 
-},{}],59:[function(require,module,exports){
-module.exports = ShmupLevel
-
-
-var Level = require('../Level.js')
-var Director = require('../Director.js')
-var makeScript = require('./makeScript.js')
-var Spaceship = require('../../entities/Spaceship.js')
-var DefaultCtlr = require('../../entities/heroes/DefaultCtlr.js')
-
-
-function ShmupLevel() {
-  Level.call(this)
-}
-
-
-ShmupLevel.prototype = Object.create(Level.prototype)
-
-ShmupLevel.prototype.gravity = 0
-
-
-ShmupLevel.prototype.throwShell = function() {}
-
-
-ShmupLevel.prototype.create = function() {
-  Level.prototype.create.call(this)
-  this.background.anchor.setTo(0.5, 0)
-  this.background.scale.x *= 1.2
-  this.background.scale.y *= 1.2
-  this.background.x -= 15
-  this.background.y = this.game.height-this.background.height
-  this.add.tween(this.background)
-    .to({ y: 0 }, 120000)
-    .start()
-
-  this.director = new Director(this)
-  this.director.load(makeScript(this.director))
-
-  this.puffs.setXSpeed(-80, 80)
-  this.puffs.setYSpeed(400, 480)
-
-  var dust = this.bgItems.addChild(this.make.emitter(this.game.width/2, 0, 100))
-  this.dust = dust
-  dust.makeParticles('sprites', 
-    Phaser.Animation.generateFrameNames('dust', 1, 4), 4)
-  dust.setSize(this.game.width, 1)
-  dust.minParticleSpeed.setTo(0, 2000)
-  dust.maxParticleSpeed.setTo(0, 1000)
-  dust.setRotation(0, 0)
-  dust.gravity = 0
-  dust.setAll('checkWorldBounds', true)
-  dust.setAll('outOfBoundsKill', true)
-  dust.start(false, 0, 250)
-
-  this.atmosphere = this.make.image(-this.game.width*0.05, -this.game.height*0.05, 'sprites', 'sky')
-  this.atmosphere.width = this.game.width * 1.1
-  this.atmosphere.height = this.game.height * 1.1
-  this.bgItems.addChild(this.atmosphere)
-  this.ocean = this.make.image(0, 0, 'ocean')
-  this.ocean.scale.setTo(this.game.height/this.ocean.height)
-  this.bgItems.addChild(this.ocean)
-  var tween = this.add.tween(this.atmosphere)
-    .to({ alpha: 0 }, 8000, Phaser.Easing.Quadratic.In, false, 2000)
-  tween.onComplete.addOnce(function() {
-    this.atmosphere.exists = false
-    this.ocean.exists = false
-  }, this)
-  this.add.tween(this.ocean).to({ y: this.game.height }, 3000).chain(tween).start()
-  
-  var ship = this.players.addChild(new Spaceship(this, new DefaultCtlr(this)))
-  this.ship = ship
-  ship.body.removeFromWorld()
-  ship.body.x = this.game.width/2
-  ship.body.y = this.game.height + ship.height
-  this.add.tween(this.ship.body).to({ y: this.game.height - 40 }, 1000, null, true, 1000)
-    .onComplete.addOnce(function() {
-      this.ship.body.addToWorld()
-      this.ship.body.velocity.x = 0
-      this.ship.body.velocity.y = 0
-      this.director.start()
-    }, this)
-  this.p1 =  ship
-
-  this.sound.play('jetpack')
-}
-
-
-ShmupLevel.prototype.update = function() {
-  this.director.update()
-  Level.prototype.update.call(this)
-}
-
-
-ShmupLevel.prototype.winCondition = function() {
-  return this.director.finished
-}
-  
-
-ShmupLevel.prototype.win = function() {
-  this.time.events.add(200, function() {
-    this.game.data.checkWin(this.mapName)
-    if (this.soundtrack) this.soundtrack.stop()
-    this.sound.play('victory-jingle')
-
-    var t = this.add.tween(this.ship.body).to({ y: -200 }, 1000)
-
-    t.onComplete.addOnce(function() {
-      this.ship.body.removeFromWorld()
-      var clear = this.add.image(this.game.width/2, this.game.height/2,
-        'sprites', 'stage-clear')
-      clear.anchor.setTo(0.5)
-      clear.fixedToCamera = true
-      var clearTween = this.add.tween(clear)
-      clearTween.onComplete.addOnce(function() {
-        this.camera.onFadeComplete.addOnce(function() {
-          this.exit()
-        }, this)
-        this.camera.fade(0xf6eeee, 1000)
-      }, this)
-      clearTween.from({width: clear.width * 4, height: clear.height * 4, alpha: 0},
-        800, Phaser.Easing.Quartic.Out, null, 200).start()
-    }, this)
-
-    t.start()
-  }, this)
-}
-
-ShmupLevel.prototype.playSound = function() {
-  return
-}
-
-
-},{"../../entities/Spaceship.js":17,"../../entities/heroes/DefaultCtlr.js":37,"../Director.js":48,"../Level.js":50,"./makeScript.js":60}],60:[function(require,module,exports){
-var Script = require('../Script.js')
-
-var Curtain = Script.Curtain
-// dir, type, count, rate, width, velx, vely, offset, span
-var Spawn = Script.Spawn
-// dir, type, x, y, width, velx, vely
-var Wait = Script.Wait
-// time
-var Multi = Script.Multi
-// dir, children
-
-function Pair(dir, x, width) {
-  return new Multi(dir, [
-    new Spawn(dir, null, x+width/4, null, width/2),
-    new Spawn(dir, null, x+width*3/4, null, width/2)
-  ])
-}
-
-
-module.exports = function makeScript(dir) {
-  var gWidth = dir.state.game.width
-  var gHeight = dir.state.game.height
-  var sweep = new Curtain(dir, null, 6, 100, 40, null, null, -10, 160)
-  var rSweep = new Curtain(dir, null, 6, 100, 40, null, null, 266, -160)
-
-  var weave = new Script(dir, [
-    new Spawn(dir, null, 210, null, 200),
-    new Wait(350),
-    new Spawn(dir, null, 15, null, 160),
-  ])
-  var rWeave = new Script(dir, [
-    new Spawn(dir, null, 42, null, 200),
-    new Wait(350),
-    new Spawn(dir, null, 241, null, 160),
-  ])
-
-  var alleyR = new Script(dir, [
-    new Curtain(dir, null, 2, null, 210),
-    new Wait(800),
-    new Curtain(dir, null, 2, null, 210, null, null, 256/6),
-    new Wait(800),
-    new Curtain(dir, null, 2, null, 210, null, null, 2*256/6),
-  ])
-  var alleyL = new Script(dir, [
-    new Curtain(dir, null, 2, null, 210),
-    new Wait(800),
-    new Curtain(dir, null, 2, null, 210, null, null, -256/6),
-    new Wait(800),
-    new Curtain(dir, null, 2, null, 210, null, null, -2*256/6),
-  ])
-  var rAlleyR = new Script(dir, alleyR.actions.slice().reverse())
-  var rAlleyL = new Script(dir, alleyL.actions.slice().reverse())
-
-  var bigBoi = new Spawn(dir, null, 128, null, 220)
-
-  var width = 24
-  var count = 10
-  var speed = 50
-  function sideRain() {
-    var actions = []
-    for (var i = count; i > 0; --i) {
-      actions.push(new Spawn(dir, 'hex', -width/2, i*(gWidth+gHeight)/(count+1)-gWidth, width, speed*Math.SQRT2, speed*Math.SQRT2)) 
-      actions.push(new Wait(400))
-    }
-    return new Script(dir, actions)
-  }
-  function sideRainL() {
-    var actions = []
-    for (var i = count; i > 0; --i) {
-      actions.push(new Spawn(dir, 'hex', gWidth+width/2, i*(gWidth+gHeight)/(count+1)-gWidth, width, -speed*Math.SQRT2, speed*Math.SQRT2)) 
-      actions.push(new Wait(400))
-    }
-    return new Script(dir, actions)
-  }
-
-  function storm() {
-    return new Multi(dir, [
-      sideRain(),
-      new Script(dir, [
-        new Wait(400),
-        sideRainL()
-      ])
-    ])
-  }
-
-  var gauntlet = new Script(dir, [
-    alleyR,
-    new Wait(800),
-    rAlleyR,
-    new Wait(800),
-    alleyL,
-    new Wait(800),
-    rAlleyL
-  ])
-
-  var actions =
-[
-  new Wait(4000),
-  new Spawn(dir, null, 200, null, 20),
-  new Wait(2500),
-  new Spawn(dir, 'hex', -12, 25, 24, 100, 100),
-  new Wait(500),
-  new Spawn(dir, null, 20, null, 20),
-  new Wait(2000),
-  new Spawn(dir, null, 128, null, 40),
-  new Wait(1200),
-  new Pair(dir, 40, 70),
-  new Wait(400),
-  new Spawn(dir, null, 32, null, 40),
-  new Wait(600),
-  new Spawn(dir, 'hex', gWidth+12, 25, 24, -100, 100),
-  new Wait(800),
-  new Spawn(dir, null, 220, null, 50),
-  new Wait(80),
-  new Spawn(dir, null, 180, null, 50),
-  new Wait(1500),
-  sideRainL(),
-  new Spawn(dir, null, 75, null, 78),
-  new Wait(4500),
-  weave,
-  new Wait(1000),
-  sweep,
-  new Wait(400),
-  rSweep,
-  new Wait(1000),
-  weave,
-  new Wait(3000),
-  new Curtain(dir, null, 2, null, 210),
-  new Wait(1000),
-  sweep,
-  new Wait(3000),
-  bigBoi,
-  new Wait(3000),
-  rSweep,
-  new Wait(1000),
-  new Curtain(dir, null, 2, null, 210),
-  new Wait(3000),
-  new Curtain(dir, null, 2, null, 210),
-  new Wait(3000),
-  new Curtain(dir, null, 2, null, 210, null, null, 2*256/6),
-  new Wait(1000),
-  new Curtain(dir, null, 2, null, 210),
-  new Wait(3000),
-  gauntlet,
-  new Wait(4000),
-  new Spawn(dir, 'hex', -12, 25, 24, 100, 100),
-  new Wait(6000),
-  new Spawn(dir, 'hex', gWidth+12, 25, 24, -100, 100),
-  new Wait(4000),
-  sideRain(),
-  new Wait(1600),
-  sideRainL(),
-  new Wait(1600),
-  new Multi(dir, [
-    new Script(dir, [
-      new Wait(9200),
-      new Spawn(dir, null, 75, null, 20),
-      new Wait(400),
-      new Spawn(dir, null, 75, null, 78),
-      new Wait(2800),
-      new Spawn(dir, null, gWidth-75, null, 20),
-      new Wait(400),
-      new Spawn(dir, null, gWidth-75, null, 78)
-    ]),
-    storm(),
-    new Script(dir, [
-      new Wait(3200),
-      storm()
-    ]),
-    new Script(dir, [
-      new Wait(6400),
-      storm()
-    ]),
-    new Script(dir, [
-      new Wait(9600),
-      storm()
-    ]),
-    new Script(dir, [
-      new Wait(12800),
-      storm()
-    ]),
-  ]),
-  new Wait(1000),
-  alleyR,
-  new Wait(800),
-  rAlleyR,
-  new Wait(1600),
-  new Curtain(dir, null, 2, null, 210),
-  new Wait(3000),
-  bigBoi,
-  new Wait(3000),
-  new Curtain(dir, null, 2, null, 210),
-  new Wait(1600),
-  weave,
-  new Wait(800),
-  rWeave,
-  new Wait(1600),
-  weave,
-  new Wait(800),
-  weave,
-  new Wait(1600),
-  sweep,
-  new Wait(800),
-  rAlleyR,
-  new Wait(2000),
-  new Spawn(dir, 'hex', -12, 25, 24, 100, 100),
-  new Wait(500),
-  new Spawn(dir, null, 20, null, 20),
-  new Wait(2000),
-  new Spawn(dir, null, 128, null, 40),
-  new Wait(1200),
-  new Pair(dir, 40, 70),
-  new Wait(2500),
-  new Spawn(dir, null, 200, null, 20),
-  new Wait(5000)
-]
-  return new Script(dir, actions)
-}
-
-},{"../Script.js":53}],61:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 module.exports = Load
 
 
@@ -6608,7 +6419,7 @@ Load.prototype = {
 }
 
 
-},{"../assets/assets.json":1,"../assets/levels.json":2,"./entities/entities.js":35}],62:[function(require,module,exports){
+},{"../assets/assets.json":1,"../assets/levels.json":2,"./entities/entities.js":31}],57:[function(require,module,exports){
 module.exports = Blood
 
 
@@ -6625,6 +6436,7 @@ function Blood(game) {
   this.body.setCollisionGroup(this.state.enemiesCG)
   this.body.collides(this.state.platformsCG, this.kill, this)
   this.body.collideWorldBounds = false
+  this.alpha = 0.7
 }
 
 
@@ -6653,17 +6465,15 @@ Blood.prototype.kill = function() {
     snd.volume = scale * scale
   }
   this.frameName = 'splatter'
-  this.alpha = 0.7
   this.body.rotation = Math.random() * Math.PI*2
 
   this.state.paintFX(this)
 
   this.frameName = 'blood'
-  this.alpha = 1
   Phaser.Sprite.prototype.kill.call(this)
 }
 
-},{}],63:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 module.exports = Explosion
 
 
@@ -6735,67 +6545,65 @@ Explosion.prototype.reset = function(x, y, radius) {
   this.state.camera.shake(0.015, 400)
 }
 
-},{}],64:[function(require,module,exports){
-module.exports = function(subjects, source, magnitude, range, invert) {
-  range = range || 0
+},{}],59:[function(require,module,exports){
+module.exports = ClearModal
 
-  var fn = function(subject) {
-    var distance = source.world.distance(subject) 
-    if (range > 0 && distance > range) return
 
-    distance = Phaser.Physics.P2.prototype.pxm(distance)
-    var d2 = distance*distance
-    // Gaddamn singularities.
-    d2 = d2 < 1 ? 1 : d2
+var Modal = require('../gui/Modal.js')
+var Btn = require('../gui/TextButton.js')
 
-    var mag = invert ? magnitude * (1 - 1/d2) : magnitude / d2
-    var angle = source.world.angle(subject)
-    var force = [
-      mag * Math.cos(angle),
-      mag * Math.sin(angle)
-    ]
 
-    subject.body.applyForce(force, subject.x, subject.y)
-  }
+function ClearModal(state, gui) {
+  Modal.call(this, state, gui)
+  this.x = state.game.width/2
 
-  if (subjects instanceof Phaser.Group) {
-    subjects.recurseAlive(fn)
-  } else {
-    fn(subjects)
-  }
+  var msg = state.entities.smallFont(state, 'Erase all progress and hi-scores?\nThis cannot be undone.')
+  msg.scale.setTo(2)
+  var yes = new Btn(state, 'Yes', function() {
+    this.game.data.clear()
+    this.game.state.start('Menu')
+  }, this)
+  yes.anchor.setTo(1, 0.5)
+  yes.x = -32
+  yes.y = msg.bottom + 32
+  var no = new Btn(state, 'No', function() {
+    this.gui.switchModal('settings')
+  }, this)
+  no.anchor.setTo(0, 0.5)
+  no.x = 32
+  no.y = yes.y
+
+  this.addMultiple([msg, yes, no])
+
+  var pad = 48
+  var b = this.getBounds()
+  var win = new PhaserNineSlice.NineSlice(state.game, 0, 0, 'sprites', 'window', 24, 24, { top: 8 })
+  win.resize(b.width*2+pad, yes.bottom-msg.top+pad)
+  win.anchor.setTo(0.5, 0)
+  win.y = -40
+  this.addAt(win, 0)
 }
 
-},{}],65:[function(require,module,exports){
-module.exports = explode
+
+ClearModal.prototype = Object.create(Modal.prototype)
 
 
-var dotGravity = require('./dotGravity.js')
-
-var DAMAGE = 3
-
-
-function explode(target, source, radius, damage, blast, blastRadius, invert) {
-  damage = damage || DAMAGE
-
-  target.forInReach(source, radius, function(enemy) {
-    enemy.damage(damage, source.world.angle(enemy))
-  })
-  dotGravity(target, source, -blast, blastRadius, invert)
-  target.game.camera.shake(0.01, 400)
-}
-
-},{"./dotGravity.js":64}],66:[function(require,module,exports){
+},{"../gui/Modal.js":41,"../gui/TextButton.js":42}],60:[function(require,module,exports){
 module.exports = GUI
 
 
 var HowToModal = require('./HowToModal.js')
 var MenuModal = require('./MenuModal.js')
+var SettingsModal = require('./SettingsModal.js')
+var ClearModal = require('./ClearModal.js')
 
 
 function GUI(state) {
   this.modals = {
     howTo: new HowToModal(state, this),
     menu: new MenuModal(state, this),
+    settings: new SettingsModal(state, this),
+    clear: new ClearModal(state, this),
   }
 
   var mm = this.modals.menu
@@ -6812,7 +6620,7 @@ GUI.prototype.switchModal = function(key) {
   this.modals[key].enter()
 }
 
-},{"./HowToModal.js":67,"./MenuModal.js":68}],67:[function(require,module,exports){
+},{"./ClearModal.js":59,"./HowToModal.js":61,"./MenuModal.js":62,"./SettingsModal.js":63}],61:[function(require,module,exports){
 module.exports = HowToModal
 
 
@@ -6826,9 +6634,7 @@ function HowToModal(state, gui) {
   info.font.align = Phaser.RetroFont.ALIGN_CENTER
   info.font.text = 'CONTROLS\n\n'
         + 'X - MAIN MENU\n\n'
-        + 'W - FLY\n'
-        + 'A - LEFT\n'
-        + 'D - RIGHT\n'
+        + 'WASD - MOVE\n'
         + '\n'
         + 'MOUSE - SHOOT\n'
         + '\n'
@@ -6844,12 +6650,20 @@ function HowToModal(state, gui) {
   backBtn.y = info.bottom + 32
 
   this.addMultiple([info, backBtn])
+
+  var pad = 48
+  var b = this.getBounds()
+  var win = new PhaserNineSlice.NineSlice(state.game, 0, 0, 'sprites', 'window', 24, 24, { top: 8 })
+  win.resize(b.width*2+pad, backBtn.bottom-info.top+pad)
+  win.anchor.setTo(0.5, 0)
+  win.y = -pad/2
+  this.addAt(win, 0)
 }
 
 
 HowToModal.prototype = Object.create(Modal.prototype)
 
-},{"../gui/Modal.js":45,"../gui/TextButton.js":46}],68:[function(require,module,exports){
+},{"../gui/Modal.js":41,"../gui/TextButton.js":42}],62:[function(require,module,exports){
 module.exports = MenuModal
 
 
@@ -6874,15 +6688,15 @@ function MenuModal(state, gui) {
   var startBtn = new Btn(state, 'start', function() {
     state.start('LevelSelect')
   }, state)
-  startBtn.onDownSound = state.sound.add('start')
-  startBtn.y = hiScore.bottom + 28
+  startBtn.onDownSound = 'start'
+  startBtn.y = hiScore.bottom + 26
   this.startBtn = startBtn
 
   var arcadeBtn = new Btn(state, 'arcade', function() {
     state.start('Arcade')
   }, state)
-  arcadeBtn.onDownSound = state.sound.add('start')
-  arcadeBtn.y = startBtn.bottom + 24
+  arcadeBtn.onDownSound = 'start'
+  arcadeBtn.y = startBtn.bottom + 22
   this.arcadeBtn = arcadeBtn
 
   /*
@@ -6895,16 +6709,104 @@ function MenuModal(state, gui) {
   var howToBtn = new Btn(state, 'INSTRUCTIONS', function() {
     this.gui.switchModal('howTo')
   }, this)
-  howToBtn.y = arcadeBtn.bottom + 24
+  howToBtn.y = arcadeBtn.bottom + 22
   this.howToBtn = howToBtn
 
-  this.addMultiple([logo, hiScore, startBtn, arcadeBtn, howToBtn])
+  var settingsBtn = new Btn(state, 'SETTINGS', function() {
+    this.gui.switchModal('settings')
+  }, this)
+  settingsBtn.y = howToBtn.bottom + 22
+  this.settingsBtn = settingsBtn
+
+  this.addMultiple([logo, hiScore, startBtn, arcadeBtn, howToBtn, settingsBtn])
 }
 
 
 MenuModal.prototype = Object.create(Modal.prototype)
 
-},{"../gui/Modal.js":45,"../gui/TextButton.js":46}],69:[function(require,module,exports){
+},{"../gui/Modal.js":41,"../gui/TextButton.js":42}],63:[function(require,module,exports){
+module.exports = SettingsModal
+
+
+var Modal = require('../gui/Modal.js')
+var Btn = require('../gui/TextButton.js')
+
+
+function SettingsModal(state, gui) {
+  Modal.call(this, state, gui)
+
+  var vol = state.entities.smallFont(state, 'volume:')
+  vol.scale.setTo(vol.scale.x*2)
+  vol.anchor.setTo(1, 0.5)
+  var up = new Btn(state, ' +', function() {
+    this.game.sound.volume = Math.round(Math.min(this.game.sound.volume + 0.05, 1)*100)/100
+    this.v.font.text = Math.round(this.game.sound.volume * 100).toString()
+  }, this)
+  up.anchor.setTo(0, 0.5)
+  up.x = vol.right
+  var down = new Btn(state, '-', function() {
+    this.game.sound.volume = Math.round(Math.max(this.game.sound.volume - 0.05, 0)*100)/100
+    this.v.font.text = Math.round(this.game.sound.volume * 100).toString()
+  }, this)
+  down.anchor.setTo(0, 0.5)
+  down.x = up.right + 64
+  var v = state.entities.smallFont(state, (state.sound.volume*100)+'')
+  v.scale.setTo(v.scale.x*2)
+  v.anchor.setTo(1, 0.5)
+  v.x = down.left - 8
+  this.v = v
+
+  var music = state.entities.smallFont(state, 'music:')
+  music.anchor.setTo(1, 0.5)
+  music.scale.setTo(music.scale.x*2)
+  this.mOn = new Btn(state, (this.game.data.musicOn ? ' on' : ' off'), function() {
+    this.game.data.musicOn = !this.game.data.musicOn
+    this.mOn.font.text = this.game.data.musicOn ? ' on' : ' off'
+  }, this)
+  this.mOn.anchor.setTo(0, 0.5)
+  this.mOn.x = music.right
+  music.y = this.mOn.y = vol.y + 32
+
+  var sfx = state.entities.smallFont(state, 'sfx:')
+  sfx.anchor.setTo(1, 0.5)
+  sfx.scale.setTo(sfx.scale.x*2)
+  this.sfxOn = new Btn(state, (this.game.data.sfxOn ? ' on' : ' off'), function() {
+    this.game.data.sfxOn = !this.game.data.sfxOn
+    this.sfxOn.font.text = this.game.data.sfxOn ? ' on' : ' off'
+  }, this)
+  this.sfxOn.anchor.setTo(0, 0.5)
+  this.sfxOn.x = sfx.right
+  sfx.y = this.sfxOn.y = music.y + 32
+
+  var credits = new Btn(state, 'credits', function() {
+    this.game.state.start('Credits')
+  }, this)
+  credits.y = sfx.y + 32
+
+  var clear = new Btn(state, 'reset', function() {
+    this.gui.switchModal('clear')
+  }, this)
+  clear.y = credits.y + 32
+
+  var backBtn = new Btn(state, 'back', function() {
+    this.gui.switchModal('menu')
+  }, this)
+  backBtn.y = clear.y + 32
+
+  this.addMultiple([vol, up, v, down, music, this.mOn, sfx, this.sfxOn, credits, clear, backBtn])
+
+  var win = new PhaserNineSlice.NineSlice(state.game, 0, 0, 'sprites', 'window', 24, 24, { top: 8 })
+  win.resize(264, 224)
+  win.anchor.setTo(0.5, 0)
+  win.y = -32
+  this.addAt(win, 0)
+}
+
+
+SettingsModal.prototype = Object.create(Modal.prototype)
+
+
+},{"../gui/Modal.js":41,"../gui/TextButton.js":42}],64:[function(require,module,exports){
 module.exports = Menu
 
 
@@ -6976,19 +6878,20 @@ Menu.prototype.create = function() {
 
   this.gui = new GUI(this)
 
-
   if (this.firstTime) {
     var menu = this.gui.modals.menu
     menu.hiScore.visible = false
     menu.startBtn.visible = false
     menu.arcadeBtn.visible = false
     menu.howToBtn.visible = false
+    menu.settingsBtn.visible = false
       
     this.time.events.add(2000, function() {
       menu.hiScore.visible = true
       menu.startBtn.visible = true
       menu.arcadeBtn.visible = true
       menu.howToBtn.visible = true
+      menu.settingsBtn.visible = true
     })
     this.firstTime = false
   }
@@ -7023,7 +6926,7 @@ Menu.prototype.start = function(key) {
     this.camera.onFadeComplete.addOnce(function() {
       this.state.start(key)
     }, this)
-    this.camera.fade(0x180c08, 800)
+    this.camera.fade(0x180c08, 800, true)
   }, this)
 }
 
@@ -7033,24 +6936,8 @@ Menu.prototype.startFX = function() {
 }
 
 
-Menu.prototype.startMusic = function() {
-  var track = mapConf.menu.songs[0]
-  this.soundtrack = null
-  if (!this.cache.checkSoundKey(track)) return
-  this.soundtrack = this.sound.add(track)
-  var cb = function() { this.soundtrack.fadeIn(30000) }
 
-  if (this.soundtrack.isDecoded) {
-    cb.call(this)
-    return
-  }
-
-  this.soundtrack.onDecoded.addOnce(cb, this)
-
-  if (!this.soundtrack.isDecoding) this.sound.decode(track)
-}
-
-},{"../../assets/mapsConfig.json":3,"../level/Level.js":50,"./GUI.js":66}],70:[function(require,module,exports){
+},{"../../assets/mapsConfig.json":3,"../level/Level.js":46,"./GUI.js":60}],65:[function(require,module,exports){
 module.exports = function() {
 
   Phaser.SoundManager.prototype.reset = function() {
@@ -7164,4 +7051,4 @@ module.exports = function() {
   }
 }
 
-},{}]},{},[47]);
+},{}]},{},[43]);
