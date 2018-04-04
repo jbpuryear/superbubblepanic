@@ -23,17 +23,17 @@
                  "type":"player1",
                  "visible":true,
                  "width":16,
-                 "x":232,
+                 "x":224,
                  "y":296
                 }, 
                 {
                  "ellipse":true,
-                 "height":136,
+                 "height":102,
                  "id":177,
                  "name":"",
                  "properties":
                     {
-                     "velx":-128,
+                     "velx":122.202018534,
                      "vely":0
                     },
                  "propertytypes":
@@ -44,33 +44,9 @@
                  "rotation":0,
                  "type":"enemy",
                  "visible":true,
-                 "width":136,
-                 "x":48,
-                 "y":32
-                }, 
-                {
-                 "ellipse":true,
-                 "height":136,
-                 "id":188,
-                 "name":"",
-                 "properties":
-                    {
-                     "drop":"[null, [null, \"slomo\"]]",
-                     "velx":128,
-                     "vely":0
-                    },
-                 "propertytypes":
-                    {
-                     "drop":"string",
-                     "velx":"float",
-                     "vely":"float"
-                    },
-                 "rotation":0,
-                 "type":"enemy",
-                 "visible":true,
-                 "width":136,
-                 "x":296,
-                 "y":32
+                 "width":102,
+                 "x":184,
+                 "y":48
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -113,48 +89,6 @@
                  "width":0,
                  "x":-8,
                  "y":320
-                }, 
-                {
-                 "height":0,
-                 "id":190,
-                 "name":"",
-                 "polyline":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-16
-                        }, 
-                        {
-                         "x":64,
-                         "y":-16
-                        }, 
-                        {
-                         "x":64,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":0
-                        }],
-                 "properties":
-                    {
-                     "breakable":true,
-                     "drop":"shield"
-                    },
-                 "propertytypes":
-                    {
-                     "breakable":"bool",
-                     "drop":"string"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":208,
-                 "y":232
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -162,7 +96,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":191,
+ "nextobjectid":187,
  "orientation":"orthogonal",
  "properties":
     {

@@ -4,6 +4,7 @@ module.exports = SpaceBoss
 var Level = require('./Level.js')
 var Director = require('./Director.js')
 var Script = require('./Script.js')
+var mapsConfig = require('../../assets/mapsConfig.json')
 
 
 function SpaceBoss() {
@@ -33,6 +34,7 @@ SpaceBoss.prototype.create = function() {
   this.trigger = null
   Level.prototype.create.call(this)
 
+  this.playDiegetic = false
   this.provoked = false
   this.attackTimer = 0
   this.blinkTimer = 0
@@ -40,8 +42,8 @@ SpaceBoss.prototype.create = function() {
   this.lastShield = 0
 
   this.director = new Director(this)
-  this.curtain = new Script.Curtain(this.director, null, 12, 200, 28)
-  this.curtainR = new Script.Curtain(this.director, null, 12, 200, 28,
+  this.curtain = new Script.Curtain(this.director, null, 16, 150, 28)
+  this.curtainR = new Script.Curtain(this.director, null, 16, 150, 28,
     null, null, this.game.width, -this.game.width)
 
   this.splatterImage.exists = false
@@ -97,7 +99,7 @@ SpaceBoss.prototype.makeMonster = function() {
   c.anchor.setTo(0, 1)
   c.x = l.width
   c.scale.setTo(2)
-  var r = this.bgItems.create(600, 400, 'space-boss', 'fg-right')
+  var r = this.bgItems.create(800, 400, 'space-boss', 'fg-right')
   r.anchor.setTo(1, 1)
   r.scale.setTo(2)
   var lid = this.lid =  this.bgItems.create(this.game.width/2+8, 284, 'space-boss', 'lid')
@@ -213,6 +215,7 @@ SpaceBoss.prototype.onCollide = function(_, src) {
   this.camera.shake(0.01, 100)
   this.eye.tint = 0x180c08
   this.damage(src.attack || 1)
+  this.bleed(src.x, src.y, -Math.PI/2)
   this.time.events.add(20, this.blink, this)
 }
 
@@ -266,7 +269,6 @@ SpaceBoss.prototype.damage = function(amt) {
     }, this)
     this.time.events.add(t, this.throwHex, this)
     this.attackTimer = 3 + 1.2
-    //Level.prototype.startMusic.call(this)
   }
 }
 
@@ -291,15 +293,12 @@ SpaceBoss.prototype.unblink = function() {
 SpaceBoss.prototype.defeatMonster = function() {
   this.blink(-1)
   var time = 4000
-  var bleedSpoof = {world: {x: 40, y: 40}, killTheta: 0}
   var loop = this.time.events.loop(50, function() {
     var x = Math.random() * 200 - 100 + this.eye.x
     var y = Math.random() * 60 + 250
-    bleedSpoof.world.x = x
-    bleedSpoof.world.y = y
-    bleedSpoof.killTheta = Math.random() * Math.PI/4 - Math.PI/8 - Math.PI/2
+    var angle = Math.random() * Math.PI/4 - Math.PI/8 - Math.PI/2
+    this.bleed(x, y, angle)
     this.explode(x, y, Math.random() * 80 + 40)
-    this.bleed(bleedSpoof)
   }, this)
   this.time.events.add(time, this.time.events.remove, this.time.events, loop)
   this.add.tween(this.eye).to({alpha: 0}, time, null, true).onComplete.add(function() {
@@ -335,6 +334,7 @@ SpaceBoss.prototype.generateSeeker = function(drop) {
   this.lastSeeker = this.time.now
 
   e.body.removeFromWorld()
+  e.alpha = 1
   e.blendMode = PIXI.blendModes.ADD
 
   var time = 2000
@@ -371,9 +371,4 @@ SpaceBoss.prototype.generateSeeker = function(drop) {
 
   this.blink(time + 100)
 }
-
-
-SpaceBoss.prototype.playSound = function() {}
-
-SpaceBoss.prototype.startMusic = function() {}
 

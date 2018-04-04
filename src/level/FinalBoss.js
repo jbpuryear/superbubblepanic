@@ -88,11 +88,9 @@ FinalBoss.prototype.win = function() {
     this.time.events.remove(loop)
     if (this.soundtrack)
       this.soundtrack.stop()
-    var bleedSpoof = {world: {x: 0, y: 0}, killTheta: Math.PI/2}
     this.time.events.loop(400, function() { this.camera.flash(0xf6eeee, 150) }, this)
     this.time.events.loop(150, function() {
-      bleedSpoof.world.x = Math.random() * this.game.width
-      this.bleed(bleedSpoof)
+      this.bleed(Math.random() * this.game.width, 0, Math.PI/2)
       this.explode(Math.random()*this.game.width,
         Math.random()*this.game.height, Math.random()*160 + 40)
     }, this)

@@ -12,3 +12,5 @@ function Hex(state, data, drop) {
 Hex.prototype = Object.create(Enemy.prototype)
 
 Hex.prototype.defaultFrame = 'hex'
+Hex.prototype.bloodColor = 0x6daab3
+

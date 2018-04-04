@@ -4,8 +4,7 @@ module.exports = function init(map) {
   this.map = this.add.tilemap(map)
   this.mapName = map
 
-  this.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
-  this.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels)
+  this.setSize()
 
   setPhysics(this)
 }
@@ -30,7 +29,7 @@ function setPhysics(state) {
   state.playerMaterial = p2.createMaterial('playerMaterial')
   state.platformMaterial = p2.createMaterial('platformMaterial')
   state.enemyMaterial = p2.createMaterial('enemyMaterial')
-  state.grenadeMaterial = p2.createMaterial('grenadeMaterial')
+  state.itemMaterial = p2.createMaterial('itemMaterial')
 
   p2.createContactMaterial(state.platformMaterial, state.enemyMaterial, {
     restitution: 1,
@@ -44,12 +43,7 @@ function setPhysics(state) {
     restitution: 0,
     friction: 0
   })
-  p2.createContactMaterial(state.grenadeMaterial, state.platformMaterial, {
-    friction: 0.4,
-    restitution: 0.7
-  })
-  p2.createContactMaterial(state.grenadeMaterial, state.worldMaterial, {
-    friction: 0.4,
-    restitution: 0.7
+  p2.createContactMaterial(state.itemMaterial, state.platformMaterial, {
+    friction: 0.6,
   })
 }

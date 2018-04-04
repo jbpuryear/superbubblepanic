@@ -1,16 +1,19 @@
-var mapsConfig = require('../../assets/mapsConfig.json')
-
 module.exports = Level
 
 
+var Scene = require('../Scene.js')
+var mapsConfig = require('../../assets/mapsConfig.json')
+var Enemy = require('../entities/enemies/Enemy.js')
+
+
 function Level() {
-  Phaser.State.call(this)
+  Scene.call(this)
   this.won = false
   this.lost = false
 }
 
 
-Level.prototype = Object.create(Phaser.State.prototype)
+Level.prototype = Object.create(Scene.prototype)
   
 Level.prototype.gravity = 400
 
@@ -33,15 +36,17 @@ Level.prototype.addEntity = function(data) {
 }
 
 
-Level.prototype.bleed = function(object) {
+Level.prototype.bleed = function(x, y, angle, color) {
+  color = color !== undefined ? color : Enemy.prototype.bloodColor
   for (var i = 0; i < 5; i++) {
     var drop = this.blood.getFirstDead() || this.blood.getRandom()
-    drop.reset(object.world.x + Math.random() * 5 - 2.5, object.world.y)
-    drop.body.velocity.x = (Math.random() * 220 + 170) * Math.cos(object.killTheta)
-    drop.body.velocity.y = (Math.random() * 220 + 170) * Math.sin(object.killTheta)
+    drop.reset(x + Math.random() * 5 - 2.5, y)
+    drop.body.velocity.x = (Math.random() * 220 + 170) * Math.cos(angle)
+    drop.body.velocity.y = (Math.random() * 220 + 170) * Math.sin(angle)
     drop.body.velocity.x *= this.bulletTime
     drop.body.velocity.y *= this.bulletTime
     drop.scale.setTo(Math.random()/2 + 0.25)
+    drop.tint = color
   }
 }
 
@@ -50,10 +55,11 @@ Level.prototype.changeTime = function(factor) {
   if (factor === 0 || isNaN(factor)) return
   this.bulletTime *= factor
   this.enemies.recurse(function(enemy) {
-    enemy.body.mass /= factor
+    var f2 = factor * factor
     enemy.body.velocity.x *= factor
     enemy.body.velocity.y *= factor
-    enemy.body.data.gravityScale *= factor * factor
+    enemy.body.data.gravityScale *= f2
+    enemy.body.mass /= f2
   })
   this.blood.recurse(function(drop) {
     drop.body.mass /= factor
@@ -105,8 +111,7 @@ Level.prototype.gameOver = function() {
   this.add.tween(this.gameOverScreen).to({alpha: 0.8}, 100).start()
   this.gameOverScreen.exists = true
   this.time.slowMotion = 6
-  if (this.soundtrack)
-    this.soundtrack.stop()
+  if (this.soundtrack) { this.soundtrack.stop() }
   this.players.forEach(this.world.addChild, this.world)
 }
 
@@ -126,62 +131,12 @@ Level.prototype.paintFXupdate = function() {
 }
 
 
-Level.prototype.playSound = function(key, randomize, useBulletTime, lock, repeat) {
-  if (!this.cache.isSoundDecoded(key)) return
-  lock = lock || false
-  repeat = repeat || false
-  if (useBulletTime === undefined) useBulletTime = true
-
-  var sound = null
-
-  for (var i = 0; i < this.soundPool.length; i++) {
-    if (!this.soundPool[i].isPlaying) {
-      sound = this.soundPool[i]
-      break
-    }
-  }
-
-  if (!sound) {
-    for (i = 0; i < this.soundPool.length; i++) {
-      if (!this.soundPool[i].isLocked) {
-        sound = this.soundPool[i]
-        break
-      }
-    }
-  }
-
-  if (!sound) return null
-
-  sound.volume = 1
-
-  sound.key = key
-  sound.isLocked = lock
-  sound.useBulletTime = useBulletTime
-  sound.play('', 0, 1, repeat, true)
-
-  if (sound._sound && sound.usingWebAudio) {
-    if (useBulletTime)
-      sound._sound.playbackRate.value = this.bulletTime
-    else
-      sound._sound.playbackRate.value = 1
-
-    if (randomize)
-      sound._sound.detune.value = Math.random() * -randomize
-    else
-      sound._sound.detune.value = 0
-  }
-
-  return sound
-}
-
-
 Level.prototype.shutdown = function() {
   this.splatter.mask.destroy()
   this.splatter.destroy()
   this.gameOverScreen.destroy()
   this.time.slowMotion = 1
-  if (this.soundtrack)
-    this.soundtrack.stop()
+  if (this.soundtrack) { this.soundtrack.stop() }
 }
 
 
@@ -212,20 +167,6 @@ Level.prototype.startFX = function() {
   goTween.start()
 
   this.camera.flash(0x180c08, 1000)
-}
-
-
-Level.prototype.startMusic = function() {
-  var track = Phaser.ArrayUtils.getRandomItem(
-    mapsConfig[this.map.properties.setting].songs)
-  this.soundtrack = this.sound.addSprite(track)
-  if (!this.soundtrack) return
-  if (this.soundtrack.get('intro')) {
-    var intro = this.soundtrack.play('intro')
-    intro.onMarkerComplete.addOnce(function () { this.soundtrack.play('loop') }, this)
-  } else {
-    this.soundtrack.play('loop')
-  }
 }
 
 
@@ -266,9 +207,8 @@ Level.prototype.update = function() {
 Level.prototype.win = function() {
   this.time.events.add(200, function() {
     this.game.data.checkWin(this.mapName)
-    if (this.soundtrack)
-      this.soundtrack.stop()
-    this.sound.play('victory-jingle')
+    if (this.soundtrack) { this.soundtrack.stop() }
+    this.playSound('victory-jingle', undefined, undefined, true)
     this.p1.playerState.change('victory')
 
     var clear = this.add.image(this.game.width/2, this.game.height/2,

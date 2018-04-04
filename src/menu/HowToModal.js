@@ -11,9 +11,7 @@ function HowToModal(state, gui) {
   info.font.align = Phaser.RetroFont.ALIGN_CENTER
   info.font.text = 'CONTROLS\n\n'
         + 'X - MAIN MENU\n\n'
-        + 'W - FLY\n'
-        + 'A - LEFT\n'
-        + 'D - RIGHT\n'
+        + 'WASD - MOVE\n'
         + '\n'
         + 'MOUSE - SHOOT\n'
         + '\n'
@@ -29,6 +27,14 @@ function HowToModal(state, gui) {
   backBtn.y = info.bottom + 32
 
   this.addMultiple([info, backBtn])
+
+  var pad = 48
+  var b = this.getBounds()
+  var win = new PhaserNineSlice.NineSlice(state.game, 0, 0, 'sprites', 'window', 24, 24, { top: 8 })
+  win.resize(b.width*2+pad, backBtn.bottom-info.top+pad)
+  win.anchor.setTo(0.5, 0)
+  win.y = -pad/2
+  this.addAt(win, 0)
 }
 
 

@@ -69,19 +69,20 @@ Menu.prototype.create = function() {
 
   this.gui = new GUI(this)
 
-
   if (this.firstTime) {
     var menu = this.gui.modals.menu
     menu.hiScore.visible = false
     menu.startBtn.visible = false
     menu.arcadeBtn.visible = false
     menu.howToBtn.visible = false
+    menu.settingsBtn.visible = false
       
     this.time.events.add(2000, function() {
       menu.hiScore.visible = true
       menu.startBtn.visible = true
       menu.arcadeBtn.visible = true
       menu.howToBtn.visible = true
+      menu.settingsBtn.visible = true
     })
     this.firstTime = false
   }
@@ -116,7 +117,7 @@ Menu.prototype.start = function(key) {
     this.camera.onFadeComplete.addOnce(function() {
       this.state.start(key)
     }, this)
-    this.camera.fade(0x180c08, 800)
+    this.camera.fade(0x180c08, 800, true)
   }, this)
 }
 
@@ -126,19 +127,3 @@ Menu.prototype.startFX = function() {
 }
 
 
-Menu.prototype.startMusic = function() {
-  var track = mapConf.menu.songs[0]
-  this.soundtrack = null
-  if (!this.cache.checkSoundKey(track)) return
-  this.soundtrack = this.sound.add(track)
-  var cb = function() { this.soundtrack.fadeIn(30000) }
-
-  if (this.soundtrack.isDecoded) {
-    cb.call(this)
-    return
-  }
-
-  this.soundtrack.onDecoded.addOnce(cb, this)
-
-  if (!this.soundtrack.isDecoding) this.sound.decode(track)
-}

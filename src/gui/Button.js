@@ -13,10 +13,12 @@ function Button(state, key, frame, callback, ctx) {
   this.addChild(this.background)
   this.anchor.setTo(0.5)
 
-  this.onOverSound = state.sound.add('rollover')
-  this.onDownSound = state.sound.add('click')
+  this.onOverSound = 'rollover'
+  this.onDownSound = 'click'
   this.mouseWasOver = false
   this.mouseIsOver = false
+
+  this.clickEffect = null
 
   state.input.mousePointer.leftButton.onDown.add(this.inputDown, this)
 }
@@ -40,16 +42,10 @@ Button.prototype.update = function() {
 Button.prototype.inputDown = function() {
   if (!this.exists || !this.visible
         || this.worldAlpha !== 1 || !this.mouseIsOver) return
-  this.onDownSound.play()
-  var scale = 1.02
-  this.width *= scale
-  this.height *= scale
-  this.game.time.events.add(40, function() {
-    this.width /= scale
-    this.height /= scale
-  }, this)
 
+  if (this.clickEffect) { this.clickEffect.stop(true) }
   var tween = this.game.add.tween(this.background)
+  this.clickEffect = tween
   var height = this.background.height
   var width = this.background.width
   var alpha = this.background.alpha
@@ -59,18 +55,26 @@ Button.prototype.inputDown = function() {
     alpha: 0
   }, 1200, Phaser.Easing.Quadratic.Out)
   tween.onComplete.addOnce(function() {
-    this.background.height = height
-    this.background.width = width
+    this.background.scale.setTo(1)
     this.background.alpha = alpha
   }, this)
   tween.start()
+
+  this.state.playSound(this.onDownSound)
+  var scale = 1.02
+  this.width *= scale
+  this.height *= scale
+  this.game.time.events.add(40, function() {
+    this.width /= scale
+    this.height /= scale
+  }, this)
 
   this.callback.call(this.callbackCtx)
 }
 
 
 Button.prototype.inputOver = function() {
-  this.onOverSound.play()
+  this.state.playSound(this.onOverSound)
 }
 
 

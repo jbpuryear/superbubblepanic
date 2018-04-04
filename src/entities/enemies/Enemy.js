@@ -1,7 +1,7 @@
 module.exports = Enemy
 
 
-var Bullet = require('../bullets/Bullet.js')
+var Bullet = require('../Bullet.js')
 
 
 var MAX_HEALTH = 1
@@ -43,10 +43,9 @@ function Enemy(state, data) {
 Enemy.prototype = Object.create(Phaser.Sprite.prototype)
 
 Enemy.prototype.maxHealth = MAX_HEALTH
-
 Enemy.prototype.maxSpeed = 500
-
 Enemy.prototype.defaultFrame = 'enemy'
+Enemy.prototype.bloodColor = 0xacc7479
 
 
 Enemy.prototype.bounce = function() {
@@ -72,7 +71,7 @@ Enemy.prototype.damage = function(_, src) {
   else
     this.killTheta = src.sprite.world.angle(this.world)
   this.animations.play('flash')
-  this.state.bleed(this)
+  this.state.bleed(this.x, this.y, this.killTheta, this.bloodColor)
   Phaser.Sprite.prototype.damage.call(this, src.attack || 1)
 }
 
@@ -83,6 +82,8 @@ Enemy.prototype.kill = function() {
 
   this.state.playSound(this.sounds.pop, 400)
   this.state.camera.shake(0.005, 100)
+
+  this.body.removeCollisionGroup(this.state.playersCG, false)
 
   var tween = this.game.add.tween(this)
   tween.to({width: this.width*2, height: this.height*2, alpha: 0.8}, 60)
@@ -98,6 +99,7 @@ Enemy.prototype.kill = function() {
     this.animations.stop()
     this.frameName = this.defaultFrame
     Phaser.Sprite.prototype.kill.call(this)
+    this.body.collides(this.state.playersCG)
   }, this)
 
   tween.start()

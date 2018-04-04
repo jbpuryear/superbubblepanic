@@ -1,35 +1,96 @@
 Super Bubble Panic
-by jeemz
+by James Puryear
 
 
-Featuring Art by
-Ansimuz
+
+Made with Phaser
+
+
+
+Background art based on works by
+
+Ansimuz (ansimuz.com)
 KnoblePersona
 
 
-Music
 
-NRIN HUS by C_C
-Memory by Creo
-Spring Summer by Dustin Wong
-Everything is Changing by Noi
-N35-40-19-800 by Springtide
-Gone by Alex McCulloch
-Venus by SketchyLogic
-Space by Alexandr Zhelanov
-Observing The Star by Yd
+Songs
+
+Fater Lee
+by Black Ant
+(black-ant.bandcamp.com)
+
+Memory
+Cynic
+Heartbeat
+Live
+by Creo
+(creo-music.com)
+
+Poupi's Theme
+Super Poupi
+Time For The Walk Of The Day
+by Komiku
+(loyaltyfreakmusic.com)
+
+Gone
+by Alex McCulloch
+
+Everything is Changing
+by Noi
+(soundcloud.com/noi)
+
+The Wood Chopper
+by The Settlers
+(soundcloud.com/user-659046245)
+
+Venus
+by SketchyLogic
+
+N35-40-19-800
+by Springtide
+(springtide.jp)
+
+Spring Summer
+by Dustin Wong
+(thrilljockey.com)
+
+Observing The Star
+by Yd
+
+Cylinder Three
+by Chris Zabriskie
+(chriszabriskie.com)
+
+Space
+by Alexandr Zhelanov
+(soundcloud.com/alexandr-zhelanov)
+
 
 
 With Sound FX By
 dklon & Michel Baradari
 
 
-for full credits and licenses
-please consult the readme
-
 
 Thanks To
 
+Richard Davey
+Schteppe
 Open Game Art
 Free Music Archive
+Yoshiki Okamoto
+Toshihiko Uda
+Hudson Soft
+Abetusk
+Cosmo
+JT
+Dr Murder
+
+
+
+Want to help us create more free games?
+Visit us on Patreon.
+
+www.patreon.com/antirival
 

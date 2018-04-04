@@ -39,9 +39,8 @@ RocketLevel.prototype.win = function() {
       update: function() {}
     }
     this.game.data.checkWin(this.mapName)
-    if (this.soundtrack)
-      this.soundtrack.stop()
-    this.sound.play('victory-jingle')
+    if (this.soundtrack) { this.soundtrack.stop() }
+    this.playSound('victory-jingle', undefined, undefined, true)
     this.p1.playerState.change('victory')
     var clear = this.add.image(this.game.width/2, this.game.height/2,
       'sprites', 'stage-clear')

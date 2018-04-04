@@ -23,6 +23,7 @@ Seeker.prototype = Object.create(Enemy.prototype)
 Object.defineProperty(Seeker.prototype, 'preferSpeed', {get: function() { return this._preferSpeed/this.body.mass }})
 
 Seeker.prototype.defaultFrame = 'seeker'
+Seeker.prototype.bloodColor = 0x69b58b
 
 
 Seeker.prototype.update = function() {
@@ -60,7 +61,7 @@ Seeker.prototype.bounce = function() {
   var vx = this.body.velocity.x 
   var vy = this.body.velocity.y
   var speed = Math.sqrt(vx*vx + vy*vy)
-  var desiredSpeed = Math.max(speed, 70)
+  var desiredSpeed = Math.max(speed, 70 * this.state.bulletTime)
   if (speed === desiredSpeed) { return }
   this.body.velocity.x *= desiredSpeed/speed
   this.body.velocity.y *= desiredSpeed/speed

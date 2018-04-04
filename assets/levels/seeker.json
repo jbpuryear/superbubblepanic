@@ -23,8 +23,8 @@
                  "type":"player1",
                  "visible":true,
                  "width":16,
-                 "x":136,
-                 "y":336
+                 "x":104,
+                 "y":0
                 }, 
                 {
                  "ellipse":true,

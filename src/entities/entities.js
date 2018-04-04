@@ -1,16 +1,9 @@
 var Player = require('./heroes/Player.js')
 var DefaultCtlr = require('./heroes/DefaultCtlr')
-
 var SeekBoss = require('./enemies/SeekBoss.js')
-
 var Gun = require('./Gun.js')
-var Bullet = require('./bullets/Bullet.js')
-var Gravity = require('./bullets/Gravity.js')
-var Grenade = require('./bullets/Grenade.js')
-var Bouncy = require('./bullets/Bouncy')
-
+var Bullet = require('./Bullet.js')
 var Trigger = require('./Trigger.js')
-
 var SmallFont = require('./SmallFont.js')
 
 
@@ -21,9 +14,6 @@ module.exports = {
     var ctlr = new DefaultCtlr(state)
     return new Player(state, data, ctlr)
   },
-
-
-  spikes: require('./Spikes.js'),
 
 
   // Enemies
@@ -73,18 +63,6 @@ module.exports = {
     }, Bullet)
   },
 
-  spread: function(state, data) {
-    return new Gun(state, {
-      x: data.x,
-      y: data.y,
-      texture: 'gun',
-      rate: 500,
-      spread: Math.PI/4,
-      bulletsPerShot: 6,
-      clipSize: 3
-    }, Bullet)
-  }, 
-
   shotgun: function(state, data) {
     return new Gun(state, {
       x: data.x,
@@ -113,57 +91,6 @@ module.exports = {
       bulletsPerShot: 1,
       clipSize: 12,
     }, Bullet)
-  },
-
-
-  gravgun: function(state, data) {
-    var gun = new Gun(state, {
-      x: data.x,
-      y: data.y,
-      texture: 'gravgun1',
-      bulletsPerShot: 1,
-      clipSize: 1,
-    }, Gravity)
-    gun.animations.add('rest',
-      Phaser.Animation.generateFrameNames('gravgun', 1, 4), 6, true)
-      .play()
-    return gun
-  },
-
-  grenade: function(state, data) {
-    return new Gun(state, {
-      x: data.x,
-      y: data.y,
-      texture: 'grenade-launcher',
-      bulletsPerShot: 1,
-      clipSize: 1,
-      shotSound: 'launch'
-    }, Grenade)
-  },
-
-  shotgrenade: function(state, data) {
-    return new Gun(state, {
-      x: data.x,
-      y: data.y,
-      texture: 'gun',
-      rate: 1000,
-      spread: Math.PI/8,
-      accuracy: Math.PI/8,
-      bulletsPerShot: 8,
-      clipSize: 3,
-      speedVar: 0.05,
-    }, Grenade)
-  },
-
-  bouncy: function(state, data) {
-    return new Gun(state, {
-      x: data.x,
-      y: data.y,
-      texture: 'gun',
-      rate: 100,
-      bulletsPerShot: 1,
-      clipSize: 3,
-    }, Bouncy)
   },
 
 

@@ -1,27 +1,12 @@
 module.exports = Spaceship
 
 
-var Hud = require('./heroes/Hud.js')
-var Gun = require('./Gun.js')
-var Rocket = require('./bullets/Rocket.js')
-
-
 function Spaceship(state, ctlr) {
   // Spawn off screen to hide flame particles
   Phaser.Sprite.call(this, state.game, -100, 0)
-  // TODO more hacks to make hud work
   state.physics.p2.enable(this)
-  this.weapon = new Gun(state, { rate: 20000, clipSize: 1 }, Rocket)
-  this.weapon.alpha = 0
-  this.weapon.y = -8
-  this.addChild(this.weapon)
   this.icon = new Phaser.Sprite(state.game, 0, 0, 'sprites', 'rocket')
   this.addChild(this.icon).anchor.setTo(0.5)
-  this.weapon.body.removeFromWorld()
-  this.weapon.lifespan = 0
-  this.onEquip = new Phaser.Signal()
-  this.hud = new Hud(state, this)
-  this.onEquip.dispatch()
 
   this.state = state
   this.ctlr = ctlr
@@ -53,7 +38,6 @@ function Spaceship(state, ctlr) {
 
   this.maxHealth = 3
   this.health = this.maxHealth
-  this.maxFuel = this.maxHealth
   this.inputDisabled = false
   this.invincible = false
 }
@@ -65,21 +49,9 @@ var max = 200
 Spaceship.prototype.maxSpeed = max
 Spaceship.prototype.acceleration = max/0.35
 
-// TODO Hack to make player hud show health bar
-Object.defineProperty(Spaceship.prototype, 'fuel', {
-  get: function() {
-    return this.health
-  }
-})
-
 
 Spaceship.prototype.update = function() {
-  this.weapon.rotation = Phaser.Point.angle(this.ctlr.position, this.position)
-  this.hud.update()
   this.ctlr.update()
-  this.weapon.update()
-
-  if (this.ctlr.shoot && this.ctlr.newShot) this.shoot()
 
   var vel = this.body.velocity
   var speed = this.maxSpeed
@@ -122,11 +94,6 @@ Spaceship.prototype.update = function() {
 }
 
 
-Spaceship.prototype.shoot = function() {
-  this.weapon.fire(true)
-}
-
-
 Spaceship.prototype.damage = function() {
   this.state.camera.shake(0.01, 200)
   if (this.health <= 0 || this.invincible) { return }
@@ -156,6 +123,7 @@ Spaceship.prototype.kill = function() {
   this.body.collideWorldBounds = false
   this.alive = false
   this.state.bgItems.addChild(this)
+  this.state.playSound('death')
   var ev = this.game.time.events
   var loop = ev.loop(111, function() {
     this.state.glass.x = this.x

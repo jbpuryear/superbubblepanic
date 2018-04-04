@@ -1,3 +1,5 @@
+var Scene = require('../Scene.js')
+
 var BrkPlat = require('../entities/BrkPlat.js')
 var Explosion = require('../magic/Explosion.js')
 var Blood = require('../magic/Blood.js')
@@ -11,11 +13,10 @@ var Reticule = require('../Reticule.js')
 
 
 module.exports = function create() {
+  Scene.prototype.create.call(this)
+
   this.won = false
   this.lost = false
-
-  this.soundPool = []
-  for(var i = 0; i < 30; i++) this.soundPool.push(this.add.sound('reload'))
 
   if (this.map.properties && this.map.properties.setting) 
     paintBackground(this)
@@ -34,8 +35,10 @@ module.exports = function create() {
   this.hud = this.make.group()
   this.hud.fixedToCamera = true
 
-  this.splatter = this.make.bitmapData(this.world.width, this.world.height)
-  this.splatter.mask = this.make.bitmapData(this.world.width, this.world.height)
+  this.splatter = this.make.bitmapData(this.game.width, this.game.height)
+  this.splatter.mask = this.make.bitmapData(this.game.width, this.game.height)
+
+  this.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
 
   this.world.addChild(this.bgItems)
   makeParticles(this)
@@ -64,7 +67,9 @@ module.exports = function create() {
   this.input.keyboard.addKey(Phaser.Keyboard.X)
     .onDown.add(this.exit, this)
 
-  this.time.events.add(500, this.startMusic, this)
+  var track = Phaser.ArrayUtils.getRandomItem(
+    mapsConfig[this.map.properties.setting].songs)
+  this.time.events.add(500, this.startMusic, this, track)
   this.startFX()
   this.world.add(this.reticule)
   this.p1 = this.players.children[0]
@@ -104,10 +109,10 @@ function makeGameOverScreen(state) {
 
 function paintBackground(state) {
   var bgKey = mapsConfig[state.map.properties.setting].bgImage
-  var bg = state.add.image(state.world.width/2, state.world.height/2,
+  var bg = state.add.image(state.game.width/2, state.game.height/2,
     bgKey)
-  var wWidth = state.world.width
-  var wHeight = state.world.height
+  var wWidth = state.game.width
+  var wHeight = state.game.height
   bg.anchor.setTo(0.5)
   bg.x = wWidth/2
   bg.y = wHeight/2
@@ -222,7 +227,6 @@ function makeMap(state) {
 
   state.platforms = plats
 
-  state.setSize()
   state.map.objects.object.forEach(state.addEntity, state)
 }
 

@@ -34,6 +34,7 @@ Modal.prototype.exit = function() {
   var width = this.width
   var tween = this.game.add.tween(this)
   this.ignoreChildInput = true
+  this.alpha = 0.99
   tween.to({
     alpha: 0
   }, 500, Phaser.Easing.Cubic.In)
