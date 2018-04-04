@@ -76,6 +76,7 @@ dklon & Michel Baradari
 Thanks To
 
 Richard Davey
+Schteppe
 Open Game Art
 Free Music Archive
 Yoshiki Okamoto
@@ -89,7 +90,7 @@ Dr Murder
 
 
 Want to help us create more free games?
-Please support us on Patreon.
+Visit us on Patreon.
 
 www.patreon.com/antirival
 

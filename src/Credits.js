@@ -100,6 +100,7 @@ Credits.prototype.create = function() {
     .start()
   this.add.tween(character)
     .to({x: 500, y: 180}, scrollTime+mapTime+explodeTime, null, true, explodeTime)
+    .onComplete.add(character.kill, character)
   this.add.tween(character.scale)
     .to({x: -0.05, y: 0.05}, scrollTime+mapTime+explodeTime/2,
       Phaser.Easing.Cubic.In, true, explodeTime/2)

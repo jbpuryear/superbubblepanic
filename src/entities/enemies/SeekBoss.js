@@ -3,7 +3,7 @@ module.exports = SeekBoss
 
 var Seeker = require('./Seeker.js')
 
-var HEALTH = 40
+var HEALTH = 50
 var CHILD_WIDTH = 30
 var CHILD_VEL = 100
 
