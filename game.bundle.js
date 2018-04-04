@@ -375,7 +375,7 @@ module.exports={
                     },
                     "loop": {
                         "start": 5.111,
-                        "end": 56.641,
+                        "end": 55.641,
                         "loop": true
                     }
                 }
