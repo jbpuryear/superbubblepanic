@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "brfs": "^1.4.3",
-    "eslint": "^4.15.0"
+    "eslint": "^4.18.2"
   },
   "scripts": {
     "build-dev": "browserify src/index.js -t brfs -o game.bundle.js",
