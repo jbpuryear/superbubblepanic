@@ -40,7 +40,7 @@ Hydroid.prototype.childDeath = function(enemy) {
     drop.reset(x, y)
   }
 
-  var width = enemy.width * 2/3
+  var width = enemy.width / 2
   var x = enemy.x
   var y = enemy.y
   var vx = enemy.body.velocity.x

@@ -70,7 +70,6 @@ Enemy.prototype.damage = function(_, src) {
     this.killTheta = src.rotation
   else
     this.killTheta = src.sprite.world.angle(this.world)
-  this.animations.play('flash')
   this.state.bleed(this.x, this.y, this.killTheta, this.bloodColor)
   Phaser.Sprite.prototype.damage.call(this, src.attack || 1)
 }
@@ -86,15 +85,15 @@ Enemy.prototype.kill = function() {
   this.body.removeCollisionGroup(this.state.playersCG, false)
 
   var tween = this.game.add.tween(this)
-  tween.to({width: this.width*2, height: this.height*2, alpha: 0.8}, 60)
+  tween.to({width: this.width*1.5, height: this.height*2, alpha: 0.6}, 40)
   tween.onComplete.addOnce(function() {
     if (this.drop && typeof this.drop.reset === 'function') {
       this.drop.reset(this.x, this.y)
       this.drop = null
     }
     this.pendingDoom = false
-    this.height /= 2
-    this.width /= 2
+    this.height /= 1.5
+    this.width /= 1.5
     this.alpha = 1
     this.animations.stop()
     this.frameName = this.defaultFrame

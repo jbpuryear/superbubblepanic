@@ -33,6 +33,7 @@ Boot.prototype = {
       game.scale.isFullScreen ? game.scale.stopFullScreen() : game.scale.startFullScreen()
     })
 
+    game.renderer.renderSession.roundPixels = true
     Phaser.Canvas.setImageRenderingCrisp(this.game.canvas)
     game.physics.startSystem(Phaser.Physics.P2JS)
     game.physics.p2.setBounds(0, 0, 0, 0, false, false, false, false)

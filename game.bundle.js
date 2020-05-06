@@ -997,7 +997,7 @@ var Scene = require('./Scene.js')
 
 
 var SmallFont = require('./entities/SmallFont.js')
-var text = "Super Bubble Panic\nby James Puryear\n\n\n\nMade with Phaser\n\n\n\nBackground art based on works by\n\nAnsimuz (ansimuz.com)\nKnoblePersona\n\n\n\nSongs\n\nFater Lee\nby Black Ant\n(black-ant.bandcamp.com)\n\nMemory\nCynic\nHeartbeat\nLive\nby Creo\n(creo-music.com)\n\nPoupi's Theme\nSuper Poupi\nTime For The Walk Of The Day\nby Komiku\n(loyaltyfreakmusic.com)\n\nGone\nby Alex McCulloch\n\nEverything is Changing\nby Noi\n(soundcloud.com/noi)\n\nThe Wood Chopper\nby The Settlers\n(soundcloud.com/user-659046245)\n\nVenus\nby SketchyLogic\n\nN35-40-19-800\nby Springtide\n(springtide.jp)\n\nSpring Summer\nby Dustin Wong\n(thrilljockey.com)\n\nObserving The Star\nby Yd\n\nCylinder Three\nby Chris Zabriskie\n(chriszabriskie.com)\n\nSpace\nby Alexandr Zhelanov\n(soundcloud.com/alexandr-zhelanov)\n\n\n\nWith Sound FX By\ndklon & Michel Baradari\n\n\n\nThanks To\n\nRichard Davey\nSchteppe\nOpen Game Art\nFree Music Archive\nYoshiki Okamoto\nToshihiko Uda\nHudson Soft\nAbetusk\nCosmo\nJT\nDr Murder\n\n\n\nWant to help us create more free games?\nVisit us on Patreon.\n\nwww.patreon.com/antirival\n\n"
+var text = "Super Bubble Panic\nby James Puryear\n\n\n\nMade with Phaser\n\n\n\nBackground art based on works by\n\nAnsimuz (ansimuz.com)\nKnoblePersona\n\n\n\nSongs\n\nFater Lee\nby Black Ant\n(black-ant.bandcamp.com)\n\nMemory\nCynic\nHeartbeat\nLive\nby Creo\n(creo-music.com)\n\nPoupi's Theme\nSuper Poupi\nTime For The Walk Of The Day\nby Komiku\n(loyaltyfreakmusic.com)\n\nGone\nby Alex McCulloch\n\nEverything is Changing\nby Noi\n(soundcloud.com/noi)\n\nThe Wood Chopper\nby The Settlers\n(soundcloud.com/user-659046245)\n\nVenus\nby SketchyLogic\n\nSpring Summer\nby Dustin Wong\n(thrilljockey.com)\n\nObserving The Star\nby Yd\n\nCylinder Three\nby Chris Zabriskie\n(chriszabriskie.com)\n\nSpace\nby Alexandr Zhelanov\n(soundcloud.com/alexandr-zhelanov)\n\n\n\nWith Sound FX By\ndklon & Michel Baradari\n\n\n\nThanks To\n\nRichard Davey\nSchteppe\nOpen Game Art\nFree Music Archive\nHudson Soft\nAbetusk\nCosmo\nJT\nDr Murder\n\n"
 
 var WorldMap = require('./WorldMap.js')
 
@@ -1991,6 +1991,7 @@ Boot.prototype = {
       game.scale.isFullScreen ? game.scale.stopFullScreen() : game.scale.startFullScreen()
     })
 
+    game.renderer.renderSession.roundPixels = true
     Phaser.Canvas.setImageRenderingCrisp(this.game.canvas)
     game.physics.startSystem(Phaser.Physics.P2JS)
     game.physics.p2.setBounds(0, 0, 0, 0, false, false, false, false)
@@ -2923,7 +2924,6 @@ Enemy.prototype.damage = function(_, src) {
     this.killTheta = src.rotation
   else
     this.killTheta = src.sprite.world.angle(this.world)
-  this.animations.play('flash')
   this.state.bleed(this.x, this.y, this.killTheta, this.bloodColor)
   Phaser.Sprite.prototype.damage.call(this, src.attack || 1)
 }
@@ -2939,15 +2939,15 @@ Enemy.prototype.kill = function() {
   this.body.removeCollisionGroup(this.state.playersCG, false)
 
   var tween = this.game.add.tween(this)
-  tween.to({width: this.width*2, height: this.height*2, alpha: 0.8}, 60)
+  tween.to({width: this.width*1.5, height: this.height*2, alpha: 0.6}, 40)
   tween.onComplete.addOnce(function() {
     if (this.drop && typeof this.drop.reset === 'function') {
       this.drop.reset(this.x, this.y)
       this.drop = null
     }
     this.pendingDoom = false
-    this.height /= 2
-    this.width /= 2
+    this.height /= 1.5
+    this.width /= 1.5
     this.alpha = 1
     this.animations.stop()
     this.frameName = this.defaultFrame
@@ -3044,7 +3044,7 @@ Hydroid.prototype.childDeath = function(enemy) {
     drop.reset(x, y)
   }
 
-  var width = enemy.width * 2/3
+  var width = enemy.width / 2
   var x = enemy.x
   var y = enemy.y
   var vx = enemy.body.velocity.x
