@@ -194,7 +194,7 @@
                     },
                     "loop": {
                         "start": 6.388,
-                        "end": 108.75,
+                        "end": 57.517,
                         "loop": true
                     }
                 }
@@ -215,26 +215,6 @@
                     "loop": {
                         "start": 8.0,
                         "end": 104.003,
-                        "loop": true
-                    }
-                }
-            }
-        },
-        {
-            "type": "audiosprite",
-            "key": "N35-40-19-800",
-            "urls": ["assets/songs/springtide-N35-40-19-800.ogg"],
-            "autoDecode": false,
-            "jsonData": {
-                "spritemap": {
-                    "intro" : {
-                        "start": 0,
-                        "end": 3.356,
-                        "loop": false
-                    },
-                    "loop": {
-                        "start": 3.356,
-                        "end": 210.378,
                         "loop": true
                     }
                 }

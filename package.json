@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "@orange-games/phaser-nineslice": "^2.0.1",
+    "browserify": "^16.5.1",
+    "http-server": "^0.12.3",
     "pixelsmith": "^2.1.2",
     "spritesmith-cli": "^1.1.2",
     "spritesmith-texturepacker": "^1.0.0"
@@ -20,6 +22,7 @@
     "build-dev": "browserify src/index.js -t brfs -o game.bundle.js",
     "lint": "eslint src/",
     "pack": "spritesmith",
+    "serve": "http-server",
     "watch": "watch 'npm run build-dev' src --ignoreDotFiles &"
   },
   "repository": {
